@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell with DPS — Declutter Pawn Shop</title>
+<meta name="description" content="Turn your unused items into cash. List with Declutter Pawn Shop — we handle the buyers, you handle the pickup.">
+<meta property="og:title" content="Sell with DPS — Declutter Pawn Shop">
+<meta property="og:description" content="Turn your unused items into cash. List with DPS and we handle the rest.">
+<meta property="og:image" content="https://declutterpawnshop.com/images/dps-logo.png">
+<meta property="og:url" content="https://declutterpawnshop.com/sell">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0D0D0D">
+<link rel="canonical" href="https://declutterpawnshop.com/sell">
+<link rel="icon" href="/images/dps-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#00C853;--green2:#00A846;
+  --green-bg:rgba(0,200,83,0.07);--green-border:rgba(0,200,83,0.18);
+  --dark:#0D0D0D;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
+  --mid:#4A4A4A;--grey:#777;--muted:#555;--white:#F9F8F5;
+  --amber:#FFB300;--red:#E53935;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;line-height:1.65;overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--dark2)}::-webkit-scrollbar-thumb{background:var(--dark4)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);height:64px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:28px;object-fit:contain}
+.nav-badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid var(--green-border);border-radius:3px;background:var(--green-bg);padding:3px 8px}
+.nav-back{font-size:13px;color:var(--grey);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--white)}
+
+/* PAGE */
+.page{min-height:calc(100vh - 64px);display:flex;align-items:flex-start;justify-content:center;padding:48px 6vw 80px}
+.page-inner{width:100%;max-width:520px}
+
+/* STEP TRACK */
+.step-track{display:flex;align-items:center;margin-bottom:36px}
+.st{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--grey);transition:color .3s}
+.st.active{color:var(--white)}.st.done{color:var(--green)}
+.st-dot{width:24px;height:24px;border-radius:50%;background:var(--dark3);border:1px solid var(--dark5);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--grey);transition:all .3s;flex-shrink:0}
+.st.active .st-dot{background:var(--green);border-color:var(--green);color:var(--dark)}
+.st.done .st-dot{background:var(--dark3);border-color:var(--green);color:var(--green)}
+.st-line{flex:1;height:1px;background:var(--dark4);margin:0 8px;transition:background .3s}
+.st-line.done{background:var(--green)}
+
+/* CARD */
+.card{background:var(--dark2);border:1px solid var(--dark4);border-radius:12px;overflow:hidden}
+.card-stripe{height:2px;background:linear-gradient(90deg,var(--green),var(--green2))}
+.card-head{padding:24px 28px 20px;border-bottom:1px solid var(--dark4)}
+.card-eyebrow{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;color:var(--white)}
+.card-sub{font-size:12px;color:var(--grey);margin-top:4px;line-height:1.5}
+.card-body{padding:24px 28px;display:flex;flex-direction:column;gap:16px}
+.card-foot{padding:0 28px 24px;display:flex;flex-direction:column;gap:8px}
+
+.step-view{display:none}.step-view.active{display:block}
+
+/* CHOICE BUTTONS */
+.choice-btns{display:flex;flex-direction:column;gap:10px}
+.choice-btn{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:8px;border:1px solid var(--dark4);background:var(--dark3);cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;transition:border-color .2s,background .2s}
+.choice-btn:hover{border-color:var(--green);background:var(--dark4)}
+.choice-ico{width:40px;height:40px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--green-bg)}
+.choice-text{flex:1}
+.choice-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
+.choice-desc{font-size:12px;color:var(--grey);line-height:1.4}
+.choice-arrow{font-size:16px;color:var(--grey)}
+
+/* HOW IT WORKS STRIP */
+.how-strip{display:flex;gap:0;margin-top:4px}
+.how-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:14px 8px;position:relative}
+.how-step:not(:last-child)::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--dark5)}
+.how-ico{width:32px;height:32px;border-radius:50%;background:var(--green-bg);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:14px}
+.how-label{font-size:10px;color:var(--grey);line-height:1.4}
+
+/* FIELDS */
+.field{display:flex;flex-direction:column;gap:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field label{font-size:11px;font-weight:600;color:var(--grey);letter-spacing:.3px}
+.field label em{color:var(--green);font-style:normal;margin-left:2px}
+.field input,.field select,.field textarea{background:var(--dark);border:1px solid var(--dark5);border-radius:6px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--white);outline:none;transition:border-color .2s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field select option{background:var(--dark3)}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.field-hint{font-size:10px;color:var(--grey);line-height:1.5;margin-top:3px}
+.field input[readonly]{opacity:.5;cursor:not-allowed}
+.price-wrap{position:relative}
+.price-sym{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:14px;color:var(--green);pointer-events:none}
+.field .price-wrap input{padding-left:28px;font-family:'DM Mono',monospace;font-size:16px;color:var(--green);letter-spacing:.5px}
+.price-display{font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:var(--green);letter-spacing:1px;min-height:26px;text-align:center;padding:4px 0 2px}
+.payout-display{font-size:11px;color:var(--grey);text-align:center;margin-top:-8px}
+.payout-display strong{color:rgba(249,248,245,0.7)}
+
+/* NOTICES */
+.notice{padding:12px 14px;border-radius:7px;font-size:11px;line-height:1.6}
+.notice-green{background:var(--green-bg);border:1px solid var(--green-border);color:rgba(249,248,245,0.65)}
+.notice-green strong{color:var(--green)}
+.notice-amber{background:rgba(255,179,0,0.07);border:1px solid rgba(255,179,0,0.18);color:rgba(249,248,245,0.65)}
+.notice-amber strong{color:var(--amber)}
+
+/* EMAIL STATUS */
+.email-status{display:none;align-items:center;gap:10px;padding:10px 14px;border-radius:7px;font-size:12px}
+.email-status.found{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.email-status.not-found{background:rgba(255,179,0,0.07);border:1px solid rgba(255,179,0,0.18);color:var(--amber)}
+.es-ico{font-size:16px;flex-shrink:0}
+
+/* SEARCH ANIM */
+.search-anim{display:none;align-items:center;gap:12px;padding:12px 14px;border-radius:7px;background:var(--dark3);border:1px solid var(--dark4)}
+.search-anim.show{display:flex}
+.search-dots{display:flex;gap:5px;align-items:center}
+.search-dot{width:7px;height:7px;border-radius:50%;background:var(--green);opacity:.3;animation:dot-pulse 1.2s infinite ease-in-out}
+.search-dot:nth-child(2){animation-delay:.2s}
+.search-dot:nth-child(3){animation-delay:.4s}
+@keyframes dot-pulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.search-label{font-size:12px;color:var(--grey)}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:12px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--dark4)}
+
+/* BUTTONS */
+.btn-primary{width:100%;background:var(--green);color:var(--dark);font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;padding:13px;border-radius:7px;border:none;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary:hover{background:var(--green2)}
+.btn-primary:disabled{background:var(--dark4);color:var(--grey);cursor:not-allowed}
+.btn-secondary{width:100%;background:none;border:1px solid var(--dark4);color:var(--grey);font-family:'DM Sans',sans-serif;font-size:13px;padding:11px;border-radius:7px;cursor:pointer;transition:border-color .2s,color .2s}
+.btn-secondary:hover{border-color:var(--grey);color:var(--white)}
+.form-terms{font-size:10px;color:var(--muted);text-align:center;line-height:1.6}
+.form-terms a{color:var(--grey);text-decoration:underline}
+
+/* CHAR COUNT */
+.char-count{font-size:10px;color:var(--muted);text-align:right;margin-top:3px}
+.char-count.warn{color:var(--amber)}
+
+/* CONFIRM CARD */
+.confirm-card{background:var(--dark);border:1px solid var(--green-border);border-radius:10px;overflow:hidden;box-shadow:0 0 24px rgba(0,200,83,0.06)}
+.confirm-shield{text-align:center;padding:24px 20px 18px;background:linear-gradient(160deg,var(--dark3) 0%,rgba(0,200,83,0.05) 100%);border-bottom:1px solid var(--green-border)}
+.confirm-shield-icon{width:56px;height:56px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 10px;box-shadow:0 0 18px rgba(0,200,83,0.15)}
+.confirm-shield-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green)}
+.confirm-shield-sub{font-size:11px;color:var(--grey);margin-top:4px}
+.confirm-rows{padding:4px 0}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--dark4)}
+.confirm-row:last-child{border-bottom:none}
+.confirm-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--grey)}
+.confirm-value{font-size:13px;color:var(--white);font-weight:500;text-align:right}
+.confirm-value.masked{font-family:'DM Mono',monospace;color:rgba(249,248,245,0.55);letter-spacing:2px}
+
+/* PHOTO UPLOAD */
+.photo-drop-zone{border:1.5px dashed var(--dark5);border-radius:8px;padding:20px;text-align:center;cursor:pointer;background:var(--dark);transition:border-color .2s,background .2s;display:flex;flex-direction:column;align-items:center}
+.photo-drop-zone:hover{border-color:var(--green);background:var(--dark2)}
+.photo-drop-ico{font-size:24px;margin-bottom:6px}
+.photo-drop-text{font-size:13px;font-weight:600;color:var(--white)}
+.photo-drop-sub{font-size:11px;color:var(--grey);margin-top:3px}
+.photo-previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.photo-thumb{position:relative;width:72px;height:72px;border-radius:6px;overflow:hidden;flex-shrink:0;border:1px solid var(--dark4)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb-remove{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.75);border:none;color:#fff;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* SUCCESS */
+.success-view{padding:40px 28px;text-align:center}
+.success-circle{width:64px;height:64px;border-radius:50%;background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.25);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 20px}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;margin-bottom:8px}
+.success-body{font-size:13px;color:var(--grey);line-height:1.75;max-width:340px;margin:0 auto 20px}
+.success-id{font-family:'DM Mono',monospace;font-size:12px;color:var(--green);background:var(--green-bg);border:1px solid var(--green-border);border-radius:5px;padding:8px 16px;display:inline-block;margin-bottom:24px}
+.success-next{display:flex;flex-direction:column;gap:8px;max-width:340px;margin:0 auto}
+
+/* TELEGRAM CTA */
+.tg-cta{display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(0,136,204,0.08);border:1px solid rgba(0,136,204,0.2);border-radius:8px;text-decoration:none;transition:background .2s}
+.tg-cta:hover{background:rgba(0,136,204,0.14)}
+.tg-ico{font-size:22px;flex-shrink:0}
+.tg-text{flex:1}
+.tg-title{font-size:13px;font-weight:600;color:var(--white)}
+.tg-sub{font-size:11px;color:var(--grey);margin-top:2px}
+.tg-arrow{font-size:14px;color:var(--grey)}
+
+@media(max-width:540px){
+  .field-row{grid-template-columns:1fr}
+  .page{padding:32px 5vw 60px}
+  .card-body,.card-head,.card-foot{padding-left:20px;padding-right:20px}
+  .how-step .how-label{font-size:9px}
+}
+</style>
+<script src="/js/dps-config.js"></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="/images/dps-logo.png" alt="DPS">
+    <span class="nav-badge">Sell</span>
+  </a>
+  <a class="nav-back" href="/">← Back to DPS</a>
+</nav>
+
+<div class="page">
+  <div class="page-inner">
+
+    <div class="step-track">
+      <div class="st active" id="st-1"><div class="st-dot">1</div><span>Account</span></div>
+      <div class="st-line" id="sl-1"></div>
+      <div class="st" id="st-2"><div class="st-dot">2</div><span>Item</span></div>
+      <div class="st-line" id="sl-2"></div>
+      <div class="st" id="st-3"><div class="st-dot">3</div><span>Done</span></div>
+    </div>
+
+    <!-- STEP 1: LISTED BEFORE? -->
+    <div class="step-view active" id="view-start">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Declutter Pawn Shop · Sell an item</div>
+          <div class="card-title">Have you sold with DPS before?</div>
+          <div class="card-sub">We find buyers, escrow the payment, and release your payout after pickup. You keep 85% (95% for partners).</div>
+        </div>
+        <div class="card-body">
+          <div class="choice-btns">
+            <button class="choice-btn" id="btn-yes-before">
+              <div class="choice-ico">✓</div>
+              <div class="choice-text">
+                <div class="choice-title">Yes — I've sold with DPS before</div>
+                <div class="choice-desc">We'll pull up your details and get straight to your listing.</div>
+              </div>
+              <div class="choice-arrow">→</div>
+            </button>
+            <button class="choice-btn" id="btn-no-before">
+              <div class="choice-ico">👋</div>
+              <div class="choice-text">
+                <div class="choice-title">No — I'm new to DPS</div>
+                <div class="choice-desc">Quick account setup first, then straight to your listing.</div>
+              </div>
+              <div class="choice-arrow">→</div>
+            </button>
+          </div>
+
+          <div class="how-strip">
+            <div class="how-step">
+              <div class="how-ico">📦</div>
+              <div class="how-label">List your item</div>
+            </div>
+            <div class="how-step">
+              <div class="how-ico">🔒</div>
+              <div class="how-label">Buyer pays DPS</div>
+            </div>
+            <div class="how-step">
+              <div class="how-ico">🤝</div>
+              <div class="how-label">Pickup confirmed</div>
+            </div>
+            <div class="how-step">
+              <div class="how-ico">💰</div>
+              <div class="how-label">Seller gets paid</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="form-terms">Free to list. DPS takes 15% commission on sale (5% for partners). <a href="/terms">Terms apply.</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2a: EMAIL LOOKUP (returning) -->
+    <div class="step-view" id="view-email">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — Find your account</div>
+          <div class="card-title">What's your email?</div>
+          <div class="card-sub">The one you used when you listed with DPS or registered as a partner.</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Email address <em>*</em></label>
+            <input type="email" id="lookup-email" placeholder="you@email.com" autocomplete="email">
+          </div>
+          <div class="search-anim" id="search-anim">
+            <div class="search-dots">
+              <div class="search-dot"></div>
+              <div class="search-dot"></div>
+              <div class="search-dot"></div>
+            </div>
+            <div class="search-label">Searching our records…</div>
+          </div>
+          <div class="email-status" id="email-status">
+            <span class="es-ico" id="es-ico"></span>
+            <span id="email-status-text"></span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-lookup">Find my account →</button>
+          <button class="btn-secondary" id="btn-back-to-start">← Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2a-confirm: IS THIS YOU? -->
+    <div class="step-view" id="view-confirm">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — Confirm account</div>
+          <div class="card-title">Is this you?</div>
+          <div class="card-sub">We found an account matching that email.</div>
+        </div>
+        <div class="card-body">
+          <div class="confirm-card">
+            <div class="confirm-shield">
+              <div class="confirm-shield-icon">🔒</div>
+              <div class="confirm-shield-label" id="confirm-account-type">Account Found</div>
+              <div class="confirm-shield-sub" id="confirm-account-sub">Your payout details on file</div>
+            </div>
+            <div class="confirm-rows">
+              <div class="confirm-row" id="confirm-name-row">
+                <div class="confirm-label" id="confirm-name-label">Name</div>
+                <div class="confirm-value" id="confirm-name">—</div>
+              </div>
+              <div class="confirm-row">
+                <div class="confirm-label">Phone</div>
+                <div class="confirm-value masked" id="confirm-phone">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-partner-id-row" style="display:none">
+                <div class="confirm-label">Partner ID</div>
+                <div class="confirm-value" id="confirm-partner-id">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-bank-row">
+                <div class="confirm-label">Bank</div>
+                <div class="confirm-value" id="confirm-bank">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-acct-name-row" style="display:none">
+                <div class="confirm-label">Account name</div>
+                <div class="confirm-value masked" id="confirm-acct-name">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-acct-row" style="display:none">
+                <div class="confirm-label">Account number</div>
+                <div class="confirm-value masked" id="confirm-acct">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="notice notice-green" id="confirm-payout-note" style="display:none">
+            <strong>This is where your payout goes when your item sells.</strong> Make sure the bank details are correct before continuing. If anything looks wrong, tap "Not me" and sign up fresh.
+          </div>
+          <div class="notice notice-amber" id="confirm-source-note" style="display:none">
+            <strong>We found your account.</strong> You haven't added bank details yet — we'll collect them on the next screen so we can pay you when your item sells.
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-confirm-yes">Yes, that's me — continue →</button>
+          <button class="btn-secondary" id="btn-confirm-no">Not me — try a different email</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2a-bank: ADD BANK (found, no bank) -->
+    <div class="step-view" id="view-add-bank">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — One more thing</div>
+          <div class="card-title">Add Bank Details</div>
+          <div class="card-sub">We need this to send your payout when your item sells.</div>
+        </div>
+        <div class="card-body">
+          <div class="notice notice-green" id="add-bank-notice">
+            <strong>Account found.</strong> Just need your bank details so we can pay you out when your item sells.
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Bank <em>*</em></label>
+              <input type="text" id="ab-bank" placeholder="e.g. GTBank, Opay, Kuda">
+            </div>
+            <div class="field">
+              <label>Account number <em>*</em></label>
+              <input type="text" id="ab-acct" placeholder="0123456789" maxlength="10" inputmode="numeric">
+            </div>
+          </div>
+          <div class="field">
+            <label>Account name <em>*</em></label>
+            <input type="text" id="ab-acct-name" placeholder="As it appears on your bank account">
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-add-bank">Save &amp; continue →</button>
+          <button class="btn-secondary" id="btn-back-add-bank">← Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2b: SIGNUP (new user) -->
+    <div class="step-view" id="view-signup">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — Create account</div>
+          <div class="card-title">Quick Sign Up</div>
+          <div class="card-sub">Your details so we know where to send your payout when your item sells.</div>
+        </div>
+        <div class="card-body">
+          <div class="field-row">
+            <div class="field">
+              <label>Name <em>*</em></label>
+              <input type="text" id="su-name" placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="field">
+              <label>Phone number <em>*</em></label>
+              <input type="tel" id="su-phone" placeholder="080XXXXXXXX" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label>Email address <em>*</em></label>
+            <input type="email" id="su-email" placeholder="you@email.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label>WhatsApp <em>*</em></label>
+            <input type="tel" id="su-whatsapp" placeholder="080XXXXXXXX">
+          </div>
+          <div class="divider">Bank details for payout</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Bank <em>*</em></label>
+              <input type="text" id="su-bank" placeholder="e.g. GTBank, Opay, Kuda">
+            </div>
+            <div class="field">
+              <label>Account number <em>*</em></label>
+              <input type="text" id="su-acct" placeholder="0123456789" maxlength="10" inputmode="numeric">
+            </div>
+          </div>
+          <div class="field">
+            <label>Account name <em>*</em></label>
+            <input type="text" id="su-acct-name" placeholder="As it appears on your bank account">
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-signup">Create account &amp; continue →</button>
+          <button class="btn-secondary" id="btn-back-signup">← Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: ITEM DETAILS -->
+    <div class="step-view" id="view-listing">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 2 — List your item</div>
+          <div class="card-title">Your Item</div>
+          <div class="card-sub" id="listing-greeting">Be specific — buyers decide based on exactly what you write here.</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Item name <em>*</em></label>
+            <input type="text" id="li-name" placeholder="e.g. Samsung Galaxy S23 128GB Black" maxlength="80">
+            <div class="field-hint">Include brand, model, size, colour where relevant.</div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Condition <em>*</em></label>
+              <select id="li-cond">
+                <option value="">Select</option>
+                <option>Brand New</option>
+                <option>Like New</option>
+                <option>Good Condition</option>
+                <option>Fairly Used</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Location <em>*</em></label>
+              <select id="li-location">
+                <option value="">Select</option>
+                <option value="Mainland">Mainland</option>
+                <option value="Island">Island</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Description <em>*</em></label>
+            <textarea id="li-desc" placeholder="What is it, what does it do, what's included, any flaws or issues? Be honest — buyers trust accurate descriptions." maxlength="600"></textarea>
+            <div class="char-count" id="desc-count">0 / 600</div>
+          </div>
+          <div class="field">
+            <label>Asking price (₦) <em>*</em></label>
+            <div class="price-wrap">
+              <span class="price-sym">₦</span>
+              <input type="text" id="li-price" placeholder="0" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="price-display" id="li-price-display"></div>
+            <div class="field-hint">Set a fair price. The lower it is, the faster it sells.</div>
+          </div>
+          <div class="field">
+            <label>Preferred pickup time <em>*</em></label>
+            <select id="li-pickup">
+              <option value="">Select</option>
+              <option>Mornings (8am – 12pm)</option>
+              <option>Afternoons (12pm – 5pm)</option>
+              <option>Evenings (5pm – 8pm)</option>
+              <option>Weekends only</option>
+              <option>Flexible / Anytime</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Photos <em>*</em></label>
+            <input type="file" id="li-photos" accept="image/*" multiple style="display:none">
+            <div class="photo-drop-zone" id="photo-drop-zone" onclick="document.getElementById('li-photos').click()">
+              <div class="photo-drop-ico">📸</div>
+              <div class="photo-drop-text">Tap to add photos</div>
+              <div class="photo-drop-sub">Up to 5 photos · Real shots only, no screenshots</div>
+            </div>
+            <div class="photo-previews" id="photo-previews"></div>
+            <div class="field-hint" id="photo-count-hint">0 of 5 photos added</div>
+          </div>
+          <div class="notice notice-green">
+            <strong>What happens next:</strong> Our team reviews every listing. Once approved, your item is posted to our Telegram channel where buyers will see it. We'll notify you via Telegram when it sells.
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-submit">Submit listing →</button>
+          <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms & commission structure</a>. 15% DPS fee applies on successful sale (5% for partners).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: SUCCESS -->
+    <div class="step-view" id="view-success">
+      <div class="card">
+        <div class="card-stripe" style="background:var(--green)"></div>
+        <div class="success-view">
+          <div class="success-circle">✓</div>
+          <div class="success-title">Listing Submitted!</div>
+          <p class="success-body">
+            Your item is in review. Our team will check the listing and photos — usually within a few hours.
+            Once approved, it goes live on our Telegram channel for buyers to see.
+          </p>
+          <div class="success-id" id="success-item-id">Item ID: —</div>
+          <div style="font-size:11px;color:var(--grey);margin-bottom:20px" id="success-seller-info"></div>
+
+          <a class="tg-cta" href="https://t.me/declutterpawnshop" target="_blank" style="max-width:340px;margin:0 auto 16px">
+            <div class="tg-ico">✈️</div>
+            <div class="tg-text">
+              <div class="tg-title">Join our Telegram channel</div>
+              <div class="tg-sub">See live listings and get notified when buyers inquire</div>
+            </div>
+            <div class="tg-arrow">→</div>
+          </a>
+
+          <div class="success-next">
+            <button class="btn-secondary" id="btn-list-another">List another item</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var APPS_SCRIPT_URL = (typeof DPS_MAIN_GAS_URL !== 'undefined') ? DPS_MAIN_GAS_URL : '';
+var sellerEmail    = '';
+var sellerName     = '';
+var sellerPhone    = '';
+var sellerWhatsApp = '';
+var sellerBank     = '';
+var sellerAcct     = '';
+var sellerAcctName = '';
+var sellerType     = 'Individual';
+var partnerId      = '';
+var businessName   = '';
+
+function goTo(viewId, step) {
+  document.querySelectorAll('.step-view').forEach(function(v) { v.classList.remove('active'); });
+  document.getElementById(viewId).classList.add('active');
+  updateTrack(step);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateTrack(step) {
+  for (var i = 1; i <= 3; i++) {
+    var st = document.getElementById('st-' + i);
+    var sl = document.getElementById('sl-' + i);
+    if (!st) continue;
+    st.classList.remove('active', 'done');
+    if (i < step) st.classList.add('done');
+    if (i === step) st.classList.add('active');
+    if (sl) sl.classList.toggle('done', i < step);
+  }
+}
+
+// PHOTO UPLOAD
+var selectedPhotos = [];
+
+document.getElementById('li-photos').addEventListener('change', function() {
+  var files = Array.from(this.files);
+  files.forEach(function(file) {
+    if (selectedPhotos.length >= 5) return;
+    if (!file.type.startsWith('image/')) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      selectedPhotos.push({ file: file, dataUrl: e.target.result });
+      renderPhotoThumbs();
+    };
+    reader.readAsDataURL(file);
+  });
+  this.value = '';
+});
+
+function renderPhotoThumbs() {
+  var container = document.getElementById('photo-previews');
+  var hint      = document.getElementById('photo-count-hint');
+  var dropZone  = document.getElementById('photo-drop-zone');
+  container.innerHTML = '';
+  selectedPhotos.forEach(function(p, i) {
+    var thumb = document.createElement('div');
+    thumb.className = 'photo-thumb';
+    thumb.innerHTML =
+      '<img src="' + p.dataUrl + '">' +
+      '<button class="photo-thumb-remove" onclick="removePhoto(' + i + ')">✕</button>';
+    container.appendChild(thumb);
+  });
+  var count = selectedPhotos.length;
+  hint.textContent = count + ' of 5 photo' + (count !== 1 ? 's' : '') + ' added';
+  hint.style.color = count > 0 ? 'var(--green)' : 'var(--grey)';
+  dropZone.style.display = count >= 5 ? 'none' : 'flex';
+}
+
+window.removePhoto = function(i) {
+  selectedPhotos.splice(i, 1);
+  renderPhotoThumbs();
+};
+
+async function uploadPhotosToImgBB() {
+  // Photos are proxied through GAS — the ImgBB API key never touches
+  // the browser. GAS calls ImgBB server-side using a Script Property.
+  var urls = [];
+  for (var i = 0; i < selectedPhotos.length; i++) {
+    var p      = selectedPhotos[i];
+    var base64 = p.dataUrl.split(',')[1];
+    try {
+      var res  = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'uploadPhoto', image: base64 })
+      });
+      var data = await res.json();
+      if (data.success && data.url) {
+        urls.push(data.url);
+      } else {
+        console.error('Photo upload failed (server):', data.error || 'unknown');
+      }
+    } catch(e) {
+      console.error('Photo upload failed (network):', e);
+    }
+  }
+  return urls;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // STEP 1: LISTED BEFORE
+  document.getElementById('btn-yes-before').addEventListener('click', function() {
+    goTo('view-email', 1);
+  });
+  document.getElementById('btn-no-before').addEventListener('click', function() {
+    goTo('view-signup', 1);
+  });
+  document.getElementById('btn-back-to-start').addEventListener('click', function() {
+    goTo('view-start', 1);
+  });
+  document.getElementById('btn-back-signup').addEventListener('click', function() {
+    goTo('view-start', 1);
+  });
+
+  // STEP 2a: EMAIL LOOKUP
+  document.getElementById('btn-lookup').addEventListener('click', function() {
+    var email = document.getElementById('lookup-email').value.trim();
+    if (!email || email.indexOf('@') < 0) { alert('Please enter a valid email.'); return; }
+    sellerEmail = email;
+    var btn        = this;
+    var statusEl   = document.getElementById('email-status');
+    var statusText = document.getElementById('email-status-text');
+    var statusIco  = document.getElementById('es-ico');
+    var searchAnim = document.getElementById('search-anim');
+    btn.disabled = true;
+    btn.textContent = 'Searching…';
+    statusEl.style.display = 'none';
+    statusEl.className = 'email-status';
+    searchAnim.classList.add('show');
+
+    fetch(APPS_SCRIPT_URL + '?action=lookupEmail&email=' + encodeURIComponent(email), { redirect: 'follow' })
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(data) {
+        btn.disabled = false;
+        btn.textContent = 'Find my account →';
+        searchAnim.classList.remove('show');
+        if (data.found) {
+          sellerName     = data.name     || '';
+          sellerPhone    = data.phone    || '';
+          sellerWhatsApp = data.whatsapp || data.phone || '';
+          sellerBank     = data.bank     || '';
+          sellerAcct     = data.acct     || '';
+          sellerAcctName = data.acctName || '';
+          sellerType     = data.sellerType || 'Individual';
+          partnerId      = data.partnerId || '';
+          businessName   = data.businessName || '';
+
+          // Mask phone: show first 4 digits + **** + last 4 digits
+          var maskedPhone = sellerPhone
+            ? sellerPhone.slice(0,4) + '****' + sellerPhone.slice(-4)
+            : '—';
+          
+          document.getElementById('confirm-phone').textContent = maskedPhone;
+          
+          // Set name/business label and value
+          var nameLabel = document.getElementById('confirm-name-label');
+          var nameValue = document.getElementById('confirm-name');
+          var partnerIdRow = document.getElementById('confirm-partner-id-row');
+          
+          if (sellerType === 'Partner') {
+            nameLabel.textContent = 'Business';
+            nameValue.textContent = businessName || sellerName;
+            if (partnerIdRow) {
+              partnerIdRow.style.display = 'flex';
+              document.getElementById('confirm-partner-id').textContent = partnerId;
+            }
+            document.getElementById('confirm-account-type').textContent = 'Partner Account Found';
+            document.getElementById('confirm-account-sub').textContent = 'Your partner details on file';
+          } else {
+            nameLabel.textContent = 'Name';
+            nameValue.textContent = sellerName;
+            if (partnerIdRow) partnerIdRow.style.display = 'none';
+            document.getElementById('confirm-account-type').textContent = 'Account Found';
+            document.getElementById('confirm-account-sub').textContent = 'Your payout details on file';
+          }
+
+          var hasBankData = sellerBank && sellerAcct;
+          var bankRow     = document.getElementById('confirm-bank-row');
+          var acctNameRow = document.getElementById('confirm-acct-name-row');
+          var acctRow     = document.getElementById('confirm-acct-row');
+          var payoutNote  = document.getElementById('confirm-payout-note');
+          var sourceNote  = document.getElementById('confirm-source-note');
+
+          if (hasBankData) {
+            // Mask account name: first letter + asterisks + last letter(s)
+            var maskedAcctName = sellerAcctName
+              ? sellerAcctName.split(' ').map(function(w) {
+                  return w.length > 1 ? w[0] + w.slice(1).replace(/./g,'*') : w;
+                }).join(' ')
+              : '****';
+            // Mask account number: **** + last 4 digits
+            var maskedAcct = '****' + String(sellerAcct).slice(-4);
+            document.getElementById('confirm-bank').textContent = sellerBank || '—';
+            document.getElementById('confirm-acct-name').textContent = maskedAcctName;
+            document.getElementById('confirm-acct').textContent = maskedAcct;
+            bankRow.style.display     = 'flex';
+            acctNameRow.style.display = 'flex';
+            acctRow.style.display     = 'flex';
+            payoutNote.style.display  = 'block';
+            sourceNote.style.display  = 'none';
+          } else {
+            bankRow.style.display     = 'none';
+            acctNameRow.style.display = 'none';
+            acctRow.style.display     = 'none';
+            payoutNote.style.display  = 'none';
+            sourceNote.style.display  = 'block';
+          }
+          goTo('view-confirm', 1);
+        } else {
+          statusEl.style.display = 'flex';
+          statusEl.classList.add('not-found');
+          statusIco.textContent  = '→';
+          statusText.textContent = "No account found. Signing you up instead…";
+          setTimeout(function() {
+            document.getElementById('su-email').value = email;
+            goTo('view-signup', 1);
+          }, 900);
+        }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Find my account →';
+        searchAnim.classList.remove('show');
+        statusEl.style.display = 'flex';
+        statusEl.classList.add('not-found');
+        statusIco.textContent  = '→';
+        statusText.textContent = "Couldn't reach records. Signing you up instead…";
+        setTimeout(function() {
+          document.getElementById('su-email').value = email;
+          goTo('view-signup', 1);
+        }, 900);
+      });
+  });
+
+  document.getElementById('lookup-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('btn-lookup').click();
+  });
+
+  // CONFIRM ACCOUNT
+  document.getElementById('btn-confirm-yes').addEventListener('click', function() {
+    if (!sellerBank || !sellerAcct) {
+      goTo('view-add-bank', 1);
+    } else {
+      var greeting = '';
+      if (sellerType === 'Partner') {
+        greeting = 'Welcome back partner' + (businessName ? ', ' + businessName.split(' ')[0] : '');
+      } else {
+        greeting = 'Welcome back' + (sellerName ? ', ' + sellerName.split(' ')[0] : '');
+      }
+      document.getElementById('listing-greeting').textContent = greeting + '. Be specific — buyers decide based on exactly what you write here.';
+      goTo('view-listing', 2);
+    }
+  });
+  document.getElementById('btn-confirm-no').addEventListener('click', function() {
+    document.getElementById('lookup-email').value = '';
+    document.getElementById('email-status').style.display = 'none';
+    goTo('view-email', 1);
+  });
+
+  // ADD BANK
+  document.getElementById('btn-add-bank').addEventListener('click', function() {
+    var bank  = document.getElementById('ab-bank').value.trim();
+    var acct  = document.getElementById('ab-acct').value.trim();
+    var aname = document.getElementById('ab-acct-name').value.trim();
+    if (!bank)            { alert('Please enter your bank name.'); return; }
+    if (acct.length < 10) { alert('Please enter a valid 10-digit account number.'); return; }
+    if (!aname)           { alert('Please enter your account name.'); return; }
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    sellerBank = bank; sellerAcct = acct; sellerAcctName = aname;
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ 
+        action: 'registerSeller', 
+        name: sellerName, 
+        email: sellerEmail, 
+        phone: sellerPhone, 
+        whatsapp: sellerWhatsApp, 
+        bank: bank, 
+        acct: acct, 
+        acctName: aname,
+        sellerType: sellerType,
+        partnerId: partnerId,
+        businessName: businessName
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() {
+      btn.disabled = false; btn.textContent = 'Save & continue →';
+      var greeting = '';
+      if (sellerType === 'Partner') {
+        greeting = 'Welcome back partner' + (businessName ? ', ' + businessName.split(' ')[0] : '');
+      } else {
+        greeting = 'Welcome back' + (sellerName ? ', ' + sellerName.split(' ')[0] : '');
+      }
+      document.getElementById('listing-greeting').textContent = greeting + '. Be specific — buyers decide based on exactly what you write here.';
+      goTo('view-listing', 2);
+    })
+    .catch(function() {
+      btn.disabled = false; btn.textContent = 'Save & continue →';
+      goTo('view-listing', 2);
+    });
+  });
+  document.getElementById('btn-back-add-bank').addEventListener('click', function() {
+    goTo('view-confirm', 1);
+  });
+
+  // STEP 2b: SIGNUP
+  document.getElementById('btn-signup').addEventListener('click', function() {
+    var name     = document.getElementById('su-name').value.trim();
+    var phone    = document.getElementById('su-phone').value.trim();
+    var email    = document.getElementById('su-email').value.trim();
+    var whatsapp = document.getElementById('su-whatsapp').value.trim();
+    var bank     = document.getElementById('su-bank').value.trim();
+    var acct     = document.getElementById('su-acct').value.trim();
+    var aname    = document.getElementById('su-acct-name').value.trim();
+    if (!name)                       { alert('Please enter your full name.'); return; }
+    if (!phone)                      { alert('Please enter your phone number.'); return; }
+    if (!email || email.indexOf('@') < 0) { alert('Please enter a valid email.'); return; }
+    if (!whatsapp)                   { alert('Please enter your WhatsApp number.'); return; }
+    if (!bank)                       { alert('Please enter your bank name.'); return; }
+    if (acct.length < 10)            { alert('Please enter a valid 10-digit account number.'); return; }
+    if (!aname)                      { alert('Please enter your account name.'); return; }
+    var btn = this;
+    btn.disabled = true; btn.textContent = 'Creating account…';
+    sellerEmail = email; sellerName = name; sellerPhone = phone; sellerWhatsApp = whatsapp;
+    sellerBank = bank; sellerAcct = acct; sellerAcctName = aname;
+    sellerType = 'Individual';
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ 
+        action: 'registerSeller', 
+        name: name, 
+        email: email, 
+        phone: phone, 
+        whatsapp: whatsapp, 
+        bank: bank, 
+        acct: acct, 
+        acctName: aname,
+        sellerType: 'Individual'
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false; btn.textContent = 'Create account & continue →';
+      if (data.success) {
+        document.getElementById('listing-greeting').textContent =
+          'Account created. Be specific — buyers decide based on exactly what you write here.';
+        goTo('view-listing', 2);
+      } else {
+        alert('Could not create account: ' + (data.error || 'Unknown error'));
+      }
+    })
+    .catch(function() {
+      btn.disabled = false; btn.textContent = 'Create account & continue →';
+      alert('Something went wrong. Please try again.');
+    });
+  });
+
+  // PRICE FORMATTER
+  var priceInput   = document.getElementById('li-price');
+  var priceDisplay = document.getElementById('li-price-display');
+  if (priceInput) {
+    priceInput.addEventListener('input', function() {
+      var raw = this.value.replace(/[^0-9]/g, '');
+      this.value = raw;
+      priceDisplay.textContent = raw ? '₦' + parseInt(raw).toLocaleString('en-NG') : '';
+    });
+  }
+
+  // DESC CHAR COUNT
+  document.getElementById('li-desc').addEventListener('input', function() {
+    var count = this.value.length;
+    var el    = document.getElementById('desc-count');
+    el.textContent = count + ' / 600';
+    el.classList.toggle('warn', count > 510);
+  });
+
+  // STEP 3: SUBMIT
+  document.getElementById('btn-submit').addEventListener('click', function() {
+    var name     = document.getElementById('li-name').value.trim();
+    var cond     = document.getElementById('li-cond').value;
+    var location = document.getElementById('li-location').value;
+    var desc     = document.getElementById('li-desc').value.trim();
+    var pickup   = document.getElementById('li-pickup').value;
+    var price    = parseInt((document.getElementById('li-price').value || '').replace(/[^0-9]/g,'')) || 0;
+    if (!name)         { alert('Please enter the item name.'); return; }
+    if (!cond)         { alert('Please select the condition.'); return; }
+    if (!location)     { alert('Please select Mainland or Island.'); return; }
+    if (desc.length < 30) { alert('Please add a description (minimum 30 characters).'); return; }
+    if (!pickup)       { alert('Please select a preferred pickup time.'); return; }
+    if (price < 500)   { alert('Please enter a price of at least ₦500.'); return; }
+    if (selectedPhotos.length === 0) { alert('Please add at least one photo.'); return; }
+    var btn = this;
+    btn.disabled = true; btn.textContent = 'Uploading photos…';
+    uploadPhotosToImgBB().then(function(photoUrls) {
+      btn.textContent = 'Submitting…';
+      var amountToSeller = Math.round(price * 0.85);
+      var dpsProfit      = price - amountToSeller;
+      return fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action:         'submitListing',
+          sellerName:     sellerName,
+          email:          sellerEmail,
+          phone:          sellerPhone,
+          whatsapp:       sellerWhatsApp,
+          bank:           sellerBank,
+          acctName:       sellerAcctName,
+          acct:           sellerAcct,
+          itemName:       name,
+          condition:      cond,
+          description:    desc,
+          location:       location,
+          pickupTime:     pickup,
+          amountToSell:   price,
+          amountToBuyer:  price,
+          amountToSeller: amountToSeller,
+          dpsProfit:      dpsProfit,
+          photoUrls:      photoUrls.join(', '),
+          botSource:      'Web Form',
+          activityType:   'List',
+          sellerType:     sellerType,
+          partnerId:      partnerId,
+          businessName:   businessName
+        })
+      });
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false; btn.textContent = 'Submit listing →';
+      if (data.success) {
+        document.getElementById('success-item-id').textContent = 'Item ID: ' + (data.itemId || '—');
+        document.getElementById('success-seller-info').textContent =
+          (sellerType === 'Partner' ? businessName : sellerName) + '  ·  ' + sellerEmail + '  ·  ' + sellerPhone;
+        goTo('view-success', 3);
+      } else {
+        alert('Could not submit: ' + (data.error || 'Unknown error'));
+      }
+    })
+    .catch(function() {
+      btn.disabled = false; btn.textContent = 'Submit listing →';
+      alert('Something went wrong. Please try again.');
+    });
+  });
+
+  // RESET
+  document.getElementById('btn-list-another').addEventListener('click', function() {
+    sellerEmail = ''; sellerName = ''; sellerPhone = ''; sellerWhatsApp = '';
+    sellerBank = ''; sellerAcct = ''; sellerAcctName = '';
+    sellerType = 'Individual';
+    partnerId = '';
+    businessName = '';
+    ['lookup-email','su-name','su-phone','su-email','su-whatsapp','su-acct','su-acct-name',
+     'ab-bank','ab-acct','ab-acct-name','li-name','li-desc','li-price'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('su-bank').value = '';
+    document.getElementById('li-cond').selectedIndex  = 0;
+    document.getElementById('li-location').selectedIndex = 0;
+    document.getElementById('li-pickup').selectedIndex  = 0;
+    document.getElementById('email-status').style.display = 'none';
+    document.getElementById('desc-count').textContent = '0 / 600';
+    document.getElementById('li-price-display').textContent = '';
+    
+    selectedPhotos = [];
+    renderPhotoThumbs();
+    goTo('view-start', 1);
+  });
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>

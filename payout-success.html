@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Payout Confirmed — DPS</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/images/dps-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#00C853;--green2:#00A843;
+  --green-bg:rgba(0,200,83,0.07);--green-border:rgba(0,200,83,0.18);
+  --dark:#0D0D0D;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
+  --grey:#777;--muted:#444;--white:#F9F8F5;
+}
+html,body{height:100%}
+body{
+  background:var(--dark);
+  color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 20px 40px;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,13,13,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);height:56px;padding:0 20px;display:flex;align-items:center;}
+
+/* BACKGROUND GLOW */
+.bg-glow{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,200,83,0.12) 0%, transparent 70%);
+  pointer-events:none;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.7}50%{opacity:1}}
+
+/* WRAP */
+.wrap{
+  width:100%;
+  max-width:400px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  opacity:0;
+  animation:pageIn .5s .1s ease forwards;
+}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* AMOUNT HERO */
+.amount-hero{
+  text-align:center;
+  margin-bottom:32px;
+}
+.amount-label{
+  font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--green);margin-bottom:10px;
+  opacity:0;animation:fadeUp .4s .3s ease forwards;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.amount-val{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,14vw,80px);
+  letter-spacing:2px;
+  color:var(--white);
+  line-height:1;
+  opacity:0;
+  animation:fadeUp .4s .4s ease forwards;
+}
+.amount-val .sym{color:var(--green);font-size:.65em;}
+.amount-sub{
+  font-size:12px;color:var(--muted);margin-top:6px;
+  opacity:0;animation:fadeUp .4s .5s ease forwards;
+}
+
+/* DIVIDER */
+.divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg, transparent, var(--dark4), transparent);
+  margin:4px 0 28px;
+  opacity:0;animation:fadeUp .4s .55s ease forwards;
+}
+
+/* DETAIL BLOCK */
+.detail-block{
+  width:100%;
+  background:var(--dark2);
+  border:1px solid var(--dark4);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .4s .6s ease forwards;
+}
+.detail-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:13px 18px;
+}
+.detail-row:not(:last-child){border-bottom:1px solid var(--dark4);}
+.dl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.dv{font-size:13px;font-weight:600;color:var(--white);text-align:right;max-width:60%;}
+.dv.mono{font-family:'DM Mono',monospace;font-size:12px;color:var(--grey);}
+
+/* TIMELINE */
+.timeline{
+  width:100%;
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .4s .65s ease forwards;
+}
+.tl-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.tl-steps{display:flex;flex-direction:column;gap:0;}
+.tl-step{display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative;}
+.tl-step:not(:last-child)::after{
+  content:'';position:absolute;left:10px;top:32px;
+  width:1px;height:calc(100% - 12px);
+  background:var(--dark4);
+}
+.tl-dot{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  position:relative;z-index:1;
+}
+.tl-dot.done{background:var(--green);color:var(--dark);}
+.tl-dot.pending{background:var(--dark3);border:1px solid var(--dark5);color:var(--muted);}
+.tl-text{}
+.tl-title{font-size:12px;font-weight:600;color:var(--white);}
+.tl-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* ACTIONS */
+.actions{
+  width:100%;display:flex;flex-direction:column;gap:8px;
+  opacity:0;animation:fadeUp .4s .7s ease forwards;
+}
+.btn{
+  width:100%;background:var(--green);color:var(--dark);
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;
+  padding:14px;border-radius:8px;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .2s;
+}
+.btn:hover{background:var(--green2);}
+.btn-ghost{
+  width:100%;background:none;border:1px solid var(--dark4);color:var(--grey);
+  font-family:'DM Sans',sans-serif;font-size:13px;padding:12px;border-radius:8px;
+  text-decoration:none;display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s;
+}
+.btn-ghost:hover{border-color:var(--grey);color:var(--white);}
+
+/* FOOTER NOTE */
+.foot-note{
+  font-size:10px;color:var(--muted);text-align:center;margin-top:24px;line-height:1.6;
+  opacity:0;animation:fadeUp .4s .75s ease forwards;
+}
+
+@media(max-width:420px){
+  .detail-row{padding:11px 14px;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<nav>
+  <a href="/"><img src="/images/dps-logo.png" alt="DPS" style="height:26px;display:block;"></a>
+</nav>
+
+<div class="wrap">
+
+  <div class="amount-hero">
+    <div class="amount-label">Payout confirmed</div>
+    <div class="amount-val"><span class="sym">₦</span><span id="sv-amount">—</span></div>
+    <div class="amount-sub" id="sv-bank">on its way to your account</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="detail-block" id="sv-details" style="display:none;">
+    <div class="detail-row">
+      <span class="dl">Item</span>
+      <span class="dv" id="sv-item">—</span>
+    </div>
+    <div class="detail-row">
+      <span class="dl">Item ID</span>
+      <span class="dv mono" id="sv-itemid">—</span>
+    </div>
+    <div class="detail-row">
+      <span class="dl">Bank</span>
+      <span class="dv" id="sv-bankname">—</span>
+    </div>
+    <div class="detail-row">
+      <span class="dl">Account</span>
+      <span class="dv mono" id="sv-acct">—</span>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-label">What happens next</div>
+    <div class="tl-steps">
+      <div class="tl-step">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-text">
+          <div class="tl-title">PIN verified</div>
+          <div class="tl-sub">Buyer confirmed pickup</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-text">
+          <div class="tl-title">Payout released from escrow</div>
+          <div class="tl-sub">Funds are on the move</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot pending">◷</div>
+        <div class="tl-text">
+          <div class="tl-title">Bank transfer</div>
+          <div class="tl-sub">Reflects within a few hours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a href="/sell" class="btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      List another item
+    </a>
+    <a href="/items" class="btn-ghost">Browse live items</a>
+  </div>
+
+  <div class="foot-note">
+    Questions? Message us on <a href="https://t.me/declutterpawnshop" style="color:var(--green);text-decoration:none;">Telegram</a> or email info@declutterpawnshop.com
+  </div>
+
+</div>
+
+<script>
+var data = {};
+try { data = JSON.parse(sessionStorage.getItem('dps_payout_success') || '{}'); } catch(e){}
+
+function fmt(n){
+  var num = parseInt(String(n||0).replace(/[^0-9]/g,''))||0;
+  return num.toLocaleString('en-NG');
+}
+function maskAcct(n){
+  var s = String(n||'');
+  return s.length > 4 ? '****' + s.slice(-4) : s;
+}
+
+if (data.payoutAmount) document.getElementById('sv-amount').textContent = fmt(data.payoutAmount);
+if (data.bankName)     document.getElementById('sv-bank').textContent   = 'on its way to ' + data.bankName;
+
+if (data.itemName || data.itemId) {
+  document.getElementById('sv-details').style.display = 'block';
+  document.getElementById('sv-item').textContent     = data.itemName  || '—';
+  document.getElementById('sv-itemid').textContent   = data.itemId    || '—';
+  document.getElementById('sv-bankname').textContent = data.bankName  || '—';
+  document.getElementById('sv-acct').textContent     = maskAcct(data.accountNumber);
+}
+
+sessionStorage.removeItem('dps_payout_success');
+</script>
+</body>
+</html>

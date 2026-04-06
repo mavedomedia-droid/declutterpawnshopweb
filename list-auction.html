@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply to List — DPS Auction</title>
+<meta name="description" content="Apply to list your item on DPS Auction. Not every item gets approved. If yours does, it gets spotlighted to our buyers and the bidding begins.">
+<meta property="og:title" content="Apply to List — DPS Auction">
+<meta property="og:description" content="Apply to list your item on DPS Auction. If approved, it gets spotlighted to our buyers and the bidding begins.">
+<meta property="og:image" content="https://declutterpawnshop.com/images/dps-logo.png">
+<meta property="og:url" content="https://declutterpawnshop.com/list-auction">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://declutterpawnshop.com/list-auction">
+<link rel="icon" href="/images/dps-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --amber:#FFB300;--amber2:#FF8F00;
+  --amber-bg:rgba(255,179,0,0.08);--amber-border:rgba(255,179,0,0.2);
+  --dark:#0A0A0A;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
+  --mid:#4A4A4A;--grey:#777;--muted:#555;--white:#F9F8F5;
+  --green:#00C853;--red:#E53935;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;line-height:1.65;overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--dark2)}::-webkit-scrollbar-thumb{background:var(--dark4)}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);height:64px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:28px;object-fit:contain}
+.nav-badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber-border);border-radius:3px;background:var(--amber-bg);padding:3px 8px}
+.nav-back{font-size:13px;color:var(--grey);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--white)}
+
+.page{min-height:calc(100vh - 64px);display:flex;align-items:flex-start;justify-content:center;padding:48px 6vw 80px}
+.page-inner{width:100%;max-width:520px}
+
+/* STEP TRACK */
+.step-track{display:flex;align-items:center;gap:0;margin-bottom:36px}
+.st{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--grey);transition:color .3s}
+.st.active{color:var(--white)}.st.done{color:var(--amber)}
+.st-dot{width:24px;height:24px;border-radius:50%;background:var(--dark3);border:1px solid var(--dark5);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--grey);transition:all .3s;flex-shrink:0}
+.st.active .st-dot{background:var(--amber);border-color:var(--amber);color:var(--dark)}
+.st.done .st-dot{background:var(--dark3);border-color:var(--amber);color:var(--amber)}
+.st-line{flex:1;height:1px;background:var(--dark4);margin:0 8px;transition:background .3s}
+.st-line.done{background:var(--amber)}
+
+/* CARD */
+.card{background:var(--dark2);border:1px solid var(--dark4);border-radius:12px;overflow:hidden}
+.card-stripe{height:2px;background:linear-gradient(90deg,var(--amber),var(--amber2))}
+.card-head{padding:24px 28px 20px;border-bottom:1px solid var(--dark4)}
+.card-eyebrow{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;color:var(--white)}
+.card-sub{font-size:12px;color:var(--grey);margin-top:4px;line-height:1.5}
+.card-body{padding:24px 28px;display:flex;flex-direction:column;gap:16px}
+.card-foot{padding:0 28px 24px;display:flex;flex-direction:column;gap:8px}
+
+.step-view{display:none}.step-view.active{display:block}
+
+/* CHOICE BUTTONS */
+.choice-btns{display:flex;flex-direction:column;gap:10px}
+.choice-btn{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:8px;border:1px solid var(--dark4);background:var(--dark3);cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;transition:border-color .2s,background .2s}
+.choice-btn:hover{border-color:var(--amber);background:var(--dark4)}
+.choice-ico{width:40px;height:40px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--amber-bg)}
+.choice-text{flex:1}
+.choice-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
+.choice-desc{font-size:12px;color:var(--grey);line-height:1.4}
+.choice-arrow{font-size:16px;color:var(--grey)}
+
+/* FIELDS */
+.field{display:flex;flex-direction:column;gap:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field label{font-size:11px;font-weight:600;color:var(--grey);letter-spacing:.3px}
+.field label em{color:var(--amber);font-style:normal;margin-left:2px}
+.field input,.field select,.field textarea{background:var(--dark);border:1px solid var(--dark5);border-radius:6px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--white);outline:none;transition:border-color .2s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--amber)}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field select option{background:var(--dark3)}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.field-hint{font-size:10px;color:var(--grey);line-height:1.5;margin-top:3px}
+.field input[readonly]{opacity:.5;cursor:not-allowed}
+.price-wrap{position:relative}
+.price-sym{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:14px;color:var(--amber);pointer-events:none}
+.field .price-wrap input{padding-left:28px;font-family:'DM Mono',monospace;font-size:16px;color:var(--amber);letter-spacing:.5px}
+
+/* NOTICES */
+.notice{padding:12px 14px;border-radius:7px;font-size:11px;line-height:1.6}
+.notice-amber{background:var(--amber-bg);border:1px solid var(--amber-border);color:rgba(249,248,245,0.65)}
+.notice-amber strong{color:var(--amber)}
+.notice-green{background:rgba(0,200,83,0.07);border:1px solid rgba(0,200,83,0.15);color:rgba(249,248,245,0.65)}
+.notice-green strong{color:var(--green)}
+
+/* EMAIL STATUS */
+.email-status{display:none;align-items:center;gap:10px;padding:10px 14px;border-radius:7px;font-size:12px}
+.email-status.found{background:rgba(0,200,83,0.07);border:1px solid rgba(0,200,83,0.15);color:var(--green)}
+.email-status.not-found{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
+.es-ico{font-size:16px;flex-shrink:0}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:12px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--dark4)}
+
+/* BUTTONS */
+.btn-primary{width:100%;background:var(--amber);color:var(--dark);font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;padding:13px;border-radius:7px;border:none;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary:hover{background:var(--amber2)}
+.btn-primary:disabled{background:var(--dark4);color:var(--grey);cursor:not-allowed}
+.btn-secondary{width:100%;background:none;border:1px solid var(--dark4);color:var(--grey);font-family:'DM Sans',sans-serif;font-size:13px;padding:11px;border-radius:7px;cursor:pointer;transition:border-color .2s,color .2s}
+.btn-secondary:hover{border-color:var(--grey);color:var(--white)}
+.form-terms{font-size:10px;color:var(--muted);text-align:center;line-height:1.6}
+.form-terms a{color:var(--grey);text-decoration:underline}
+
+/* CHAR COUNT */
+.char-count{font-size:10px;color:var(--muted);text-align:right;margin-top:3px}
+.char-count.warn{color:var(--amber)}
+
+/* PHOTO HINT */
+.photo-hint{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--dark);border:1px dashed var(--dark5);border-radius:7px;font-size:12px;color:var(--grey);line-height:1.5}
+.photo-hint-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+
+/* SUCCESS */
+.success-view{padding:40px 28px;text-align:center}
+.success-circle{width:64px;height:64px;border-radius:50%;background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.25);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 20px}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;margin-bottom:8px}
+.success-body{font-size:13px;color:var(--grey);line-height:1.75;max-width:340px;margin:0 auto 20px}
+.success-ref{font-family:'DM Mono',monospace;font-size:12px;color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:5px;padding:8px 16px;display:inline-block;margin-bottom:24px}
+.success-next{display:flex;flex-direction:column;gap:8px;max-width:340px;margin:0 auto}
+
+@media(max-width:540px){
+  .field-row{grid-template-columns:1fr}
+  .page{padding:32px 5vw 60px}
+  .card-body,.card-head,.card-foot{padding-left:20px;padding-right:20px}
+}
+
+/* CONFIRM ACCOUNT */
+
+
+.search-anim{
+  display:none;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:7px;
+  background:var(--dark3);border:1px solid var(--dark4);
+}
+.search-anim.show{display:flex}
+.search-dots{display:flex;gap:5px;align-items:center}
+.search-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--amber);opacity:.3;
+  animation:dot-pulse 1.2s infinite ease-in-out;
+}
+.search-dot:nth-child(2){animation-delay:.2s}
+.search-dot:nth-child(3){animation-delay:.4s}
+@keyframes dot-pulse{
+  0%,100%{opacity:.3;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.3)}
+}
+.search-label{font-size:12px;color:var(--grey)}
+
+.price-display{
+  font-family:'DM Mono',monospace;font-size:22px;font-weight:700;
+  color:var(--amber);letter-spacing:1px;min-height:28px;
+  text-align:center;padding:6px 0 2px;
+}
+
+/* CONFIRM ACCOUNT */
+.confirm-card{background:var(--dark);border:1px solid var(--amber-border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 24px rgba(255,179,0,0.08)}
+.confirm-shield{text-align:center;padding:24px 20px 18px;background:linear-gradient(160deg,var(--dark3) 0%,rgba(255,179,0,0.05) 100%);border-bottom:1px solid var(--amber-border)}
+.confirm-shield-icon{width:56px;height:56px;border-radius:50%;background:var(--amber-bg);border:2px solid var(--amber-border);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 10px;box-shadow:0 0 18px rgba(255,179,0,0.2)}
+.confirm-shield-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
+.confirm-shield-sub{font-size:11px;color:var(--grey);margin-top:4px}
+.confirm-rows{padding:4px 0}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--dark4)}
+.confirm-row:last-child{border-bottom:none}
+.confirm-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--grey)}
+.confirm-value{font-size:13px;color:var(--white);font-weight:500;text-align:right}
+.confirm-value.masked{font-family:'DM Mono',monospace;color:rgba(249,248,245,0.55);letter-spacing:2px}
+.confirm-divider{display:none}
+
+
+/* PHOTO UPLOAD */
+.photo-drop-zone{
+  border:1.5px dashed var(--aborder);border-radius:8px;
+  padding:20px;text-align:center;cursor:pointer;
+  background:var(--dark2);transition:border-color .2s,background .2s;
+}
+.photo-drop-zone:hover{border-color:var(--amber);background:var(--abg)}
+.photo-drop-ico{font-size:24px;margin-bottom:6px}
+.photo-drop-text{font-size:13px;font-weight:600;color:var(--white)}
+.photo-drop-sub{font-size:11px;color:var(--grey);margin-top:3px}
+.photo-previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.photo-thumb{
+  position:relative;width:72px;height:72px;border-radius:6px;
+  overflow:hidden;flex-shrink:0;border:1px solid var(--dark4);
+}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb-remove{
+  position:absolute;top:3px;right:3px;width:18px;height:18px;
+  border-radius:50%;background:rgba(0,0,0,.7);border:none;
+  color:#fff;font-size:10px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;
+}
+.photo-uploading{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:var(--grey);padding:8px 0;
+}
+.photo-upload-progress{
+  height:3px;background:var(--dark4);border-radius:2px;
+  overflow:hidden;margin-top:4px;
+}
+.photo-upload-bar{
+  height:100%;background:linear-gradient(90deg,#FFB300,#FF8F00);
+  border-radius:2px;transition:width .3s;width:0%;
+}
+
+</style>
+<script src="/js/dps-config.js"></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <a class="nav-logo" href="/auction">
+    <img src="/images/dps-logo.png" alt="DPS">
+    <span class="nav-badge">Auction</span>
+  </a>
+  <a class="nav-back" href="/auction">← Back to Auction</a>
+</nav>
+
+<div class="page">
+  <div class="page-inner">
+
+    <div class="step-track">
+      <div class="st active" id="st-1"><div class="st-dot">1</div><span>Account</span></div>
+      <div class="st-line" id="sl-1"></div>
+      <div class="st" id="st-2"><div class="st-dot">2</div><span>Details</span></div>
+      <div class="st-line" id="sl-2"></div>
+      <div class="st" id="st-3"><div class="st-dot">3</div><span>Item</span></div>
+      <div class="st-line" id="sl-3"></div>
+      <div class="st" id="st-4"><div class="st-dot">4</div><span>Done</span></div>
+    </div>
+
+    <!-- ═══ STEP 1: LISTED BEFORE? ══════════════════════ -->
+    <div class="step-view active" id="view-start">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">DPS Auction · Apply to list</div>
+          <div class="card-title">Have you listed with DPS before?</div>
+          <div class="card-sub">Not every item gets approved. If yours does, it gets spotlighted to our buyers and the bidding begins.</div>
+        </div>
+        <div class="card-body">
+          <div class="choice-btns">
+            <button class="choice-btn" id="btn-yes-before">
+              <div class="choice-ico">✓</div>
+              <div class="choice-text">
+                <div class="choice-title">Yes — I've listed with DPS before</div>
+                <div class="choice-desc">We'll find your account and get you straight to applying.</div>
+              </div>
+              <div class="choice-arrow">→</div>
+            </button>
+            <button class="choice-btn" id="btn-no-before">
+              <div class="choice-ico">👋</div>
+              <div class="choice-text">
+                <div class="choice-title">No — I'm new to DPS</div>
+                <div class="choice-desc">Quick signup first, then straight to your application.</div>
+              </div>
+              <div class="choice-arrow">→</div>
+            </button>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="form-terms">Free to apply. Admin reviews every listing. <a href="/terms">Terms apply.</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 2a: EMAIL LOOKUP (returning) ════════════ -->
+    <div class="step-view" id="view-email">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — Find your account</div>
+          <div class="card-title">What's your email?</div>
+          <div class="card-sub">The one you used when you listed with DPS.</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Email address <em>*</em></label>
+            <input type="email" id="lookup-email" placeholder="you@email.com" autocomplete="email">
+          </div>
+          <div class="search-anim" id="search-anim">
+            <div class="search-dots">
+              <div class="search-dot"></div>
+              <div class="search-dot"></div>
+              <div class="search-dot"></div>
+            </div>
+            <div class="search-label">Searching our records…</div>
+          </div>
+          <div class="email-status" id="email-status">
+            <span class="es-ico" id="es-ico"></span>
+            <span id="email-status-text"></span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-lookup">Find my account →</button>
+          <button class="btn-secondary" id="btn-back-to-start">← Back</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══ STEP 2a-confirm: IS THIS YOU? ════════════════ -->
+    <div class="step-view" id="view-confirm">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — Confirm account</div>
+          <div class="card-title">Is this you?</div>
+          <div class="card-sub">We found an account matching that email.</div>
+        </div>
+        <div class="card-body">
+          <div class="confirm-card">
+            <div class="confirm-shield">
+              <div class="confirm-shield-icon">🔒</div>
+              <div class="confirm-shield-label">Secure Account Match</div>
+              <div class="confirm-shield-sub">Your payout details on file</div>
+            </div>
+            <div class="confirm-rows">
+              <div class="confirm-row" id="confirm-phone-row">
+                <div class="confirm-label">Phone</div>
+                <div class="confirm-value masked" id="confirm-phone">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-bank-row">
+                <div class="confirm-label">Bank</div>
+                <div class="confirm-value" id="confirm-bank">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-acct-name-row" style="display:none">
+                <div class="confirm-label">Account name</div>
+                <div class="confirm-value masked" id="confirm-acct-name">—</div>
+              </div>
+              <div class="confirm-row" id="confirm-acct-row" style="display:none">
+                <div class="confirm-label">Account number</div>
+                <div class="confirm-value masked" id="confirm-acct">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="notice notice-amber" id="confirm-payout-note" style="display:none">
+            <strong>This is where your payout goes when your item sells.</strong> Make sure the bank details are correct before continuing. If anything looks wrong, tap "Not me" and sign up fresh.
+          </div>
+          <div class="notice notice-amber" id="confirm-source-note" style="display:none">
+            <strong>Found you in our records.</strong> We don't have your bank details on file yet — we'll collect them on the next screen. This is where your payout goes when your item sells.
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-confirm-yes">Yes, that's me — continue →</button>
+          <button class="btn-secondary" id="btn-confirm-no">Not me — try a different email</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 2a-bank: ADD BANK (found in Leads, no bank) ═ -->
+    <div class="step-view" id="view-add-bank">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — One more thing</div>
+          <div class="card-title">Add Bank Details</div>
+          <div class="card-sub">We need this to send your payout when your item sells.</div>
+        </div>
+        <div class="card-body">
+          <div class="notice notice-green">
+            <strong>Account found.</strong> Just need your bank details for auction payouts — we don't have these on file yet.
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Bank <em>*</em></label>
+              <input type="text" id="ab-bank" placeholder="e.g. GTBank, Opay, Kuda">
+            </div>
+            <div class="field">
+              <label>Account number <em>*</em></label>
+              <input type="text" id="ab-acct" placeholder="0123456789" maxlength="10" inputmode="numeric">
+            </div>
+          </div>
+          <div class="field">
+            <label>Account name <em>*</em></label>
+            <input type="text" id="ab-acct-name" placeholder="As it appears on your bank account">
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-add-bank">Save &amp; continue →</button>
+          <button class="btn-secondary" id="btn-back-add-bank">← Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 2b: SIGNUP (new user) ══════════════════ -->
+    <div class="step-view" id="view-signup">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 1 — Create account</div>
+          <div class="card-title">Quick Sign Up</div>
+          <div class="card-sub">Your details so we know where to send your payout when your item sells.</div>
+        </div>
+        <div class="card-body">
+          <div class="field-row">
+            <div class="field">
+              <label>Full name <em>*</em></label>
+              <input type="text" id="su-name" placeholder="Your full name" autocomplete="name">
+            </div>
+            <div class="field">
+              <label>Phone number <em>*</em></label>
+              <input type="tel" id="su-phone" placeholder="080XXXXXXXX" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label>Email address <em>*</em></label>
+            <input type="email" id="su-email" placeholder="you@email.com" autocomplete="email">
+          </div>
+          <div class="divider">Bank details for payout</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Bank <em>*</em></label>
+              <input type="text" id="su-bank" placeholder="e.g. GTBank, Opay, Kuda">
+            </div>
+            <div class="field">
+              <label>Account number <em>*</em></label>
+              <input type="text" id="su-acct" placeholder="0123456789" maxlength="10" inputmode="numeric">
+            </div>
+          </div>
+          <div class="field">
+            <label>Account name <em>*</em></label>
+            <input type="text" id="su-acct-name" placeholder="As it appears on your bank account">
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-signup">Create account &amp; continue →</button>
+          <button class="btn-secondary" id="btn-back-signup">← Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 3: ITEM DETAILS ═════════════════════════ -->
+    <div class="step-view" id="view-listing">
+      <div class="card">
+        <div class="card-stripe"></div>
+        <div class="card-head">
+          <div class="card-eyebrow">Step 2 — Item application</div>
+          <div class="card-title">Your Item</div>
+          <div class="card-sub" id="listing-greeting">Buyers see exactly what you write here — be specific.</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Item name <em>*</em></label>
+            <input type="text" id="li-name" placeholder="e.g. Nike Air Jordan 1 Chicago UK9" maxlength="80">
+            <div class="field-hint">Include brand, model, size, colour where relevant.</div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Category <em>*</em></label>
+              <select id="li-cat">
+                <option value="">Select</option>
+                <option>Electronics</option><option>Sneakers</option>
+                <option>Watches</option><option>Bags</option>
+                <option>Collectibles</option><option>Gaming</option>
+                <option>Fashion</option><option>Phones</option>
+                <option>Computers</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Condition <em>*</em></label>
+              <select id="li-cond">
+                <option value="">Select</option>
+                <option>New</option>
+                <option>Like New</option>
+                <option>Good Condition</option>
+                <option>Used</option>
+                <option>Has Minor Issue</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Description <em>*</em></label>
+            <textarea id="li-desc" placeholder="Brand, model, size, colour, what's included, accessories, any flaws. Be specific — buyers bid based on this. Minimum 150 characters." maxlength="600"></textarea>
+            <div class="char-count" id="desc-count"><span id="desc-len">0</span> / 600 <span id="desc-min-note" style="color:var(--amber);display:none">· 150 min</span></div>
+          </div>
+          <div class="field">
+            <label>Starting price (₦) <em>*</em></label>
+            <div class="price-wrap">
+              <span class="price-sym">₦</span>
+              <input type="text" id="li-price" placeholder="0" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="price-display" id="li-price-display"></div>
+            <div class="field-hint">The minimum you'd actually sell for. Inflated starting prices get rejected.</div>
+          </div>
+          <div class="field">
+            <label>Photos <em>*</em></label>
+            <div class="photo-upload-area" id="photo-upload-area">
+              <input type="file" id="li-photos" accept="image/*" multiple style="display:none">
+              <div class="photo-drop-zone" id="photo-drop-zone" onclick="document.getElementById('li-photos').click()">
+                <div class="photo-drop-ico">📸</div>
+                <div class="photo-drop-text">Tap to add photos</div>
+                <div class="photo-drop-sub">Up to 5 photos · Real shots only, no screenshots</div>
+              </div>
+              <div class="photo-previews" id="photo-previews"></div>
+            </div>
+            <div class="field-hint" id="photo-count-hint">0 of 5 photos added</div>
+          </div>
+        </div>
+        <div class="card-foot">
+          <button class="btn-primary" id="btn-submit">Submit application →</button>
+          <div class="form-terms">By submitting you agree to DPS Auction <a href="/terms">listing terms</a>. Admin may reject applications with inflated prices or insufficient detail.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 4: SUCCESS ══════════════════════════════ -->
+    <div class="step-view" id="view-success">
+      <div class="card">
+        <div class="card-stripe" style="background:var(--green)"></div>
+        <div class="success-view">
+          <div class="success-circle">✓</div>
+          <div class="success-title">Application Submitted</div>
+          <p class="success-body">
+            Your item is in review. Admin will check the item, description, and starting price — usually within a few hours.
+            If it makes the cut, it gets spotlighted to our buyers and the bidding begins.
+          </p>
+          <div class="success-ref" id="success-ref">REF: —</div>
+          <div style="font-size:11px;color:var(--grey);margin-bottom:12px" id="success-seller-info"></div>
+          <div class="success-next">
+            
+            <a href="/auction-items" class="btn-primary" style="text-decoration:none">Browse live auctions →</a>
+            <button class="btn-secondary" id="btn-list-another">List another item</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var APPS_SCRIPT_URL=DPS_GAS_URL;
+  var IMGBB_API_KEY   = '866c79474ef926b291d3ad2ef0ec25ca'; // Get free key at imgbb.com/api
+var sellerEmail    = '';
+var sellerName     = '';
+var sellerPhone    = '';
+var sellerBank     = '';
+var sellerAcct     = '';
+var sellerAcctName = '';
+
+function goTo(viewId, step) {
+  document.querySelectorAll('.step-view').forEach(function(v) { v.classList.remove('active'); });
+  document.getElementById(viewId).classList.add('active');
+  updateTrack(step);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function updateTrack(step) {
+  for (var i = 1; i <= 4; i++) {
+    var st = document.getElementById('st-' + i);
+    var sl = document.getElementById('sl-' + i);
+    if (!st) continue;
+    st.classList.remove('active', 'done');
+    if (i < step) st.classList.add('done');
+    if (i === step) st.classList.add('active');
+    if (sl) sl.classList.toggle('done', i < step);
+  }
+}
+
+function updateCount(el, countId, max) {
+  var count = el.value.length;
+  var el2 = document.getElementById(countId);
+  if (!el2) return;
+  el2.textContent = count + ' / ' + max;
+  el2.classList.toggle('warn', count > max * 0.85);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ── CONFIRM ACCOUNT ───────────────────────────────────
+  document.getElementById('btn-confirm-yes').addEventListener('click', function() {
+    if (!sellerBank || !sellerAcct) {
+      // Found in Leads but no bank details — collect bank first
+      goTo('view-add-bank', 2);
+    } else {
+      // Have everything — go straight to listing
+      document.getElementById('listing-greeting').textContent =
+        'Welcome back' + (sellerName ? ', ' + sellerName.split(' ')[0] : '') + '. Buyers see exactly what you write here.';
+      goTo('view-listing', 3);
+    }
+  });
+
+  document.getElementById('btn-confirm-no').addEventListener('click', function() {
+    document.getElementById('lookup-email').value = '';
+    document.getElementById('email-status').style.display = 'none';
+    goTo('view-email', 2);
+  });
+
+  // ── ADD BANK (Leads user, no bank on file) ─────────────
+  document.getElementById('btn-add-bank').addEventListener('click', function() {
+    var bank  = document.getElementById('ab-bank').value;
+    var acct  = document.getElementById('ab-acct').value.trim();
+    var aname = document.getElementById('ab-acct-name').value.trim();
+
+    if (!bank)              { alert('Please enter your bank name.'); return; }
+    if (acct.length < 10)   { alert('Please enter a valid 10-digit account number.'); return; }
+    if (!aname)             { alert('Please enter your account name.'); return; }
+
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    sellerBank     = bank;
+    sellerAcct     = acct;
+    sellerAcctName = aname;
+
+    // Save as new Auction Seller row with bank details
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action:   'registerSeller',
+        name:     sellerName,
+        email:    sellerEmail,
+        phone:    sellerPhone,
+        bank:     bank,
+        acct:     acct,
+        acctName: aname,
+        telegram: ''
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false;
+      btn.textContent = 'Save & continue →';
+      document.getElementById('listing-greeting').textContent =
+        'Welcome back' + (sellerName ? ', ' + sellerName.split(' ')[0] : '') + '. Buyers see exactly what you write here.';
+      goTo('view-listing', 3);
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Save & continue →';
+      // Proceed anyway — bank details can be added later
+      goTo('view-listing', 3);
+    });
+  });
+
+  document.getElementById('btn-back-add-bank').addEventListener('click', function() {
+    goTo('view-confirm', 2);
+  });
+
+
+  // Price input formatter
+  var priceInput   = document.getElementById('li-price');
+  var priceDisplay = document.getElementById('li-price-display');
+  if (priceInput) {
+    priceInput.addEventListener('input', function() {
+      var raw = this.value.replace(/[^0-9]/g, '');
+      this.value = raw;
+      if (priceDisplay) {
+        priceDisplay.textContent = raw ? '₦' + parseInt(raw).toLocaleString('en-NG') : '';
+      }
+    });
+  }
+
+  // Description char counter with min indicator
+  var descArea = document.getElementById('li-desc');
+  if (descArea) {
+    descArea.addEventListener('input', function() {
+      var len     = this.value.length;
+      var lenEl   = document.getElementById('desc-len');
+      var minNote = document.getElementById('desc-min-note');
+      var countEl = document.getElementById('desc-count');
+      if (lenEl) lenEl.textContent = len;
+      if (minNote) minNote.style.display = len < 150 ? 'inline' : 'none';
+      if (countEl) countEl.classList.toggle('warn', len > 500);
+    });
+  }
+
+  // ── STEP 1: LISTED BEFORE ──────────────────────────────
+  document.getElementById('btn-yes-before').addEventListener('click', function() {
+    goTo('view-email', 2);
+  });
+
+  document.getElementById('btn-no-before').addEventListener('click', function() {
+    goTo('view-signup', 2);
+  });
+
+  document.getElementById('btn-back-to-start').addEventListener('click', function() {
+    goTo('view-start', 1);
+  });
+
+  document.getElementById('btn-back-signup').addEventListener('click', function() {
+    goTo('view-start', 1);
+  });
+
+  // ── STEP 2a: EMAIL LOOKUP ──────────────────────────────
+  document.getElementById('btn-lookup').addEventListener('click', function() {
+    var email = document.getElementById('lookup-email').value.trim();
+    if (!email || email.indexOf('@') < 0) { alert('Please enter a valid email.'); return; }
+    sellerEmail = email;
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Searching…';
+    var statusEl   = document.getElementById('email-status');
+    var statusText = document.getElementById('email-status-text');
+    var statusIco  = document.getElementById('es-ico');
+    var searchAnim = document.getElementById('search-anim');
+    statusEl.style.display = 'none';
+    statusEl.className = 'email-status';
+    searchAnim.classList.add('show');
+
+    fetch(APPS_SCRIPT_URL + '?action=lookupEmail&email=' + encodeURIComponent(email), {redirect:'follow'})
+      .then(function(r) {
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        return r.json();
+      })
+      .then(function(data) {
+        btn.disabled = false;
+        btn.textContent = 'Find my account →';
+        searchAnim.classList.remove('show');
+        if (data.found) {
+          // Store found data globally
+          sellerName    = data.name    || '';
+          sellerPhone   = data.phone   || '';
+          sellerBank    = data.bank    || '';
+          sellerAcct    = data.acct    || '';
+          sellerAcctName = data.acctName || '';
+
+          // Mask phone: show first 4 and last 2 digits
+          var maskedPhone = sellerPhone
+            ? sellerPhone.slice(0,3) + '****' + sellerPhone.slice(-3)
+            : '—';
+
+          var hasBankData = sellerBank && sellerAcct;
+          var bankRow      = document.getElementById('confirm-bank-row');
+          var acctNameRow  = document.getElementById('confirm-acct-name-row');
+          var acctRow      = document.getElementById('confirm-acct-row');
+          var sourceNote   = document.getElementById('confirm-source-note');
+          var payoutNote   = document.getElementById('confirm-payout-note');
+
+          if (hasBankData) {
+            // Show bank name (plain), account name masked (first letter + ***),
+            // account number masked (****last 4)
+            var maskedAcctName = sellerAcctName
+              ? sellerAcctName.split(' ').map(function(w){
+                  return w.length > 1 ? w[0] + w.slice(1).replace(/./g,'*') : w;
+                }).join(' ')
+              : '****';
+            var maskedAcct = '****' + String(sellerAcct).slice(-4);
+
+            var maskedPhone2 = sellerPhone
+            ? sellerPhone.slice(0,4) + '****' + sellerPhone.slice(-3)
+            : '—';
+          document.getElementById('confirm-phone').textContent = maskedPhone2;
+          document.getElementById('confirm-bank').textContent = sellerBank || '—';
+            document.getElementById('confirm-acct-name').textContent = maskedAcctName;
+            document.getElementById('confirm-acct').textContent = maskedAcct;
+
+            bankRow.style.display     = 'flex';
+            acctNameRow.style.display = 'flex';
+            acctRow.style.display     = 'flex';
+            payoutNote.style.display  = 'block';
+            sourceNote.style.display  = 'none';
+          } else {
+            bankRow.style.display     = 'none';
+            acctNameRow.style.display = 'none';
+            acctRow.style.display     = 'none';
+            payoutNote.style.display  = 'none';
+            sourceNote.style.display  = 'block';
+          }
+
+          statusEl.style.display = 'none';
+          goTo('view-confirm', 2);
+
+        } else {
+          statusEl.style.display = 'flex';
+          statusEl.classList.add('not-found');
+          statusIco.textContent  = '→';
+          statusText.textContent = "We couldn't find that email. Sign up instead?";
+          setTimeout(function() {
+            document.getElementById('su-email').value = email;
+            goTo('view-signup', 2);
+          }, 900);
+        }
+      })
+      .catch(function(err) {
+        console.error('lookupEmail failed:', err);
+        btn.disabled = false;
+        btn.textContent = 'Find my account →';
+        searchAnim.classList.remove('show');
+        // Don't block — just send them to signup
+        statusEl.style.display = 'flex';
+        statusEl.classList.add('not-found');
+        statusIco.textContent  = '→';
+        statusText.textContent = "Couldn't reach our records. Sign up instead?";
+        setTimeout(function() {
+          document.getElementById('su-email').value = email;
+          goTo('view-signup', 2);
+        }, 900);
+      });
+  });
+
+  document.getElementById('lookup-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('btn-lookup').click();
+  });
+
+  // ── STEP 2b: SIGNUP ────────────────────────────────────
+  document.getElementById('btn-signup').addEventListener('click', function() {
+    var name  = document.getElementById('su-name').value.trim();
+    var phone = document.getElementById('su-phone').value.trim();
+    var email = document.getElementById('su-email').value.trim();
+    var bank  = document.getElementById('su-bank').value;
+    var acct  = document.getElementById('su-acct').value.trim();
+    var aname = document.getElementById('su-acct-name').value.trim();
+
+    if (!name)  { alert('Please enter your full name.'); return; }
+    if (!phone) { alert('Please enter your phone number.'); return; }
+    if (!email || email.indexOf('@') < 0) { alert('Please enter a valid email.'); return; }
+    if (!bank)  { alert('Please enter your bank name.'); return; }
+    if (acct.length < 10) { alert('Please enter a valid 10-digit account number.'); return; }
+    if (!aname) { alert('Please enter your account name.'); return; }
+
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Creating account…';
+    sellerEmail = email;
+    sellerName  = name;
+    sellerPhone = phone;
+    sellerBank  = bank;
+    sellerAcct  = acct;
+    sellerAcctName = aname;
+
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'registerSeller',
+        name: name, email: email, phone: phone,
+        bank: bank, acct: acct, acctName: aname,
+        telegram: ''
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false;
+      btn.textContent = 'Create account & continue →';
+      if (data.success) {
+        document.getElementById('listing-greeting').textContent =
+          'Account created. Buyers see exactly what you write here.';
+        goTo('view-listing', 3);
+      } else {
+        alert('Could not create account: ' + (data.error || 'Unknown error'));
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Create account & continue →';
+      alert('Something went wrong. Please try again.');
+    });
+  });
+
+  // ── STEP 3: ITEM SUBMIT ────────────────────────────────
+  document.getElementById('li-desc').addEventListener('input', function() {
+    updateCount(this, 'desc-count', 600);
+  });
+
+
+  // ── PHOTO UPLOAD ──────────────────────────────────────────
+  var selectedPhotos = []; // array of {file, dataUrl}
+
+  document.getElementById('li-photos').addEventListener('change', function() {
+    var files = Array.from(this.files);
+    files.forEach(function(file) {
+      if (selectedPhotos.length >= 5) return;
+      if (!file.type.startsWith('image/')) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        selectedPhotos.push({ file: file, dataUrl: e.target.result });
+        renderPhotoThumbs();
+      };
+      reader.readAsDataURL(file);
+    });
+    this.value = ''; // reset so same file can be re-added
+  });
+
+  function renderPhotoThumbs() {
+    var container = document.getElementById('photo-previews');
+    var hint      = document.getElementById('photo-count-hint');
+    var dropZone  = document.getElementById('photo-drop-zone');
+    container.innerHTML = '';
+    selectedPhotos.forEach(function(p, i) {
+      var thumb = document.createElement('div');
+      thumb.className = 'photo-thumb';
+      thumb.innerHTML =
+        '<img src="' + p.dataUrl + '">' +
+        '<button class="photo-thumb-remove" onclick="removePhoto(' + i + ')">✕</button>';
+      container.appendChild(thumb);
+    });
+    var count = selectedPhotos.length;
+    hint.textContent = count + ' of 5 photo' + (count !== 1 ? 's' : '') + ' added';
+    hint.style.color = count > 0 ? 'var(--green)' : 'var(--grey)';
+    dropZone.style.display = count >= 5 ? 'none' : 'flex';
+    dropZone.style.flexDirection = 'column';
+    dropZone.style.alignItems = 'center';
+  }
+
+  function removePhoto(i) {
+    selectedPhotos.splice(i, 1);
+    renderPhotoThumbs();
+  }
+
+  async function uploadPhotosToImgBB() {
+    var urls = [];
+    for (var i = 0; i < selectedPhotos.length; i++) {
+      var p       = selectedPhotos[i];
+      var base64  = p.dataUrl.split(',')[1];
+      var formData = new FormData();
+      formData.append('image', base64);
+      try {
+        var res  = await fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_API_KEY, {
+          method: 'POST',
+          body:   formData
+        });
+        var data = await res.json();
+        if (data.success) {
+          urls.push(data.data.url);
+        }
+      } catch(e) {
+        console.error('Photo upload failed:', e);
+      }
+    }
+    return urls;
+  }
+
+  document.getElementById('btn-submit').addEventListener('click', function() {
+    var name  = document.getElementById('li-name').value.trim();
+    var cat   = document.getElementById('li-cat').value;
+    var cond  = document.getElementById('li-cond').value;
+    var desc  = document.getElementById('li-desc').value.trim();
+    var price = parseInt((document.getElementById('li-price').value || '').replace(/[^0-9]/g,'')) || 0;
+
+    if (!name)           { alert('Please enter the item name.'); return; }
+    if (!cat)            { alert('Please select a category.'); return; }
+    if (!cond)           { alert('Please select the condition.'); return; }
+    if (desc.length < 150) { alert('Please add a more detailed description (minimum 150 characters).'); return; }
+    if (price < 500)     { alert('Please enter a starting price of at least ₦500.'); return; }
+    if (selectedPhotos.length === 0) { alert('Please add at least one photo.'); return; }
+
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Uploading photos…';
+
+    // Upload photos first, then submit
+    uploadPhotosToImgBB().then(function(photoUrls) {
+      btn.textContent = 'Submitting…';
+      return fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'submitListing',
+          sellerName: sellerName,
+          email: sellerEmail,
+          phone: sellerPhone,
+          bank: sellerBank,
+          acctName: sellerAcctName,
+          acct: sellerAcct,
+          itemName: name,
+          category: cat,
+          condition: cond,
+          description: desc,
+          startingPrice: price,
+          photoUrls: photoUrls.join(', ')
+        })
+      });
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false;
+      btn.textContent = 'Submit application →';
+      if (data.success) {
+        document.getElementById('success-ref').textContent = 'REF: ' + data.ref;
+        document.getElementById('success-seller-info').textContent =
+          sellerName + '  ·  ' + sellerEmail + '  ·  ' + sellerPhone;
+        goTo('view-success', 4);
+      } else {
+        alert('Could not submit: ' + (data.error || 'Unknown error'));
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Submit application →';
+      alert('Something went wrong. Please try again.');
+    });
+  });
+
+  // ── RESET ──────────────────────────────────────────────
+  document.getElementById('btn-list-another').addEventListener('click', function() {
+    sellerEmail = ''; sellerName = ''; sellerPhone = ''; sellerBank = ''; sellerAcct = ''; sellerAcctName = '';
+    ['lookup-email','su-name','su-phone','su-email','su-acct','su-acct-name','ab-acct','ab-acct-name',
+     'li-name','li-desc','li-price'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('su-bank').value = '';
+    document.getElementById('li-cat').selectedIndex  = 0;
+    document.getElementById('li-cond').selectedIndex = 0;
+    document.getElementById('email-status').style.display = 'none';
+    document.getElementById('desc-count').textContent = '0 / 600';
+    goTo('view-start', 1);
+  });
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>

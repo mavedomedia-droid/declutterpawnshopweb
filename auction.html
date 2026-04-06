@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPS Auction — Not every item makes it in.</title>
+<meta name="description" content="DPS Auction — curated secondhand auctions from Lagos. Apply to list your item. If approved, buyers compete for it. No listing fee.">
+<meta property="og:title" content="DPS Auction — Not every item makes it in.">
+<meta property="og:description" content="Curated secondhand auctions from Lagos. Apply to list. If approved, buyers compete. Open bids. Market decides the price.">
+<meta property="og:image" content="https://declutterpawnshop.com/images/dps-logo.png">
+<meta property="og:url" content="https://declutterpawnshop.com/auction">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://declutterpawnshop.com/auction">
+<link rel="icon" href="/images/dps-logo.png">
+<meta name="description" content="DPS Auction is curated. You apply. We decide if your item is worth putting in front of our buyers. If approved, it gets spotlighted to our audience and people compete for it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --amber:#FFB300;
+  --amber2:#FF8F00;
+  --amber3:#E65100;
+  --dark:#0A0A0A;
+  --dark2:#111;
+  --dark3:#1A1A1A;
+  --dark4:#242424;
+  --dark5:#2E2E2E;
+  --mid:#4A4A4A;
+  --grey:#777;
+  --muted:#555;
+  --white:#F9F8F5;
+  --green:#00C853;
+  --red:#E53935;
+  --blue:#42A5F5;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--dark);color:var(--white);
+  font-family:'DM Sans',sans-serif;line-height:1.65;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--dark2)}
+::-webkit-scrollbar-thumb{background:var(--dark4)}
+
+/* ── NAV ───────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:300;
+  background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,179,0,0.1);
+  height:64px;padding:0 6vw;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:44px;object-fit:contain}
+.nav-badge{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--amber);
+  border:1px solid rgba(255,179,0,0.4);border-radius:3px;
+  padding:3px 8px;
+}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{color:var(--grey);font-size:13px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{
+  background:var(--amber);color:var(--dark)!important;
+  font-weight:700!important;font-size:13px;
+  padding:9px 20px;border-radius:5px;
+  transition:background .2s;
+}
+.nav-cta:hover{background:var(--amber2)!important}
+
+/* ── HERO ──────────────────────────────────── */
+.hero{
+  min-height:92vh;padding:80px 6vw 60px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 40%, rgba(255,143,0,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(255,179,0,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-inner{max-width:900px;position:relative;z-index:1}
+.hero-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber);
+  margin-bottom:24px;
+}
+.hero-label::before{
+  content:'';width:28px;height:1px;background:var(--amber);
+}
+.hero-label span{
+  background:rgba(255,179,0,0.1);
+  border:1px solid rgba(255,179,0,0.2);
+  padding:3px 10px;border-radius:3px;
+  animation:pulse-border 2s infinite;
+}
+@keyframes pulse-border{
+  0%,100%{border-color:rgba(255,179,0,0.2)}
+  50%{border-color:rgba(255,179,0,0.5)}
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,9vw,110px);
+  letter-spacing:2px;line-height:.92;
+  color:var(--white);margin-bottom:20px;
+}
+.hero-title em{
+  color:var(--amber);font-style:normal;
+  -webkit-text-stroke:0px;
+}
+.hero-title .outline{
+  -webkit-text-stroke:1px rgba(255,179,0,0.5);
+  color:transparent;
+}
+.hero-sub{
+  font-size:clamp(16px,2vw,20px);
+  color:rgba(249,248,245,0.65);
+  max-width:580px;line-height:1.6;
+  margin-bottom:40px;font-weight:300;
+}
+.hero-sub strong{color:var(--white);font-weight:500}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:56px}
+.btn-amber{
+  background:var(--amber);color:var(--dark);
+  font-weight:700;font-size:14px;padding:13px 28px;
+  border-radius:5px;text-decoration:none;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .2s,transform .15s;
+}
+.btn-amber:hover{background:var(--amber2);transform:translateY(-1px)}
+.btn-ghost{
+  border:1px solid rgba(249,248,245,0.15);
+  color:rgba(249,248,245,0.6);
+  font-size:14px;padding:13px 28px;border-radius:5px;
+  text-decoration:none;background:none;
+  transition:border-color .2s,color .2s,transform .15s;
+}
+.btn-ghost:hover{border-color:rgba(249,248,245,0.4);color:var(--white);transform:translateY(-1px)}
+
+/* Hero stats */
+.hero-stats{
+  display:flex;gap:0;
+  border:1px solid var(--dark4);border-radius:8px;
+  background:var(--dark2);overflow:hidden;
+  max-width:500px;
+}
+.hs-item{
+  flex:1;padding:16px 20px;text-align:center;
+  border-right:1px solid var(--dark4);
+}
+.hs-item:last-child{border-right:none}
+.hs-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;letter-spacing:1px;
+  color:var(--amber);
+}
+.hs-label{font-size:10px;color:var(--grey);margin-top:2px;line-height:1.3}
+
+/* ── URGENCY STRIP ─────────────────────────── */
+.urgency-strip{
+  background:var(--amber);
+  padding:14px 6vw;
+  display:flex;align-items:center;justify-content:center;
+  gap:32px;overflow:hidden;
+  border-top:1px solid var(--amber2);
+  border-bottom:1px solid var(--amber2);
+}
+.us-item{
+  font-size:12px;font-weight:700;color:var(--dark);
+  display:flex;align-items:center;gap:8px;
+  white-space:nowrap;
+}
+.us-item::before{
+  content:'▶';font-size:8px;color:rgba(10,10,10,0.4);
+}
+
+/* ── SECTION SHARED ────────────────────────── */
+section{padding:80px 6vw}
+.section-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber);
+  margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.section-eyebrow::before{content:'';width:20px;height:1px;background:var(--amber)}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(32px,4.5vw,52px);
+  letter-spacing:1px;line-height:1;
+  color:var(--white);margin-bottom:16px;
+}
+.section-body{
+  font-size:15px;color:rgba(249,248,245,0.6);
+  max-width:540px;line-height:1.7;
+}
+.max{max-width:1200px;margin:0 auto}
+
+/* ── HOW IT WORKS ──────────────────────────── */
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1px;background:var(--dark4);
+  border:1px solid var(--dark4);border-radius:10px;
+  overflow:hidden;margin-top:48px;
+}
+.how-card{
+  background:var(--dark2);padding:28px 28px 32px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .2s;
+}
+.how-card:hover{background:var(--dark3)}
+.how-num{
+  font-family:'DM Mono',monospace;
+  font-size:11px;font-weight:500;color:var(--amber);
+  letter-spacing:2px;
+}
+.how-title{
+  font-size:16px;font-weight:600;color:var(--white);
+  line-height:1.3;
+}
+.how-body{font-size:13px;color:var(--grey);line-height:1.6}
+.how-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;padding:3px 9px;border-radius:20px;
+  margin-top:4px;align-self:flex-start;
+}
+.tag-amber{background:rgba(255,179,0,0.1);color:var(--amber);border:1px solid rgba(255,179,0,0.2)}
+.tag-green{background:rgba(0,200,83,0.1);color:var(--green);border:1px solid rgba(0,200,83,0.2)}
+.tag-red{background:rgba(229,57,53,0.1);color:var(--red);border:1px solid rgba(229,57,53,0.2)}
+
+/* ── DIFFERENCE SECTION ────────────────────── */
+.diff-section{
+  background:var(--dark2);
+  border-top:1px solid var(--dark4);
+  border-bottom:1px solid var(--dark4);
+}
+.diff-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.diff-col{padding:60px 48px}
+.diff-col:first-child{
+  border-right:1px solid var(--dark4);
+}
+.diff-col-head{
+  display:flex;align-items:center;gap:12px;margin-bottom:28px;
+}
+.diff-logo-wrap{
+  width:40px;height:40px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.wrap-standard{background:rgba(119,119,119,0.12)}
+.wrap-auction{background:rgba(255,179,0,0.12)}
+.diff-col-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:1px;
+}
+.diff-col-sub{font-size:12px;color:var(--grey);margin-top:2px}
+.diff-list{display:flex;flex-direction:column;gap:14px}
+.diff-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding-bottom:14px;border-bottom:1px solid var(--dark4);
+}
+.diff-item:last-child{border-bottom:none;padding-bottom:0}
+.diff-icon{
+  width:24px;height:24px;border-radius:5px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;margin-top:1px;
+}
+.di-grey{background:rgba(119,119,119,0.1);color:var(--grey)}
+.di-amber{background:rgba(255,179,0,0.1);color:var(--amber)}
+.diff-item-text{}
+.diff-item-label{font-size:13px;font-weight:500;color:var(--white);margin-bottom:2px}
+.diff-item-desc{font-size:12px;color:var(--grey);line-height:1.5}
+.diff-cta{
+  margin-top:28px;
+}
+
+/* ── WHY AUCTION ───────────────────────────── */
+.why-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;margin-top:40px;
+}
+.why-card{
+  background:var(--dark2);border:1px solid var(--dark4);
+  border-radius:8px;padding:24px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:border-color .2s;
+}
+.why-card:hover{border-color:rgba(255,179,0,0.3)}
+.why-icon{
+  width:36px;height:36px;border-radius:7px;
+  background:rgba(255,179,0,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.why-title{font-size:14px;font-weight:600;color:var(--white)}
+.why-body{font-size:12px;color:var(--grey);line-height:1.6}
+
+/* ── RULES STRIP ───────────────────────────── */
+.rules-strip{
+  padding:64px 6vw;
+  background:linear-gradient(135deg, var(--dark2) 0%, rgba(255,179,0,0.03) 100%);
+  border-top:1px solid var(--dark4);border-bottom:1px solid var(--dark4);
+}
+.rules-inner{max-width:1200px;margin:0 auto}
+.rules-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;
+  margin-top:40px;
+}
+.rules-col-title{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.rules-col-title.for-buyers{color:var(--amber)}
+.rules-col-title.for-sellers{color:var(--blue)}
+.rule-item{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--dark4);
+}
+.rule-item:last-child{border-bottom:none}
+.rule-num{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);flex-shrink:0;padding-top:2px;
+}
+.rule-text{font-size:13px;color:rgba(249,248,245,0.7);line-height:1.5}
+.rule-text strong{color:var(--white);font-weight:500}
+
+/* ── CTA BANNER ────────────────────────────── */
+.cta-banner{
+  padding:80px 6vw;text-align:center;position:relative;overflow:hidden;
+}
+.cta-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,179,0,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.cta-banner-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.cta-kicker{
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:16px;
+}
+.cta-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,6vw,72px);letter-spacing:2px;
+  line-height:.95;margin-bottom:16px;
+}
+.cta-sub{
+  font-size:15px;color:rgba(249,248,245,0.55);
+  line-height:1.6;margin-bottom:32px;
+}
+.cta-actions{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+}
+
+/* ── FOOTER ────────────────────────────────── */
+footer{
+  border-top:1px solid var(--dark4);padding:32px 6vw;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.foot-logo img{height:44px;object-fit:contain}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{font-size:12px;color:var(--grey);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--white)}
+.foot-copy{font-size:11px;color:var(--mid)}
+
+@media(max-width:768px){
+  .diff-inner{grid-template-columns:1fr}
+  .diff-col:first-child{border-right:none;border-bottom:1px solid var(--dark4)}
+  .rules-grid{grid-template-columns:1fr}
+  .urgency-strip{gap:16px;flex-wrap:wrap;justify-content:flex-start}
+  .hero-stats{max-width:100%}
+}
+@media(max-width:480px){
+  .diff-col{padding:40px 24px}
+  .how-grid{grid-template-columns:1fr}
+}
+
+/* ── LISTING MODAL ──────────────────────────────── */
+@keyframes modalIn{
+  from{opacity:0;transform:scale(.96) translateY(8px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.lm-bar{height:2px;background:linear-gradient(90deg,var(--amber),var(--amber2))}
+.lm-head{
+  padding:18px 22px 14px;
+  border-bottom:1px solid var(--dark4);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+}
+.lm-head-text{}
+.lm-eyebrow{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.lm-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;color:var(--white)}
+.lm-sub{font-size:12px;color:var(--grey);margin-top:3px;line-height:1.4}
+.lm-close{
+  width:30px;height:30px;border-radius:5px;
+  background:var(--dark4);border:none;cursor:pointer;
+  color:var(--grey);font-size:14px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:inherit;transition:background .2s,color .2s;
+}
+.lm-close:hover{background:var(--dark5);color:var(--white)}
+
+/* Path selector */
+.lm-paths{padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.lm-path{
+  display:flex;align-items:center;gap:14px;
+  padding:16px;border-radius:8px;
+  border:1px solid var(--dark4);background:var(--dark);
+  cursor:pointer;transition:border-color .2s,background .2s;
+  text-align:left;font-family:inherit;width:100%;
+}
+.lm-path:hover{border-color:var(--amber);background:var(--dark3)}
+.lm-path-ico{
+  width:36px;height:36px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.ico-web{background:rgba(255,179,0,0.1)}
+.ico-tg{background:rgba(100,181,246,0.1)}
+.lm-path-text{}
+.lm-path-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:2px}
+.lm-path-desc{font-size:11px;color:var(--grey);line-height:1.4}
+.lm-path-arrow{margin-left:auto;color:var(--grey);font-size:16px;flex-shrink:0}
+
+/* Form steps */
+.lm-step{display:none;padding:20px 22px;flex-direction:column;gap:14px}
+.lm-step.active{display:flex}
+.lf{display:flex;flex-direction:column;gap:5px}
+.lf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lf label{font-size:11px;font-weight:600;color:var(--grey);letter-spacing:.3px}
+.lf label em{color:var(--amber);font-style:normal;margin-left:2px}
+.lf input,.lf select,.lf textarea{
+  background:var(--dark);border:1px solid var(--dark5);border-radius:6px;
+  padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:13px;
+  color:var(--white);outline:none;transition:border-color .2s;width:100%;
+}
+.lf input:focus,.lf select:focus,.lf textarea:focus{border-color:var(--amber)}
+.lf input::placeholder,.lf textarea::placeholder{color:var(--mid)}
+.lf select option{background:var(--dark3)}
+.lf textarea{resize:vertical;min-height:72px}
+.lf-hint{font-size:10px;color:var(--grey);line-height:1.5;margin-top:3px}
+.lm-notice{
+  padding:10px 12px;border-radius:6px;font-size:11px;line-height:1.6;
+}
+.lm-notice.amber{background:rgba(255,179,0,0.07);border:1px solid rgba(255,179,0,0.15);color:rgba(249,248,245,0.6)}
+.lm-notice strong{color:var(--amber)}
+.price-wrap{position:relative}
+.price-sym{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:13px;color:var(--amber);pointer-events:none}
+.lf .price-wrap input{padding-left:26px;font-family:'DM Mono',monospace;font-size:14px;color:var(--amber)}
+
+/* Step footer */
+.lm-foot{padding:0 22px 20px;display:flex;flex-direction:column;gap:8px}
+.lm-btn{
+  width:100%;background:var(--amber);color:var(--dark);
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;
+  padding:12px;border-radius:6px;border:none;cursor:pointer;
+  transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.lm-btn:hover{background:var(--amber2)}
+.lm-btn:disabled{background:var(--dark4);color:var(--grey);cursor:not-allowed}
+.lm-btn-ghost{
+  width:100%;background:none;border:1px solid var(--dark4);color:var(--grey);
+  font-family:'DM Sans',sans-serif;font-size:12px;
+  padding:10px;border-radius:6px;cursor:pointer;transition:border-color .2s,color .2s;
+}
+.lm-btn-ghost:hover{border-color:var(--grey);color:var(--white)}
+.lm-terms{font-size:10px;color:var(--mid);text-align:center;line-height:1.5}
+.lm-terms a{color:var(--grey);text-decoration:underline}
+
+/* Step indicator */
+.lm-steps-ind{
+  display:flex;align-items:center;gap:6px;padding:12px 22px 0;
+}
+.lsi{
+  height:2px;border-radius:1px;flex:1;background:var(--dark4);transition:background .3s;
+}
+.lsi.done{background:var(--amber)}
+
+/* Success */
+.lm-success{
+  display:none;padding:32px 22px;text-align:center;
+}
+.lm-success.show{display:block}
+.lms-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin:0 auto 14px;
+}
+.lms-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;margin-bottom:6px}
+.lms-sub{font-size:12px;color:var(--grey);line-height:1.7;max-width:300px;margin:0 auto 18px}
+.lms-ref{
+  font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);
+  background:rgba(255,179,0,0.08);border:1px solid rgba(255,179,0,0.15);
+  border-radius:5px;padding:6px 14px;display:inline-block;margin-bottom:18px;
+}
+
+/* ── MOBILE NAV ────────────────────────────────────── */
+.nav-hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-hamburger span{
+  display:block;width:22px;height:2px;background:var(--white);
+  border-radius:2px;transition:transform .25s,opacity .25s;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:768px){
+  .nav-hamburger{display:flex}
+  .nav-links{
+    display:none;
+    position:absolute;top:64px;left:0;right:0;
+    background:rgba(10,10,10,0.98);backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,179,0,0.12);
+    flex-direction:column;align-items:stretch;gap:0;
+    padding:8px 0;z-index:299;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{
+    padding:14px 6vw;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.04);
+  }
+  .nav-links a:last-child{border-bottom:none}
+  .nav-cta{
+    margin:12px 6vw;border-radius:5px;
+    text-align:center;justify-content:center;
+  }
+}
+
+/* ── PRE-BID SCROLL SECTION ────────────────────────── */
+.prebid-section{
+  padding:72px 0 72px;
+  border-top:1px solid var(--dark4);
+  overflow:hidden;
+}
+.prebid-header{
+  padding:0 6vw 36px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;
+}
+.prebid-header-left{}
+.prebid-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:10px;
+}
+.prebid-badge-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--amber);animation:pulse-dot 1.6s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.7)}}
+.prebid-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,3.5vw,42px);
+  letter-spacing:1px;line-height:1;
+  color:var(--white);
+}
+.prebid-sub{
+  font-size:13px;color:var(--grey);margin-top:6px;
+}
+.prebid-view-all{
+  font-size:12px;font-weight:600;color:var(--amber);
+  text-decoration:none;white-space:nowrap;
+  display:flex;align-items:center;gap:6px;
+  transition:opacity .2s;
+}
+.prebid-view-all:hover{opacity:.7}
+
+/* Track */
+.prebid-track-wrap{
+  position:relative;
+}
+.prebid-track{
+  display:flex;gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding:0 6vw 20px;
+  scrollbar-width:none;
+}
+.prebid-track::-webkit-scrollbar{display:none}
+.prebid-track-wrap::after{
+  content:'';
+  position:absolute;right:0;top:0;bottom:20px;
+  width:80px;
+  background:linear-gradient(to right, transparent, var(--dark));
+  pointer-events:none;
+}
+
+/* Cards */
+.pb-card{
+  flex:0 0 220px;
+  scroll-snap-align:start;
+  background:var(--dark2);
+  border:1px solid var(--dark4);
+  border-radius:10px;
+  overflow:hidden;
+  transition:border-color .2s,transform .2s;
+  text-decoration:none;
+  display:flex;flex-direction:column;
+}
+.pb-card:hover{border-color:rgba(255,179,0,0.35);transform:translateY(-2px)}
+.pb-card-img{
+  width:100%;height:140px;
+  object-fit:cover;background:var(--dark3);
+  display:block;flex-shrink:0;
+}
+.pb-card-img-placeholder{
+  width:100%;height:140px;
+  background:var(--dark3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;flex-shrink:0;
+}
+.pb-card-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pb-card-category{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--amber);
+}
+.pb-card-title{
+  font-size:13px;font-weight:600;color:var(--white);
+  line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.pb-card-price{
+  font-family:'DM Mono',monospace;font-size:14px;
+  color:var(--amber);margin-top:auto;padding-top:8px;
+}
+.pb-card-bids{
+  font-size:10px;color:var(--grey);
+  display:flex;align-items:center;gap:5px;
+}
+.pb-card-bids::before{content:'◎';font-size:8px;color:var(--green)}
+.pb-empty{
+  padding:40px 6vw;color:var(--grey);font-size:13px;
+}
+.pb-loading{
+  padding:32px 6vw;
+  display:flex;align-items:center;gap:12px;
+  color:var(--grey);font-size:13px;
+}
+.pb-spinner{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--dark4);border-top-color:var(--amber);
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:480px){
+  .pb-card{flex:0 0 180px}
+  .pb-card-img,.pb-card-img-placeholder{height:120px}
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <a class="nav-logo" href="https://declutterpawnshop.com/auction">
+    <img src="/images/dps-logo.png" alt="Declutter Pawn Shop">
+    <span class="nav-badge">Auction</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#difference">DPS vs Auction</a>
+    <a href="#rules">Rules</a>
+    <a href="/auction-items">View Items</a>
+    <a href="https://t.me/dpsauction_bot" class="nav-cta" target="_blank">Start Bidding →</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">
+      <span>● Lagos · Curated Auctions</span>
+    </div>
+
+    <h1 class="hero-title">
+      Lagos's<br>
+      auction<br>
+      <em>marketplace.</em>
+    </h1>
+
+    <p class="hero-sub">
+      The auction marketplace for things worth bidding on.
+      <br><br>
+      <strong>Apply to list. Get approved. Buyers compete.</strong>
+      Open bids — the market sets the price.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/auction-items" class="btn-amber">Browse items</a>
+      <a class="btn-ghost" href="/list-auction">Apply to list →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hs-item">
+        <div class="hs-num">₦0</div>
+        <div class="hs-label">Listing fee<br>for sellers</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">10</div>
+        <div class="hs-label">Bids to<br>go live</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">15m</div>
+        <div class="hs-label">To pay when<br>you win</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">85%</div>
+        <div class="hs-label">Payout<br>to seller</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY STRIP -->
+<div class="urgency-strip">
+  <div class="us-item">No negotiation. Highest bid wins.</div>
+  <div class="us-item">15 minutes to pay or you're out.</div>
+  <div class="us-item">Every item verified before listing.</div>
+  <div class="us-item">Escrow holds payment until pickup.</div>
+  <div class="us-item">Sellers offloading fast. Prices reflect it.</div>
+</div>
+
+<!-- ═══ PRE-BID ITEMS ══════════════════════════════════ -->
+<div class="prebid-section" id="prebid">
+  <div class="prebid-header">
+    <div class="prebid-header-left">
+      <div class="prebid-badge">
+        <span class="prebid-badge-dot"></span>
+        Accepting bids now
+      </div>
+      <h2 class="prebid-title">Items in pre-bid</h2>
+      <p class="prebid-sub">Put in an early bid — no payment yet. Just lock your spot.</p>
+    </div>
+    <a href="/auction-items" class="prebid-view-all">View all items →</a>
+  </div>
+  <div class="prebid-track-wrap">
+    <div class="prebid-track" id="prebidTrack">
+      <div class="pb-loading">
+        <div class="pb-spinner"></div>
+        Loading items…
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ HOW IT WORKS ═══════════════════════════════════ -->
+<section id="how">
+  <div class="max">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">How it works.</h2>
+    <p class="section-body">
+      Apply to list. Get approved. Buyers compete. Highest bid wins — and has 15 minutes to pay.
+    </p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01 — Apply to list</div>
+        <div class="how-title">Submit your item through the Telegram bot</div>
+        <div class="how-body">Send photos, a description, and your starting price — the minimum you'll accept. DPS reviews every submission before anything goes public. Free to apply.</div>
+        <div class="how-tag tag-amber">Zero listing fee</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02 — Approved &amp; posted</div>
+        <div class="how-title">Your item goes live on the channel and auction page</div>
+        <div class="how-body">Approved items are posted to the DPS Auction channel and listed on the auction page. Early bids start coming in — non-binding, no payment yet. Just real buyers signalling interest.</div>
+        <div class="how-tag tag-amber">Channel spotlight · Early bids open</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03 — Auction opens</div>
+        <div class="how-title">10 early bids triggers the live auction</div>
+        <div class="how-body">Once 10 bids are placed, the auction goes live. All bidders are notified via Telegram and email. Every new bid must beat the current highest — and resets the 10-minute countdown.</div>
+        <div class="how-tag tag-amber">Competitive bidding begins</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">04 — Highest bidder wins</div>
+        <div class="how-title">10 minutes of silence closes the auction</div>
+        <div class="how-body">When no new bid comes in for 10 minutes, the auction closes. The highest bidder gets a Paystack payment link via Telegram and email. They have 15 minutes to pay.</div>
+        <div class="how-tag tag-red">15-minute payment window</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">05 — Escrow &amp; pickup</div>
+        <div class="how-title">Payment held until the buyer confirms pickup</div>
+        <div class="how-body">DPS holds the payment in escrow. The buyer gets the seller's contact to arrange pickup directly. Once confirmed, the seller receives their 85% payout. Both parties are notified throughout.</div>
+        <div class="how-tag tag-green">Escrow protected · 85% payout</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">06 — No payment?</div>
+        <div class="how-title">3 chances. Then it moves on.</div>
+        <div class="how-body">If the winner doesn't pay, the next highest bidder gets their chance. After 3 failed attempts the auction expires. The seller is notified and can choose to relist.</div>
+        <div class="how-tag tag-amber">Seller protected · Relist anytime</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DPS vs AUCTION ══════════════════════════════════ -->
+<div class="diff-section" id="difference">
+  <div class="diff-inner">
+
+    <!-- DPS Standard -->
+    <div class="diff-col">
+      <div class="diff-col-head">
+        <div class="diff-logo-wrap wrap-standard">🏪</div>
+        <div>
+          <div class="diff-col-title">Declutter Pawn Shop</div>
+          <div class="diff-col-sub">Open to all items. Fixed price. First buyer wins.</div>
+        </div>
+      </div>
+      <div class="diff-list">
+        <div class="diff-item">
+          <div class="diff-icon di-grey">💬</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Price agreed upfront</div>
+            <div class="diff-item-desc">You submit your item and desired price. DPS lists it and handles the sale. First person who pays gets it.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-grey">🕐</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">No time pressure</div>
+            <div class="diff-item-desc">Items are listed until they sell. No countdown, no urgency.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-grey">👤</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Single buyer, first come first served</div>
+            <div class="diff-item-desc">No bidding. No competition. Whoever pays first wins.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-grey">📦</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Best for everyday items</div>
+            <div class="diff-item-desc">Clothes, furniture, gadgets, household items — things with a clear market price.</div>
+          </div>
+        </div>
+      </div>
+      <div class="diff-cta">
+        <a href="https://t.me/declutterpawnshop2_bot" class="btn-ghost" style="display:inline-flex;align-items:center;gap:8px;font-size:13px" target="_blank">
+          Chat with Dayo →
+        </a>
+      </div>
+    </div>
+
+    <!-- DPS Auction -->
+    <div class="diff-col">
+      <div class="diff-col-head">
+        <div class="diff-logo-wrap wrap-auction">🔨</div>
+        <div>
+          <div class="diff-col-title" style="color:var(--amber)">DPS Auction</div>
+          <div class="diff-col-sub">Curated. Applied for. Spotlighted to active buyers.</div>
+        </div>
+      </div>
+      <div class="diff-list">
+        <div class="diff-item">
+          <div class="diff-icon di-amber">📈</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Buyers decide the final price</div>
+            <div class="diff-item-desc">You set a starting price. From there, buyers compete and the price is decided by the market.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-amber">⏱️</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Everything has a timer</div>
+            <div class="diff-item-desc">15 minutes to pay when you win. 24 hours before the auction expires. Urgency keeps things moving.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-amber">👥</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Multiple buyers compete</div>
+            <div class="diff-item-desc">10 early bids to open, then live rounds until someone pays. Not first come first served.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-amber">💎</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">For items worth spotlighting</div>
+            <div class="diff-item-desc">Sneakers, phones, watches, collectibles — items that attract multiple buyers. Not everything qualifies. That's the point.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-icon di-amber">💰</div>
+          <div class="diff-item-text">
+            <div class="diff-item-label">Seller keeps 85%</div>
+            <div class="diff-item-desc">DPS takes 15% only if the item sells. No listing fee. No payment if it doesn't close.</div>
+          </div>
+        </div>
+      </div>
+      <div class="diff-cta">
+        <a class="btn-amber" href="/list-auction" style="font-size:13px">
+          Apply to list →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ WHY AUCTION ═════════════════════════════════════ -->
+<section>
+  <div class="max">
+    <div class="section-eyebrow">Why auction</div>
+    <h2 class="section-title">Why it works.</h2>
+    <p class="section-body">
+      Because it's not open to everything — the items that make it through are worth bidding on. That's what brings buyers here.
+    </p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">📈</div>
+        <div class="why-title">Better deals for buyers</div>
+        <div class="why-body">Sellers often list items they want to move quickly. That urgency means prices reflect actual demand — not wishful thinking.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💡</div>
+        <div class="why-title">Price discovery for sellers</div>
+        <div class="why-body">You never really know what your item is worth until buyers compete for it. Auction tells you the real number.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✅</div>
+        <div class="why-title">Curated, not open to everything</div>
+        <div class="why-body">Not every item gets approved. That's deliberate. It means the items that do make it in are worth a buyer's attention — and a bid.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔒</div>
+        <div class="why-title">Secure payment via escrow</div>
+        <div class="why-body">Money is held until pickup is confirmed. Seller can't disappear. Buyer can't back out. Everyone is covered.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📲</div>
+        <div class="why-title">Simple bidding system</div>
+        <div class="why-body">Bid via Telegram or the website. Email alerts keep you in the loop even when you're not watching the channel.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🚫</div>
+        <div class="why-title">Your item gets actively promoted</div>
+        <div class="why-body">Approved items are posted to the DPS Auction channel with its own listing card. Your item is put in front of people — not just sitting on a page waiting.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RULES ════════════════════════════════════════════ -->
+<div class="rules-strip" id="rules">
+  <div class="rules-inner">
+    <div class="section-eyebrow">The rules</div>
+    <h2 class="section-title">The rules. Short and clear.</h2>
+
+    <div class="rules-grid">
+      <div>
+        <div class="rules-col-title for-buyers">For buyers</div>
+        <div class="rule-item">
+          <div class="rule-num">01</div>
+          <div class="rule-text">Auction opens when <strong>10 bids</strong> are placed. Early bids are non-binding — no payment yet.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">02</div>
+          <div class="rule-text">Once live, every 10 minutes the highest bidder gets a <strong>Paystack invoice</strong>.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">03</div>
+          <div class="rule-text">You have <strong>15 minutes</strong> to pay. Miss it and you're disqualified — next bidder gets their turn.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">04</div>
+          <div class="rule-text">Minimum raise during live auction: <strong>₦1,000</strong> above the current highest bid.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">05</div>
+          <div class="rule-text"><strong>Ties broken by timestamp.</strong> First bid at that amount wins priority.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">06</div>
+          <div class="rule-text">Payment held in <strong>escrow until pickup is confirmed.</strong> You're protected.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="rules-col-title for-sellers">For sellers</div>
+        <div class="rule-item">
+          <div class="rule-num">01</div>
+          <div class="rule-text"><strong>No listing fee.</strong> DPS takes 15% only if the item sells.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">02</div>
+          <div class="rule-text">Set a <strong>starting price</strong> — the minimum you'll accept. Keep it real or it won't get approved.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">03</div>
+          <div class="rule-text"><strong>Not every item gets approved.</strong> Admin checks quality, starting price, and photos. Weak listings are rejected — no exceptions.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">04</div>
+          <div class="rule-text">Once approved, your item is <strong>spotlighted to the DPS Auction channel</strong> and shown on the items page. That's your promotion.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">05</div>
+          <div class="rule-text">If unsold after 24 hours, item is listed at the starting price as a <strong>direct buy</strong>. You choose to relist or not.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">06</div>
+          <div class="rule-text"><strong>85% payout</strong> released after buyer confirms pickup. Same day where possible.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CTA BANNER ══════════════════════════════════════ -->
+<div class="cta-banner">
+  <div class="cta-banner-inner">
+    <div class="cta-kicker">Every item has a price.</div>
+    <h2 class="cta-title">Find<br>yours.</h2>
+    <p class="cta-sub">
+      Apply to list. If it's approved, buyers compete for it and the market sets the price.
+      No listing fee. 85% payout if it sells. Nothing lost if it doesn't.
+    </p>
+    <div class="cta-actions">
+      <a href="/list-auction" class="btn-amber">🔨 List your item</a>
+      <a href="/auction-items" class="btn-ghost">See live auctions →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo"><img src="/images/dps-logo.png" alt="Declutter Pawn Shop"></div>
+  <div class="foot-links">
+    <a href="https://declutterpawnshop.com">Main Site</a>
+    <a href="/auction-items">Auction Items</a>
+    <a href="https://t.me/dpsauction_channel" target="_blank">Channel</a>
+    <a href="https://t.me/dpsauction_bot" target="_blank">Bot</a>
+    <a href="/terms">Terms</a>
+  </div>
+  <div class="foot-copy">© 2026 Declutter Pawn Shop · Lagos</div>
+</footer>
+
+
+
+
+<script>
+(function(){
+  var btn = document.getElementById('navHamburger');
+  var links = document.querySelector('.nav-links');
+  if(!btn || !links) return;
+  btn.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on link click
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      btn.classList.remove('open');
+    });
+  });
+})();
+</script>
+
+<script>
+// ── Pre-bid items loader ─────────────────────────────
+(function(){
+  var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2s7WEJR90LGqMGOqawfk372QTAFO5TfiJIgFwncfjBWU4JzETO18UzW8iZtSVAZ2K00PzzPbisOKh/pub?gid=1542081058&single=true&output=csv';
+  var EMOJI = {'Electronics':'📱','Fashion':'👟','Watches':'⌚','Bags':'👜','Jewellery':'💎','Books':'📚','Furniture':'🛋️','Vehicles':'🚗','Sports':'⚽','Art':'🎨','Games':'🎮','Other':'📦'};
+  var track = document.getElementById('prebidTrack');
+  if(!track) return;
+
+  function fmt(n){
+    var v = parseFloat(String(n).replace(/[^0-9.]/g,''));
+    if(isNaN(v)) return n;
+    return '₦' + Math.round(v).toLocaleString('en-NG');
+  }
+
+  function parseCSV(text){
+    var lines = text.trim().split(/\r?\n/);
+    var headers = lines[0].split(',').map(function(h){return h.trim().replace(/^"+|"+$/g,'')});
+    return lines.slice(1).map(function(line){
+      // handle quoted fields
+      var cols=[], cur='', inQ=false;
+      for(var i=0;i<line.length;i++){
+        var ch=line[i];
+        if(ch==='"'){inQ=!inQ;}
+        else if(ch===','&&!inQ){cols.push(cur.trim());cur='';}
+        else{cur+=ch;}
+      }
+      cols.push(cur.trim());
+      var obj={};
+      headers.forEach(function(h,i){obj[h]=cols[i]||'';});
+      return obj;
+    });
+  }
+
+  function buildCard(row){
+    var title = row['Item Name']||row['item_name']||row['Title']||row['title']||'';
+    var price = row['Starting Price']||row['starting_price']||row['Price']||row['price']||'';
+    var cat   = row['Category']||row['category']||'';
+    var bids  = row['Bid Count']||row['bid_count']||row['Bids']||'';
+    var photo = row['Photo URL']||row['photo_url']||row['Image']||'';
+    var id    = row['Auction ID']||row['auction_id']||row['ID']||'';
+    if(!title) return null;
+    var emoji = EMOJI[cat]||'📦';
+    var href  = id ? '/auction-items?id='+encodeURIComponent(id) : '/auction-items';
+    var img   = photo
+      ? '<img class="pb-card-img" src="'+photo+'" alt="'+title+'" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=pb-card-img-placeholder>'+emoji+'</div>\'">'
+      : '<div class="pb-card-img-placeholder">'+emoji+'</div>';
+    var bidsHtml = bids ? '<div class="pb-card-bids">'+bids+' early bid'+(parseInt(bids)!==1?'s':'')+'</div>' : '';
+    return '<a class="pb-card" href="'+href+'">'
+      +img
+      +'<div class="pb-card-body">'
+      +(cat?'<div class="pb-card-category">'+cat+'</div>':'')
+      +'<div class="pb-card-title">'+title+'</div>'
+      +(price?'<div class="pb-card-price">'+fmt(price)+'</div>':'')
+      +bidsHtml
+      +'</div></a>';
+  }
+
+  function load(){
+    fetch(CSV_URL)
+      .then(function(r){return r.text();})
+      .then(function(text){
+        var rows = parseCSV(text);
+        var approved = rows.filter(function(r){
+          var s = (r['Status']||r['status']||'').toLowerCase();
+          return s==='approved'||s==='pre-bid'||s==='prebid'||s==='pre_bid';
+        });
+        track.innerHTML = '';
+        if(!approved.length){
+          track.innerHTML='<div class="pb-empty">No items in pre-bid right now — check back soon.</div>';
+          return;
+        }
+        approved.forEach(function(row){
+          var card = buildCard(row);
+          if(card){
+            var el=document.createElement('div');
+            el.innerHTML=card;
+            track.appendChild(el.firstElementChild);
+          }
+        });
+      })
+      .catch(function(){
+        track.innerHTML='<div class="pb-empty">Could not load items — <a href="/auction-items" style="color:var(--amber)">view all →</a></div>';
+      });
+  }
+
+  load();
+  // Auto-refresh every 2 minutes
+  setInterval(load, 120000);
+})();
+</script>
+</body>
+</html>

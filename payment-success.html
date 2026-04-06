@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmed — Declutter Pawn Shop</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/images/dps-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#00C853; --green2:#00A843;
+  --dark:#0D0D0D; --dark2:#111111; --dark3:#1A1A1A; --dark4:#242424; --dark5:#2E2E2E;
+  --mid:#4A4A4A; --grey:#777; --white:#F9F8F5;
+  --amber:#F59E0B;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(13,13,13,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--dark3);}
+.nav-logo img{height:32px;object-fit:contain;}
+.nav-back{font-size:12px;color:var(--grey);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.nav-back:hover{color:var(--white);}
+
+/* PAGE LAYOUT */
+.page{min-height:100vh;padding:80px 16px 64px;display:flex;flex-direction:column;align-items:center;}
+.inner{width:100%;max-width:480px;}
+
+/* SUCCESS BLOCK */
+.success-block{text-align:center;padding:48px 0 36px;}
+.ring{width:64px;height:64px;border-radius:50%;background:rgba(0,200,83,0.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 20px;animation:pop .5s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes pop{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
+.success-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,72px);letter-spacing:1px;line-height:.93;color:var(--white);}
+.success-title .g{color:var(--green);}
+.success-sub{font-size:14px;color:var(--grey);margin-top:12px;line-height:1.65;max-width:340px;margin-left:auto;margin-right:auto;}
+
+/* ITEM CARD */
+.item-card{display:flex;gap:14px;align-items:center;background:var(--dark2);border:1px solid var(--dark4);border-left:3px solid var(--green);border-radius:8px;padding:14px 16px;margin:0 0 6px;}
+.item-card-img{width:48px;height:48px;border-radius:6px;object-fit:cover;background:var(--dark3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--mid);}
+.item-card-img img{width:48px;height:48px;border-radius:6px;object-fit:cover;}
+.item-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:3px;}
+.item-name{font-weight:700;font-size:14px;color:var(--white);line-height:1.3;}
+.item-amt{font-family:'DM Mono',monospace;font-size:12px;color:var(--grey);margin-top:2px;}
+.secured-badge{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--grey);padding:7px 10px;background:var(--dark2);border:1px solid var(--dark4);border-radius:5px;margin-bottom:24px;}
+.secured-badge span{color:#00C3E3;font-weight:700;}
+
+/* CARDS */
+.card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.card-stripe{height:2px;}
+.stripe-green{background:linear-gradient(90deg,var(--green),var(--green2));}
+.stripe-amber{background:linear-gradient(90deg,var(--amber),#D97706);}
+.card-body{padding:18px 20px;}
+.card-eyebrow{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;}
+.eyebrow-green{color:var(--green);}
+.eyebrow-amber{color:var(--amber);}
+.card-title{font-weight:700;font-size:15px;color:var(--white);margin-bottom:8px;line-height:1.3;}
+.card-text{font-size:13px;color:var(--grey);line-height:1.65;}
+.card-text strong{color:var(--white);}
+
+/* PIN CARD */
+.pin-row{display:flex;align-items:flex-start;gap:14px;}
+.pin-icon{width:38px;height:38px;border-radius:8px;background:rgba(0,200,83,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;margin-bottom:10px;}
+.step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--dark3);}
+.step:last-child{border-bottom:none;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green);line-height:1;flex-shrink:0;width:24px;}
+.step-t{font-weight:600;font-size:13px;color:var(--white);margin-bottom:2px;}
+.step-d{font-size:12px;color:var(--grey);line-height:1.6;}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--dark3);margin:20px 0;}
+
+/* ACTIONS */
+.actions{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:var(--dark);font-weight:700;font-size:13px;padding:13px 24px;border-radius:6px;text-decoration:none;transition:background .2s;}
+.btn-primary:hover{background:var(--green2);}
+.btn-secondary{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;border:1px solid var(--dark4);color:var(--grey);font-size:13px;padding:12px 24px;border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s;}
+.btn-secondary:hover{border-color:var(--grey);color:var(--white);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--dark3);padding:24px 16px;text-align:center;}
+footer p{font-size:11px;color:var(--mid);}
+footer a{color:var(--grey);text-decoration:none;font-size:11px;}
+footer a:hover{color:var(--green);}
+
+@media(min-width:540px){
+  nav{padding:14px 48px;}
+  .page{padding:96px 24px 80px;}
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/images/dps-logo.png" alt="Declutter Pawn Shop"></a>
+  <a href="/items" class="nav-back">← Browse items</a>
+</nav>
+
+<div class="page">
+  <div class="inner">
+
+    <!-- SUCCESS HERO -->
+    <div class="success-block">
+      <div class="ring">✓</div>
+      <div class="success-label">Payment confirmed</div>
+      <div class="success-title">MONEY<br><span class="g">ESCROWED.</span></div>
+      <p class="success-sub">Your funds are held in escrow by DPS — not released until you physically confirm the item at pickup.</p>
+    </div>
+
+    <!-- ITEM CARD (shown if URL params present) -->
+    <div class="item-card" id="itemCard" style="display:none;">
+      <div class="item-card-img" id="itemImg">📦</div>
+      <div>
+        <div class="item-lbl">Item purchased</div>
+        <div class="item-name" id="itemName">—</div>
+        <div class="item-amt" id="itemAmount"></div>
+      </div>
+    </div>
+
+    <div class="secured-badge">
+      🔒 Secured by <span>Paystack</span> &nbsp;·&nbsp; Escrow held until pickup
+    </div>
+
+    <!-- PIN CARD -->
+    <div class="card">
+      <div class="card-stripe stripe-green"></div>
+      <div class="card-body">
+        <div class="pin-row">
+          <div class="pin-icon">📬</div>
+          <div>
+            <div class="card-eyebrow eyebrow-green">Your pickup PIN</div>
+            <div class="card-title">Check your email — your 4-digit PIN is there.</div>
+            <div class="card-text">You'll need it at pickup. <strong>Only give the PIN to the seller after you've inspected the item and you're satisfied.</strong> That's when payment gets released.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WARNING CARD -->
+    <div class="card">
+      <div class="card-stripe stripe-amber"></div>
+      <div class="card-body">
+        <div class="card-eyebrow eyebrow-amber">⚠ Don't share it early</div>
+        <div class="card-text">Once the PIN is used, escrow releases to the seller. Don't hand it over until you're holding the item and happy with it.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- STEPS -->
+    <div class="card">
+      <div class="card-body" style="padding-bottom:6px;">
+        <div class="card-eyebrow eyebrow-green" style="margin-bottom:12px;">What happens next</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div>
+              <div class="step-t">Contact the seller</div>
+              <div class="step-d">You'll receive seller contact details by email. Reach out and agree on a pickup time.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div>
+              <div class="step-t">Inspect the item</div>
+              <div class="step-d">Test it, check it thoroughly. Don't rush — your money is safe until you confirm.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div>
+              <div class="step-t">Give the PIN, deal done</div>
+              <div class="step-d">Happy with the item? Share your 4-digit PIN with the seller. That confirms the handover and releases their payout. ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- DISPATCH NOTE -->
+    <div class="card">
+      <div class="card-stripe stripe-amber"></div>
+      <div class="card-body">
+        <div class="card-eyebrow eyebrow-amber">Sending a rider?</div>
+        <div class="card-title">Brief them before they go.</div>
+        <div class="card-text">Tell them exactly what to check, give them the PIN, and make clear — <strong>don't confirm until the item is good.</strong> Handing over the PIN via dispatch counts as your acceptance.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SUPPORT -->
+    <div style="text-align:center;margin-bottom:8px;">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:8px;">Need help?</div>
+      <div style="font-size:13px;color:var(--grey);margin-bottom:16px;">No PIN email? No seller contact? Message Dayo and we'll sort it.</div>
+    </div>
+    <div class="actions">
+      <a href="https://t.me/declutterpawnshop2_bot?start" class="btn-primary" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+        Chat with Dayo
+      </a>
+      <a href="/items" class="btn-secondary">← Browse more items</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p style="margin-bottom:8px;">
+    <a href="/items">Browse Items</a> &nbsp;·&nbsp;
+    <a href="https://t.me/declutterpawnshop">Telegram</a> &nbsp;·&nbsp;
+    <a href="/terms.html">Terms</a>
+  </p>
+  <p>© 2026 Declutter Pawn Shop · Lagos</p>
+</footer>
+
+<script>
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  var name   = p.get('item_name') || p.get('name');
+  var amount = p.get('amount');
+  var ref    = p.get('reference') || p.get('trxref');
+  var img    = p.get('image');
+
+  if (name || ref) {
+    var card = document.getElementById('itemCard');
+    card.style.display = 'flex';
+    if (name)   document.getElementById('itemName').textContent   = decodeURIComponent(name);
+    if (!name && ref) document.getElementById('itemName').textContent = 'Ref: ' + ref;
+    if (amount) {
+      var n = parseInt(amount);
+      if (!isNaN(n)) document.getElementById('itemAmount').textContent = '₦' + n.toLocaleString('en-NG');
+    }
+    if (img) {
+      var el = document.getElementById('itemImg');
+      el.innerHTML = '<img src="' + decodeURIComponent(img) + '" alt="Item">';
+    }
+  }
+})();
+</script>
+</body>
+</html>

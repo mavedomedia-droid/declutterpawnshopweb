@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>You Won — DPS Auction</title>
+<meta property="og:title" content="I won a DPS Auction 🏆">
+<meta property="og:description" content="Highest bidder. Payment confirmed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#00C853;--green2:#69F0AE;--green3:#B9F6CA;
+  --dark:#0A0A0A;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
+  --amber:#FFB300;--white:#F9F8F5;--grey:#777;--muted:#444;
+}
+html,body{width:100%;min-height:100%;overflow-x:hidden;background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:52px;padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,10,0.6);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-logo img{height:32px;object-fit:contain}
+.nav-badge{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,200,83,0.25);border-radius:3px;background:rgba(0,200,83,0.07);padding:3px 8px}
+
+/* ── FULL SCREEN HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:60px 0 0;
+}
+
+/* ─ dark radial bg ─ */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,200,83,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+/* ─ ring bursts ─ */
+.rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:1}
+.ring{
+  position:absolute;border-radius:50%;border:1px solid var(--green);
+  transform:translate(-50%,-50%);
+  opacity:0;
+}
+.ring:nth-child(1){width:160px;height:160px;animation:ring-out 1.8s 0.1s ease-out forwards}
+.ring:nth-child(2){width:280px;height:280px;animation:ring-out 1.8s 0.25s ease-out forwards}
+.ring:nth-child(3){width:420px;height:420px;animation:ring-out 1.8s 0.4s ease-out forwards}
+.ring:nth-child(4){width:600px;height:600px;animation:ring-out 1.8s 0.55s ease-out forwards}
+.ring:nth-child(5){width:820px;height:820px;animation:ring-out 1.8s 0.7s ease-out forwards}
+@keyframes ring-out{
+  0%  {opacity:0.7;transform:translate(-50%,-50%) scale(0.1)}
+  100%{opacity:0;  transform:translate(-50%,-50%) scale(1)}
+}
+
+/* ─ confetti particles ─ */
+.confetti{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:2}
+.p{
+  position:absolute;top:-10px;
+  width:6px;height:10px;border-radius:2px;
+  animation:fall linear forwards;
+  opacity:0;
+}
+@keyframes fall{
+  0%  {opacity:1;transform:translateY(0)    rotate(0deg)}
+  100%{opacity:0;transform:translateY(110vh) rotate(720deg)}
+}
+
+/* ─ gavel SVG illustration ─ */
+.gavel-scene{
+  position:relative;z-index:10;
+  width:220px;height:220px;
+  margin-bottom:8px;
+  animation:scene-drop 0.7s 0.05s cubic-bezier(0.34,1.4,0.64,1) both;
+}
+@keyframes scene-drop{
+  from{opacity:0;transform:scale(0.5) rotate(-15deg)}
+  to  {opacity:1;transform:scale(1)   rotate(0deg)}
+}
+
+.gavel-svg{
+  width:100%;height:100%;
+  filter:drop-shadow(0 0 30px rgba(0,200,83,0.5)) drop-shadow(0 0 60px rgba(0,200,83,0.2));
+  animation:gavel-strike 0.5s 0.05s cubic-bezier(0.36,0.07,0.19,0.97) both;
+  transform-origin:70% 75%;
+}
+@keyframes gavel-strike{
+  0%  {transform:rotate(-50deg)}
+  40% {transform:rotate(12deg)}
+  65% {transform:rotate(-5deg)}
+  82% {transform:rotate(3deg)}
+  100%{transform:rotate(0deg)}
+}
+
+/* impact flash */
+.impact{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  width:90px;height:12px;
+  background:radial-gradient(ellipse, rgba(0,200,83,0.8) 0%, transparent 70%);
+  border-radius:50%;
+  animation:impact-flash 0.4s 0.3s ease-out both;
+}
+@keyframes impact-flash{
+  0%  {opacity:1;transform:translateX(-50%) scaleX(0.2)}
+  40% {opacity:0.8;transform:translateX(-50%) scaleX(1.2)}
+  100%{opacity:0;transform:translateX(-50%) scaleX(1)}
+}
+
+/* ─ headline ─ */
+.won-text{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:0 24px;
+  animation:text-up 0.6s 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes text-up{
+  from{opacity:0;transform:translateY(20px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+.won-eyebrow{
+  font-size:9px;font-weight:700;letter-spacing:4px;
+  text-transform:uppercase;color:var(--green);
+  margin-bottom:6px;
+}
+.won-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(64px,18vw,96px);
+  line-height:0.88;letter-spacing:2px;
+  color:var(--white);
+}
+.won-h1 em{color:var(--green);font-style:normal}
+.won-sub{
+  font-size:12px;color:var(--grey);
+  margin-top:10px;line-height:1.5;
+}
+
+/* ── CARD ── */
+.card{
+  position:relative;z-index:10;
+  width:calc(100% - 40px);max-width:400px;
+  margin:28px auto 0;
+  background:var(--dark2);
+  border:1px solid var(--dark4);border-radius:14px;overflow:hidden;
+  animation:card-up 0.6s 0.75s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes card-up{
+  from{opacity:0;transform:translateY(30px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+.card-stripe{height:2px;background:linear-gradient(90deg,var(--green),var(--green2),var(--green));background-size:200%;animation:ss 2s linear infinite}
+@keyframes ss{0%{background-position:0%}100%{background-position:200%}}
+
+/* item row */
+.item-row{padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--dark4)}
+.item-thumb{width:48px;height:48px;border-radius:7px;object-fit:cover;flex-shrink:0;background:var(--dark3);border:1px solid var(--dark4);display:flex;align-items:center;justify-content:center;font-size:20px}
+.item-thumb img{width:100%;height:100%;object-fit:cover;border-radius:7px}
+.item-info{flex:1;min-width:0}
+.item-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-chips{display:flex;gap:5px;margin-top:4px}
+.chip{font-size:9px;color:var(--grey);border:1px solid var(--dark5);border-radius:3px;padding:1px 6px}
+.item-id-badge{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--dark4)}
+.st{padding:12px 8px;text-align:center;border-right:1px solid var(--dark4)}
+.st:last-child{border-right:none}
+.st-l{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.st-v{font-family:'DM Mono',monospace;font-size:13px;color:var(--white)}
+.st-v.g{color:var(--green)}
+
+/* meta */
+.meta{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--dark4)}
+.mc{padding:12px 14px;border-right:1px solid var(--dark4)}
+.mc:last-child{border-right:none}
+.mc-l{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.mc-v{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-v.mono{font-family:'DM Mono',monospace;font-size:10px;color:var(--green)}
+
+/* share */
+.share{padding:12px 14px;display:flex;gap:8px}
+.sbtn{flex:1;padding:10px 6px;border-radius:7px;border:1px solid var(--dark5);background:var(--dark3);color:var(--grey);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px;transition:border-color .15s,color .15s}
+.sbtn:hover{border-color:var(--white);color:var(--white)}
+.sbtn.g{background:var(--green);border-color:var(--green);color:#000;font-weight:700}
+.sbtn.g:hover{background:var(--green2);border-color:var(--green2)}
+
+.foot{text-align:center;padding:24px 0 40px;position:relative;z-index:10}
+.foot img{height:20px;opacity:0.3}
+
+/* center stat bigger */
+.st-center{background:rgba(0,200,83,0.04);border-left:1px solid rgba(0,200,83,0.15);border-right:1px solid rgba(0,200,83,0.15)}
+.st-v.big{font-size:22px;font-weight:500;letter-spacing:0.5px}
+
+/* headline cycle fade */
+.won-h1{transition:opacity 0.35s ease}
+.won-h1.fade{opacity:0}
+.won-sub{transition:opacity 0.35s ease}
+.won-sub.fade{opacity:0}
+</style>
+<script src="/js/dps-config.js"></script>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/auction-items">
+    <img src="/images/dps-logo.png" alt="DPS Auction">
+    <span class="nav-badge">Auction</span>
+  </a>
+</nav>
+
+<!-- RINGS -->
+<section class="hero">
+  <div class="rings">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div>
+  </div>
+
+  <!-- CONFETTI -->
+  <div class="confetti" id="confetti"></div>
+
+  <!-- GAVEL SCENE -->
+  <div class="gavel-scene">
+    <div class="impact"></div>
+    <svg class="gavel-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- sound waves behind block -->
+      <ellipse cx="68" cy="148" rx="28" ry="6" fill="rgba(0,200,83,0.12)"/>
+
+      <!-- block / sounding block -->
+      <rect x="28" y="138" width="80" height="22" rx="5" fill="#1A1A1A" stroke="#2E2E2E" stroke-width="1.5"/>
+      <rect x="28" y="138" width="80" height="6"  rx="3" fill="#242424"/>
+      <rect x="30" y="155" width="76" height="2"  rx="1" fill="rgba(0,200,83,0.15)"/>
+
+      <!-- gavel handle -->
+      <rect x="88" y="70" width="12" height="88" rx="5"
+            fill="url(#handleGrad)" stroke="#2E2E2E" stroke-width="1"/>
+
+      <!-- gavel head body -->
+      <rect x="58" y="44" width="72" height="34" rx="7"
+            fill="url(#headGrad)" stroke="rgba(0,200,83,0.3)" stroke-width="1.5"/>
+      <!-- head highlight -->
+      <rect x="60" y="46" width="68" height="8" rx="4" fill="rgba(255,255,255,0.06)"/>
+      <!-- head face ring -->
+      <rect x="58" y="44" width="18" height="34" rx="4"
+            fill="rgba(0,200,83,0.12)" stroke="rgba(0,200,83,0.3)" stroke-width="1"/>
+      <!-- green accent line on head -->
+      <rect x="60" y="75" width="68" height="2"  rx="1" fill="rgba(0,200,83,0.4)"/>
+
+      <!-- DPS text on gavel -->
+      <text x="94" y="66" font-family="'DM Sans',sans-serif" font-size="9" font-weight="700"
+            fill="rgba(0,200,83,0.7)" text-anchor="middle" letter-spacing="1">DPS</text>
+
+      <!-- impact star burst lines -->
+      <g stroke="var(--green)" stroke-linecap="round" opacity="0.7">
+        <line x1="24" y1="138" x2="14" y2="128" stroke-width="1.5"/>
+        <line x1="18" y1="148" x2="4"  y2="148" stroke-width="1.5"/>
+        <line x1="24" y1="158" x2="14" y2="168" stroke-width="1.5"/>
+        <line x1="108" y1="138" x2="120" y2="128" stroke-width="1.5"/>
+        <line x1="115" y1="148" x2="130" y2="148" stroke-width="1.5"/>
+        <line x1="108" y1="158" x2="120" y2="168" stroke-width="1.5"/>
+      </g>
+
+      <!-- small spark dots -->
+      <circle cx="12" cy="136" r="2.5" fill="var(--green)" opacity="0.6"/>
+      <circle cx="128" cy="140" r="2"   fill="var(--green)" opacity="0.5"/>
+      <circle cx="20"  cy="168" r="1.5" fill="var(--green)" opacity="0.4"/>
+      <circle cx="120" cy="164" r="1.5" fill="var(--green)" opacity="0.4"/>
+      <circle cx="68"  cy="128" r="2"   fill="var(--green)" opacity="0.5"/>
+
+      <defs>
+        <linearGradient id="headGrad" x1="58" y1="44" x2="130" y2="78" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#2A2A2A"/>
+          <stop offset="100%" stop-color="#1A1A1A"/>
+        </linearGradient>
+        <linearGradient id="handleGrad" x1="88" y1="70" x2="100" y2="158" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#333"/>
+          <stop offset="100%" stop-color="#1C1C1C"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- HEADLINE — cycling -->
+  <div class="won-text">
+    <div class="won-eyebrow">Payment Confirmed · DPS Auction</div>
+    <div class="won-h1" id="cycle-text">You Are The<br><em>Highest Bidder.</em></div>
+    <div class="won-sub" id="cycle-sub">The gavel has fallen.</div>
+  </div>
+
+  <!-- INFO CARD -->
+  <div class="card">
+    <div class="card-stripe"></div>
+
+    <div class="item-row">
+      <div class="item-thumb" id="item-thumb">📦</div>
+      <div class="item-info">
+        <div class="item-name" id="item-name">Nike Air Jordan 1 Retro High OG – Chicago</div>
+        <div class="item-chips">
+          <span class="chip" id="item-cat">Sneakers</span>
+          <span class="chip" id="item-cond">Like New</span>
+        </div>
+      </div>
+      <div class="item-id-badge" id="item-id">AUC-20001</div>
+    </div>
+
+    <div class="stats">
+      <div class="st">
+        <div class="st-l">Bids</div>
+        <div class="st-v" id="s-bids">9</div>
+      </div>
+      <div class="st st-center">
+        <div class="st-l">Winning Bid</div>
+        <div class="st-v g big" id="s-amt">₦111k</div>
+      </div>
+      <div class="st">
+        <div class="st-l">Status</div>
+        <div class="st-v g">Paid ✓</div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="mc">
+        <div class="mc-l">Winner</div>
+        <div class="mc-v" id="m-buyer">Kolade Martins</div>
+      </div>
+      <div class="mc">
+        <div class="mc-l">Ref</div>
+        <div class="mc-v mono" id="m-ref">INV-AUC-20001</div>
+      </div>
+    </div>
+
+    <div class="share">
+      <a class="sbtn" id="sh-wa" href="#" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a class="sbtn" id="sh-tg" href="#" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+      <button class="sbtn g" onclick="copyLink(this)">Copy Link</button>
+    </div>
+  </div>
+
+  <div class="foot">
+    <img src="/images/dps-logo.png" alt="DPS Auction">
+  </div>
+</section>
+
+<script>
+var GAS_URL=DPS_GAS_URL;
+
+// confetti
+(function(){
+  var colors=['#00C853','#69F0AE','#FFB300','#FF8F00','#B9F6CA','#F9F8F5'];
+  var c=document.getElementById('confetti');
+  for(var i=0;i<60;i++){
+    var p=document.createElement('div');
+    p.className='p';
+    p.style.left=Math.random()*100+'vw';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.width=(4+Math.random()*6)+'px';
+    p.style.height=(6+Math.random()*10)+'px';
+    p.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    p.style.animationDuration=(1.2+Math.random()*2)+'s';
+    p.style.animationDelay=(0.1+Math.random()*1.2)+'s';
+    c.appendChild(p);
+  }
+})();
+
+function fmt(n){
+  n=parseFloat(String(n||0).replace(/[^0-9.]/g,''))||0;
+  return '₦'+n.toLocaleString('en-NG');
+}
+function fmtShort(n){
+  n=parseFloat(String(n||0).replace(/[^0-9.]/g,''))||0;
+  if(n>=1000000) return '₦'+(n/1000000).toFixed(1).replace(/\.0$/,'')+'m';
+  if(n>=1000)    return '₦'+(n/1000).toFixed(0)+'k';
+  return '₦'+n;
+}
+
+function render(item,ref,buyer,amount){
+  var amt=parseFloat(String(amount||item.final||item.bid||0).replace(/[^0-9.]/g,''))||0;
+  document.getElementById('item-name').textContent =item.name||'—';
+  document.getElementById('item-cat').textContent  =item.cat ||'—';
+  document.getElementById('item-cond').textContent =item.cond||'—';
+  document.getElementById('item-id').textContent   =item.id  ||'—';
+  document.getElementById('s-amt').textContent     =fmtShort(amt);
+  document.getElementById('s-bids').textContent    =item.bids||'—';
+  document.getElementById('m-buyer').textContent   =buyer||'—';
+  document.getElementById('m-ref').textContent     =ref  ||'—';
+  if(item.photo&&item.photo.startsWith('http'))
+    document.getElementById('item-thumb').innerHTML='<img src="'+item.photo+'" alt="">';
+  var url=window.location.href;
+  var msg=encodeURIComponent('🏆 I just won a DPS Auction!\n\n📦 '+(item.name||'')+'\n💰 '+fmt(amt)+'\n📌 '+(item.id||'')+'\n\n'+url);
+  document.getElementById('sh-wa').href='https://wa.me/?text='+msg;
+  document.getElementById('sh-tg').href='https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent('🏆 I won a DPS Auction! '+(item.name||''));
+}
+
+function copyLink(btn){
+  navigator.clipboard.writeText(window.location.href).then(function(){
+    var o=btn.textContent;btn.textContent='Copied ✓';
+    setTimeout(function(){btn.textContent=o;},2000);
+  });
+}
+
+// SAMPLE DATA
+window.addEventListener('DOMContentLoaded',function(){
+  render(
+    {id:'AUC-20001',name:'Nike Air Jordan 1 Retro High OG – Chicago',
+     cat:'Sneakers',cond:'Like New',
+     photo:'https://i.ibb.co/gLk8hxjL/4ff189654b1f.jpg',
+     bids:9,final:111000,start:45000},
+    'INV-AUC-20001','Kolade Martins',111000
+  );
+});
+
+// CYCLING HEADLINE — loops for 5 seconds then settles on last phrase
+var phrases = [
+  {h:'You Are The<br><em>Highest Bidder.</em>', s:'The gavel has fallen.'},
+  {h:'The Bid That<br><em>Paid Off.</em>',      s:'You outbid everyone.'},
+  {h:'Yours.<br><em>All Yours.</em>',            s:'This item belongs to you.'},
+  {h:'You Are The<br><em>Highest Bidder.</em>', s:'Payment confirmed.'},
+];
+(function(){
+  var h=document.getElementById('cycle-text');
+  var s=document.getElementById('cycle-sub');
+  var i=0; var runs=0; var maxRuns=phrases.length; // settle after one full loop
+  var timer=setInterval(function(){
+    // fade out
+    h.classList.add('fade'); s.classList.add('fade');
+    setTimeout(function(){
+      i=(i+1)%phrases.length;
+      runs++;
+      h.innerHTML=phrases[i].h;
+      s.textContent=phrases[i].s;
+      h.classList.remove('fade'); s.classList.remove('fade');
+      if(runs>=maxRuns){ clearInterval(timer); } // settle after ~5s
+    },350);
+  },1400);
+})();
+
+// PRODUCTION — uncomment, delete sample block above
+/*
+function getP(k){return new URLSearchParams(window.location.search).get(k)||'';}
+var ref=getP('trxref')||getP('reference');
+var aid=getP('auction_id');
+if(!aid&&ref){var m=ref.match(/AUC-[0-9]+/i);if(m)aid=m[0].toUpperCase();}
+if(aid){
+  fetch(GAS_URL+'?action=getAuctionItems').then(r=>r.json()).then(d=>{
+    var all=[...(d.live||[]),...(d.soon||[]),...(d.ended||[])];
+    var item=all.find(i=>i.id&&i.id.toUpperCase()===aid.toUpperCase());
+    if(item) render(item,ref,getP('buyer'),getP('amount'));
+  });
+}
+*/
+</script>
+</body>
+</html>
