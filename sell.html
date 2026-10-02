@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];l.dataLayer=l.dataLayer||[];l.push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sell with DPS — Declutter Pawn Shop</title>
-<meta name="description" content="Turn your unused items into cash. List with Declutter Pawn Shop — we handle the buyers, you handle the pickup.">
+<title>Sell an item — Declutter Pawn Shop</title>
+<meta name="description" content="Turn your unused items into cash. List on DPS — we handle the marketing, the buyers, and the escrow. You keep 87% — 97% on your first sale.">
 <meta name="theme-color" content="#0E1320">
 <link rel="canonical" href="https://declutterpawnshop.com/sell">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://declutterpawnshop.com/sell">
+<meta property="og:title" content="Sell an item — Declutter Pawn Shop">
+<meta property="og:description" content="Turn idle items into real cash. Escrow-protected, reviewed listings, real buyers.">
+<meta property="og:image" content="https://declutterpawnshop.com/assets/og-image.jpg">
+<meta property="og:site_name" content="Declutter Pawn Shop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sell an item — Declutter Pawn Shop">
+<meta name="twitter:description" content="Turn idle items into real cash.">
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --green: #00C853; --green-dark: #00A843; --green-deep: #009933;
@@ -31,53 +41,118 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'DM Mono', ui-monospace, monospace;
   --r-card: 16px; --r-button: 12px; --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(14,19,32,.04), 0 1px 1px rgba(14,19,32,.03);
+  --shadow-md: 0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body {
-  font-family: var(--font-body); background: var(--off-white); color: var(--text-primary);
-  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
-  overflow-x: hidden; min-height: 100vh;
-}
-h1,h2,h3,h4,h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
+body { font-family: var(--font-body); background: var(--off-white); color: var(--text-primary); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
+h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
 a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 input, select, textarea { font-family: inherit; }
 .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 @media (min-width: 768px) { .wrap { padding: 0 40px; } }
-.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); }
-.eyebrow::before { content: ''; width: 22px; height: 1.5px; background: var(--green); }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: var(--r-button); transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s; cursor: pointer; white-space: nowrap; letter-spacing: -0.005em; }
 .btn-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
 .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
 .btn-primary:active { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
-.btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
 
+/* ─── Nav ─── */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
-.nav-logo img { height: 34px; width: auto; }
-.nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
-.nav-links a { font-size: 14px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
+.nav-logo img { height: 32px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 13.5px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
 .nav-links a:hover { color: var(--white); }
 .nav-links a.active { color: var(--white); }
 .nav-cta { display: none; }
-@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 10px 20px; font-size: 13.5px; } }
-.nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 9px 18px; font-size: 13px; } }
+.nav-mobile-cta { display: inline-flex; padding: 8px 14px; font-size: 12.5px; }
 @media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
-.sell-hero { background: var(--ink); color: var(--off-white); padding: 128px 0 56px; position: relative; overflow: hidden; }
-.sell-hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
-.sell-hero-inner { position: relative; z-index: 1; max-width: 640px; }
-.sell-hero h1 { font-size: clamp(36px, 5.5vw, 58px); color: var(--white); letter-spacing: -0.035em; line-height: 1; margin-top: 16px; }
+/* ═══════════════════════════════════════════════════════════════
+   COMPACT HERO — thin banner
+   ═══════════════════════════════════════════════════════════════ */
+.sell-hero {
+  background: var(--ink);
+  color: var(--off-white);
+  padding: 88px 0 26px;
+  position: relative;
+  overflow: hidden;
+}
+.sell-hero::before {
+  content: '';
+  position: absolute; top: -120%; right: 6%;
+  width: 460px; height: 460px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.12) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none;
+}
+.sell-hero-inner {
+  position: relative; z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.sell-hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green);
+  padding: 5px 12px;
+  background: rgba(0,200,83,.10);
+  border: 1px solid rgba(0,200,83,.28);
+  border-radius: var(--r-pill);
+  margin-bottom: 12px;
+}
+.sell-hero-label svg { width: 11px; height: 11px; }
+.sell-hero h1 {
+  font-size: clamp(26px, 3.6vw, 36px);
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0 auto;
+  max-width: 22ch;
+}
 .sell-hero h1 .accent { color: var(--green); }
-.sell-hero-sub { color: var(--stone-light); font-size: 16px; line-height: 1.6; margin-top: 16px; max-width: 52ch; }
+.sell-hero-sub {
+  color: var(--stone-light);
+  font-size: 14px;
+  line-height: 1.55;
+  margin-top: 10px;
+  max-width: 44ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 640px) {
+  .sell-hero { padding: 78px 0 22px; }
+  .sell-hero h1 { font-size: 24px; }
+  .sell-hero-sub { font-size: 13.5px; }
+}
 
-.sell-form-section { padding: 40px 0 64px; background: var(--off-white); }
-.sell-wrap { width: 100%; max-width: 620px; margin: 0 auto; padding: 0 20px; }
+/* ═══════════════════════════════════════════════════════════════
+   FORM SECTION — compact top padding so form is high
+   ═══════════════════════════════════════════════════════════════ */
+.sell-form-section {
+  padding: 22px 0 80px;
+  background: var(--off-white);
+  position: relative;
+}
+.sell-form-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 22px;
+  background: var(--ink);
+  pointer-events: none;
+}
+.sell-wrap { position: relative; width: 100%; max-width: 640px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .sell-wrap { padding: 0; } }
 
-.step-track { display: flex; align-items: center; margin-bottom: 24px; }
-.st { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-muted); transition: color .25s; white-space: nowrap; }
+/* ─── Step track ─── */
+.step-track { display: flex; align-items: center; margin-bottom: 18px; }
+.st { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); transition: color .25s; white-space: nowrap; }
 .st.active { color: var(--ink); }
 .st.done { color: var(--green-dark); }
 .st-dot { width: 26px; height: 26px; border-radius: 50%; background: var(--white); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 11px; font-weight: 800; color: var(--text-muted); transition: all .25s; flex-shrink: 0; }
@@ -87,39 +162,51 @@ input, select, textarea { font-family: inherit; }
 .st.done .st-dot::before { content: '✓'; font-size: 13px; }
 .st-line { flex: 1; height: 1.5px; background: var(--border); margin: 0 10px; transition: background .25s; min-width: 16px; }
 .st-line.done { background: var(--green); }
-@media (max-width: 520px) { .st > span:not(.st-dot) { display: none; } .step-track { gap: 4px; } }
+@media (max-width: 460px) { .st > span:not(.st-dot) { display: none; } }
 
-.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; box-shadow: 0 1px 2px rgba(14,19,32,.04), 0 1px 1px rgba(14,19,32,.03); }
+/* ─── Card ─── */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; box-shadow: var(--shadow-sm); }
 .card-stripe { height: 3px; background: linear-gradient(90deg, var(--green), var(--green-dark)); }
-.card-head { padding: 24px 28px 20px; border-bottom: 1px solid var(--border); }
-.card-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-dark); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.card-head { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); }
+.card-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-dark); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .card-eyebrow::before { content: ''; width: 16px; height: 1.5px; background: var(--green); }
-.card-title { font-family: var(--font-heading); font-weight: 800; font-size: 24px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.15; }
-.card-sub { font-size: 14px; color: var(--text-secondary); margin-top: 8px; line-height: 1.55; }
-.card-body { padding: 22px 28px; display: flex; flex-direction: column; gap: 16px; }
-.card-foot { padding: 0 28px 24px; display: flex; flex-direction: column; gap: 10px; }
-@media (max-width: 520px) { .card-head { padding: 20px 20px 16px; } .card-body { padding: 18px 20px; } .card-foot { padding: 0 20px 20px; } .card-title { font-size: 21px; } }
+.card-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.024em; color: var(--ink); line-height: 1.18; }
+.card-sub { font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5; }
+.card-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.card-foot { padding: 0 24px 22px; display: flex; flex-direction: column; gap: 10px; }
+@media (max-width: 520px) {
+  .card-head { padding: 18px 18px 14px; }
+  .card-body { padding: 16px 18px; }
+  .card-foot { padding: 0 18px 18px; }
+  .card-title { font-size: 20px; }
+}
 
 .step-view { display: none; }
 .step-view.active { display: block; }
 
+/* ─── Fields ─── */
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .field label { font-size: 12.5px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
 .field label em { color: var(--green-dark); font-style: normal; margin-left: 2px; }
-.field input, .field select, .field textarea { background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 16px; color: var(--ink); outline: none; width: 100%; transition: border-color .15s, background .15s; }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ink); background: var(--white); }
-.field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
+.field input,
+.field select,
+.field textarea { background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 16px; color: var(--ink); outline: none; width: 100%; transition: border-color .15s, background .15s; font-family: var(--font-body); }
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(--ink); background: var(--white); }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--text-muted); }
 .field select { appearance: none; -webkit-appearance: none; padding-right: 36px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230E1320' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; }
-.field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-.field-hint { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
+.field textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+.field-hint { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
 .field-hint.err { color: #DC2626; font-weight: 600; }
 
 .price-wrap { position: relative; }
 .price-sym { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--green-dark); pointer-events: none; }
-.field .price-wrap input { padding-left: 36px; font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--ink); letter-spacing: -0.01em; }
-.price-display-wrap { display: flex; justify-content: center; padding: 8px 0 2px; }
-.price-display { font-family: var(--font-heading); font-weight: 800; font-size: 18px; color: var(--ink); letter-spacing: -0.02em; padding: 8px 18px; border-radius: 10px; border: 1.5px solid var(--ink); background: var(--white); display: none; }
+.field .price-wrap input { padding-left: 36px; font-family: var(--font-heading); font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; }
+.price-display-wrap { display: flex; justify-content: center; padding: 6px 0 0; }
+.price-display { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; padding: 8px 18px; border-radius: 10px; border: 1.5px solid var(--ink); background: var(--white); display: none; }
 .price-display.show { display: inline-block; }
 
 .char-count { font-size: 11.5px; color: var(--text-muted); text-align: right; margin-top: 3px; }
@@ -128,31 +215,36 @@ input, select, textarea { font-family: inherit; }
 .divider { display: flex; align-items: center; gap: 12px; font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-top: 6px; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-.photo-drop-zone { border: 1.5px dashed var(--border-ink); border-radius: 12px; padding: 22px 16px; text-align: center; cursor: pointer; background: var(--off-white); transition: border-color .15s, background .15s; display: flex; flex-direction: column; align-items: center; gap: 6px; user-select: none; -webkit-user-select: none; }
+/* ─── Photo upload ─── */
+.photo-drop-zone { border: 1.5px dashed var(--border-ink); border-radius: 12px; padding: 20px 16px; text-align: center; cursor: pointer; background: var(--off-white); transition: border-color .15s, background .15s; display: flex; flex-direction: column; align-items: center; gap: 6px; user-select: none; -webkit-user-select: none; }
 .photo-drop-zone:hover { border-color: var(--green); background: var(--white); }
 .photo-drop-zone.err { border-color: #DC2626; background: #FEF2F2; }
-.photo-drop-ico { width: 40px; height: 40px; border-radius: 50%; background: var(--mint-soft); color: var(--green-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; pointer-events: none; }
+.photo-drop-ico { width: 38px; height: 38px; border-radius: 50%; background: var(--mint-soft); color: var(--green-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; pointer-events: none; }
 .photo-drop-ico svg { width: 18px; height: 18px; }
 .photo-drop-text { font-family: var(--font-heading); font-weight: 700; font-size: 14px; color: var(--ink); pointer-events: none; }
 .photo-drop-sub { font-size: 12px; color: var(--text-muted); pointer-events: none; }
 .photo-previews { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.photo-thumb { position: relative; width: 72px; height: 72px; border-radius: 8px; overflow: hidden; flex-shrink: 0; border: 1.5px solid var(--ink); background: var(--off-white); }
+.photo-thumb { position: relative; width: 68px; height: 68px; border-radius: 8px; overflow: hidden; flex-shrink: 0; border: 1.5px solid var(--ink); background: var(--off-white); }
 .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .photo-thumb-remove { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: rgba(14,19,32,.85); border: 1px solid rgba(255,255,255,.15); color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
+/* ─── Item summary ─── */
 .item-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: var(--white); border: 1.5px solid var(--ink); border-radius: 12px; font-size: 13px; }
 .item-summary-left { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 4px; }
 .item-summary-id { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--green-dark); letter-spacing: 0.06em; }
 .item-summary-name { font-family: var(--font-heading); font-weight: 700; color: var(--ink); font-size: 13.5px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .item-summary-price { font-family: var(--font-mono); font-weight: 500; color: var(--ink); font-size: 13px; white-space: nowrap; flex-shrink: 0; padding: 6px 10px; background: var(--off-white); border-radius: 8px; }
 
+/* ─── Notice ─── */
 .notice { padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; }
 .notice-amber { background: #FFF8E6; border: 1.5px solid rgba(255,179,0,.32); color: var(--text-secondary); }
 .notice-amber strong { color: #B45309; font-weight: 700; }
 
+/* ─── Search panel ─── */
 .search-panel { display: none; margin-top: 4px; }
-.search-panel.is-searching, .search-panel.is-found, .search-panel.is-notfound { display: block; }
-
+.search-panel.is-searching,
+.search-panel.is-found,
+.search-panel.is-notfound { display: block; }
 .searching-inner { display: none; flex-direction: column; gap: 14px; padding: 20px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 12px; }
 .search-panel.is-searching .searching-inner { display: flex; }
 .searching-head { display: flex; align-items: center; gap: 12px; }
@@ -171,9 +263,9 @@ input, select, textarea { font-family: inherit; }
 .skel-row:nth-child(3) { animation-delay: .2s; }
 @keyframes skelShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
+/* ─── Found card ─── */
 .found-inner { display: none; }
 .search-panel.is-found .found-inner { display: block; }
-
 .locked-card { background: var(--ink); border-radius: 14px; overflow: hidden; position: relative; animation: lockIn .5s cubic-bezier(.2,.8,.3,1) both; box-shadow: 0 0 0 1.5px var(--ink); }
 @keyframes lockIn { 0% { opacity: 0; transform: translateY(-10px) scale(.96); } 55% { opacity: 1; transform: translateY(2px) scale(1.01); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 .locked-card::before { content: ''; position: absolute; top: -50%; right: -30%; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.16) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
@@ -201,6 +293,7 @@ input, select, textarea { font-family: inherit; }
 .locked-wrong { text-align: center; font-size: 13px; font-weight: 600; color: var(--stone); padding: 6px; transition: color .15s; }
 .locked-wrong:hover { color: var(--white); }
 
+/* ─── Not found / signup ─── */
 .signup-inner { display: none; }
 .search-panel.is-notfound .signup-inner { display: block; }
 .notfound-banner { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #FFF8E6; border: 1.5px solid rgba(255,179,0,.32); border-radius: 12px; margin-bottom: 20px; animation: bannerIn .45s cubic-bezier(.2,.8,.3,1) both; }
@@ -212,6 +305,7 @@ input, select, textarea { font-family: inherit; }
 .notfound-sub { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; line-height: 1.45; }
 .signup-fields { display: flex; flex-direction: column; gap: 14px; opacity: 0; animation: bannerIn .5s cubic-bezier(.2,.8,.3,1) .1s both; }
 
+/* ─── Buttons ─── */
 .btn-block { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 20px; border-radius: var(--r-button); font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: -0.005em; transition: background .15s, border-color .15s, color .15s, box-shadow .15s, transform .15s; cursor: pointer; white-space: nowrap; }
 .btn-block-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
 .btn-block-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
@@ -223,15 +317,18 @@ input, select, textarea { font-family: inherit; }
 .form-terms { font-size: 11.5px; color: var(--text-muted); text-align: center; line-height: 1.6; padding: 0 4px; }
 .form-terms a { color: var(--text-secondary); text-decoration: underline; text-decoration-color: var(--border); }
 
-.sell-footer { background: var(--off-white); border-top: 1px solid var(--border); padding: 28px 0 36px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
+/* ─── Footer ─── */
+.sell-footer { background: var(--off-white); border-top: 1px solid var(--border); padding: 24px 0 32px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
 .sell-footer p { margin-bottom: 4px; }
 .sell-footer a { color: var(--text-secondary); }
+.sell-footer a:hover { color: var(--green-dark); }
 </style>
 <script src="/js/dps-config.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+<!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav">
   <div class="wrap nav-inner">
     <a href="/" class="nav-logo"><img src="/assets/dps-logo-light.png" alt="Declutter Pawn Shop"></a>
@@ -247,30 +344,36 @@ input, select, textarea { font-family: inherit; }
   </div>
 </nav>
 
+<!-- ═══════════════════ COMPACT HERO ═══════════════════ -->
 <section class="sell-hero">
   <div class="wrap sell-hero-inner">
-    <div class="eyebrow">Sell with DPS</div>
-    <h1>Tell us about <span class="accent">your item.</span></h1>
-    <p class="sell-hero-sub">Two minutes. We find the buyers, escrow the payment, and release your payout after pickup. You keep 85% — 95% as a partner.</p>
+    <span class="sell-hero-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      Sell on DPS
+    </span>
+    <h1>List an item in <span class="accent">two minutes.</span></h1>
+    <p class="sell-hero-sub">We push it across Telegram, Instagram, and ads. Escrow-protected, PIN-verified payouts.</p>
   </div>
 </section>
 
+<!-- ═══════════════════ FORM ═══════════════════ -->
 <section class="sell-form-section">
   <div class="sell-wrap">
+
     <div class="step-track">
       <div class="st active" id="st-1"><div class="st-dot"><span>1</span></div><span>Your item</span></div>
       <div class="st-line" id="sl-1"></div>
       <div class="st" id="st-2"><div class="st-dot"><span>2</span></div><span>Your email</span></div>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- ══ STEP 1 ══ -->
     <div class="step-view active" id="view-item">
       <div class="card">
         <div class="card-stripe"></div>
         <div class="card-head">
           <div class="card-eyebrow">Step 1 of 2</div>
-          <div class="card-title">What are you selling?</div>
-          <div class="card-sub">Be specific — buyers decide based on exactly what you write here. The clearer the listing, the faster it sells.</div>
+          <div class="card-title">What are you listing?</div>
+          <div class="card-sub">Be specific — buyers decide based on exactly what you write here.</div>
         </div>
         <div class="card-body">
           <div class="field">
@@ -281,33 +384,55 @@ input, select, textarea { font-family: inherit; }
           <div class="field-row">
             <div class="field">
               <label>Condition <em>*</em></label>
-              <select id="li-cond"><option value="">Select</option><option>Brand New</option><option>Like New</option><option>Good Condition</option><option>Fairly Used</option></select>
+              <select id="li-cond">
+                <option value="">Select</option>
+                <option>Brand New</option>
+                <option>Like New</option>
+                <option>Good Condition</option>
+                <option>Fairly Used</option>
+              </select>
             </div>
             <div class="field">
               <label>Location <em>*</em></label>
-              <select id="li-location"><option value="">Select</option><option value="Mainland">Mainland</option><option value="Island">Island</option></select>
+              <select id="li-location">
+                <option value="">Select</option>
+                <option value="Mainland">Mainland</option>
+                <option value="Island">Island</option>
+              </select>
             </div>
           </div>
           <div class="field">
             <label>Description <em>*</em></label>
-            <textarea id="li-desc" placeholder="What is it, what does it do, what's included, any flaws or issues? Be honest — buyers trust accurate descriptions." maxlength="600"></textarea>
+            <textarea id="li-desc" placeholder="What is it, what does it do, what's included, any flaws? Be honest — buyers trust accurate descriptions." maxlength="600"></textarea>
             <div class="char-count" id="desc-count">0 / 600</div>
           </div>
           <div class="field">
             <label>Asking price (₦) <em>*</em></label>
-            <div class="price-wrap"><span class="price-sym">₦</span><input type="text" id="li-price" placeholder="0" inputmode="numeric" autocomplete="off"></div>
+            <div class="price-wrap">
+              <span class="price-sym">₦</span>
+              <input type="text" id="li-price" placeholder="0" inputmode="numeric" autocomplete="off">
+            </div>
             <div class="price-display-wrap"><div class="price-display" id="li-price-display"></div></div>
             <div class="field-hint">Set a fair price. The lower it is, the faster it sells.</div>
           </div>
           <div class="field">
             <label>Preferred pickup time <em>*</em></label>
-            <select id="li-pickup"><option value="">Select</option><option>Mornings (8am – 12pm)</option><option>Afternoons (12pm – 5pm)</option><option>Evenings (5pm – 8pm)</option><option>Weekends only</option><option>Flexible / Anytime</option></select>
+            <select id="li-pickup">
+              <option value="">Select</option>
+              <option>Mornings (8am – 12pm)</option>
+              <option>Afternoons (12pm – 5pm)</option>
+              <option>Evenings (5pm – 8pm)</option>
+              <option>Weekends only</option>
+              <option>Flexible / Anytime</option>
+            </select>
           </div>
           <div class="field">
             <label>Photos <em>*</em></label>
             <input type="file" id="li-photos" accept="image/*" multiple style="display:none">
             <div class="photo-drop-zone" id="photo-drop-zone" onclick="document.getElementById('li-photos').click()">
-              <div class="photo-drop-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+              <div class="photo-drop-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
               <div class="photo-drop-text">Tap to add photos</div>
               <div class="photo-drop-sub">Up to 5 photos · Real shots only, no screenshots</div>
             </div>
@@ -322,19 +447,20 @@ input, select, textarea { font-family: inherit; }
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- ══ STEP 2 ══ -->
     <div class="step-view" id="view-details">
       <div class="card">
         <div class="card-stripe"></div>
         <div class="card-head">
-          <div class="card-eyebrow">Step 2 of 2</div>
-          <div class="card-title">What's your email?</div>
-          <div class="card-sub">We'll use it to look you up — or set up your account in seconds if you're new.</div>
+          <div class="card-eyebrow">Last step</div>
+          <div class="card-title">Your email?</div>
+          <div class="card-sub">We'll use it to look you up — or set up your account in seconds.</div>
         </div>
         <div class="card-body">
+
           <div class="item-summary" id="item-summary">
             <div class="item-summary-left">
-              <span class="item-summary-id" id="item-summary-id">DRAFT</span>
+              <span class="item-summary-id">DRAFT</span>
               <span class="item-summary-name" id="item-summary-name">—</span>
             </div>
             <span class="item-summary-price" id="item-summary-price">—</span>
@@ -347,6 +473,7 @@ input, select, textarea { font-family: inherit; }
           </div>
 
           <div class="search-panel" id="search-panel">
+
             <div class="searching-inner">
               <div class="searching-head">
                 <div class="searching-spinner"></div>
@@ -361,7 +488,9 @@ input, select, textarea { font-family: inherit; }
             <div class="found-inner">
               <div class="locked-card">
                 <div class="locked-head">
-                  <div class="locked-shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+                  <div class="locked-shield">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                  </div>
                   <div class="locked-head-text">
                     <div class="locked-head-label" id="locked-label">Account verified</div>
                     <div class="locked-head-title" id="locked-name">—</div>
@@ -385,10 +514,12 @@ input, select, textarea { font-family: inherit; }
 
             <div class="signup-inner">
               <div class="notfound-banner">
-                <div class="notfound-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                <div class="notfound-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
                 <div class="notfound-text">
-                  <div class="notfound-title">New account</div>
-                  <div class="notfound-sub">No record of this email — fill in a few details so we know where to send your payout.</div>
+                  <div class="notfound-title">Let's get you set up</div>
+                  <div class="notfound-sub">Quick one-time setup so we can pay you when your item sells.</div>
                 </div>
               </div>
               <div class="signup-fields">
@@ -397,7 +528,7 @@ input, select, textarea { font-family: inherit; }
                   <div class="field"><label>Phone <em>*</em></label><input type="tel" id="su-phone" placeholder="080XXXXXXXX"></div>
                 </div>
                 <div class="field"><label>WhatsApp <em>*</em></label><input type="tel" id="su-whatsapp" placeholder="080XXXXXXXX"></div>
-                <div class="divider">Payout details</div>
+                <div class="divider">Payout setup · one-time</div>
                 <div class="field-row">
                   <div class="field"><label>Bank <em>*</em></label><input type="text" id="su-bank" placeholder="e.g. GTBank, Opay, Kuda"></div>
                   <div class="field"><label>Account number <em>*</em></label><input type="text" id="su-acct" placeholder="0123456789" maxlength="10" inputmode="numeric"></div>
@@ -405,10 +536,11 @@ input, select, textarea { font-family: inherit; }
                 <div class="field"><label>Account name <em>*</em></label><input type="text" id="su-acct-name" placeholder="As it appears on your bank account"></div>
               </div>
             </div>
+
           </div>
 
           <div id="add-bank-block" style="display:none;flex-direction:column;gap:14px;margin-top:4px;">
-            <div class="notice notice-amber"><strong>One more thing.</strong> You don't have payout details on file — add them below so we can pay you when your item sells.</div>
+            <div class="notice notice-amber"><strong>One-time setup.</strong> Add your bank details so we can pay you the moment your item sells.</div>
             <div class="field-row">
               <div class="field"><label>Bank <em>*</em></label><input type="text" id="ab-bank" placeholder="e.g. GTBank, Opay, Kuda"></div>
               <div class="field"><label>Account number <em>*</em></label><input type="text" id="ab-acct" placeholder="0123456789" maxlength="10" inputmode="numeric"></div>
@@ -421,7 +553,7 @@ input, select, textarea { font-family: inherit; }
         <div class="card-foot">
           <button class="btn-block btn-block-primary" id="btn-email-next">Next →</button>
           <button class="btn-block btn-block-secondary" id="btn-back-item">← Back to item</button>
-          <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 15% DPS fee on successful sale (5% for partners).</div>
+          <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 13% standard, 3% on your first sale.</div>
         </div>
       </div>
     </div>
@@ -429,6 +561,7 @@ input, select, textarea { font-family: inherit; }
   </div>
 </section>
 
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer class="sell-footer">
   <div class="wrap">
     <p>© 2026 Declutter Pawn Shop · Lagos, Nigeria</p>
@@ -437,358 +570,371 @@ input, select, textarea { font-family: inherit; }
 </footer>
 
 <script>
-var APPS_SCRIPT_URL = (typeof DPS_MAIN_GAS_URL !== 'undefined') ? DPS_MAIN_GAS_URL : '';
+(function () {
+  "use strict";
 
-var itemState = { name: '', condition: '', location: '', description: '', pickup: '', price: 0, photos: [] };
-var identity = { email: '', mode: '', name: '', phone: '', whatsapp: '', bank: '', acct: '', acctName: '', sellerType: 'Individual', partnerId: '', businessName: '' };
-var currentSearchToken = 0;
+  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
 
-function goTo(viewId, step) {
-  document.querySelectorAll('.step-view').forEach(function(v) { v.classList.remove('active'); });
-  document.getElementById(viewId).classList.add('active');
-  updateTrack(step);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-function updateTrack(step) {
-  for (var i = 1; i <= 2; i++) {
-    var st = document.getElementById('st-' + i);
-    var sl = document.getElementById('sl-' + i);
-    if (!st) continue;
-    st.classList.remove('active', 'done');
-    if (i < step) st.classList.add('done');
-    if (i === step) st.classList.add('active');
-    if (sl) sl.classList.toggle('done', i < step);
+  var itemState = { name:"", condition:"", location:"", description:"", pickup:"", price:0, photos:[] };
+  var identity  = { email:"", mode:"", name:"", phone:"", whatsapp:"", bank:"", acct:"", acctName:"", sellerType:"Individual", partnerId:"", businessName:"" };
+  var searchToken = 0;
+
+  function goTo(viewId, step) {
+    document.querySelectorAll(".step-view").forEach(function (v) { v.classList.remove("active"); });
+    document.getElementById(viewId).classList.add("active");
+    for (var i = 1; i <= 2; i++) {
+      var st = document.getElementById("st-" + i);
+      var sl = document.getElementById("sl-" + i);
+      if (!st) continue;
+      st.classList.remove("active", "done");
+      if (i < step) st.classList.add("done");
+      if (i === step) st.classList.add("active");
+      if (sl) sl.classList.toggle("done", i < step);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
-}
-function maskName(fullName) {
-  if (!fullName) return '—';
-  return fullName.trim().split(/\s+/).map(function(w) {
-    if (w.length <= 3) return w;
-    return w.slice(0, 3) + '•'.repeat(Math.min(w.length - 3, 6));
-  }).join(' ');
-}
-function maskPhone(p) {
-  if (!p) return '—';
-  var s = String(p).replace(/\D/g, '');
-  if (s.length <= 4) return s;
-  return '•'.repeat(s.length - 4) + s.slice(-4);
-}
-function maskAcct(a) {
-  if (!a) return '—';
-  var s = String(a);
-  if (s.length <= 4) return s;
-  return '•'.repeat(Math.min(s.length - 4, 8)) + s.slice(-4);
-}
-function showItemError(msg) { var el = document.getElementById('item-error'); el.textContent = msg; el.style.display = 'block'; }
-function clearItemError() { var el = document.getElementById('item-error'); el.style.display = 'none'; el.textContent = ''; }
-function showDetailsError(msg) { var el = document.getElementById('details-error'); el.textContent = msg; el.style.display = 'block'; }
-function clearDetailsError() { var el = document.getElementById('details-error'); el.style.display = 'none'; el.textContent = ''; }
+  function maskName(n) { if (!n) return "—"; return n.trim().split(/\s+/).map(function (w) { return w.length <= 3 ? w : w.slice(0, 3) + "•".repeat(Math.min(w.length - 3, 6)); }).join(" "); }
+  function maskPhone(p) { if (!p) return "—"; var s = String(p).replace(/\D/g, ""); if (s.length <= 4) return s; return "•".repeat(s.length - 4) + s.slice(-4); }
+  function maskAcct(a) { if (!a) return "—"; var s = String(a); if (s.length <= 4) return s; return "•".repeat(Math.min(s.length - 4, 8)) + s.slice(-4); }
+  function showItemError(m) { var e = document.getElementById("item-error"); e.textContent = m; e.style.display = "block"; }
+  function clearItemError() { var e = document.getElementById("item-error"); e.style.display = "none"; e.textContent = ""; }
+  function showDetailsError(m) { var e = document.getElementById("details-error"); e.textContent = m; e.style.display = "block"; }
+  function clearDetailsError() { var e = document.getElementById("details-error"); e.style.display = "none"; e.textContent = ""; }
 
-document.getElementById('li-photos').addEventListener('change', function() {
-  var files = Array.from(this.files);
-  files.forEach(function(file) {
-    if (itemState.photos.length >= 5) return;
-    if (!file.type.startsWith('image/')) return;
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      itemState.photos.push({ file: file, dataUrl: e.target.result });
-      renderPhotoThumbs();
-      clearItemError();
-      document.getElementById('photo-drop-zone').classList.remove('err');
-    };
-    reader.readAsDataURL(file);
-  });
-  this.value = '';
-});
-function renderPhotoThumbs() {
-  var c = document.getElementById('photo-previews');
-  var hint = document.getElementById('photo-count-hint');
-  var drop = document.getElementById('photo-drop-zone');
-  c.innerHTML = '';
-  itemState.photos.forEach(function(p, i) {
-    var t = document.createElement('div');
-    t.className = 'photo-thumb';
-    t.innerHTML = '<img src="' + p.dataUrl + '"><button class="photo-thumb-remove" data-i="' + i + '" type="button">✕</button>';
-    c.appendChild(t);
-  });
-  c.querySelectorAll('.photo-thumb-remove').forEach(function(b) {
-    b.addEventListener('click', function(e) {
-      e.stopPropagation();
-      itemState.photos.splice(parseInt(b.getAttribute('data-i'), 10), 1);
-      renderPhotoThumbs();
+  document.getElementById("li-photos").addEventListener("change", function () {
+    var files = Array.from(this.files);
+    files.forEach(function (file) {
+      if (itemState.photos.length >= 5) return;
+      if (!file.type.startsWith("image/")) return;
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        itemState.photos.push({ file: file, dataUrl: e.target.result });
+        renderPhotos();
+        clearItemError();
+        document.getElementById("photo-drop-zone").classList.remove("err");
+      };
+      reader.readAsDataURL(file);
     });
+    this.value = "";
   });
-  var n = itemState.photos.length;
-  hint.textContent = n + ' of 5 photo' + (n !== 1 ? 's' : '') + ' added';
-  hint.style.color = n > 0 ? 'var(--green-dark)' : 'var(--text-muted)';
-  drop.style.display = n >= 5 ? 'none' : 'flex';
-}
-async function uploadPhotos() {
-  var urls = [];
-  for (var i = 0; i < itemState.photos.length; i++) {
-    var p = itemState.photos[i];
-    var base64 = p.dataUrl.split(',')[1];
-    try {
-      var res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'uploadPhoto', image: base64 }) });
-      var data = await res.json();
-      if (data.success && data.url) urls.push(data.url);
-    } catch(e) { console.error('Photo upload failed:', e); }
+  function renderPhotos() {
+    var c = document.getElementById("photo-previews");
+    var hint = document.getElementById("photo-count-hint");
+    var drop = document.getElementById("photo-drop-zone");
+    c.innerHTML = "";
+    itemState.photos.forEach(function (p, i) {
+      var t = document.createElement("div");
+      t.className = "photo-thumb";
+      t.innerHTML = '<img src="' + p.dataUrl + '"><button class="photo-thumb-remove" data-i="' + i + '" type="button">✕</button>';
+      c.appendChild(t);
+    });
+    c.querySelectorAll(".photo-thumb-remove").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.stopPropagation();
+        itemState.photos.splice(parseInt(b.getAttribute("data-i"), 10), 1);
+        renderPhotos();
+      });
+    });
+    var n = itemState.photos.length;
+    hint.textContent = n + " of 5 photo" + (n !== 1 ? "s" : "") + " added";
+    hint.style.color = n > 0 ? "var(--green-dark)" : "var(--text-muted)";
+    drop.style.display = n >= 5 ? "none" : "flex";
   }
-  return urls;
-}
-
-document.getElementById('li-price').addEventListener('input', function() {
-  var raw = this.value.replace(/[^0-9]/g, '');
-  this.value = raw;
-  var el = document.getElementById('li-price-display');
-  if (raw) { el.textContent = '₦' + parseInt(raw, 10).toLocaleString('en-NG'); el.classList.add('show'); }
-  else { el.classList.remove('show'); }
-});
-document.getElementById('li-desc').addEventListener('input', function() {
-  var c = this.value.length;
-  var el = document.getElementById('desc-count');
-  el.textContent = c + ' / 600';
-  el.classList.toggle('warn', c > 510);
-});
-
-document.getElementById('btn-continue-item').addEventListener('click', function() {
-  clearItemError();
-  var name = document.getElementById('li-name').value.trim();
-  var cond = document.getElementById('li-cond').value;
-  var loc = document.getElementById('li-location').value;
-  var desc = document.getElementById('li-desc').value.trim();
-  var pickup = document.getElementById('li-pickup').value;
-  var price = parseInt((document.getElementById('li-price').value || '').replace(/[^0-9]/g, ''), 10) || 0;
-
-  if (!name) { showItemError('Please enter the item name.'); return; }
-  if (!cond) { showItemError('Please select the condition.'); return; }
-  if (!loc) { showItemError('Please select Mainland or Island.'); return; }
-  if (desc.length < 30) { showItemError('Please add a description (minimum 30 characters).'); return; }
-  if (!pickup) { showItemError('Please select a preferred pickup time.'); return; }
-  if (price < 500) { showItemError('Please enter a price of at least ₦500.'); return; }
-  if (itemState.photos.length === 0) {
-    document.getElementById('photo-drop-zone').classList.add('err');
-    showItemError('Please add at least one photo.');
-    return;
+  async function uploadPhotos() {
+    var urls = [];
+    for (var i = 0; i < itemState.photos.length; i++) {
+      var p = itemState.photos[i];
+      var base64 = p.dataUrl.split(",")[1];
+      try {
+        var res = await fetch(GAS, { method: "POST", body: JSON.stringify({ action: "uploadPhoto", image: base64 }) });
+        var data = await res.json();
+        if (data.success && data.url) urls.push(data.url);
+      } catch (e) { console.error("Photo upload failed:", e); }
+    }
+    return urls;
   }
-  itemState.name = name; itemState.condition = cond; itemState.location = loc;
-  itemState.description = desc; itemState.pickup = pickup; itemState.price = price;
 
-  document.getElementById('item-summary-name').textContent = name;
-  document.getElementById('item-summary-price').textContent = '₦' + price.toLocaleString('en-NG');
-  document.getElementById('item-summary-id').textContent = 'DRAFT';
-
-  resetSearchPanel();
-  document.getElementById('det-email').value = '';
-  document.getElementById('add-bank-block').style.display = 'none';
-  ['su-name','su-phone','su-whatsapp','su-bank','su-acct','su-acct-name','ab-bank','ab-acct','ab-acct-name'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.value = '';
+  document.getElementById("li-price").addEventListener("input", function () {
+    var raw = this.value.replace(/[^0-9]/g, "");
+    this.value = raw;
+    var el = document.getElementById("li-price-display");
+    if (raw) { el.textContent = "₦" + parseInt(raw, 10).toLocaleString("en-NG"); el.classList.add("show"); }
+    else { el.classList.remove("show"); }
   });
-  goTo('view-details', 2);
-  setTimeout(function() { document.getElementById('det-email').focus(); }, 220);
-});
-document.getElementById('btn-back-item').addEventListener('click', function() { goTo('view-item', 1); });
+  document.getElementById("li-desc").addEventListener("input", function () {
+    var count = this.value.length;
+    var el = document.getElementById("desc-count");
+    el.textContent = count + " / 600";
+    el.classList.toggle("warn", count > 510);
+  });
 
-function resetSearchPanel() {
-  var p = document.getElementById('search-panel');
-  p.classList.remove('is-searching', 'is-found', 'is-notfound');
-  var ef = document.getElementById('det-email');
-  ef.readOnly = false; ef.style.background = '';
-  var btn = document.getElementById('btn-email-next');
-  btn.style.display = 'flex'; btn.textContent = 'Next →'; btn.disabled = false;
-  document.getElementById('email-hint').style.display = 'block';
-  document.getElementById('add-bank-block').style.display = 'none';
-  clearDetailsError();
-}
+  document.getElementById("btn-continue-item").addEventListener("click", function () {
+    clearItemError();
+    var name = document.getElementById("li-name").value.trim();
+    var cond = document.getElementById("li-cond").value;
+    var loc = document.getElementById("li-location").value;
+    var desc = document.getElementById("li-desc").value.trim();
+    var pickup = document.getElementById("li-pickup").value;
+    var price = parseInt((document.getElementById("li-price").value || "").replace(/[^0-9]/g, ""), 10) || 0;
 
-function searchEmail(email) {
-  var panel = document.getElementById('search-panel');
-  var ef = document.getElementById('det-email');
-  ef.readOnly = true; ef.style.background = 'var(--off-white)';
-  document.getElementById('btn-email-next').style.display = 'none';
-  document.getElementById('email-hint').style.display = 'none';
-  clearDetailsError();
-  currentSearchToken++;
-  var myToken = currentSearchToken;
-  panel.classList.remove('is-found', 'is-notfound');
-  panel.classList.add('is-searching');
-  identity.email = email;
+    if (!name) { showItemError("Please enter the item name."); return; }
+    if (!cond) { showItemError("Please select the condition."); return; }
+    if (!loc) { showItemError("Please select Mainland or Island."); return; }
+    if (desc.length < 30) { showItemError("Please add a description (minimum 30 characters)."); return; }
+    if (!pickup) { showItemError("Please select a preferred pickup time."); return; }
+    if (price < 500) { showItemError("Please enter a price of at least ₦500."); return; }
+    if (itemState.photos.length === 0) {
+      document.getElementById("photo-drop-zone").classList.add("err");
+      showItemError("Please add at least one photo.");
+      return;
+    }
 
-  fetch(APPS_SCRIPT_URL + '?action=lookupEmail&email=' + encodeURIComponent(email), { redirect: 'follow' })
-    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function(data) {
-      if (myToken !== currentSearchToken) return;
-      setTimeout(function() {
-        if (myToken !== currentSearchToken) return;
-        if (data && data.found) renderFound(data, email);
-        else renderNotFound(email);
-      }, 900);
-    })
-    .catch(function() {
-      if (myToken !== currentSearchToken) return;
-      setTimeout(function() {
-        if (myToken !== currentSearchToken) return;
+    itemState.name = name;
+    itemState.condition = cond;
+    itemState.location = loc;
+    itemState.description = desc;
+    itemState.pickup = pickup;
+    itemState.price = price;
+
+    document.getElementById("item-summary-name").textContent = name;
+    document.getElementById("item-summary-price").textContent = "₦" + price.toLocaleString("en-NG");
+
+    resetSearchPanel();
+    document.getElementById("det-email").value = "";
+    document.getElementById("add-bank-block").style.display = "none";
+    ["su-name","su-phone","su-whatsapp","su-bank","su-acct","su-acct-name","ab-bank","ab-acct","ab-acct-name"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    goTo("view-details", 2);
+    setTimeout(function () { document.getElementById("det-email").focus(); }, 260);
+  });
+  document.getElementById("btn-back-item").addEventListener("click", function () { goTo("view-item", 1); });
+
+  function resetSearchPanel() {
+    var p = document.getElementById("search-panel");
+    p.classList.remove("is-searching", "is-found", "is-notfound");
+    var ef = document.getElementById("det-email");
+    ef.readOnly = false; ef.style.background = "";
+    var btn = document.getElementById("btn-email-next");
+    btn.style.display = "flex"; btn.textContent = "Next →"; btn.disabled = false;
+    document.getElementById("email-hint").style.display = "block";
+    document.getElementById("add-bank-block").style.display = "none";
+    clearDetailsError();
+  }
+
+  function searchEmail(email) {
+    var panel = document.getElementById("search-panel");
+    var ef = document.getElementById("det-email");
+    ef.readOnly = true; ef.style.background = "var(--off-white)";
+    document.getElementById("btn-email-next").style.display = "none";
+    document.getElementById("email-hint").style.display = "none";
+    clearDetailsError();
+
+    searchToken++;
+    var myToken = searchToken;
+    panel.classList.remove("is-found", "is-notfound");
+    panel.classList.add("is-searching");
+    identity.email = email;
+
+    if (!GAS) {
+      setTimeout(function () {
+        if (myToken !== searchToken) return;
         renderNotFound(email);
       }, 900);
-    });
-}
-function renderFound(user, email) {
-  var panel = document.getElementById('search-panel');
-  var isPartner = user.sellerType === 'Partner';
-  var displayName = isPartner ? (user.businessName || user.name) : user.name;
-  document.getElementById('locked-label').textContent = isPartner ? 'Partner account verified' : 'Account verified';
-  document.getElementById('locked-name').textContent = displayName;
-  document.getElementById('locked-mask-name').textContent = maskName(user.name);
-  document.getElementById('locked-mask-phone').textContent = maskPhone(user.phone);
-  document.getElementById('locked-mask-bank').textContent = user.bank || '— no bank on file —';
-  document.getElementById('locked-mask-bank').style.color = user.bank ? 'var(--white)' : 'var(--stone)';
-  document.getElementById('locked-mask-acct').textContent = user.acct ? maskAcct(user.acct) : '—';
+      return;
+    }
 
-  identity.email = email;
-  identity.mode = 'returning';
-  identity.name = user.name || '';
-  identity.phone = user.phone || '';
-  identity.whatsapp = user.whatsapp || user.phone || '';
-  identity.bank = user.bank || '';
-  identity.acct = user.acct || '';
-  identity.acctName = user.acctName || user.name || '';
-  identity.sellerType = user.sellerType || 'Individual';
-  identity.partnerId = user.partnerId || '';
-  identity.businessName = user.businessName || '';
+    fetch(GAS + "?action=lookupEmail&email=" + encodeURIComponent(email), { redirect: "follow" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (data) {
+        if (myToken !== searchToken) return;
+        setTimeout(function () {
+          if (myToken !== searchToken) return;
+          if (data && data.found) renderFound(data, email);
+          else renderNotFound(email);
+        }, 900);
+      })
+      .catch(function () {
+        if (myToken !== searchToken) return;
+        setTimeout(function () {
+          if (myToken !== searchToken) return;
+          renderNotFound(email);
+        }, 900);
+      });
+  }
+  function renderFound(user, email) {
+    var panel = document.getElementById("search-panel");
+    var isPartner = user.sellerType === "Partner";
+    var displayName = isPartner ? (user.businessName || user.name) : user.name;
+    document.getElementById("locked-label").textContent = isPartner ? "Partner account verified" : "Account verified";
+    document.getElementById("locked-name").textContent = displayName;
+    document.getElementById("locked-mask-name").textContent = maskName(user.name);
+    document.getElementById("locked-mask-phone").textContent = maskPhone(user.phone);
+    document.getElementById("locked-mask-bank").textContent = user.bank || "— no bank on file —";
+    document.getElementById("locked-mask-bank").style.color = user.bank ? "var(--white)" : "var(--stone)";
+    document.getElementById("locked-mask-acct").textContent = user.acct ? maskAcct(user.acct) : "—";
 
-  panel.classList.remove('is-searching');
-  panel.classList.remove('is-found');
-  void panel.offsetWidth;
-  panel.classList.add('is-found');
-  document.getElementById('add-bank-block').style.display = (user.bank && user.acct) ? 'none' : 'flex';
-}
-function renderNotFound(email) {
-  var panel = document.getElementById('search-panel');
-  identity.email = email;
-  identity.mode = 'new';
-  identity.name = ''; identity.phone = ''; identity.whatsapp = '';
-  identity.bank = ''; identity.acct = ''; identity.acctName = '';
-  identity.sellerType = 'Individual'; identity.partnerId = ''; identity.businessName = '';
-  panel.classList.remove('is-searching');
-  panel.classList.remove('is-notfound');
-  void panel.offsetWidth;
-  panel.classList.add('is-notfound');
-  document.getElementById('add-bank-block').style.display = 'none';
-  var btn = document.getElementById('btn-email-next');
-  btn.style.display = 'flex';
-  btn.textContent = 'Create account & list item →';
-}
+    identity.email = email;
+    identity.mode = "returning";
+    identity.name = user.name || "";
+    identity.phone = user.phone || "";
+    identity.whatsapp = user.whatsapp || user.phone || "";
+    identity.bank = user.bank || "";
+    identity.acct = user.acct || "";
+    identity.acctName = user.acctName || user.name || "";
+    identity.sellerType = user.sellerType || "Individual";
+    identity.partnerId = user.partnerId || "";
+    identity.businessName = user.businessName || "";
 
-document.getElementById('btn-email-next').addEventListener('click', function() {
-  var panel = document.getElementById('search-panel');
-  if (panel.classList.contains('is-notfound')) {
-    var name = document.getElementById('su-name').value.trim();
-    var phone = document.getElementById('su-phone').value.trim();
-    var whatsapp = document.getElementById('su-whatsapp').value.trim();
-    var bank = document.getElementById('su-bank').value.trim();
-    var acct = document.getElementById('su-acct').value.trim();
-    var aname = document.getElementById('su-acct-name').value.trim();
-    if (!name) { showDetailsError('Please enter your name.'); return; }
-    if (!phone) { showDetailsError('Please enter your phone number.'); return; }
-    if (!whatsapp) { showDetailsError('Please enter your WhatsApp number.'); return; }
-    if (!bank) { showDetailsError('Please enter your bank name.'); return; }
-    if (acct.length < 10) { showDetailsError('Please enter a valid 10-digit account number.'); return; }
-    if (!aname) { showDetailsError('Please enter your account name.'); return; }
+    panel.classList.remove("is-searching");
+    panel.classList.remove("is-found");
+    void panel.offsetWidth;
+    panel.classList.add("is-found");
+    document.getElementById("add-bank-block").style.display = (user.bank && user.acct) ? "none" : "flex";
+  }
+  function renderNotFound(email) {
+    var panel = document.getElementById("search-panel");
+    identity.email = email;
+    identity.mode = "new";
+    identity.name = ""; identity.phone = ""; identity.whatsapp = "";
+    identity.bank = ""; identity.acct = ""; identity.acctName = "";
+    identity.sellerType = "Individual"; identity.partnerId = ""; identity.businessName = "";
+    panel.classList.remove("is-searching");
+    panel.classList.remove("is-notfound");
+    void panel.offsetWidth;
+    panel.classList.add("is-notfound");
+    document.getElementById("add-bank-block").style.display = "none";
+    var btn = document.getElementById("btn-email-next");
+    btn.style.display = "flex";
+    btn.textContent = "Create account & list item →";
+  }
+
+  document.getElementById("btn-email-next").addEventListener("click", function () {
+    var panel = document.getElementById("search-panel");
+
+    if (panel.classList.contains("is-notfound")) {
+      var name = document.getElementById("su-name").value.trim();
+      var phone = document.getElementById("su-phone").value.trim();
+      var whatsapp = document.getElementById("su-whatsapp").value.trim();
+      var bank = document.getElementById("su-bank").value.trim();
+      var acct = document.getElementById("su-acct").value.trim();
+      var aname = document.getElementById("su-acct-name").value.trim();
+
+      if (!name) { showDetailsError("Please enter your name."); return; }
+      if (!phone) { showDetailsError("Please enter your phone number."); return; }
+      if (!whatsapp) { showDetailsError("Please enter your WhatsApp number."); return; }
+      if (!bank) { showDetailsError("Please enter your bank name."); return; }
+      if (acct.length < 10) { showDetailsError("Please enter a valid 10-digit account number."); return; }
+      if (!aname) { showDetailsError("Please enter your account name."); return; }
+      clearDetailsError();
+      identity.name = name; identity.phone = phone; identity.whatsapp = whatsapp;
+      identity.bank = bank; identity.acct = acct; identity.acctName = aname;
+      identity.sellerType = "Individual";
+      submitListing();
+      return;
+    }
+
+    var email = document.getElementById("det-email").value.trim().toLowerCase();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showDetailsError("Please enter a valid email address."); return; }
+    searchEmail(email);
+  });
+  document.getElementById("det-email").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); document.getElementById("btn-email-next").click(); }
+  });
+  document.getElementById("locked-wrong").addEventListener("click", function () {
+    resetSearchPanel();
+    document.getElementById("det-email").value = "";
+    document.getElementById("det-email").readOnly = false;
+    document.getElementById("det-email").focus();
+  });
+  document.getElementById("locked-proceed").addEventListener("click", function () {
     clearDetailsError();
-    identity.name = name; identity.phone = phone; identity.whatsapp = whatsapp;
-    identity.bank = bank; identity.acct = acct; identity.acctName = aname;
-    identity.sellerType = 'Individual';
+    if (!identity.bank || !identity.acct) {
+      var bBank = document.getElementById("ab-bank").value.trim();
+      var bAcct = document.getElementById("ab-acct").value.trim();
+      var bName = document.getElementById("ab-acct-name").value.trim();
+      if (!bBank) { showDetailsError("Please enter your bank name."); return; }
+      if (bAcct.length < 10) { showDetailsError("Please enter a valid 10-digit account number."); return; }
+      if (!bName) { showDetailsError("Please enter your account name."); return; }
+      identity.bank = bBank; identity.acct = bAcct; identity.acctName = bName;
+    }
     submitListing();
-    return;
-  }
-  var email = document.getElementById('det-email').value.trim().toLowerCase();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showDetailsError('Please enter a valid email address.'); return; }
-  searchEmail(email);
-});
-document.getElementById('det-email').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btn-email-next').click(); }
-});
-document.getElementById('locked-wrong').addEventListener('click', function() {
-  resetSearchPanel();
-  document.getElementById('det-email').value = '';
-  document.getElementById('det-email').readOnly = false;
-  document.getElementById('det-email').focus();
-});
-document.getElementById('locked-proceed').addEventListener('click', function() {
-  clearDetailsError();
-  if (!identity.bank || !identity.acct) {
-    var bBank = document.getElementById('ab-bank').value.trim();
-    var bAcct = document.getElementById('ab-acct').value.trim();
-    var bName = document.getElementById('ab-acct-name').value.trim();
-    if (!bBank) { showDetailsError('Please enter your bank name.'); return; }
-    if (bAcct.length < 10) { showDetailsError('Please enter a valid 10-digit account number.'); return; }
-    if (!bName) { showDetailsError('Please enter your account name.'); return; }
-    identity.bank = bBank; identity.acct = bAcct; identity.acctName = bName;
-  }
-  submitListing();
-});
+  });
 
-function submitListing() {
-  var nextBtn = document.getElementById('btn-email-next');
-  var proceedBtn = document.getElementById('locked-proceed');
-  nextBtn.disabled = true; proceedBtn.disabled = true;
-  if (nextBtn.style.display !== 'none') nextBtn.textContent = 'Submitting…';
-  proceedBtn.textContent = 'Submitting…';
+  function submitListing() {
+    var nextBtn = document.getElementById("btn-email-next");
+    var proceedBtn = document.getElementById("locked-proceed");
+    nextBtn.disabled = true; proceedBtn.disabled = true;
+    if (nextBtn.style.display !== "none") nextBtn.textContent = "Submitting…";
+    proceedBtn.textContent = "Submitting…";
 
-  var registerPromise = fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'registerSeller',
-      name: identity.name, email: identity.email, phone: identity.phone, whatsapp: identity.whatsapp,
-      bank: identity.bank, acct: identity.acct, acctName: identity.acctName,
-      sellerType: identity.sellerType, partnerId: identity.partnerId, businessName: identity.businessName
-    })
-  }).then(function(r) { return r.json(); }).catch(function() { return { success: true }; });
+    if (!GAS) {
+      setTimeout(function () {
+        var fakeId = "DPS" + (10000 + Math.floor(Math.random() * 9000));
+        window.location.href = "/thank-you?seller=" + (identity.mode === "returning" ? "returning" : "new") + "&name=" + encodeURIComponent(identity.name) + "&itemId=" + fakeId;
+      }, 1200);
+      return;
+    }
 
-  var photosPromise = uploadPhotos();
-
-  Promise.all([registerPromise, photosPromise]).then(function(results) {
-    var photoUrls = results[1] || [];
-    var amountToSeller = Math.round(itemState.price * 0.85);
-    var dpsProfit = itemState.price - amountToSeller;
-    return fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
+    var registerPromise = fetch(GAS, {
+      method: "POST",
       body: JSON.stringify({
-        action: 'submitListing',
-        sellerName: identity.name, email: identity.email, phone: identity.phone, whatsapp: identity.whatsapp,
-        bank: identity.bank, acctName: identity.acctName, acct: identity.acct,
-        itemName: itemState.name, condition: itemState.condition, description: itemState.description,
-        location: itemState.location, pickupTime: itemState.pickup,
-        amountToSell: itemState.price, amountToBuyer: itemState.price,
-        amountToSeller: amountToSeller, dpsProfit: dpsProfit,
-        photoUrls: photoUrls.join(', '),
-        botSource: 'Web Form', activityType: 'List',
+        action: "registerSeller",
+        name: identity.name, email: identity.email, phone: identity.phone, whatsapp: identity.whatsapp,
+        bank: identity.bank, acct: identity.acct, acctName: identity.acctName,
         sellerType: identity.sellerType, partnerId: identity.partnerId, businessName: identity.businessName
       })
-    });
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.success) {
-      var params = new URLSearchParams({
-        seller: identity.mode === 'returning' ? (identity.sellerType === 'Partner' ? 'partner' : 'returning') : 'new',
-        name: (identity.sellerType === 'Partner' ? identity.businessName : identity.name) || '',
-        itemId: data.itemId || ''
+    }).then(function (r) { return r.json(); }).catch(function () { return { success: true }; });
+
+    var photosPromise = uploadPhotos();
+
+    Promise.all([registerPromise, photosPromise]).then(function (results) {
+      var photoUrls = results[1] || [];
+      var amountToSeller = Math.round(itemState.price * 0.87);
+      var dpsProfit = itemState.price - amountToSeller;
+      return fetch(GAS, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "submitListing",
+          sellerName: identity.name, email: identity.email, phone: identity.phone, whatsapp: identity.whatsapp,
+          bank: identity.bank, acctName: identity.acctName, acct: identity.acct,
+          itemName: itemState.name, condition: itemState.condition, description: itemState.description,
+          location: itemState.location, pickupTime: itemState.pickup,
+          amountToSell: itemState.price, amountToBuyer: itemState.price,
+          amountToSeller: amountToSeller, dpsProfit: dpsProfit,
+          photoUrls: photoUrls.join(", "),
+          botSource: "Web Form", activityType: "List",
+          sellerType: identity.sellerType, partnerId: identity.partnerId, businessName: identity.businessName
+        })
       });
-      window.location.href = '/thank-you?' + params.toString();
-    } else {
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) {
+        var params = new URLSearchParams({
+          seller: identity.mode === "returning" ? (identity.sellerType === "Partner" ? "partner" : "returning") : "new",
+          name: (identity.sellerType === "Partner" ? identity.businessName : identity.name) || "",
+          itemId: data.itemId || ""
+        });
+        window.location.href = "/thank-you?" + params.toString();
+      } else {
+        nextBtn.disabled = false; proceedBtn.disabled = false;
+        nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
+        showDetailsError(data.error || "Could not submit. Please try again.");
+      }
+    })
+    .catch(function () {
       nextBtn.disabled = false; proceedBtn.disabled = false;
-      nextBtn.textContent = 'Next →'; proceedBtn.textContent = 'Submit listing';
-      showDetailsError(data.error || 'Could not submit. Please try again.');
-    }
-  })
-  .catch(function() {
-    nextBtn.disabled = false; proceedBtn.disabled = false;
-    nextBtn.textContent = 'Next →'; proceedBtn.textContent = 'Submit listing';
-    showDetailsError('Connection error. Please try again.');
-  });
-}
+      nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
+      showDetailsError("Connection error. Please try again.");
+    });
+  }
+
+  renderPhotos();
+
+})();
 </script>
 </body>
 </html>
