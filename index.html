@@ -24,11 +24,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   DPS DESIGN SYSTEM · v2.1
-   Ink-dominant · Green as accent only · Manrope + DM Sans
-   ═══════════════════════════════════════════════════════════════ */
 :root {
   --green: #00C853; --green-dark: #00A843; --green-deep: #009933;
   --ink: #0E1320; --ink-2: #161C2B; --ink-3: #1E2536; --ink-4: #2A3248;
@@ -54,6 +51,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 800; letter-
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; height: auto; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
 .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 @media (min-width: 768px) { .wrap { padding: 0 48px; } }
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-dark); }
@@ -71,6 +69,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn-outline-light { background: transparent; color: var(--off-white); border: 1.5px solid rgba(245,247,248,.22); }
 .btn-outline-light:hover { border-color: var(--off-white); background: rgba(255,255,255,.05); }
 
+/* ─── Nav ─── */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.9); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
 .nav-logo img { height: 34px; width: auto; }
@@ -82,18 +81,105 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
 @media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
-.hero { background: var(--ink); color: var(--off-white); padding: 148px 0 96px; position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; top: -30%; right: -15%; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 65%); pointer-events: none; z-index: 0; }
-.hero::after { content: ''; position: absolute; bottom: -40%; left: -10%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.06) 0%, rgba(0,200,83,0) 65%); pointer-events: none; z-index: 0; }
+/* ─── Hero ─── */
+.hero { background: var(--ink); color: var(--off-white); padding: 128px 0 72px; position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute;
+  top: -30%; right: -15%; width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none; z-index: 0;
+  transition: transform .9s cubic-bezier(.4,.2,.2,1);
+}
+.hero.selling::before { transform: translate(-140px, 80px) scale(1.15); }
+.hero::after {
+  content: ''; position: absolute;
+  bottom: -40%; left: -10%; width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.06) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none; z-index: 0;
+}
 .hero-inner { position: relative; z-index: 1; }
-.hero h1, .hero .hero-title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(44px, 8vw, 92px); letter-spacing: -0.035em; line-height: 0.98; max-width: 15ch; color: var(--white); }
-.hero-title .accent { color: var(--green); }
-.hero-sub { font-size: clamp(16px, 1.6vw, 19px); color: var(--stone-light); max-width: 52ch; margin-top: 28px; line-height: 1.6; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
-.hero-trust { display: flex; flex-wrap: wrap; gap: 20px 32px; margin-top: 64px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.08); font-size: 13.5px; color: var(--stone-light); }
-.hero-trust-item { display: inline-flex; align-items: center; gap: 8px; }
-.hero-trust-item svg { flex-shrink: 0; color: var(--green); }
 
+.hero-toggle {
+  display: inline-flex; padding: 3px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-pill);
+  gap: 2px; margin-bottom: 26px; position: relative;
+}
+.hero-toggle-btn {
+  padding: 7px 15px; border-radius: var(--r-pill);
+  font-family: var(--font-body); font-weight: 700; font-size: 12px;
+  color: var(--stone); letter-spacing: -0.005em; white-space: nowrap;
+  position: relative; z-index: 1;
+  transition: background .25s ease, color .25s ease;
+}
+.hero-toggle-btn:hover { color: var(--stone-light); }
+.hero-toggle-btn.active { background: var(--green); color: var(--ink); }
+
+.hero-content { transition: opacity .24s ease, transform .24s ease; }
+.hero-content.swapping { opacity: 0; transform: translateY(-5px); }
+
+.hero-title {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(38px, 6.8vw, 78px);
+  letter-spacing: -0.035em; line-height: 0.98;
+  max-width: 17ch; color: var(--white);
+}
+.hero-title .accent { color: var(--green); }
+.hero-sub {
+  font-size: clamp(15.5px, 1.5vw, 18px);
+  color: var(--stone-light); max-width: 54ch;
+  margin-top: 18px; line-height: 1.55;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.hero-trust { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 36px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.08); font-size: 12.5px; color: var(--stone-light); }
+.hero-trust-item { display: inline-flex; align-items: center; gap: 6px; }
+.hero-trust-item svg { flex-shrink: 0; color: var(--green); width: 13px; height: 13px; }
+
+.hero-sublink-wrap { margin-top: 22px; transition: opacity .3s ease; }
+.hero-sublink-wrap.hidden { display: none; }
+.hero-sublink { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--stone); font-weight: 500; letter-spacing: -0.005em; transition: color .15s; }
+.hero-sublink:hover { color: var(--stone-light); }
+.hero-sublink .live-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+.hero-sublink .arrow { transition: transform .15s; }
+.hero-sublink:hover .arrow { transform: translateX(2px); }
+
+@media (max-width: 640px) {
+  .hero { padding: 98px 0 44px; }
+  .hero-toggle { margin-bottom: 20px; padding: 3px; }
+  .hero-toggle-btn { padding: 6px 13px; font-size: 11.5px; }
+  .hero-title { font-size: clamp(32px, 8.4vw, 48px); max-width: 18ch; }
+  .hero-sub { font-size: 14.5px; margin-top: 14px; line-height: 1.5; }
+  .hero-actions { margin-top: 24px; }
+  .hero-trust { margin-top: 28px; padding-top: 18px; gap: 8px 14px; font-size: 11.5px; }
+  .hero-trust-item svg { width: 12px; height: 12px; }
+  .hero-sublink-wrap { margin-top: 16px; }
+  .hero-sublink { font-size: 12px; }
+}
+
+/* ─── Welcome strip ─── */
+.welcome-strip { background: var(--ink); position: relative; overflow: hidden; border-top: 1px solid rgba(0,200,83,.18); border-bottom: 1px solid rgba(0,200,83,.18); padding: 11px 0; }
+.welcome-strip::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 220px; background: linear-gradient(90deg, rgba(0,200,83,.16) 0%, rgba(0,200,83,0) 100%); pointer-events: none; }
+.welcome-strip::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--green); box-shadow: 0 0 24px rgba(0,200,83,.5); }
+.welcome-strip-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; text-align: center; }
+.welcome-spark { width: 22px; height: 22px; border-radius: 50%; background: rgba(0,200,83,.16); border: 1px solid rgba(0,200,83,.4); color: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.welcome-spark svg { width: 11px; height: 11px; }
+.welcome-text { font-size: 13px; color: var(--stone-light); line-height: 1.35; letter-spacing: -0.005em; }
+.welcome-text strong { color: var(--white); font-weight: 700; }
+.welcome-text em { color: var(--green); font-style: normal; font-weight: 700; }
+.welcome-muted { color: var(--stone); }
+.welcome-link { font-size: 12.5px; font-weight: 700; color: var(--green); white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border: 1px solid rgba(0,200,83,.32); border-radius: var(--r-pill); background: rgba(0,200,83,.06); transition: background .15s, color .15s, border-color .15s; }
+.welcome-link:hover { background: var(--green); color: var(--ink); border-color: var(--green); }
+.welcome-link svg { transition: transform .15s; }
+.welcome-link:hover svg { transform: translateX(2px); }
+@media (max-width: 640px) {
+  .welcome-strip { padding: 10px 0; }
+  .welcome-strip-inner { gap: 8px; }
+  .welcome-text { font-size: 12px; }
+  .welcome-link { font-size: 11.5px; padding: 3px 9px; }
+}
+
+/* ─── Sections ─── */
 .section { padding: 96px 0; }
 .section-tight { padding: 80px 0; }
 .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 48px; }
@@ -101,6 +187,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .section-link { font-size: 14px; font-weight: 700; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; border-bottom: 1.5px solid var(--green); padding-bottom: 3px; transition: color .15s; }
 .section-link:hover { color: var(--green-dark); }
 
+/* ─── About ─── */
+.about-section { background: var(--white); border-bottom: 1px solid var(--border); padding: 96px 0; }
+@media (max-width: 640px) { .about-section { padding: 64px 0; } }
+.about-head { max-width: 820px; margin-bottom: 56px; }
+.about-title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 4vw, 46px); letter-spacing: -0.032em; line-height: 1.08; color: var(--ink); margin-top: 14px; max-width: 22ch; }
+.about-title .accent { color: var(--green-dark); }
+.about-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; }
+@media (min-width: 900px) { .about-grid { grid-template-columns: 1.35fr 1fr; gap: 72px; align-items: start; } }
+.about-copy { display: flex; flex-direction: column; gap: 20px; }
+.about-lede { font-size: 17.5px; line-height: 1.65; color: var(--ink); font-weight: 500; letter-spacing: -0.005em; }
+.about-body { font-size: 15.5px; line-height: 1.75; color: var(--text-secondary); }
+@media (max-width: 640px) {
+  .about-lede { font-size: 16px; }
+  .about-body { font-size: 14.5px; line-height: 1.7; }
+}
+.about-values { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; background: var(--off-white); }
+.about-value { display: flex; gap: 14px; align-items: flex-start; padding: 20px 22px; border-bottom: 1px solid var(--border); transition: background .15s; }
+.about-value:last-child { border-bottom: none; }
+.about-value:hover { background: var(--white); }
+.about-value-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--mint-soft); color: var(--green-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.about-value-icon svg { width: 18px; height: 18px; }
+.about-value-text { min-width: 0; flex: 1; }
+.about-value-title { font-family: var(--font-heading); font-weight: 700; font-size: 14.5px; color: var(--ink); letter-spacing: -0.012em; margin-bottom: 3px; }
+.about-value-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ─── Live items ─── */
 .items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 @media (min-width: 720px) { .items-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 .item-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; cursor: pointer; display: flex; flex-direction: column; }
@@ -109,26 +221,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .item-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
 .item-card:hover .item-card-img img { transform: scale(1.04); }
 .item-card-body { padding: 14px 16px 16px; }
-.item-card-id { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 4px; }
+.item-card-id { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--green-dark); letter-spacing: 0.06em; margin-bottom: 4px; }
 .item-card-name { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
 .item-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
 .item-card-price { font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--ink); letter-spacing: -0.015em; }
 .item-card-meta { font-size: 10.5px; color: var(--text-muted); text-align: right; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
 
-.how-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-@media (min-width: 800px) { .how-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
-.how-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); padding: 32px 28px; display: flex; flex-direction: column; transition: border-color .2s, box-shadow .2s, transform .2s; }
-.how-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-.how-num { font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 20px; display: inline-block; }
-.how-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--off-white); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
-.how-title { font-family: var(--font-heading); font-weight: 700; font-size: 20px; margin-bottom: 10px; letter-spacing: -0.02em; }
-.how-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+/* ─── Flow paths ─── */
+.flow-paths { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 800px) { .flow-paths { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.flow-path { border-radius: var(--r-card); padding: 28px 26px; display: flex; flex-direction: column; gap: 22px; }
+.flow-path-buy { background: var(--white); border: 1px solid var(--border); }
+.flow-path-sell { background: var(--ink); border: 1px solid var(--ink); position: relative; overflow: hidden; }
+.flow-path-sell::before { content: ''; position: absolute; top: -50%; right: -30%; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
+.flow-path-sell > * { position: relative; z-index: 1; }
+.flow-path-tag { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; }
+.flow-path-buy .flow-path-tag { background: var(--off-white); color: var(--text-muted); border: 1px solid var(--border); }
+.flow-path-sell .flow-path-tag { background: rgba(0,200,83,.12); color: var(--green); border: 1px solid rgba(0,200,83,.28); }
+.flow-path-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.024em; margin-top: 12px; line-height: 1.2; }
+.flow-path-buy .flow-path-title { color: var(--ink); }
+.flow-path-sell .flow-path-title { color: var(--white); }
+.flow-steps { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.flow-step { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.flow-step:first-child { padding-top: 0; }
+.flow-step:last-child { border-bottom: none; padding-bottom: 0; }
+.flow-path-sell .flow-step { border-bottom-color: var(--border-dark); }
+.flow-step-num { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--text-muted); padding-top: 3px; flex-shrink: 0; width: 22px; }
+.flow-path-sell .flow-step-num { color: var(--green); }
+.flow-step-text { min-width: 0; flex: 1; }
+.flow-step-title { font-family: var(--font-heading); font-weight: 700; font-size: 15px; margin-bottom: 3px; letter-spacing: -0.012em; }
+.flow-path-buy .flow-step-title { color: var(--ink); }
+.flow-path-sell .flow-step-title { color: var(--white); }
+.flow-step-desc { font-size: 13.5px; line-height: 1.5; }
+.flow-path-buy .flow-step-desc { color: var(--text-secondary); }
+.flow-path-sell .flow-step-desc { color: var(--stone-light); }
+.flow-path-cta { display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 700; padding-top: 18px; border-top: 1px solid var(--border); color: var(--ink); transition: color .15s; align-self: stretch; justify-content: space-between; }
+.flow-path-cta:hover { color: var(--green-dark); }
+.flow-path-cta-sell { border-top-color: var(--border-dark); color: var(--green); cursor: pointer; font-family: inherit; text-align: left; background: none; }
+.flow-path-cta-sell:hover { color: var(--white); }
+.flow-path-cta .arrow { transition: transform .15s; }
+.flow-path-cta:hover .arrow { transform: translateX(3px); }
 
+/* ─── Dark section ─── */
 .dark { background: var(--ink); color: var(--off-white); }
 .dark h2, .dark h3, .dark .section-title { color: var(--white); }
 .split { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
 @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; gap: 72px; } }
 
+/* ─── Dayo ─── */
 .tg-card { background: var(--ink-2); border: 1px solid var(--border-dark); border-radius: var(--r-card); padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 440px; }
 .tg-card-row { display: flex; gap: 16px; align-items: flex-start; }
 .tg-icon { width: 52px; height: 52px; border-radius: 14px; background: #229ED9; color: #fff; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -143,6 +283,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .tg-channel-btn { background: var(--mint); color: var(--ink); padding: 8px 16px; border-radius: var(--r-pill); font-weight: 700; font-size: 12px; transition: background .15s; }
 .tg-channel-btn:hover { background: var(--green); }
 
+/* ─── Feature list ─── */
 .feature-list { display: flex; flex-direction: column; gap: 16px; }
 .feature-item { display: flex; gap: 16px; align-items: flex-start; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .feature-item:last-child { border-bottom: none; padding-bottom: 0; }
@@ -154,6 +295,31 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .feature-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
 .dark .feature-desc { color: var(--stone-light); }
 
+/* ─── Sale network ─── */
+.network-lede { color: var(--stone-light); font-size: 16.5px; line-height: 1.7; max-width: 60ch; margin: -20px 0 48px; }
+.network-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .network-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1024px) { .network-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+.network-card { background: var(--ink-2); border: 1px solid var(--border-dark); border-radius: var(--r-card); padding: 24px 22px; display: flex; flex-direction: column; gap: 12px; transition: border-color .2s, transform .2s; position: relative; overflow: hidden; }
+.network-card::before { content: ''; position: absolute; top: -60%; right: -30%; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.06) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
+.network-card:hover { border-color: rgba(0,200,83,.4); transform: translateY(-2px); }
+.network-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(0,200,83,.10); border: 1px solid rgba(0,200,83,.24); color: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; }
+.network-icon svg { width: 20px; height: 20px; }
+.network-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--white); letter-spacing: -0.018em; line-height: 1.25; position: relative; z-index: 1; }
+.network-desc { font-size: 13.5px; color: var(--stone-light); line-height: 1.6; flex: 1; position: relative; z-index: 1; }
+.network-meta { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; color: var(--stone); padding-top: 14px; border-top: 1px solid var(--border-dark); position: relative; z-index: 1; }
+.network-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(0,200,83,.14); flex-shrink: 0; }
+.network-converge { margin-top: 56px; display: flex; align-items: center; gap: 24px; }
+.network-converge-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-dark) 30%, var(--border-dark) 70%, transparent 100%); }
+@media (max-width: 720px) { .network-converge-line { display: none; } }
+.network-converge-inner { flex-shrink: 0; text-align: center; max-width: 480px; }
+@media (max-width: 720px) { .network-converge-inner { max-width: none; } }
+.network-converge-label { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.network-converge-label::before, .network-converge-label::after { content: ''; width: 18px; height: 1.5px; background: var(--green); }
+.network-converge-title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px, 2.6vw, 26px); letter-spacing: -0.026em; color: var(--white); line-height: 1.2; }
+.network-converge-sub { font-size: 13.5px; color: var(--stone-light); line-height: 1.6; margin-top: 10px; }
+
+/* ─── Voices ─── */
 .voices-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 720px) { .voices-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
 .voice-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); padding: 26px 24px; display: flex; flex-direction: column; gap: 16px; transition: transform .2s, border-color .2s; }
@@ -162,6 +328,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .voice-quote { font-family: var(--font-body); font-style: italic; font-size: 15.5px; line-height: 1.55; color: var(--ink); flex: 1; }
 .voice-meta { font-size: 12px; color: var(--text-secondary); padding-top: 14px; border-top: 1px solid var(--border); }
 
+/* ─── Auction locked ─── */
 .auction-card { background: var(--white); border: 1px solid var(--border); border-radius: 24px; padding: 48px 40px; display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
 @media (min-width: 900px) { .auction-card { grid-template-columns: 1.3fr 1fr; padding: 64px 56px; gap: 64px; } }
 .auction-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--r-button); overflow: hidden; max-width: 340px; margin: 28px 0; }
@@ -169,7 +336,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .auction-stat:last-child { border-right: none; }
 .auction-stat-num { font-family: var(--font-heading); font-weight: 800; font-size: 20px; color: var(--ink); letter-spacing: -0.02em; }
 .auction-stat-lbl { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+.auction-soon-pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: var(--mint-soft); border: 1px solid rgba(0,200,83,.28); border-radius: var(--r-pill); font-family: var(--font-heading); font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-dark); }
+.auction-soon-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+.auction-locked-btn { opacity: 0.55; cursor: not-allowed; color: var(--text-muted); border-color: var(--border); }
+.auction-locked-btn:hover { border-color: var(--border); }
+.auction-locked-btn svg { color: var(--text-muted); }
 
+/* ─── Partner CTA ─── */
 .partner-cta { background: var(--ink-2); color: var(--white); border-radius: 24px; padding: 56px 40px; display: grid; grid-template-columns: 1fr; gap: 40px; border: 1px solid var(--border-dark); }
 @media (min-width: 900px) { .partner-cta { grid-template-columns: 1.2fr 1fr; padding: 72px 64px; gap: 72px; } }
 .partner-title { font-size: clamp(32px, 4vw, 48px); color: var(--white); letter-spacing: -0.03em; line-height: 1.05; margin-top: 16px; }
@@ -183,6 +356,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .partner-mini-title { font-family: var(--font-heading); font-weight: 700; color: var(--white); font-size: 14.5px; margin-bottom: 4px; letter-spacing: -0.01em; }
 .partner-mini-desc { font-size: 13px; color: var(--stone-light); line-height: 1.55; }
 
+/* ─── Final CTA ─── */
 .final-cta { background: var(--ink); color: var(--white); padding: 112px 0; text-align: center; position: relative; overflow: hidden; }
 .final-cta::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 15% 25%, rgba(0,200,83,.08) 0%, transparent 45%), radial-gradient(circle at 85% 75%, rgba(0,200,83,.05) 0%, transparent 45%); pointer-events: none; }
 .final-cta-inner { position: relative; z-index: 1; }
@@ -190,6 +364,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .final-sub { font-size: 17px; color: var(--stone-light); margin-top: 20px; max-width: 52ch; margin-left: auto; margin-right: auto; }
 .final-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 40px; }
 
+/* ─── Footer ─── */
 footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32px; border-top: 1px solid var(--border-dark); }
 .foot-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 48px; }
 @media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; } }
@@ -204,15 +379,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
 .foot-social a:hover { background: rgba(0,200,83,.15); }
 .foot-social svg { width: 16px; height: 16px; color: var(--stone-light); }
 
+/* ─── Reveal ─── */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
-.live-pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; background: rgba(0,200,83,.08); border: 1px solid rgba(0,200,83,.22); border-radius: var(--r-pill); font-size: 13.5px; font-weight: 600; color: var(--green); transition: background .15s; }
-.live-pill:hover { background: rgba(0,200,83,.14); }
 .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
+/* ─── Skeleton ─── */
 .item-card-skeleton { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; }
 .item-card-skeleton .sk-img { aspect-ratio: 4/3; background: linear-gradient(90deg, var(--off-white) 0%, #e9eced 50%, var(--off-white) 100%); background-size: 200% 100%; animation: sk 1.4s ease-in-out infinite; }
 .item-card-skeleton .sk-body { padding: 14px 16px 16px; }
@@ -221,7 +396,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
 @keyframes sk { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 /* ═══════════════════════════════════════════════════════════════
-   SELL MODAL — scoped under .sell-modal-bg so nothing collides
+   SELL MODAL
    ═══════════════════════════════════════════════════════════════ */
 .sell-modal-bg { position: fixed; inset: 0; z-index: 600; background: rgba(14,19,32,.80); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .28s ease; padding: 0; }
 .sell-modal-bg.open { opacity: 1; pointer-events: all; }
@@ -241,7 +416,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
 .sell-modal-body { padding: 20px 24px 28px; display: flex; flex-direction: column; gap: 18px; }
 @media (max-width: 520px) { .sell-modal-body { padding: 16px 18px 24px; } }
 body.sell-modal-locked { overflow: hidden; }
-
 .sell-modal-bg .step-track { display: flex; align-items: center; margin-bottom: 20px; }
 .sell-modal-bg .st { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); transition: color .25s; white-space: nowrap; }
 .sell-modal-bg .st.active { color: var(--ink); }
@@ -254,7 +428,6 @@ body.sell-modal-locked { overflow: hidden; }
 .sell-modal-bg .st-line { flex: 1; height: 1.5px; background: var(--border); margin: 0 10px; transition: background .25s; min-width: 16px; }
 .sell-modal-bg .st-line.done { background: var(--green); }
 @media (max-width: 460px) { .sell-modal-bg .st > span:not(.st-dot) { display: none; } }
-
 .sell-modal-bg .card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(14,19,32,.04); }
 .sell-modal-bg .card-stripe { height: 3px; background: linear-gradient(90deg, var(--green), var(--green-dark)); }
 .sell-modal-bg .card-head { padding: 20px 22px 16px; border-bottom: 1px solid var(--border); }
@@ -265,10 +438,8 @@ body.sell-modal-locked { overflow: hidden; }
 .sell-modal-bg .card-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; }
 .sell-modal-bg .card-foot { padding: 0 22px 20px; display: flex; flex-direction: column; gap: 10px; }
 @media (max-width: 520px) { .sell-modal-bg .card-head { padding: 16px 16px 14px; } .sell-modal-bg .card-body { padding: 16px 16px; } .sell-modal-bg .card-foot { padding: 0 16px 18px; } .sell-modal-bg .card-title { font-size: 18px; } }
-
 .sell-modal-bg .step-view { display: none; }
 .sell-modal-bg .step-view.active { display: block; }
-
 .sell-modal-bg .field { display: flex; flex-direction: column; gap: 6px; }
 .sell-modal-bg .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .sell-modal-bg .field label { font-size: 12.5px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
@@ -285,17 +456,14 @@ body.sell-modal-locked { overflow: hidden; }
 .sell-modal-bg .field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
 .sell-modal-bg .field-hint { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
 .sell-modal-bg .field-hint.err { color: #DC2626; font-weight: 600; }
-
 .sell-modal-bg .price-wrap { position: relative; }
 .sell-modal-bg .price-sym { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--green-dark); pointer-events: none; }
 .sell-modal-bg .field .price-wrap input { padding-left: 36px; font-family: var(--font-heading); font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; }
 .sell-modal-bg .price-display-wrap { display: flex; justify-content: center; padding: 6px 0 0; }
 .sell-modal-bg .price-display { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; padding: 8px 18px; border-radius: 10px; border: 1.5px solid var(--ink); background: var(--white); display: none; }
 .sell-modal-bg .price-display.show { display: inline-block; }
-
 .sell-modal-bg .divider { display: flex; align-items: center; gap: 12px; font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-top: 6px; }
 .sell-modal-bg .divider::before, .sell-modal-bg .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
 .sell-modal-bg .photo-drop-zone { border: 1.5px dashed var(--border-ink); border-radius: 12px; padding: 20px 16px; text-align: center; cursor: pointer; background: var(--off-white); transition: border-color .15s, background .15s; display: flex; flex-direction: column; align-items: center; gap: 6px; user-select: none; -webkit-user-select: none; }
 .sell-modal-bg .photo-drop-zone:hover { border-color: var(--green); background: var(--white); }
 .sell-modal-bg .photo-drop-zone.err { border-color: #DC2626; background: #FEF2F2; }
@@ -307,17 +475,14 @@ body.sell-modal-locked { overflow: hidden; }
 .sell-modal-bg .photo-thumb { position: relative; width: 68px; height: 68px; border-radius: 8px; overflow: hidden; flex-shrink: 0; border: 1.5px solid var(--ink); background: var(--off-white); }
 .sell-modal-bg .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .sell-modal-bg .photo-thumb-remove { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: rgba(14,19,32,.85); border: 1px solid rgba(255,255,255,.15); color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-
 .sell-modal-bg .item-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: var(--white); border: 1.5px solid var(--ink); border-radius: 12px; font-size: 13px; }
 .sell-modal-bg .item-summary-left { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 4px; }
 .sell-modal-bg .item-summary-id { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--green-dark); letter-spacing: 0.06em; }
 .sell-modal-bg .item-summary-name { font-family: var(--font-heading); font-weight: 700; color: var(--ink); font-size: 13.5px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sell-modal-bg .item-summary-price { font-family: var(--font-mono); font-weight: 500; color: var(--ink); font-size: 13px; white-space: nowrap; flex-shrink: 0; padding: 6px 10px; background: var(--off-white); border-radius: 8px; }
-
 .sell-modal-bg .notice { padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; }
 .sell-modal-bg .notice-amber { background: #FFF8E6; border: 1.5px solid rgba(255,179,0,.32); color: var(--text-secondary); }
 .sell-modal-bg .notice-amber strong { color: #B45309; font-weight: 700; }
-
 .sell-modal-bg .search-panel { display: none; margin-top: 4px; }
 .sell-modal-bg .search-panel.is-searching,
 .sell-modal-bg .search-panel.is-found,
@@ -409,40 +574,116 @@ body.sell-modal-locked { overflow: hidden; }
 </nav>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="wrap hero-inner">
-    <div class="eyebrow reveal">Decluttering, digitized</div>
-    <h1 class="hero-title reveal" style="margin-top:22px;">Turn idle items <br>into <span class="accent">cash.</span></h1>
-    <p class="hero-sub reveal">Lagos has too much unused value sitting in drawers and storage. We connect pre-owned sellers with real buyers — escrow-protected, bot-assisted, zero stress.</p>
-
-    <div id="heroLiveCount" style="display:none;margin-top:28px;" class="reveal">
-      <a href="/items" class="live-pill">
-        <span class="live-dot"></span>
-        <span id="heroLiveCountText">Loading live items…</span>
-      </a>
+    <div class="hero-toggle" role="tablist" aria-label="Choose your intent">
+      <button class="hero-toggle-btn active" data-mode="buy" role="tab" aria-selected="true">I want to buy</button>
+      <button class="hero-toggle-btn" data-mode="sell" role="tab" aria-selected="false">I want to sell</button>
     </div>
 
-    <div class="hero-actions reveal">
-      <a href="/items" class="btn btn-primary">
-        Browse live items
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="/sell" class="btn btn-outline-light" data-open-sell>List an item</a>
+    <div class="hero-content" id="heroContent">
+      <h1 class="hero-title" id="heroTitle">Discover the best deals on <span class="accent">declutter items.</span></h1>
+      <p class="hero-sub" id="heroSub">From iPhones to furniture — reviewed listings, escrow-protected payments, PIN-verified pickups.</p>
+
+      <div class="hero-actions">
+        <a href="/items" class="btn btn-primary" data-buy-cta>
+          Browse live items
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener" class="btn btn-outline-light" data-buy-secondary>Open Telegram</a>
+
+        <a href="/sell" class="btn btn-primary" data-sell-cta style="display:none;" data-open-sell>
+          Sell something now
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="/partners" class="btn btn-outline-light" data-sell-secondary style="display:none;">Partner program</a>
+      </div>
     </div>
 
-    <div class="hero-trust reveal">
+    <div class="hero-trust">
       <span class="hero-trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Escrow-protected payments
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Escrow-protected
       </span>
       <span class="hero-trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
-        Verified listings only
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="20 6 9 17 4 12"/></svg>
+        Verified listings
       </span>
       <span class="hero-trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
         Dayo — 24/7 on Telegram
       </span>
+    </div>
+
+    <div class="hero-sublink-wrap hidden" id="heroSublink">
+      <a href="/items" class="hero-sublink">
+        <span class="live-dot"></span>
+        <span id="heroSublinkText">Browse live items</span>
+        <svg class="arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ WELCOME STRIP ═══════════════════ -->
+<section class="welcome-strip">
+  <div class="wrap">
+    <div class="welcome-strip-inner">
+      <div class="welcome-spark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16 14 19 22 12 17 5 22 8 14 2 9 9 9 12 2"/></svg>
+      </div>
+      <span class="welcome-text"><strong>Welcome offer</strong> · Your first sale runs at <em>3% less commission</em>. <span class="welcome-muted">Time to turn idle into income.</span></span>
+      <a href="/sell" class="welcome-link" data-open-sell>
+        Start
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<section class="about-section">
+  <div class="wrap">
+    <div class="about-head reveal">
+      <div class="eyebrow">Our story</div>
+      <h2 class="about-title">Lagos has too much value <span class="accent">sitting idle.</span></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p class="about-lede">Drawers full of working phones. Wardrobes of unworn shoes. Storage rooms of forgotten furniture. Millions of naira locked up in things nobody uses anymore — while buyers pay full price for the same items brand new.</p>
+        <p class="about-body">Declutter Pawn Shop unlocks that. One place to list, sell, and buy quality pre-owned items. Escrow-protected payments, verified sellers, and a network that gets every listing in front of real buyers — so sellers move faster and buyers pay less.</p>
+      </div>
+
+      <div class="about-values reveal">
+        <div class="about-value">
+          <div class="about-value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="about-value-text">
+            <div class="about-value-title">Escrow-protected payments</div>
+            <div class="about-value-desc">Every naira held until you confirm pickup with a PIN.</div>
+          </div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.66 0 3.22.45 4.56 1.24"/></svg>
+          </div>
+          <div class="about-value-text">
+            <div class="about-value-title">Verified sellers only</div>
+            <div class="about-value-desc">Every listing reviewed by our team before it goes live.</div>
+          </div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          </div>
+          <div class="about-value-text">
+            <div class="about-value-title">Real distribution</div>
+            <div class="about-value-desc">Telegram, Instagram, ads — every listing reaches buyers.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -464,34 +705,86 @@ body.sell-modal-locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+<!-- ═══════════════════ FLOW PATHS ═══════════════════ -->
 <section class="section">
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <div class="eyebrow">The process</div>
-        <h2 class="section-title">Simple. Structured. Safe.</h2>
+        <div class="eyebrow">How it works</div>
+        <h2 class="section-title">Buy something. Or finally sell that thing.</h2>
       </div>
     </div>
-    <div class="how-grid">
-      <div class="how-card reveal">
-        <span class="how-num">01 / DISCOVER</span>
-        <div class="how-icon">🔎</div>
-        <h3 class="how-title">Find something you like</h3>
-        <p class="how-desc">Browse new items daily on our Telegram channel or the website. Every listing is reviewed by our team before it goes live.</p>
+
+    <div class="flow-paths">
+
+      <div class="flow-path flow-path-buy reveal">
+        <div>
+          <span class="flow-path-tag">Buying</span>
+          <h3 class="flow-path-title">Find it. Pay for it. Confirm it.</h3>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <span class="flow-step-num">01</span>
+            <div class="flow-step-text">
+              <div class="flow-step-title">Find something</div>
+              <div class="flow-step-desc">Browse reviewed listings, or ask Dayo what's live right now.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-num">02</span>
+            <div class="flow-step-text">
+              <div class="flow-step-title">Buy or negotiate</div>
+              <div class="flow-step-desc">Pay the asking price, or make an offer the seller can accept, counter, or decline.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-num">03</span>
+            <div class="flow-step-text">
+              <div class="flow-step-title">PIN on pickup</div>
+              <div class="flow-step-desc">Inspect it in person. Share the PIN only when it matches — that's when your money moves.</div>
+            </div>
+          </div>
+        </div>
+        <a href="/items" class="flow-path-cta">
+          Browse live items
+          <span class="arrow">→</span>
+        </a>
       </div>
-      <div class="how-card reveal">
-        <span class="how-num">02 / CONNECT</span>
-        <div class="how-icon">💬</div>
-        <h3 class="how-title">Chat with Dayo</h3>
-        <p class="how-desc">Send the Item ID to Dayo — our 24/7 Telegram assistant. He checks availability, shows interest, and sends your Paystack invoice instantly.</p>
+
+      <div class="flow-path flow-path-sell reveal">
+        <div>
+          <span class="flow-path-tag">Selling</span>
+          <h3 class="flow-path-title">List it. We push it. You get paid.</h3>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <span class="flow-step-num">01</span>
+            <div class="flow-step-text">
+              <div class="flow-step-title">List what's idle</div>
+              <div class="flow-step-desc">Name, price, photos. Two minutes and it's done.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-num">02</span>
+            <div class="flow-step-text">
+              <div class="flow-step-title">We do the rest</div>
+              <div class="flow-step-desc">Approved listings go out across Telegram, Instagram, our ad campaigns, and your own share link.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-num">03</span>
+            <div class="flow-step-text">
+              <div class="flow-step-title">Money in your bank</div>
+              <div class="flow-step-desc">Buyer pays into escrow. You deliver. PIN confirms — payout releases to you.</div>
+            </div>
+          </div>
+        </div>
+        <button class="flow-path-cta flow-path-cta-sell" data-open-sell>
+          Start selling
+          <span class="arrow">→</span>
+        </button>
       </div>
-      <div class="how-card reveal">
-        <span class="how-num">03 / COMPLETE</span>
-        <div class="how-icon">🤝</div>
-        <h3 class="how-title">Pay, pick up, confirm</h3>
-        <p class="how-desc">Your money is escrowed. Arrange pickup, inspect the item, and share your PIN only when you're satisfied. Then the seller gets paid.</p>
-      </div>
+
     </div>
   </div>
 </section>
@@ -503,10 +796,10 @@ body.sell-modal-locked { overflow: hidden; }
       <div class="reveal">
         <div class="eyebrow">Meet Dayo</div>
         <h2 class="section-title" style="margin-top:14px;">Your 24/7 DPS assistant.</h2>
-        <p style="color:var(--stone-light);font-size:16px;line-height:1.65;margin-top:24px;max-width:48ch;">Dayo lives on Telegram. He answers questions, checks availability, sends invoices, and keeps you posted on everything happening with your items — no waiting, no back and forth.</p>
+        <p style="color:var(--stone-light);font-size:16px;line-height:1.65;margin-top:24px;max-width:48ch;">Dayo lives on Telegram. He answers questions, checks availability, sends links, and keeps you posted on everything happening with your items — no waiting, no back and forth.</p>
         <div class="feature-list" style="margin-top:36px;">
           <div class="feature-item"><div class="feature-dot">✓</div><div><div class="feature-title">Instant availability checks</div><div class="feature-desc">Send an Item ID. Know in seconds if it's still for sale.</div></div></div>
-          <div class="feature-item"><div class="feature-dot">✓</div><div><div class="feature-title">Auto-generated Paystack invoices</div><div class="feature-desc">No forms, no back and forth. Payment happens in the chat.</div></div></div>
+          <div class="feature-item"><div class="feature-dot">✓</div><div><div class="feature-title">Availability, pricing, and links</div><div class="feature-desc">Send an Item ID. Dayo sends back the item page — buy or negotiate right there.</div></div></div>
           <div class="feature-item"><div class="feature-dot">✓</div><div><div class="feature-title">Seller listing in minutes</div><div class="feature-desc">Name, price, photo. Dayo builds the listing for you.</div></div></div>
         </div>
       </div>
@@ -545,15 +838,115 @@ body.sell-modal-locked { overflow: hidden; }
     <div class="split">
       <div class="reveal">
         <div class="eyebrow">Escrow protection</div>
-        <h2 class="section-title" style="margin-top:14px;">No "send money and disappear."</h2>
-        <p style="color:var(--text-secondary);font-size:16.5px;line-height:1.7;margin-top:24px;max-width:52ch;">Every payment on DPS is held in escrow. Your money doesn't move to the seller until you've seen the item, tested it, and confirmed it's what you paid for.</p>
+        <h2 class="section-title" style="margin-top:14px;">An escrow system that actually works.</h2>
+        <p style="color:var(--text-secondary);font-size:16.5px;line-height:1.7;margin-top:24px;max-width:52ch;">Payment confirms the order, but neither side has to trust the other. The money sits in escrow — not with the seller — until the exchange is done. A PIN is exchanged at pickup to confirm the item matches. Same idea as Chowdeck. That's the moment funds release.</p>
       </div>
       <div class="feature-list reveal">
-        <div class="feature-item"><div class="feature-dot">1</div><div><div class="feature-title">Buyer pays DPS</div><div class="feature-desc">Funds held securely. Neither party can touch them yet.</div></div></div>
-        <div class="feature-item"><div class="feature-dot">2</div><div><div class="feature-title">Seller connected to buyer</div><div class="feature-desc">Contact shared both ways. Pickup arranged directly.</div></div></div>
-        <div class="feature-item"><div class="feature-dot">3</div><div><div class="feature-title">Buyer inspects in person</div><div class="feature-desc">Not as described? Don't share the PIN. Message us.</div></div></div>
-        <div class="feature-item"><div class="feature-dot">4</div><div><div class="feature-title">PIN releases the funds</div><div class="feature-desc">Seller gets paid. Everyone walks away certain.</div></div></div>
+        <div class="feature-item">
+          <div class="feature-dot">1</div>
+          <div>
+            <div class="feature-title">Buyer pays into escrow</div>
+            <div class="feature-desc">Paystack holds the money. Order is confirmed. Nobody touches it yet — not even us.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot">2</div>
+          <div>
+            <div class="feature-title">Contacts shared both ways</div>
+            <div class="feature-desc">Buyer and seller get each other's details. Pickup arranged directly.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot">3</div>
+          <div>
+            <div class="feature-title">Inspect in person</div>
+            <div class="feature-desc">See the item, test it, make sure it matches. Item not as described? Don't share the PIN — full refund, no argument.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot">4</div>
+          <div>
+            <div class="feature-title">PIN confirms and releases</div>
+            <div class="feature-desc">Like Chowdeck. Buyer enters their 4-digit PIN at pickup. Escrow opens, seller gets paid. Simple, and safe for both sides.</div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SALE NETWORK ═══════════════════ -->
+<section class="dark section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">The sale network</div>
+        <h2 class="section-title" style="margin-top:14px;">One listing. Everywhere buyers are.</h2>
+      </div>
+    </div>
+
+    <p class="network-lede reveal">
+      Your item doesn't sit on a shelf waiting. The moment it's approved, it goes out across every channel we run — so the right buyer sees it before they even know they're looking.
+    </p>
+
+    <div class="network-grid">
+      <div class="network-card reveal">
+        <div class="network-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+        </div>
+        <h3 class="network-title">Telegram buyers</h3>
+        <p class="network-desc">Our channel is where the serious buyers are. New drops get posted the moment they're approved — thousands of Lagos buyers scroll it daily.</p>
+        <div class="network-meta">
+          <span class="network-meta-dot"></span>
+          Highest-intent audience
+        </div>
+      </div>
+
+      <div class="network-card reveal">
+        <div class="network-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3 class="network-title">Instagram grid</h3>
+        <p class="network-desc">Regular story drops and feed features push your item in front of buyers who live on IG — people who don't even use Telegram.</p>
+        <div class="network-meta">
+          <span class="network-meta-dot"></span>
+          Reaches outside the channel
+        </div>
+      </div>
+
+      <div class="network-card reveal">
+        <div class="network-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        <h3 class="network-title">Always-on ads</h3>
+        <p class="network-desc">Your item runs in our ecommerce-style ad campaigns on Meta — targeting Lagos buyers actively shopping for what you're selling.</p>
+        <div class="network-meta">
+          <span class="network-meta-dot"></span>
+          Runs while your item is live
+        </div>
+      </div>
+
+      <div class="network-card reveal">
+        <div class="network-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <h3 class="network-title">Your own share link</h3>
+        <p class="network-desc">Every item has a clean, shareable link. Post it in WhatsApp groups, your own IG story, anywhere — it goes straight to the item page.</p>
+        <div class="network-meta">
+          <span class="network-meta-dot"></span>
+          Yours to share, anytime
+        </div>
+      </div>
+    </div>
+
+    <div class="network-converge reveal">
+      <div class="network-converge-line"></div>
+      <div class="network-converge-inner">
+        <div class="network-converge-label">Everything points back to</div>
+        <div class="network-converge-title">One item page. Buy or negotiate.</div>
+        <div class="network-converge-sub">No DMs to chase. No phone numbers to trade. Buyers click through, pay through Paystack, and you get notified — regardless of where they first saw it.</div>
+      </div>
+      <div class="network-converge-line"></div>
     </div>
   </div>
 </section>
@@ -595,7 +988,11 @@ body.sell-modal-locked { overflow: hidden; }
   <div class="wrap">
     <div class="auction-card reveal">
       <div>
-        <div class="eyebrow">Introducing DPS Auction</div>
+        <span class="auction-soon-pill">
+          <span class="auction-soon-dot"></span>
+          Coming soon
+        </span>
+        <div class="eyebrow" style="margin-top:16px;">Introducing DPS Auction</div>
         <h2 class="section-title" style="margin-top:14px;">Low prices. Open bids. Market decides.</h2>
         <p style="color:var(--text-secondary);font-size:16px;line-height:1.65;margin-top:20px;max-width:52ch;">Some items are better when buyers compete. Sellers list at a starting price. Buyers bid. The highest offer wins — still escrow-protected.</p>
         <div class="auction-stats">
@@ -604,11 +1001,14 @@ body.sell-modal-locked { overflow: hidden; }
           <div class="auction-stat"><div class="auction-stat-num">24h</div><div class="auction-stat-lbl">Max window</div></div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px;">
-          <a href="/auction" class="btn btn-primary">See live auctions</a>
-          <a href="/list-auction" class="btn btn-outline">Apply to list</a>
+          <button class="btn btn-outline auction-locked-btn" type="button" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Opening soon
+          </button>
+          <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener" class="btn btn-outline">Get notified</a>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;flex-direction:column;gap:12px;opacity:0.55;pointer-events:none;">
         <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--r-card);padding:24px;">
           <div style="font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">DPS Marketplace</div>
           <div style="font-family:var(--font-heading);font-weight:800;font-size:20px;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);">Fixed price. First buyer wins.</div>
@@ -706,7 +1106,7 @@ body.sell-modal-locked { overflow: hidden; }
   <div class="sell-modal" role="dialog" aria-modal="true" aria-labelledby="sellModalTitle">
     <div class="sell-modal-handle"></div>
     <div class="sell-modal-bar">
-      <span class="sell-modal-bar-title" id="sellModalTitle">Sell an item</span>
+      <span class="sell-modal-bar-title" id="sellModalTitle">Start selling</span>
       <button class="sell-modal-close" id="sellModalClose" aria-label="Close">✕</button>
     </div>
     <div class="sell-modal-scroll">
@@ -724,8 +1124,8 @@ body.sell-modal-locked { overflow: hidden; }
             <div class="card-stripe"></div>
             <div class="card-head">
               <div class="card-eyebrow">Step 1 of 2</div>
-              <div class="card-title">What are you selling?</div>
-              <div class="card-sub">Be specific — buyers decide based on exactly what you write here.</div>
+              <div class="card-title">What's sitting idle?</div>
+              <div class="card-sub">Name, price, photos. Two minutes and it's live for buyers to see.</div>
             </div>
             <div class="card-body">
               <div class="field">
@@ -763,7 +1163,7 @@ body.sell-modal-locked { overflow: hidden; }
               <div class="field-hint err" id="sm-item-error" style="display:none;text-align:center;"></div>
             </div>
             <div class="card-foot">
-              <button class="btn-block btn-block-primary" id="sm-btn-continue-item">Continue to your email →</button>
+              <button class="btn-block btn-block-primary" id="sm-btn-continue-item">Continue →</button>
             </div>
           </div>
         </div>
@@ -773,9 +1173,9 @@ body.sell-modal-locked { overflow: hidden; }
           <div class="card">
             <div class="card-stripe"></div>
             <div class="card-head">
-              <div class="card-eyebrow">Step 2 of 2</div>
-              <div class="card-title">What's your email?</div>
-              <div class="card-sub">We'll use it to look you up — or set up your account in seconds if you're new.</div>
+              <div class="card-eyebrow">Last step</div>
+              <div class="card-title">Your email?</div>
+              <div class="card-sub">We'll use it to look you up — or set up your account in seconds.</div>
             </div>
             <div class="card-body">
               <div class="item-summary" id="sm-item-summary">
@@ -829,8 +1229,8 @@ body.sell-modal-locked { overflow: hidden; }
                   <div class="notfound-banner">
                     <div class="notfound-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
                     <div class="notfound-text">
-                      <div class="notfound-title">New account</div>
-                      <div class="notfound-sub">No record of this email — fill in a few details so we know where to send your payout.</div>
+                      <div class="notfound-title">Let's get you set up</div>
+                      <div class="notfound-sub">Quick one-time setup so we can pay you when your item sells.</div>
                     </div>
                   </div>
                   <div class="signup-fields">
@@ -839,7 +1239,7 @@ body.sell-modal-locked { overflow: hidden; }
                       <div class="field"><label>Phone <em>*</em></label><input type="tel" id="sm-su-phone" placeholder="080XXXXXXXX"></div>
                     </div>
                     <div class="field"><label>WhatsApp <em>*</em></label><input type="tel" id="sm-su-whatsapp" placeholder="080XXXXXXXX"></div>
-                    <div class="divider">Payout details</div>
+                    <div class="divider">Payout setup · one-time</div>
                     <div class="field-row">
                       <div class="field"><label>Bank <em>*</em></label><input type="text" id="sm-su-bank" placeholder="e.g. GTBank, Opay, Kuda"></div>
                       <div class="field"><label>Account number <em>*</em></label><input type="text" id="sm-su-acct" placeholder="0123456789" maxlength="10" inputmode="numeric"></div>
@@ -849,7 +1249,7 @@ body.sell-modal-locked { overflow: hidden; }
                 </div>
               </div>
               <div id="sm-add-bank-block" style="display:none;flex-direction:column;gap:14px;margin-top:4px;">
-                <div class="notice notice-amber"><strong>One more thing.</strong> You don't have payout details on file — add them below so we can pay you when your item sells.</div>
+                <div class="notice notice-amber"><strong>One-time setup.</strong> Add your bank details so we can pay you the moment your item sells.</div>
                 <div class="field-row">
                   <div class="field"><label>Bank <em>*</em></label><input type="text" id="sm-ab-bank" placeholder="e.g. GTBank, Opay, Kuda"></div>
                   <div class="field"><label>Account number <em>*</em></label><input type="text" id="sm-ab-acct" placeholder="0123456789" maxlength="10" inputmode="numeric"></div>
@@ -861,7 +1261,7 @@ body.sell-modal-locked { overflow: hidden; }
             <div class="card-foot">
               <button class="btn-block btn-block-primary" id="sm-btn-email-next">Next →</button>
               <button class="btn-block btn-block-secondary" id="sm-btn-back-item">← Back to item</button>
-              <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 15% fee on sale (5% for partners).</div>
+              <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 3% less commission on your first sale.</div>
             </div>
           </div>
         </div>
@@ -875,9 +1275,11 @@ body.sell-modal-locked { overflow: hidden; }
 (function () {
   "use strict";
 
-  // ═══════════════════════════════════════════════════════════
-  // Reveal-on-scroll
-  // ═══════════════════════════════════════════════════════════
+  /* ─── Config from dps-config.js ─── */
+  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
+  var SITE_URL = (typeof DPS_SITE_URL !== "undefined") ? DPS_SITE_URL : window.location.origin;
+
+  /* ─── Reveal on scroll ─── */
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry, i) {
       if (entry.isIntersecting) {
@@ -888,32 +1290,103 @@ body.sell-modal-locked { overflow: hidden; }
   }, { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach(function (el) { observer.observe(el); });
 
-  // ═══════════════════════════════════════════════════════════
-  // Home items grid
-  // ═══════════════════════════════════════════════════════════
-  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : null;
-  var grid = document.getElementById("homeItemsGrid");
+  /* ═══════════════════════════════════════════════════════════
+     HERO TOGGLE — one auto-swap at 4s, then stays. Manual stops it.
+     ═══════════════════════════════════════════════════════════ */
+  var heroEl = document.getElementById("hero");
+  var heroContent = document.getElementById("heroContent");
+  var titleEl = document.getElementById("heroTitle");
+  var subEl = document.getElementById("heroSub");
+  var sublinkWrap = document.getElementById("heroSublink");
+  var sublinkText = document.getElementById("heroSublinkText");
+  var toggleBtns = document.querySelectorAll(".hero-toggle-btn");
 
+  var COPY = {
+    buy: {
+      title: 'Discover the best deals on <span class="accent">declutter items.</span>',
+      sub: "From iPhones to furniture — reviewed listings, escrow-protected payments, PIN-verified pickups.",
+      showSublink: false
+    },
+    sell: {
+      title: 'Turn the stuff you don\'t use into <span class="accent">money you will.</span>',
+      sub: "Free to list. We handle the marketing, the buyers, and the escrow. You keep 87% — 97% on your first sale.",
+      showSublink: true
+    }
+  };
+
+  var currentMode = "buy";
+  var swapping = false;
+  var stopped = false;
+  var autoTimer = null;
+
+  function applyMode(mode) {
+    currentMode = mode;
+    toggleBtns.forEach(function (b) {
+      var active = b.getAttribute("data-mode") === mode;
+      b.classList.toggle("active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    titleEl.innerHTML = COPY[mode].title;
+    subEl.textContent = COPY[mode].sub;
+    document.querySelectorAll("[data-buy-cta], [data-buy-secondary]").forEach(function (el) {
+      el.style.display = mode === "buy" ? "" : "none";
+    });
+    document.querySelectorAll("[data-sell-cta], [data-sell-secondary]").forEach(function (el) {
+      el.style.display = mode === "sell" ? "" : "none";
+    });
+    sublinkWrap.classList.toggle("hidden", !COPY[mode].showSublink);
+    heroEl.classList.toggle("selling", mode === "sell");
+  }
+
+  function setMode(mode) {
+    if (swapping) return;
+    swapping = true;
+    heroContent.classList.add("swapping");
+    setTimeout(function () {
+      applyMode(mode);
+      heroContent.classList.remove("swapping");
+      setTimeout(function () { swapping = false; }, 240);
+    }, 240);
+  }
+
+  // Auto-rotate ONCE at 4 seconds, then stop permanently
+  autoTimer = setTimeout(function () {
+    if (stopped) return;
+    stopped = true;
+    setMode("sell");
+  }, 4000);
+
+  // Manual click — stops auto permanently
+  toggleBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var mode = b.getAttribute("data-mode");
+      if (mode === currentMode) return;
+      if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+      stopped = true;
+      setMode(mode);
+    });
+  });
+
+  /* ═══════════════════════════════════════════════════════════
+     HOME ITEMS GRID
+     ═══════════════════════════════════════════════════════════ */
+  var grid = document.getElementById("homeItemsGrid");
   if (!GAS) { renderFallback(); } else {
     fetch(GAS + "?action=getItems")
-      .then(function (r) { return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (data) {
         var items = (data && Array.isArray(data.items)) ? data.items : [];
         if (!items.length) { renderFallback(); return; }
-
         var liveCount = items.filter(function (it) {
           var s = String(it["Status"] || "").toLowerCase();
           return !(s === "sold" || s === "paid" || s === "pending pickup" || s === "rejected" || s === "pending approval");
         }).length;
-
         if (liveCount > 0) {
-          document.getElementById("heroLiveCountText").textContent = liveCount + " items live right now";
-          document.getElementById("heroLiveCount").style.display = "block";
+          sublinkText.textContent = liveCount + " items live right now";
         }
-
         var preview = items.slice(0, 8);
         grid.innerHTML = preview.map(buildCardHTML).join("");
-        Array.prototype.forEach.call(grid.querySelectorAll(".item-card"), function (card) {
+        grid.querySelectorAll(".item-card").forEach(function (card) {
           card.addEventListener("click", function () {
             var id = card.getAttribute("data-id");
             if (id) window.location.href = "/items?item=" + encodeURIComponent(id);
@@ -944,12 +1417,14 @@ body.sell-modal-locked { overflow: hidden; }
     var name = String(it["Item Name"] || "").trim();
     var cond = String(it["Condition"] || "").trim();
     var loc = String(it["Location"] || "").trim();
-    var price = formatPrice(it["Amount to sell"] || it["Amount to Buyer"]);
+    var price = formatPrice(it["Amount to sell"] || it["Amount to Buyer"] || it["Asking Price"]);
     var img = firstImage(it["Product Photos"]);
     var meta = [cond, loc].filter(Boolean).join(" · ");
     return '<div class="item-card" data-id="' + escapeAttr(id) + '">'
       + '<div class="item-card-img">'
-      + (img ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '" loading="lazy" onerror="this.parentNode.style.background=\'#ECEFF0\'">' : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:28px;">📦</div>')
+      + (img
+          ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '" loading="lazy" onerror="this.parentNode.style.background=\'#ECEFF0\'">'
+          : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:28px;">📦</div>')
       + '</div>'
       + '<div class="item-card-body">'
       + '<div class="item-card-id">' + escapeHTML(id) + '</div>'
@@ -975,9 +1450,9 @@ body.sell-modal-locked { overflow: hidden; }
   function escapeHTML(s) { return String(s).replace(/[&<>"']/g, function (c) { return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]; }); }
   function escapeAttr(s) { return escapeHTML(s); }
 
-  // ═══════════════════════════════════════════════════════════
-  // SELL MODAL
-  // ═══════════════════════════════════════════════════════════
+  /* ═══════════════════════════════════════════════════════════
+     SELL MODAL
+     ═══════════════════════════════════════════════════════════ */
   var sellModalBg = document.getElementById("sellModalBg");
   var sm_itemState = { name:"", condition:"", location:"", description:"", pickup:"", price:0, photos:[] };
   var sm_identity = { email:"", mode:"", name:"", phone:"", whatsapp:"", bank:"", acct:"", acctName:"", sellerType:"Individual", partnerId:"", businessName:"" };
@@ -1141,6 +1616,14 @@ body.sell-modal-locked { overflow: hidden; }
     panel.classList.add("is-searching");
     sm_identity.email = email;
 
+    if (!GAS) {
+      setTimeout(function () {
+        if (myToken !== sm_searchToken) return;
+        sm_renderNotFound(email);
+      }, 900);
+      return;
+    }
+
     fetch(GAS + "?action=lookupEmail&email=" + encodeURIComponent(email), { redirect: "follow" })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (data) {
@@ -1258,6 +1741,14 @@ body.sell-modal-locked { overflow: hidden; }
     if (nextBtn.style.display !== "none") nextBtn.textContent = "Submitting…";
     proceedBtn.textContent = "Submitting…";
 
+    if (!GAS) {
+      setTimeout(function () {
+        var fakeId = "DPS" + (10000 + Math.floor(Math.random() * 9000));
+        window.location.href = "/thank-you?seller=" + (sm_identity.mode === "returning" ? "returning" : "new") + "&name=" + encodeURIComponent(sm_identity.name) + "&itemId=" + fakeId;
+      }, 1200);
+      return;
+    }
+
     var registerPromise = fetch(GAS, {
       method: "POST",
       body: JSON.stringify({
@@ -1272,7 +1763,7 @@ body.sell-modal-locked { overflow: hidden; }
 
     Promise.all([registerPromise, photosPromise]).then(function (results) {
       var photoUrls = results[1] || [];
-      var amountToSeller = Math.round(sm_itemState.price * 0.85);
+      var amountToSeller = Math.round(sm_itemState.price * 0.87);
       var dpsProfit = sm_itemState.price - amountToSeller;
       return fetch(GAS, {
         method: "POST",
@@ -1312,7 +1803,6 @@ body.sell-modal-locked { overflow: hidden; }
     });
   }
 
-  // Modal wiring
   sellModalBg.addEventListener("click", function (e) { if (e.target === sellModalBg) closeSellModal(); });
   document.getElementById("sellModalClose").addEventListener("click", closeSellModal);
   document.addEventListener("keydown", function (e) {
