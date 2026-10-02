@@ -37,6 +37,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --stone-dark:   #5B635D;
   --mint:         #C8F0D8;
   --mint-soft:    #E9F5EE;
+  --tint-soft:    #F2F7F4;  /* soft green tint for panels */
+  --tint-edge:    #DCE7E0;  /* border for tinted panels */
   --border:       #E1E5E4;
   --border-ink:   #D6DCE0;
   --border-dark:  #242C3E;
@@ -190,10 +192,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sk-line.tall { height: 14px; }
 @keyframes sk { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-/* MODAL */
+/* ═══════════════════════════════════════════════════════════════
+   MODAL — product-page layout with tinted sell block
+   ═══════════════════════════════════════════════════════════════ */
 .modal-bg { position: fixed; inset: 0; z-index: 500; background: rgba(14,19,32,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; opacity: 0; pointer-events: none; transition: opacity .28s ease; }
 .modal-bg.open { opacity: 1; pointer-events: all; }
-.modal { background: var(--white); width: 100%; max-width: 620px; max-height: 94vh; border-radius: 20px 20px 0 0; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); position: relative; display: flex; flex-direction: column; box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); }
+.modal { background: var(--white); width: 100%; max-width: 620px; max-height: 94vh; border-radius: 20px 20px 0 0; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); position: relative; display: flex; flex-direction: column; box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); overflow: hidden; }
 .modal-bg.open .modal { transform: translateY(0); }
 @media (min-width: 640px) { .modal-bg { align-items: center; padding: 32px; } .modal { border-radius: 20px; max-height: 92vh; max-width: 720px; } }
 .modal-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border); margin: 12px auto 0; flex-shrink: 0; }
@@ -220,7 +224,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-arrow-prev { left: 14px; } .gal-arrow-next { right: 14px; }
 @media (hover: hover) { .gal:hover .gal-arrow { display: flex; } }
 
-.mc { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 16px; }
+/* Modal content — tighter vertical rhythm */
+.mc { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
+@media (max-width: 520px) { .mc { padding: 18px 18px 20px; gap: 12px; } }
+
 .mc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
 .mc-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.15; }
 .mc-idtag { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
@@ -233,13 +240,63 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-tag-cond { border-color: rgba(0,200,83,.28); background: var(--mint-soft); color: var(--green-dark); }
 .mc-tag-cond svg { color: var(--green-dark); }
 
-.mc-sell { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-@media (min-width: 560px) { .mc-sell { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: start; } }
-.mc-lbl { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-.mc-desc { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); letter-spacing: -0.005em; }
+/* ═══════════════════════════════════════════════════════════════
+   SELL BLOCK — soft tinted panel wrapping description + price card
+   ═══════════════════════════════════════════════════════════════ */
+.mc-sell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--tint-soft) 0%, #EAF2EE 100%);
+  border: 1px solid var(--tint-edge);
+  border-radius: 16px;
+}
+@media (min-width: 560px) {
+  .mc-sell {
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+    padding: 20px;
+  }
+}
+.mc-desc-col { min-width: 0; }
+.mc-lbl {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--green-dark);
+  margin-bottom: 10px;
+}
+.mc-lbl::before {
+  content: '';
+  width: 14px; height: 1.5px;
+  background: var(--green);
+  border-radius: 1px;
+}
+.mc-desc {
+  font-size: 14.5px; line-height: 1.65;
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+}
 
-.mc-price-card { background: var(--ink); border-radius: 14px; padding: 16px 16px 14px; color: var(--white); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-.mc-price-card::after { content: ''; position: absolute; top: -50%; right: -40%; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
+/* DARK PRICE CARD */
+.mc-price-card {
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 16px 16px 14px;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 6px 20px rgba(14,19,32,.14);
+}
+.mc-price-card::after {
+  content: '';
+  position: absolute; top: -50%; right: -40%;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%);
+  pointer-events: none;
+}
 .mc-price-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); position: relative; z-index: 1; }
 .mc-price-val { font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px, 5.4vw, 26px); letter-spacing: -0.032em; color: var(--white); line-height: 1.1; margin-top: 6px; display: flex; align-items: baseline; gap: 1px; flex-wrap: wrap; word-break: keep-all; overflow-wrap: break-word; position: relative; z-index: 1; font-variant-numeric: tabular-nums; }
 .mc-price-val .sym { color: var(--green); font-size: 0.62em; margin-right: 1px; }
@@ -279,7 +336,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-copy:hover { border-color: var(--ink); }
 .mc-copy.copied { border-color: var(--green); color: var(--green-dark); }
 
-.mc-similar { border-top: 1.5px solid var(--border-ink); padding-top: 16px; margin-top: 4px; }
+.mc-similar { border-top: 1.5px solid var(--border-ink); padding-top: 16px; margin-top: 2px; }
 .mc-similar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .mc-similar-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); display: inline-flex; align-items: center; gap: 8px; }
 .mc-similar-lbl::before { content: ''; width: 18px; height: 1.5px; background: var(--ink); }
@@ -310,32 +367,60 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-panel-alt { text-align: center; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); padding: 8px 0 0; border-top: 1px dashed var(--border); margin-top: 4px; transition: color .15s; }
 .mc-panel-alt:hover { color: var(--green-dark); }
 
-/* OFFER SHEET */
+/* ═══════════════════════════════════════════════════════════════
+   OFFER SHEET — fee box moved into the sticky action bar
+   ═══════════════════════════════════════════════════════════════ */
 .offer-bg { position: fixed; inset: 0; z-index: 600; background: rgba(14,19,32,.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
 .offer-bg.open { opacity: 1; pointer-events: all; }
-.offer-sheet { background: var(--white); width: 100%; max-width: 540px; max-height: 94vh; border-radius: 20px 20px 0 0; display: flex; flex-direction: column; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); overflow: hidden; }
+.offer-sheet {
+  background: var(--white);
+  width: 100%;
+  max-width: 540px;
+  max-height: 92vh;
+  border-radius: 20px 20px 0 0;
+  display: flex; flex-direction: column;
+  transform: translateY(40px);
+  transition: transform .3s cubic-bezier(.2,.8,.3,1);
+  box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg);
+  overflow: hidden;
+}
 .offer-bg.open .offer-sheet { transform: translateY(0); }
-@media (min-width: 640px) { .offer-bg { align-items: center; padding: 32px; } .offer-sheet { border-radius: 20px; max-height: 90vh; } }
+@media (min-width: 640px) { .offer-bg { align-items: center; padding: 32px; } .offer-sheet { border-radius: 20px; max-height: 88vh; } }
+
 .offer-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--ink); color: var(--white); flex-shrink: 0; }
 .offer-back { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--white); background: rgba(255,255,255,.08); transition: background .15s; flex-shrink: 0; }
 .offer-back:hover { background: rgba(255,255,255,.16); }
 .offer-title { flex: 1; font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.022em; color: var(--white); }
 .offer-close { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--stone-light); font-size: 14px; line-height: 1; transition: background .15s, color .15s; flex-shrink: 0; }
 .offer-close:hover { background: rgba(255,255,255,.08); color: var(--white); }
-.offer-body { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; flex: 1; scrollbar-width: thin; }
+
+/* Scrollable body — bottom padding ensures last item isn't hidden */
+.offer-body {
+  padding: 20px 20px 20px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 16px;
+  flex: 1;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
 .offer-body::-webkit-scrollbar { width: 6px; }
 .offer-body::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
-.offer-item { display: flex; gap: 12px; align-items: center; padding: 12px; background: var(--off-white); border-radius: 12px; }
+@media (max-width: 520px) { .offer-body { padding: 16px 18px 16px; gap: 14px; } }
+
+.offer-item { display: flex; gap: 12px; align-items: center; padding: 12px; background: var(--tint-soft); border: 1px solid var(--tint-edge); border-radius: 12px; }
 .offer-item-img { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: var(--border); flex-shrink: 0; }
 .offer-item-info { min-width: 0; flex: 1; }
 .offer-item-name { font-family: var(--font-heading); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .offer-item-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; font-family: var(--font-mono); }
+
 .offer-lbl { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .offer-opt { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--text-muted); font-size: 10.5px; }
-.offer-asking { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--off-white); border-radius: 10px; }
+
+.offer-asking { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--off-white); border-radius: 10px; border: 1px solid var(--border); }
 .offer-asking-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
 .offer-asking-val { font-family: var(--font-heading); font-weight: 800; font-size: 18px; letter-spacing: -0.025em; color: var(--ink); font-variant-numeric: tabular-nums; }
 .offer-asking-val .sym { color: var(--green-dark); font-size: 0.7em; }
+
 .offer-field { display: flex; flex-direction: column; }
 .offer-step-row { display: flex; align-items: stretch; gap: 8px; }
 .offer-step-btn { flex: 0 0 auto; width: 54px; border-radius: 12px; background: var(--ink); color: var(--white); font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; line-height: 1; transition: background .15s, transform .1s; user-select: none; -webkit-user-select: none; }
@@ -348,17 +433,61 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .offer-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; }
 .offer-err { font-size: 12px; color: #DC2626; margin-top: 6px; display: none; font-weight: 600; }
 .offer-err.show { display: block; }
+
 .offer-body textarea { width: 100%; min-height: 76px; padding: 12px 14px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 12px; font-size: 16px; color: var(--ink); outline: none; resize: vertical; font-family: inherit; transition: border-color .15s, background .15s; }
 .offer-body textarea:focus { border-color: var(--ink); background: var(--white); }
 .offer-body > .offer-field > input[type="email"] { width: 100%; height: 48px; padding: 0 14px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 12px; font-size: 16px; color: var(--ink); outline: none; transition: border-color .15s, background .15s; }
 .offer-body > .offer-field > input[type="email"]:focus { border-color: var(--ink); background: var(--white); }
-.offer-fee-box { padding: 14px 16px; background: var(--ink); color: var(--white); border-radius: 12px; position: relative; overflow: hidden; }
-.offer-fee-box::after { content: ''; position: absolute; top: -50%; right: -30%; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
-.offer-fee-row { display: flex; align-items: center; justify-content: space-between; font-family: var(--font-heading); font-weight: 800; font-size: 15px; color: var(--white); letter-spacing: -0.01em; position: relative; z-index: 1; }
+
+/* Action bar at bottom of offer sheet — holds the FEE BOX + SUBMIT */
+.offer-actions {
+  padding: 14px 18px 18px;
+  border-top: 1.5px solid var(--border-ink);
+  flex-shrink: 0;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media (max-width: 520px) { .offer-actions { padding: 12px 16px 16px; gap: 10px; } }
+
+/* Fee box — now inside the actions bar so it can never be clipped */
+.offer-fee-box {
+  padding: 12px 14px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.offer-fee-box::after { content: ''; position: absolute; top: -50%; right: -30%; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.20) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
+.offer-fee-row { display: flex; align-items: center; justify-content: space-between; font-family: var(--font-heading); font-weight: 800; font-size: 14.5px; color: var(--white); letter-spacing: -0.01em; position: relative; z-index: 1; }
 .offer-fee-row .fee-amt { color: var(--green); }
-.offer-fee-note { font-size: 11.5px; line-height: 1.5; color: var(--stone-light); margin-top: 6px; position: relative; z-index: 1; }
-.offer-actions { padding: 14px 20px 18px; border-top: 1px solid var(--border); flex-shrink: 0; background: var(--off-white); }
-.offer-success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 44px 32px 32px; gap: 12px; }
+.offer-fee-note { font-size: 11px; line-height: 1.45; color: var(--stone-light); margin-top: 4px; position: relative; z-index: 1; }
+
+/* Submit button inside actions bar */
+.offer-submit {
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: var(--r-button);
+  background: var(--green);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 0 var(--green-dark);
+  transition: background .15s, box-shadow .15s, transform .1s;
+}
+.offer-submit:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
+.offer-submit:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
+.offer-submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+.offer-success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 44px 32px 36px; gap: 12px; }
 .offer-success.show { display: flex; }
 .offer-success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--mint-soft); color: var(--green-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
 .offer-success h3 { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); }
@@ -490,10 +619,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </footer>
 
+<!-- MODAL -->
 <div class="modal-bg" id="modalBg" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-scroll" id="modalScroll">
       <div class="modal-handle"></div>
+
       <div class="gal" id="gal">
         <div class="gal-track" id="galTrack"></div>
         <span class="gal-badge" id="galBadge"><span class="dot"></span>Active</span>
@@ -514,8 +645,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
         <div class="mc-tags" id="mcTags"></div>
 
+        <!-- Sell block — tinted panel wrapping description + dark price card -->
         <div class="mc-sell">
-          <div>
+          <div class="mc-desc-col">
             <span class="mc-lbl">About this item</span>
             <p class="mc-desc" id="mcDesc">—</p>
           </div>
@@ -608,6 +740,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
+<!-- OFFER SHEET -->
 <div class="offer-bg" id="offerBg" aria-hidden="true">
   <div class="offer-sheet" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
     <div class="offer-head">
@@ -655,7 +788,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <label class="offer-lbl" for="offerNote">Note to seller <span class="offer-opt">optional</span></label>
         <textarea id="offerNote" maxlength="140" placeholder="e.g. Can pick up today if we agree."></textarea>
       </div>
+    </div>
 
+    <!-- Fee box + submit button — always visible, never clipped -->
+    <div class="offer-actions" id="offerActions">
       <div class="offer-fee-box">
         <div class="offer-fee-row">
           <span>Negotiation fee</span>
@@ -663,10 +799,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         </div>
         <p class="offer-fee-note">Charged when you submit. Covers verification and keeps offers serious.</p>
       </div>
-    </div>
-
-    <div class="offer-actions" id="offerActions">
-      <button class="btn btn-primary" id="offerSubmit" style="width:100%;" type="button">Pay ₦300 &amp; send offer</button>
+      <button class="offer-submit" id="offerSubmit" type="button">Pay ₦300 &amp; send offer</button>
     </div>
 
     <div class="offer-success" id="offerSuccess">
@@ -1076,7 +1209,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   }
 
-  // ─── Buy now → Paystack panel ───
   function openPaystackPanel() {
     document.getElementById("mcPanel").classList.add("open");
     document.getElementById("mcEmail").value = "";
@@ -1134,7 +1266,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
   });
 
-  // ─── Quick-offer stepper in price card ───
   document.getElementById("mcQuickRow").addEventListener("click", function (e) {
     var btn = e.target.closest("[data-delta]");
     if (!btn) return;
@@ -1146,12 +1277,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     openOfferSheet(val);
   });
 
-  // ─── Negotiate button in price card ───
   document.getElementById("mcNegotiate").addEventListener("click", function () {
     openOfferSheet(currentQuickOffer);
   });
 
-  // ─── Offer sheet ───
   var offerBg = document.getElementById("offerBg");
   var offerBody = document.getElementById("offerBody");
   var offerActions = document.getElementById("offerActions");
@@ -1193,7 +1322,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     offerSubmitBtn.textContent = "Pay ₦300 & send offer";
 
     offerBody.style.display = "flex";
-    offerActions.style.display = "block";
+    offerActions.style.display = "flex";
     offerSuccess.classList.remove("show");
 
     offerBg.classList.add("open");
@@ -1225,10 +1354,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     e.target.classList.remove("err");
   });
 
-  // ═══════════════════════════════════════════════════════════════
-  // OFFER SUBMIT — redirects to Paystack for the ₦300 fee.
-  // Offer row is only created server-side after payment confirms.
-  // ═══════════════════════════════════════════════════════════════
   offerSubmitBtn.addEventListener("click", function () {
     var offerNum = getOfferValue();
     var emailInput = document.getElementById("offerEmail");
@@ -1264,7 +1389,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       feeAmount: NEGOTIATION_FEE * 100
     };
 
-    // Demo mode — show success directly (no GAS to hit)
     if (!GAS || IS_DEMO) {
       offerSubmitBtn.disabled = true;
       offerSubmitBtn.textContent = "Sending…";
@@ -1278,18 +1402,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     fetch(GAS, { method: "POST", body: JSON.stringify(payload) })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        // ─── Paid flow: GAS returned a Paystack URL. Buyer pays ₦300 first. ───
         if (data.success && data.authorization_url) {
           offerSubmitBtn.textContent = "Opening Paystack…";
           window.location.href = data.authorization_url;
           return;
         }
-        // ─── Dev fallback: no Paystack configured, offer created directly ───
         if (data.success && (data.offerId || data.devMode)) {
           showOfferSuccess();
           return;
         }
-        // ─── Error ───
         offerSubmitBtn.disabled = false;
         offerSubmitBtn.textContent = "Pay ₦300 & send offer";
         errEl.textContent = data.error || "Could not start payment. Please try again.";
