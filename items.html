@@ -77,7 +77,6 @@ input, select, textarea { font-family: inherit; }
 .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
 .btn-outline:hover { border-color: var(--ink); }
 
-/* Nav */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
 .nav-logo img { height: 34px; width: auto; }
@@ -90,7 +89,6 @@ input, select, textarea { font-family: inherit; }
 .nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
 @media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
-/* Hero */
 .items-hero { background: var(--ink); color: var(--off-white); padding: 128px 0 48px; position: relative; overflow: hidden; }
 .items-hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
 .items-hero-inner { position: relative; z-index: 1; }
@@ -105,7 +103,6 @@ input, select, textarea { font-family: inherit; }
 .trust-chip:hover { border-color: rgba(0,200,83,.5); color: var(--white); }
 .trust-chip svg { color: var(--green); flex-shrink: 0; }
 
-/* Sticky bar */
 .bar { position: sticky; top: 72px; z-index: 150; background: var(--white); border-bottom: 1px solid var(--border); border-top: 2px solid var(--ink); padding: 14px 0; }
 .bar-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .search { position: relative; flex: 1; min-width: 220px; display: flex; align-items: center; }
@@ -126,7 +123,6 @@ input, select, textarea { font-family: inherit; }
 .chip:hover { border-color: var(--stone); color: var(--ink); }
 .chip.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-/* Grid */
 .grid-section { padding: 40px 0 80px; }
 .grid-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; font-size: 13px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
 .grid-meta strong { color: var(--ink); font-weight: 700; }
@@ -159,7 +155,6 @@ input, select, textarea { font-family: inherit; }
 .show-more { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: var(--r-button); border: 1.5px solid var(--border); background: var(--white); font-size: 14px; font-weight: 700; color: var(--ink); transition: border-color .15s, background .15s; }
 .show-more:hover { border-color: var(--ink); }
 
-/* Sold strip */
 .sold-strip { background: var(--ink); padding: 48px 0; overflow: hidden; }
 .sold-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
 .sold-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); display: inline-flex; align-items: center; gap: 10px; }
@@ -173,7 +168,6 @@ input, select, textarea { font-family: inherit; }
 .sold-name { font-size: 11.5px; font-weight: 600; color: var(--stone-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sold-price { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
-/* Footer */
 footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28px; border-top: 1px solid var(--border-dark); }
 .foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
 @media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; } }
@@ -188,7 +182,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .foot-social a:hover { background: rgba(0,200,83,.15); }
 .foot-social svg { width: 15px; height: 15px; color: var(--stone-light); }
 
-/* Skeleton */
 .sk-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; }
 .sk-img { aspect-ratio: 4/3; background: linear-gradient(90deg, var(--off-white) 0%, #E8ECEB 50%, var(--off-white) 100%); background-size: 200% 100%; animation: sk 1.4s ease-in-out infinite; }
 .sk-body { padding: 14px 16px 16px; }
@@ -197,9 +190,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sk-line.tall { height: 14px; }
 @keyframes sk { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-/* ═══════════════════════════════════════════════════════════════
-   MODAL — product-page layout
-   ═══════════════════════════════════════════════════════════════ */
+/* MODAL */
 .modal-bg { position: fixed; inset: 0; z-index: 500; background: rgba(14,19,32,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; opacity: 0; pointer-events: none; transition: opacity .28s ease; }
 .modal-bg.open { opacity: 1; pointer-events: all; }
 .modal { background: var(--white); width: 100%; max-width: 620px; max-height: 94vh; border-radius: 20px 20px 0 0; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); position: relative; display: flex; flex-direction: column; box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); }
@@ -212,7 +203,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .modal-scroll::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
 .modal-scroll::-webkit-scrollbar-track { background: transparent; }
 
-/* Gallery */
 .gal { position: relative; aspect-ratio: 5/4; background: var(--off-white); overflow: hidden; }
 .gal-track { display: flex; height: 100%; transition: transform .32s ease; }
 .gal-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; background: var(--off-white); }
@@ -230,7 +220,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-arrow-prev { left: 14px; } .gal-arrow-next { right: 14px; }
 @media (hover: hover) { .gal:hover .gal-arrow { display: flex; } }
 
-/* Modal content */
 .mc { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 16px; }
 .mc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
 .mc-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.15; }
@@ -238,162 +227,43 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-idtag-lbl { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 .mc-idtag-val { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; color: var(--ink); background: var(--off-white); border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; line-height: 1; white-space: nowrap; }
 
-/* Tags row */
 .mc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .mc-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 7px; background: var(--white); font-size: 11.5px; font-weight: 600; color: var(--text-secondary); letter-spacing: -0.005em; }
 .mc-tag svg { color: var(--text-muted); flex-shrink: 0; }
 .mc-tag-cond { border-color: rgba(0,200,83,.28); background: var(--mint-soft); color: var(--green-dark); }
 .mc-tag-cond svg { color: var(--green-dark); }
 
-/* ═══════════════════════════════════════════════════════════════
-   SELL BLOCK — description (wide) | dark price card (narrow)
-   ═══════════════════════════════════════════════════════════════ */
-.mc-sell {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  padding: 18px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-@media (min-width: 560px) {
-  .mc-sell {
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-    gap: 20px;
-    align-items: start;
-  }
-}
-.mc-lbl {
-  display: block;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--text-muted);
-  margin-bottom: 10px;
-}
-.mc-desc {
-  font-size: 14.5px; line-height: 1.65; color: var(--text-secondary);
-  letter-spacing: -0.005em;
-}
+.mc-sell { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+@media (min-width: 560px) { .mc-sell { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: start; } }
+.mc-lbl { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.mc-desc { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); letter-spacing: -0.005em; }
 
-/* DARK PRICE CARD */
-.mc-price-card {
-  background: var(--ink);
-  border-radius: 14px;
-  padding: 16px 16px 14px;
-  color: var(--white);
-  position: relative;
-  overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.mc-price-card::after {
-  content: '';
-  position: absolute; top: -50%; right: -40%;
-  width: 160px; height: 160px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%);
-  pointer-events: none;
-}
-.mc-price-lbl {
-  font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--stone);
-  position: relative; z-index: 1;
-}
-.mc-price-val {
-  font-family: var(--font-heading); font-weight: 800;
-  font-size: clamp(20px, 5.4vw, 26px);
-  letter-spacing: -0.032em; color: var(--white);
-  line-height: 1.1; margin-top: 6px;
-  display: flex; align-items: baseline; gap: 1px;
-  flex-wrap: wrap; word-break: keep-all; overflow-wrap: break-word;
-  position: relative; z-index: 1; font-variant-numeric: tabular-nums;
-}
+.mc-price-card { background: var(--ink); border-radius: 14px; padding: 16px 16px 14px; color: var(--white); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.mc-price-card::after { content: ''; position: absolute; top: -50%; right: -40%; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
+.mc-price-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); position: relative; z-index: 1; }
+.mc-price-val { font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px, 5.4vw, 26px); letter-spacing: -0.032em; color: var(--white); line-height: 1.1; margin-top: 6px; display: flex; align-items: baseline; gap: 1px; flex-wrap: wrap; word-break: keep-all; overflow-wrap: break-word; position: relative; z-index: 1; font-variant-numeric: tabular-nums; }
 .mc-price-val .sym { color: var(--green); font-size: 0.62em; margin-right: 1px; }
-.mc-price-note {
-  font-size: 10.5px; color: var(--stone-light);
-  margin-top: 8px; line-height: 1.45;
-  position: relative; z-index: 1;
-}
+.mc-price-note { font-size: 10.5px; color: var(--stone-light); margin-top: 8px; line-height: 1.45; position: relative; z-index: 1; }
 
-/* Quick offer stepper inside price card */
-.mc-quick {
-  margin-top: 14px; padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,.10);
-  position: relative; z-index: 1;
-}
-.mc-quick-lbl {
-  display: block;
-  font-size: 9px; font-weight: 700; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--stone);
-  margin-bottom: 8px;
-}
-.mc-quick-row {
-  display: flex; align-items: center; gap: 5px;
-}
-.mc-quick-btn {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(255,255,255,.08);
-  color: var(--white); font-size: 15px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .15s; flex-shrink: 0; line-height: 1;
-}
+.mc-quick { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.10); position: relative; z-index: 1; }
+.mc-quick-lbl { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+.mc-quick-row { display: flex; align-items: center; gap: 5px; }
+.mc-quick-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,.08); color: var(--white); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background .15s; flex-shrink: 0; line-height: 1; }
 .mc-quick-btn:hover { background: rgba(0,200,83,.35); }
 .mc-quick-btn:active { background: rgba(0,200,83,.55); }
-.mc-quick-val {
-  flex: 1; min-width: 0;
-  text-align: center;
-  font-family: var(--font-mono); font-weight: 500;
-  font-size: 12px; color: var(--white);
-  background: rgba(255,255,255,.06);
-  border-radius: 8px;
-  padding: 8px 6px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  letter-spacing: -0.02em;
-}
-.mc-quick-hint {
-  font-size: 10px; color: var(--stone-light);
-  margin-top: 8px; line-height: 1.4;
-}
+.mc-quick-val { flex: 1; min-width: 0; text-align: center; font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: var(--white); background: rgba(255,255,255,.06); border-radius: 8px; padding: 8px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.02em; }
+.mc-quick-hint { font-size: 10px; color: var(--stone-light); margin-top: 8px; line-height: 1.4; }
 
-/* Negotiate button inside the price card */
-.mc-negotiate-btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 11px 12px;
-  border-radius: 10px;
-  background: var(--green);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 13px;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  box-shadow: 0 2px 0 var(--green-dark);
-  transition: background .15s, box-shadow .15s, transform .1s;
-  position: relative; z-index: 1;
-  line-height: 1;
-}
+.mc-negotiate-btn { width: 100%; margin-top: 12px; padding: 11px 12px; border-radius: 10px; background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 0 var(--green-dark); transition: background .15s, box-shadow .15s, transform .1s; position: relative; z-index: 1; line-height: 1; }
 .mc-negotiate-btn:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
 .mc-negotiate-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
 .mc-negotiate-btn svg { flex-shrink: 0; }
-.mc-negotiate-fee {
-  font-size: 9.5px; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  opacity: 0.65;
-  margin-left: 2px;
-}
+.mc-negotiate-fee { font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.65; margin-left: 2px; }
 
-/* Trust line below sell block */
-.mc-trustline {
-  display: flex; flex-wrap: wrap; gap: 8px 18px;
-  padding: 14px 16px;
-  background: var(--ink);
-  border-radius: 12px;
-}
-.mc-trustline-item {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: 11.5px; font-weight: 600;
-  color: var(--stone-light); letter-spacing: -0.005em;
-}
+.mc-trustline { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 14px 16px; background: var(--ink); border-radius: 12px; }
+.mc-trustline-item { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; color: var(--stone-light); letter-spacing: -0.005em; }
 .mc-trustline-item svg { color: var(--green); flex-shrink: 0; }
 
-/* Seller card */
 .mc-seller { border: 1.5px solid var(--ink); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; background: var(--white); }
 .mc-seller-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 800; font-size: 15px; flex-shrink: 0; letter-spacing: -0.02em; }
 .mc-seller-info { flex: 1; min-width: 0; }
@@ -401,7 +271,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-seller-verified { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 4px; background: var(--mint-soft); color: var(--green-dark); font-family: var(--font-body); font-weight: 700; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
 .mc-seller-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* Share row */
 .mc-share-row { display: flex; gap: 8px; align-items: stretch; }
 .mc-share { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: var(--r-button); background: transparent; border: 1.5px solid var(--border); font-size: 13px; font-weight: 700; color: var(--text-secondary); transition: border-color .15s, color .15s; }
 .mc-share:hover { border-color: var(--green); color: var(--green-dark); }
@@ -410,7 +279,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-copy:hover { border-color: var(--ink); }
 .mc-copy.copied { border-color: var(--green); color: var(--green-dark); }
 
-/* Similar */
 .mc-similar { border-top: 1.5px solid var(--border-ink); padding-top: 16px; margin-top: 4px; }
 .mc-similar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .mc-similar-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); display: inline-flex; align-items: center; gap: 8px; }
@@ -424,35 +292,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sim-card-name { font-size: 11.5px; font-weight: 700; color: var(--ink); line-height: 1.3; letter-spacing: -0.005em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
 .sim-card-price { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; color: var(--ink); letter-spacing: -0.01em; margin-top: 6px; }
 
-/* ═══════════════════════════════════════════════════════════════
-   STICKY BAR at bottom — Buy now (primary)
-   ═══════════════════════════════════════════════════════════════ */
-.mc-actions-bar {
-  flex-shrink: 0;
-  padding: 12px 20px 16px;
-  background: var(--white);
-  border-top: 1.5px solid var(--border-ink);
-  display: flex; flex-direction: column; gap: 10px;
-}
-.mc-buy-btn {
-  width: 100%;
-  padding: 15px 16px;
-  border-radius: var(--r-button);
-  background: var(--green);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: -0.005em;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  box-shadow: 0 2px 0 var(--green-dark);
-  transition: background .15s, box-shadow .15s, transform .1s;
-}
+.mc-actions-bar { flex-shrink: 0; padding: 12px 20px 16px; background: var(--white); border-top: 1.5px solid var(--border-ink); display: flex; flex-direction: column; gap: 10px; }
+.mc-buy-btn { width: 100%; padding: 15px 16px; border-radius: var(--r-button); background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: -0.005em; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 0 var(--green-dark); transition: background .15s, box-shadow .15s, transform .1s; }
 .mc-buy-btn:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
 .mc-buy-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
 .mc-buy-btn svg { flex-shrink: 0; }
 
-/* Paystack panel (expands above Buy now) */
 .mc-panel { display: none; flex-direction: column; gap: 10px; padding: 14px; background: var(--off-white); border: 1px solid var(--border); border-radius: 12px; }
 .mc-panel.open { display: flex; }
 .mc-panel-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
@@ -465,9 +310,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-panel-alt { text-align: center; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); padding: 8px 0 0; border-top: 1px dashed var(--border); margin-top: 4px; transition: color .15s; }
 .mc-panel-alt:hover { color: var(--green-dark); }
 
-/* ═══════════════════════════════════════════════════════════════
-   OFFER SHEET
-   ═══════════════════════════════════════════════════════════════ */
+/* OFFER SHEET */
 .offer-bg { position: fixed; inset: 0; z-index: 600; background: rgba(14,19,32,.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
 .offer-bg.open { opacity: 1; pointer-events: all; }
 .offer-sheet { background: var(--white); width: 100%; max-width: 540px; max-height: 94vh; border-radius: 20px 20px 0 0; display: flex; flex-direction: column; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); overflow: hidden; }
@@ -521,7 +364,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .offer-success h3 { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); }
 .offer-success p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); max-width: 34ch; }
 
-/* Reveal */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
@@ -648,12 +490,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal-bg" id="modalBg" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-scroll" id="modalScroll">
       <div class="modal-handle"></div>
-
       <div class="gal" id="gal">
         <div class="gal-track" id="galTrack"></div>
         <span class="gal-badge" id="galBadge"><span class="dot"></span>Active</span>
@@ -674,7 +514,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
         <div class="mc-tags" id="mcTags"></div>
 
-        <!-- ═══ SELL BLOCK: description (wide) + dark price card (narrow) ═══ -->
         <div class="mc-sell">
           <div>
             <span class="mc-lbl">About this item</span>
@@ -686,7 +525,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
             <div class="mc-price-val" id="mcPrice"><span class="sym">₦</span>—</div>
             <div class="mc-price-note">Escrow-held. Released only on PIN confirmation.</div>
 
-            <!-- Quick-offer stepper -->
             <div class="mc-quick">
               <span class="mc-quick-lbl">Quick offer</span>
               <div class="mc-quick-row" id="mcQuickRow">
@@ -697,7 +535,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
               <div class="mc-quick-hint">Tap + or − to set your offer</div>
             </div>
 
-            <!-- Negotiate button inside the card -->
             <button class="mc-negotiate-btn" id="mcNegotiate" type="button">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
               Negotiate
@@ -706,7 +543,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           </div>
         </div>
 
-        <!-- ═══ Trust line (dark band) ═══ -->
         <div class="mc-trustline">
           <span class="mc-trustline-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -722,7 +558,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           </span>
         </div>
 
-        <!-- ═══ Seller card ═══ -->
         <div class="mc-seller">
           <div class="mc-seller-avatar" id="mcSellerAvatar">—</div>
           <div class="mc-seller-info">
@@ -737,7 +572,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           </div>
         </div>
 
-        <!-- ═══ Share row ═══ -->
         <div class="mc-share-row">
           <a class="mc-share" id="mcWhatsapp" href="#" target="_blank" rel="noopener">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -747,7 +581,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           <button class="mc-copy" id="mcCopy" type="button">Copy</button>
         </div>
 
-        <!-- ═══ Similar ═══ -->
         <div class="mc-similar" id="mcSimilar" style="display:none;">
           <div class="mc-similar-head">
             <span class="mc-similar-lbl">You might also like</span>
@@ -757,7 +590,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </div>
     </div>
 
-    <!-- ═══ Sticky bottom bar: Buy now only ═══ -->
     <div class="mc-actions-bar">
       <button class="mc-buy-btn" id="mcBuy" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -776,7 +608,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
-<!-- OFFER SHEET -->
 <div class="offer-bg" id="offerBg" aria-hidden="true">
   <div class="offer-sheet" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
     <div class="offer-head">
@@ -1245,7 +1076,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   }
 
-  // ── Buy now → Paystack panel ──
+  // ─── Buy now → Paystack panel ───
   function openPaystackPanel() {
     document.getElementById("mcPanel").classList.add("open");
     document.getElementById("mcEmail").value = "";
@@ -1303,7 +1134,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
   });
 
-  // ── Quick-offer stepper in price card ──
+  // ─── Quick-offer stepper in price card ───
   document.getElementById("mcQuickRow").addEventListener("click", function (e) {
     var btn = e.target.closest("[data-delta]");
     if (!btn) return;
@@ -1312,16 +1143,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (val < STEP_NAIRA) val = STEP_NAIRA;
     currentQuickOffer = val;
     document.getElementById("mcQuickVal").textContent = "₦" + val.toLocaleString("en-NG");
-    // Open the offer sheet pre-filled with the adjusted value
     openOfferSheet(val);
   });
 
-  // ── Negotiate button in price card ──
+  // ─── Negotiate button in price card ───
   document.getElementById("mcNegotiate").addEventListener("click", function () {
     openOfferSheet(currentQuickOffer);
   });
 
-  // ── Offer sheet ──
+  // ─── Offer sheet ───
   var offerBg = document.getElementById("offerBg");
   var offerBody = document.getElementById("offerBody");
   var offerActions = document.getElementById("offerActions");
@@ -1395,6 +1225,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     e.target.classList.remove("err");
   });
 
+  // ═══════════════════════════════════════════════════════════════
+  // OFFER SUBMIT — redirects to Paystack for the ₦300 fee.
+  // Offer row is only created server-side after payment confirms.
+  // ═══════════════════════════════════════════════════════════════
   offerSubmitBtn.addEventListener("click", function () {
     var offerNum = getOfferValue();
     var emailInput = document.getElementById("offerEmail");
@@ -1430,6 +1264,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       feeAmount: NEGOTIATION_FEE * 100
     };
 
+    // Demo mode — show success directly (no GAS to hit)
     if (!GAS || IS_DEMO) {
       offerSubmitBtn.disabled = true;
       offerSubmitBtn.textContent = "Sending…";
@@ -1438,22 +1273,26 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     }
 
     offerSubmitBtn.disabled = true;
-    offerSubmitBtn.textContent = "Connecting…";
+    offerSubmitBtn.textContent = "Connecting to Paystack…";
 
     fetch(GAS, { method: "POST", body: JSON.stringify(payload) })
       .then(function (r) { return r.json(); })
       .then(function (data) {
+        // ─── Paid flow: GAS returned a Paystack URL. Buyer pays ₦300 first. ───
         if (data.success && data.authorization_url) {
+          offerSubmitBtn.textContent = "Opening Paystack…";
           window.location.href = data.authorization_url;
           return;
         }
-        if (data.success) {
+        // ─── Dev fallback: no Paystack configured, offer created directly ───
+        if (data.success && (data.offerId || data.devMode)) {
           showOfferSuccess();
           return;
         }
+        // ─── Error ───
         offerSubmitBtn.disabled = false;
         offerSubmitBtn.textContent = "Pay ₦300 & send offer";
-        errEl.textContent = data.error || "Could not send offer. Please try again.";
+        errEl.textContent = data.error || "Could not start payment. Please try again.";
         errEl.classList.add("show");
       })
       .catch(function () {
