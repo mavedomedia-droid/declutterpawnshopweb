@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  var LOGO = "/assets/logo.png";   // correct file
+  var LOGO = "declutterpawnshop.com/assets/logo.png";   // correct file
 
   var NAV_ITEMS = [
     { key: "items",    label: "Live items", href: "/items" },
