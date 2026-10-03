@@ -14,9 +14,9 @@
   /* ─── TUNABLES ─────────────────────────────────────────────── */
   var LOGO = "/assets/logo.png";     // root-relative — do NOT drop the leading slash
 
-  var LOGO_NAV_H   = 136;            // was 34 → x4
-  var LOGO_FOOT_H  = 152;            // was 38 → x4
-  var NAV_HEIGHT   = 160;            // bumped so a 136px logo fits comfortably
+  var LOGO_NAV_H   = 85;             // was 34 → x2.5
+  var LOGO_FOOT_H  = 95;             // was 38 → x2.5
+  var NAV_HEIGHT   = 105;            // was 72 → grows to fit the bigger logo
   /* ───────────────────────────────────────────────────────────── */
 
   var NAV_ITEMS = [
@@ -105,9 +105,23 @@
   function injectStyles() {
     if (document.getElementById("dps-partials-styles")) return;
     var css = ''
+      // Nav sizing
       + '.nav-inner{height:' + NAV_HEIGHT + 'px !important;}'
       + '.nav-logo img{height:' + LOGO_NAV_H + 'px !important;width:auto !important;}'
-      + '.foot-brand img{height:' + LOGO_FOOT_H + 'px !important;width:auto !important;margin-bottom:20px !important;}';
+      // Footer logo sizing
+      + '.foot-brand img{height:' + LOGO_FOOT_H + 'px !important;width:auto !important;margin-bottom:20px !important;}'
+      // Push page content below the taller nav so nothing is covered
+      + '.hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
+      + '.items-hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
+      + '.page-head{padding-top:' + (NAV_HEIGHT + 24) + 'px !important;}'
+      // Keep mobile tight — no giant logo on small screens
+      + '@media (max-width:900px){'
+      +   '.nav-inner{height:72px !important;}'
+      +   '.nav-logo img{height:44px !important;}'
+      +   '.hero{padding-top:120px !important;}'
+      +   '.items-hero{padding-top:120px !important;}'
+      +   '.page-head{padding-top:120px !important;}'
+      + '}';
     var s = document.createElement("style");
     s.id = "dps-partials-styles";
     s.textContent = css;
