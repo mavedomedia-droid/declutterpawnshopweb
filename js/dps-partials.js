@@ -11,7 +11,13 @@
 (function () {
   "use strict";
 
-  var LOGO = "declutterpawnshop.com/assets/logo.png";   // correct file
+  /* ─── TUNABLES ─────────────────────────────────────────────── */
+  var LOGO = "declutterpawnshop.com/assets/logo.png";     // root-relative — do NOT drop the leading slash
+
+  var LOGO_NAV_H   = 136;            // was 34 → x4
+  var LOGO_FOOT_H  = 152;            // was 38 → x4
+  var NAV_HEIGHT   = 160;            // bumped so a 136px logo fits comfortably
+  /* ───────────────────────────────────────────────────────────── */
 
   var NAV_ITEMS = [
     { key: "items",    label: "Live items", href: "/items" },
@@ -96,7 +102,20 @@
       + '</footer>';
   }
 
+  function injectStyles() {
+    if (document.getElementById("dps-partials-styles")) return;
+    var css = ''
+      + '.nav-inner{height:' + NAV_HEIGHT + 'px !important;}'
+      + '.nav-logo img{height:' + LOGO_NAV_H + 'px !important;width:auto !important;}'
+      + '.foot-brand img{height:' + LOGO_FOOT_H + 'px !important;width:auto !important;margin-bottom:20px !important;}';
+    var s = document.createElement("style");
+    s.id = "dps-partials-styles";
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
   function inject() {
+    injectStyles();
     document.querySelectorAll("[data-dps-nav]").forEach(function (host) {
       var active = host.getAttribute("data-active") || detectActive();
       host.innerHTML = navHTML(active);
