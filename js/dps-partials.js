@@ -12,7 +12,7 @@
   "use strict";
 
   /* ─── TUNABLES ─────────────────────────────────────────────── */
-  var LOGO = "declutterpawnshop.com/assets/logo.png";     // root-relative — do NOT drop the leading slash
+  var LOGO = "/assets/logo.png";     // root-relative — do NOT drop the leading slash
 
   var LOGO_NAV_H   = 136;            // was 34 → x4
   var LOGO_FOOT_H  = 152;            // was 38 → x4
