@@ -8,10 +8,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Items — Declutter Pawn Shop</title>
+<title>Live Items | Declutter Pawn Shop</title>
 <meta name="description" content="Browse live pre-owned items across Lagos. Escrow-protected payments, verified listings, updated daily.">
 <meta name="theme-color" content="#0E1320">
-<meta property="og:title" content="Live Items — Declutter Pawn Shop">
+<meta property="og:title" content="Live Items | Declutter Pawn Shop">
 <meta property="og:description" content="Verified pre-owned items in Lagos. Escrow-protected payments via Paystack.">
 <meta property="og:image" content="https://declutterpawnshop.com/assets/og-image.jpg">
 <meta property="og:url" content="https://declutterpawnshop.com/items">
@@ -153,6 +153,7 @@ input, select, textarea { font-family: inherit; }
 .state-icon { font-size: 48px; margin-bottom: 16px; opacity: .9; }
 .state h3 { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.02em; }
 .state p { font-size: 14.5px; max-width: 40ch; margin: 0 auto; }
+.state a { color: var(--green-dark); font-weight: 700; } /* [v5] */
 .show-more-wrap { text-align: center; margin-top: 48px; }
 .show-more { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: var(--r-button); border: 1.5px solid var(--border); background: var(--white); font-size: 14px; font-weight: 700; color: var(--ink); transition: border-color .15s, background .15s; }
 .show-more:hover { border-color: var(--ink); }
@@ -193,7 +194,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 @keyframes sk { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 /* ═══════════════════════════════════════════════════════════════
-   MODAL — product-page layout with tinted sell block
+   MODAL: product-page layout with tinted sell block
    ═══════════════════════════════════════════════════════════════ */
 .modal-bg { position: fixed; inset: 0; z-index: 500; background: rgba(14,19,32,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; opacity: 0; pointer-events: none; transition: opacity .28s ease; }
 .modal-bg.open { opacity: 1; pointer-events: all; }
@@ -224,7 +225,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-arrow-prev { left: 14px; } .gal-arrow-next { right: 14px; }
 @media (hover: hover) { .gal:hover .gal-arrow { display: flex; } }
 
-/* Modal content — tighter vertical rhythm */
+/* Modal content: tighter vertical rhythm */
 .mc { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
 @media (max-width: 520px) { .mc { padding: 18px 18px 20px; gap: 12px; } }
 
@@ -241,7 +242,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-tag-cond svg { color: var(--green-dark); }
 
 /* ═══════════════════════════════════════════════════════════════
-   SELL BLOCK — soft tinted panel wrapping description + price card
+   SELL BLOCK: soft tinted panel wrapping description + price card
    ═══════════════════════════════════════════════════════════════ */
 .mc-sell {
   display: grid;
@@ -368,7 +369,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-panel-alt:hover { color: var(--green-dark); }
 
 /* ═══════════════════════════════════════════════════════════════
-   OFFER SHEET — fee box moved into the sticky action bar
+   OFFER SHEET: fee box moved into the sticky action bar
    ═══════════════════════════════════════════════════════════════ */
 .offer-bg { position: fixed; inset: 0; z-index: 600; background: rgba(14,19,32,.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
 .offer-bg.open { opacity: 1; pointer-events: all; }
@@ -394,7 +395,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .offer-close { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--stone-light); font-size: 14px; line-height: 1; transition: background .15s, color .15s; flex-shrink: 0; }
 .offer-close:hover { background: rgba(255,255,255,.08); color: var(--white); }
 
-/* Scrollable body — bottom padding ensures last item isn't hidden */
+/* Scrollable body: bottom padding ensures last item isn't hidden */
 .offer-body {
   padding: 20px 20px 20px;
   overflow-y: auto;
@@ -439,7 +440,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .offer-body > .offer-field > input[type="email"] { width: 100%; height: 48px; padding: 0 14px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 12px; font-size: 16px; color: var(--ink); outline: none; transition: border-color .15s, background .15s; }
 .offer-body > .offer-field > input[type="email"]:focus { border-color: var(--ink); background: var(--white); }
 
-/* Action bar at bottom of offer sheet — holds the FEE BOX + SUBMIT */
+/* Action bar at bottom of offer sheet: holds the FEE BOX + SUBMIT */
 .offer-actions {
   padding: 14px 18px 18px;
   border-top: 1.5px solid var(--border-ink);
@@ -451,7 +452,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 }
 @media (max-width: 520px) { .offer-actions { padding: 12px 16px 16px; gap: 10px; } }
 
-/* Fee box — now inside the actions bar so it can never be clipped */
+/* Fee box: inside the actions bar so it can never be clipped */
 .offer-fee-box {
   padding: 12px 14px;
   background: var(--ink);
@@ -523,7 +524,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <div>
         <div class="eyebrow">Marketplace</div>
         <h1>Live items.</h1>
-        <p class="items-hero-sub">Every listing is reviewed before it goes live. Payments are escrow-protected — money moves only when you confirm.</p>
+        <p class="items-hero-sub">Every listing is reviewed before it goes live. Payments are escrow-protected, so money moves only when you confirm.</p>
       </div>
       <div id="heroLivePill" class="live-pill">
         <span class="live-dot"></span>
@@ -558,8 +559,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <div class="sort">
         <select id="sortSelect" aria-label="Sort items">
           <option value="newest">Newest first</option>
-          <option value="priceLow">Price — low to high</option>
-          <option value="priceHigh">Price — high to low</option>
+          <option value="priceLow">Price: low to high</option>
+          <option value="priceHigh">Price: high to low</option>
           <option value="watching">Most viewed</option>
         </select>
       </div>
@@ -602,7 +603,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <a href="/items">Live items</a><a href="/sell">Sell an item</a><a href="/auction">Auction</a>
       </div>
       <div class="foot-col"><h4>Program</h4>
-        <a href="/partners">Partner program</a><a href="/partner-register">Register as partner</a><a href="/faq">FAQ</a>
+        <a href="/partners">Partner program</a><a href="/partners-register">Register as partner</a><a href="/faq">FAQ</a>
       </div>
       <div class="foot-col"><h4>Legal & Contact</h4>
         <a href="/terms">Terms of Service</a><a href="/privacy">Privacy Policy</a><a href="mailto:info@declutterpawnshop.com">info@declutterpawnshop.com</a>
@@ -613,7 +614,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <div class="foot-social">
         <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg></a>
         <a href="https://instagram.com/declutter.pawnshop" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="https://facebook.com/declutterpawnshop" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0022 12z"/></svg></a>
+        <a href="https://facebook.com/declutterpawnshop" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.090 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.770l-.44 2.89h-2.33v6.99A10 10 0 0022 12z"/></svg></a>
       </div>
     </div>
   </div>
@@ -645,7 +646,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
         <div class="mc-tags" id="mcTags"></div>
 
-        <!-- Sell block — tinted panel wrapping description + dark price card -->
+        <!-- Sell block: tinted panel wrapping description + dark price card -->
         <div class="mc-sell">
           <div class="mc-desc-col">
             <span class="mc-lbl">About this item</span>
@@ -695,7 +696,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           <div class="mc-seller-info">
             <div class="mc-seller-name">
               <span id="mcSellerName">—</span>
-              <span class="mc-seller-verified">
+              <!-- [v5] Hidden until getItems returns a real partner-verified flag -->
+              <span class="mc-seller-verified" id="mcSellerVerified" style="display:none;">
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 Verified
               </span>
@@ -774,7 +776,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           </div>
           <button class="offer-step-btn" id="offerPlus" type="button" aria-label="Increase by ₦1,000">+</button>
         </div>
-        <div class="offer-hint">± buttons move by ₦1,000. Any amount goes — the ₦300 fee applies regardless.</div>
+        <div class="offer-hint">± buttons move by ₦1,000. Any amount goes. The ₦300 fee applies regardless.</div>
         <div class="offer-err" id="offerErr"></div>
       </div>
 
@@ -790,7 +792,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </div>
     </div>
 
-    <!-- Fee box + submit button — always visible, never clipped -->
+    <!-- Fee box + submit button: always visible, never clipped -->
     <div class="offer-actions" id="offerActions">
       <div class="offer-fee-box">
         <div class="offer-fee-row">
@@ -820,32 +822,27 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
   var SITE_URL = (typeof DPS_SITE_URL !== "undefined") ? DPS_SITE_URL : window.location.origin;
 
+  // [v5] Demo data. Only ever loads with ?demo in the URL, never as a fallback.
   var SAMPLE_ITEMS = [
     { "Item ID":"DPS10001", "Item Name":"iPhone 15 Pro Max 256GB Natural Titanium", "Description":"Barely used, upgraded to the 16 Pro. Battery health 98%. Comes with original box, cable, and a spare case.", "Condition":"Like New", "Amount to sell":1250000, "Location":"Island", "Status":"Active", "Inquiries":47, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=900&q=80" },
     { "Item ID":"DPS10002", "Item Name":"MacBook Air M2 13\" Midnight 256GB", "Description":"Bought last year for design work. Now on a company MacBook. AppleCare till mid-2026.", "Condition":"Good Condition", "Amount to sell":780000, "Location":"Island", "Status":"Active", "Inquiries":62, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80" },
-    { "Item ID":"DPS10003", "Item Name":"PlayStation 5 Slim + 2 DualSense controllers", "Description":"Bought for FIFA, played twice. Brand new condition. Original packaging intact.", "Condition":"Brand New", "Amount to sell":720000, "Location":"Mainland", "Status":"Active", "Inquiries":89, "Seller Type":"Partner", "Product Photos":"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=900&q=80" },
+    { "Item ID":"DPS10003", "Item Name":"PlayStation 5 Slim + 2 DualSense controllers", "Description":"Bought for FIFA, played twice. Brand new condition. Original packaging intact.", "Condition":"Brand New", "Amount to sell":720000, "Location":"Mainland", "Status":"Active", "Inquiries":89, "Seller Type":"Partner", "Business Name":"Demo Gadget Hub", "Product Photos":"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=900&q=80" },
     { "Item ID":"DPS10004", "Item Name":"Sony WH-1000XM5 Wireless Headphones", "Description":"Top-of-the-line noise cancelling. My commute got shorter, so I stopped using them. Case and cable included.", "Condition":"Like New", "Amount to sell":285000, "Location":"Island", "Status":"Active", "Inquiries":34, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80" },
-    { "Item ID":"DPS10005", "Item Name":"Nike Air Jordan 1 Retro High OG Chicago", "Description":"Size UK9. Worn three times — still stiff. Original box and laces included.", "Condition":"Good Condition", "Amount to sell":195000, "Location":"Mainland", "Status":"Active", "Inquiries":71, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1552346154-21d32810aba3?w=900&q=80" },
-    { "Item ID":"DPS10006", "Item Name":"Louis Vuitton Neverfull MM Monogram", "Description":"Authentic, purchased in Dubai. Slight patina on handles — normal for age. Dust bag included.", "Condition":"Fairly Used", "Amount to sell":620000, "Location":"Island", "Status":"Active", "Inquiries":53, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&q=80" },
-    { "Item ID":"DPS10007", "Item Name":"Herman Miller Aeron Chair Size B", "Description":"Fully loaded with lumbar support, adjustable arms. Moving offices — must go this month.", "Condition":"Good Condition", "Amount to sell":340000, "Location":"Island", "Status":"Active", "Inquiries":28, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=900&q=80" },
-    { "Item ID":"DPS10008", "Item Name":"Canon EOS R50 + 18-45mm Lens Kit", "Description":"Brand new in box. Bought as a gift but recipient wanted Sony. Receipt available.", "Condition":"Brand New", "Amount to sell":465000, "Location":"Mainland", "Status":"Active", "Inquiries":41, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=80" },
-    { "Item ID":"DPS10009", "Item Name":"Life Fitness T5 Treadmill with FlexDeck", "Description":"Commercial-grade treadmill. Used at home. Serviced regularly — receipt for last service available.", "Condition":"Good Condition", "Amount to sell":850000, "Location":"Island", "Status":"Active", "Inquiries":19, "Seller Type":"Partner", "Product Photos":"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=80" },
-    { "Item ID":"DPS10010", "Item Name":"LG 55\" OLED evo C3 Smart TV", "Description":"4K OLED, 120Hz. Perfect for movies and gaming. Bought last year, upgrading to 65\".", "Condition":"Like New", "Amount to sell":690000, "Location":"Mainland", "Status":"Active", "Inquiries":56, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=900&q=80" },
-    { "Item ID":"DPS10011", "Item Name":"Binatone 18\" Standing Fan", "Description":"Still works perfectly. Owner finally got AC. Blades clean, motor quiet.", "Condition":"Good Condition", "Amount to sell":32000, "Location":"Mainland", "Status":"Active", "Inquiries":24, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" },
-    { "Item ID":"DPS10012", "Item Name":"Adjustable Dumbbell Set 20kg Pair", "Description":"New Year resolution didn't survive February. Barely used. Perfect condition.", "Condition":"Like New", "Amount to sell":85000, "Location":"Mainland", "Status":"Active", "Inquiries":37, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=900&q=80" },
-    { "Item ID":"DPS10013", "Item Name":"KitchenAid Artisan Stand Mixer 5Qt", "Description":"Empire Red. Used for baking phase that lasted three months. All attachments included.", "Condition":"Like New", "Amount to sell":245000, "Location":"Island", "Status":"Active", "Inquiries":29, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1594385208974-2e75f8d7bb48?w=900&q=80" },
-    { "Item ID":"DPS10014", "Item Name":"Fujifilm Instax Mini 12 Instant Camera", "Description":"Unopened. Bought as a birthday gift for someone who already had one.", "Condition":"Brand New", "Amount to sell":68000, "Location":"Mainland", "Status":"Active", "Inquiries":15, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=900&q=80" },
-    { "Item ID":"DPS10015", "Item Name":"Nintendo Switch OLED + Mario Kart 8", "Description":"Barely used. Comes with dock, Joy-Cons, original box, and Mario Kart 8 Deluxe cartridge.", "Condition":"Like New", "Amount to sell":380000, "Location":"Island", "Status":"Active", "Inquiries":44, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=900&q=80" },
-    { "Item ID":"DPS10016", "Item Name":"Apple Watch Series 9 GPS 45mm Midnight", "Description":"Space grey with black sport band. Battery 100%. Original packaging and cable.", "Condition":"Like New", "Amount to sell":420000, "Location":"Island", "Status":"Active", "Inquiries":38, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=900&q=80" }
+    { "Item ID":"DPS10005", "Item Name":"Nike Air Jordan 1 Retro High OG Chicago", "Description":"Size UK9. Worn three times, still stiff. Original box and laces included.", "Condition":"Good Condition", "Amount to sell":195000, "Location":"Mainland", "Status":"Active", "Inquiries":71, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1552346154-21d32810aba3?w=900&q=80" },
+    { "Item ID":"DPS10006", "Item Name":"Louis Vuitton Neverfull MM Monogram", "Description":"Authentic, purchased in Dubai. Slight patina on handles, normal for age. Dust bag included.", "Condition":"Fairly Used", "Amount to sell":620000, "Location":"Island", "Status":"Active", "Inquiries":53, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&q=80" },
+    { "Item ID":"DPS10007", "Item Name":"Herman Miller Aeron Chair Size B", "Description":"Fully loaded with lumbar support, adjustable arms. Moving offices, must go this month.", "Condition":"Good Condition", "Amount to sell":340000, "Location":"Island", "Status":"Active", "Inquiries":28, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=900&q=80" },
+    { "Item ID":"DPS10008", "Item Name":"Canon EOS R50 + 18-45mm Lens Kit", "Description":"Brand new in box. Bought as a gift but recipient wanted Sony. Receipt available.", "Condition":"Brand New", "Amount to sell":465000, "Location":"Mainland", "Status":"Active", "Inquiries":41, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=80" }
   ];
 
   var ALL_ITEMS     = [];
+  var RECENT_SOLD   = [];   // [v5] real sales from GAS
   var ACTIVE_FILTER = "All";
   var ACTIVE_SORT   = "newest";
   var SEARCH_QUERY  = "";
   var PAGE          = 1;
   var PAGE_SIZE     = 12;
   var IS_DEMO       = new URLSearchParams(window.location.search).has("demo");
+  var NEW_WINDOW_MS = 48 * 3600 * 1000;   // [v5] "New" badge = listed in the last 48h
 
   var NEGOTIATION_FEE = 300;
   var STEP_NAIRA = 1000;
@@ -896,16 +893,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     for (var cat in map) if (map[cat].some(function (k) { return n.indexOf(k) >= 0; })) return cat;
     return "Other";
   }
-  function isSold(status) {
-    var s = String(status || "").toLowerCase();
-    return s === "sold" || s === "paid" || s === "pending pickup" || s === "rejected" || s === "pending approval";
+
+  // [v5] Submission Time arrives as an ISO string (Sheets Date) or "yyyy-MM-dd HH:mm:ss" (Lagos time)
+  function submittedMs(v) {
+    if (!v) return NaN;
+    var s = String(v).trim();
+    if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2})?$/.test(s)) s = s.replace(" ", "T") + "+01:00";
+    return new Date(s).getTime();
   }
-  function badgeFor(status, id) {
-    var s = String(status || "").toLowerCase();
-    if (s === "sold" || s === "paid" || s === "pending pickup") return { cls: "", label: "Sold" };
-    var n = parseInt(String(id || "").replace(/[^0-9]/g, "")) || 0;
-    if (n % 5 === 0) return { cls: "new", label: "New" };
-    if (n % 3 === 0) return { cls: "hot", label: "Hot" };
+  // [v5] Badges come from real data only. No more New/Hot from the item number.
+  function badgeFor(it) {
+    var t = submittedMs(it && it["Submission Time"]);
+    if (!isNaN(t) && (Date.now() - t) < NEW_WINDOW_MS) return { cls: "new", label: "New" };
     return { cls: "", label: "Active" };
   }
 
@@ -930,6 +929,19 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function render() {
+    var grid = document.getElementById("grid");
+    var gridCount = document.getElementById("gridCount");
+    var gridFilter = document.getElementById("gridFilter");
+
+    // [v5] Nothing live at all is a different message from "no match"
+    if (!ALL_ITEMS.length) {
+      gridCount.innerHTML = "Showing <strong>0</strong> items";
+      gridFilter.textContent = "";
+      document.getElementById("showMoreWrap").style.display = "none";
+      grid.innerHTML = '<div class="state"><div class="state-icon">📭</div><h3>No items are live right now.</h3><p>New drops are posted on the <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener">Telegram channel</a> first. Check back soon.</p></div>';
+      return;
+    }
+
     var items = ALL_ITEMS.slice();
     if (ACTIVE_FILTER !== "All") items = items.filter(function (it) { return it._category === ACTIVE_FILTER; });
     if (SEARCH_QUERY) {
@@ -940,12 +952,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
             || (it["Item ID"] || "").toLowerCase().indexOf(q) >= 0;
       });
     }
+    if (ACTIVE_SORT === "newest")    items.sort(function (a,b) { return b._num - a._num; });   // [v5] was a no-op
     if (ACTIVE_SORT === "priceLow")  items.sort(function (a,b) { return a._price - b._price; });
     if (ACTIVE_SORT === "priceHigh") items.sort(function (a,b) { return b._price - a._price; });
     if (ACTIVE_SORT === "watching")  items.sort(function (a,b) { return (b._inquiries||0) - (a._inquiries||0); });
 
-    var gridCount = document.getElementById("gridCount");
-    var gridFilter = document.getElementById("gridFilter");
     gridCount.innerHTML = "Showing <strong>" + items.length + "</strong> item" + (items.length === 1 ? "" : "s");
     gridFilter.textContent = (ACTIVE_FILTER !== "All" ? ACTIVE_FILTER : "") +
       (SEARCH_QUERY ? (ACTIVE_FILTER !== "All" ? " · " : "") + "search: \"" + SEARCH_QUERY + "\"" : "");
@@ -953,9 +964,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var visible = items.slice(0, PAGE * PAGE_SIZE);
     document.getElementById("showMoreWrap").style.display = (visible.length < items.length) ? "block" : "none";
 
-    var grid = document.getElementById("grid");
     if (!items.length) {
-      grid.innerHTML = '<div class="state"><div class="state-icon">📭</div><h3>Nothing matches that.</h3><p>Try a different filter or search term — or check the Telegram channel for the newest drops.</p></div>';
+      grid.innerHTML = '<div class="state"><div class="state-icon">📭</div><h3>Nothing matches that.</h3><p>Try a different filter or search term, or check the Telegram channel for the newest drops.</p></div>';
       return;
     }
     grid.innerHTML = visible.map(buildCardHTML).join("");
@@ -976,7 +986,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var price = formatPrice(it["Amount to sell"] || it["Amount to Buyer"]);
     var img = firstImage(it["Product Photos"]);
     var views = it._inquiries || 0;
-    var badge = badgeFor(it["Status"], id);
+    var badge = badgeFor(it);
     var badgeHTML = '<span class="card-badge ' + badge.cls + '"><span class="dot"></span>' + badge.label + '</span>';
     var eyeSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
     var viewsHTML = views > 0 ? '<span class="card-views">' + eyeSvg + views + '</span>' : '';
@@ -997,25 +1007,24 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       + '</div>';
   }
 
+  // [v5] Real sales only (from the Payouts sheet). Hidden when there are none.
   function renderSoldStrip() {
-    var solds = ALL_ITEMS.slice(0, 6).map(function (it, i) {
-      return Object.assign({}, it, { _soldPrice: it._price - ((i + 1) * 5000) });
-    });
-    if (!solds.length) return;
+    var strip = document.getElementById("soldStrip");
+    if (!RECENT_SOLD.length) { strip.style.display = "none"; return; }
     var track = document.getElementById("soldTrack");
-    track.innerHTML = solds.map(function (it) {
+    track.innerHTML = RECENT_SOLD.map(function (it) {
       var img = firstImage(it["Product Photos"]);
       return ''
         + '<div class="sold-card">'
         +   '<span class="sold-badge">Sold</span>'
-        +   (img ? '<img class="sold-card-img" src="' + escapeAttr(img) + '" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="sold-card-img"></div>')
+        +   (img ? '<img class="sold-card-img" src="' + escapeAttr(img) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="sold-card-img"></div>')
         +   '<div class="sold-body">'
         +     '<div class="sold-name">' + escapeHTML(it["Item Name"]) + '</div>'
-        +     '<div class="sold-price">₦' + formatPrice(it._soldPrice) + '</div>'
+        +     '<div class="sold-price">₦' + formatPrice(it["Amount Paid"]) + '</div>'
         +   '</div>'
         + '</div>';
     }).join("");
-    document.getElementById("soldStrip").style.display = "block";
+    strip.style.display = "block";
   }
 
   var modalBg = document.getElementById("modalBg");
@@ -1070,7 +1079,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("galPrev").style.display = imgs.length > 1 ? "flex" : "none";
     document.getElementById("galNext").style.display = imgs.length > 1 ? "flex" : "none";
 
-    var badge = badgeFor(it["Status"], it["Item ID"]);
+    var badge = badgeFor(it);
     var badgeEl = document.getElementById("galBadge");
     badgeEl.className = "gal-badge" + (badge.cls ? " " + badge.cls : "");
     badgeEl.innerHTML = '<span class="dot"></span>' + escapeHTML(badge.label);
@@ -1086,10 +1095,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     currentQuickOffer = computeQuickOffer(asking);
     document.getElementById("mcQuickVal").textContent = "₦" + currentQuickOffer.toLocaleString("en-NG");
 
-    var sellerName = it["Name"] || it["Business Name"] || (it["Partner ID"] ? "DPS Partner" : "DPS Seller");
+    // [v5] Partner items show the business name (GAS now returns it). Individuals stay anonymous.
+    var isPartner = it["Seller Type"] === "Partner" || !!it["Partner ID"];
+    var sellerName = (isPartner && it["Business Name"]) ? it["Business Name"] : (isPartner ? "DPS Partner" : "DPS Seller");
     document.getElementById("mcSellerAvatar").textContent = initials(sellerName);
     document.getElementById("mcSellerName").textContent = sellerName;
-    document.getElementById("mcSellerMeta").textContent = (it["Seller Type"] === "Partner" || it["Partner ID"] ? "Partner on DPS" : "Seller on DPS") + " · escrow-protected";
+    document.getElementById("mcSellerMeta").textContent = (isPartner ? "Partner on DPS" : "Seller on DPS") + " · escrow-protected";
 
     document.getElementById("mcDayo").href = "https://t.me/declutterpawnshop2_bot?start=" + encodeURIComponent(it["Item ID"]);
     var itemUrl = SITE_URL + "/items?item=" + encodeURIComponent(it["Item ID"]);
@@ -1097,7 +1108,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("mcCopy").dataset.url = itemUrl;
     document.getElementById("mcCopy").textContent = "Copy";
     document.getElementById("mcCopy").classList.remove("copied");
-    var shareTxt = (it["Item Name"] || "") + " — ₦" + formatPrice(asking) + "\n" + itemUrl;
+    var shareTxt = (it["Item Name"] || "") + ": ₦" + formatPrice(asking) + "\n" + itemUrl;
     document.getElementById("mcWhatsapp").href = "https://wa.me/?text=" + encodeURIComponent(shareTxt);
 
     renderSimilar(it);
@@ -1126,7 +1137,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     modalBg.classList.remove("open");
     modalBg.setAttribute("aria-hidden", "true");
     if (!offerBg.classList.contains("open")) document.body.classList.remove("locked");
-    if (currentItem) history.replaceState({}, "", window.location.pathname);
+    if (currentItem) history.replaceState({}, "", window.location.pathname + (IS_DEMO ? "?demo" : ""));
     currentItem = null;
   }
 
@@ -1203,7 +1214,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         var next = ALL_ITEMS.filter(function (x) { return x["Item ID"] === id; })[0];
         if (next) {
           openModal(next);
-          history.replaceState({ itemId: id }, "", "?item=" + encodeURIComponent(id));
+          history.replaceState({ itemId: id }, "", "?item=" + encodeURIComponent(id) + (IS_DEMO ? "&demo" : ""));
         }
       });
     });
@@ -1233,12 +1244,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     err.classList.remove("show");
     var btn = this; btn.disabled = true; btn.textContent = "Connecting…";
 
+    // [v5] amount removed: the server sets the price from the sheet
     var payload = {
       action: "initPayment",
       itemId: currentItem["Item ID"],
       itemName: currentItem["Item Name"],
       buyerEmail: email,
-      amount: priceNum(currentItem["Amount to sell"] || currentItem["Amount to Buyer"]) * 100,
       callbackUrl: SITE_URL + "/payment-success"
     };
 
@@ -1453,29 +1464,40 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return Object.assign({}, it, {
         _category: detectCategory(it["Item Name"]),
         _price: priceNum(it["Amount to sell"] || it["Amount to Buyer"]),
-        _inquiries: parseInt(it["Inquiries"]) || 0
+        _inquiries: parseInt(it["Inquiries"]) || 0,
+        _num: parseInt(String(it["Item ID"] || "").replace(/[^0-9]/g, "")) || 0   // [v5] for newest sort
       });
     });
   }
-  function hydrate(items) {
-    ALL_ITEMS = normalise(items);
+
+  // [v5] Takes { items, recentSold }. Keeps Active items only, even if GAS sends more.
+  function hydrate(data) {
+    var items = (data && Array.isArray(data.items)) ? data.items : [];
+    ALL_ITEMS = normalise(items).filter(function (it) {
+      return String(it["Status"] || "").trim().toLowerCase() === "active";
+    });
+    RECENT_SOLD = (data && Array.isArray(data.recentSold)) ? data.recentSold : [];
     renderChips(); render(); renderSoldStrip();
-    var liveCount = ALL_ITEMS.filter(function (it) { return !isSold(it["Status"]); }).length;
+    var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
     checkDeepLink();
   }
+
+  // [v5] Error state instead of silently showing fake items
+  function showLoadError() {
+    document.getElementById("heroLiveText").textContent = "Offline";
+    document.getElementById("gridCount").textContent = "Couldn't load items";
+    document.getElementById("gridFilter").textContent = "";
+    document.getElementById("grid").innerHTML = '<div class="state"><div class="state-icon">⚠️</div><h3>Items didn\'t load.</h3><p>Refresh the page to try again. You can also browse the latest drops on the <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener">Telegram channel</a>.</p></div>';
+  }
+
   function loadFromGAS() {
-    if (!GAS || IS_DEMO) return Promise.reject();
     return fetch(GAS + "?action=getItems")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (data) {
-        var items = (data && Array.isArray(data.items)) ? data.items : [];
-        if (!items.length) throw new Error("empty");
-        return items;
+        if (!data || data.success === false || !Array.isArray(data.items)) throw new Error((data && data.error) || "bad response");
+        return data;   // an empty list is valid: it means nothing is live
       });
-  }
-  function loadSample() {
-    return Promise.resolve(SAMPLE_ITEMS.map(function (it) { return Object.assign({}, it, { "Status": "Active" }); }));
   }
 
   (function skeletons() {
@@ -1483,7 +1505,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("grid").innerHTML = sk + sk + sk + sk;
   })();
 
-  loadFromGAS().then(hydrate).catch(function () { loadSample().then(hydrate); });
+  if (IS_DEMO) {
+    hydrate({ items: SAMPLE_ITEMS, recentSold: [] });
+  } else if (!GAS) {
+    showLoadError();
+  } else {
+    loadFromGAS().then(hydrate).catch(function (e) {
+      if (window.console) console.warn("getItems failed:", e && e.message);
+      showLoadError();
+    });
+  }
 
   function checkDeepLink() {
     var params = new URLSearchParams(window.location.search);
