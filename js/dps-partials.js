@@ -12,11 +12,11 @@
   "use strict";
 
   /* ─── TUNABLES ─────────────────────────────────────────────── */
-  var LOGO = "/assets/logo.png";     // root-relative — do NOT drop the leading slash
+  var LOGO = "/assets/logo.png";     // trimmed badge, 486x200. Keep the leading slash.
 
-  var LOGO_NAV_H   = 85;             // was 34 → x2.5
-  var LOGO_FOOT_H  = 95;             // was 38 → x2.5
-  var NAV_HEIGHT   = 105;            // was 72 → grows to fit the bigger logo
+  var LOGO_NAV_H   = 44;             // badge ~107px wide in the nav
+  var LOGO_FOOT_H  = 52;             // badge ~126px wide in the footer
+  var NAV_HEIGHT   = 72;             // original nav height, now that the logo has no padding
   /* ───────────────────────────────────────────────────────────── */
 
   var NAV_ITEMS = [
@@ -80,7 +80,7 @@
       +       '<div class="foot-col">'
       +         '<h4>Program</h4>'
       +         '<a href="/partners">Partner program</a>'
-      +         '<a href="/partner-register">Register as partner</a>'
+      +         '<a href="/partners-register">Register as partner</a>'
       +         '<a href="/faq">FAQ</a>'
       +       '</div>'
       +       '<div class="foot-col">'
@@ -110,14 +110,14 @@
       + '.nav-logo img{height:' + LOGO_NAV_H + 'px !important;width:auto !important;}'
       // Footer logo sizing
       + '.foot-brand img{height:' + LOGO_FOOT_H + 'px !important;width:auto !important;margin-bottom:20px !important;}'
-      // Push page content below the taller nav so nothing is covered
+      // Push page content below the nav so nothing is covered
       + '.hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
       + '.items-hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
       + '.page-head{padding-top:' + (NAV_HEIGHT + 24) + 'px !important;}'
-      // Keep mobile tight — no giant logo on small screens
+      // Mobile
       + '@media (max-width:900px){'
       +   '.nav-inner{height:72px !important;}'
-      +   '.nav-logo img{height:44px !important;}'
+      +   '.nav-logo img{height:36px !important;}'
       +   '.hero{padding-top:120px !important;}'
       +   '.items-hero{padding-top:120px !important;}'
       +   '.page-head{padding-top:120px !important;}'
