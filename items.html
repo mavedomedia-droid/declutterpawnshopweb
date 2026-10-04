@@ -13,10 +13,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="theme-color" content="#0E1320">
 <meta property="og:title" content="Live Items | Declutter Pawn Shop">
 <meta property="og:description" content="Verified pre-owned items in Lagos. Escrow-protected payments via Paystack.">
-<meta property="og:image" content="https://declutterpawnshop.com/assets/og-image.jpg">
 <meta property="og:url" content="https://declutterpawnshop.com/items">
 <meta property="og:type" content="website">
-<link rel="icon" href="/assets/favicon.ico">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+<meta property="og:image" content="https://declutterpawnshop.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -508,24 +515,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
 <script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a href="/" class="nav-logo"><img src="/assets/dps-logo-light.png" alt="Declutter Pawn Shop"></a>
-    <ul class="nav-links">
-      <li><a href="/items" class="active">Live items</a></li>
-      <li><a href="/sell">Sell</a></li>
-      <li><a href="/auction">Auction</a></li>
-      <li><a href="/partners">Partners</a></li>
-      <li><a href="/faq">FAQ</a></li>
-    </ul>
-    <a href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Open Telegram</a>
-    <a href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Telegram</a>
-  </div>
-</nav>
+<div data-dps-nav data-active="items"></div>
 
 <section class="items-hero">
   <div class="wrap items-hero-inner">
@@ -601,33 +596,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <img src="/assets/dps-logo-light.png" alt="Declutter Pawn Shop">
-        <p>The simpler, more secure way to declutter. Buy and sell pre-owned items across Lagos.</p>
-      </div>
-      <div class="foot-col"><h4>Marketplace</h4>
-        <a href="/items">Live items</a><a href="/sell">Sell an item</a><a href="/auction">Auction</a>
-      </div>
-      <div class="foot-col"><h4>Program</h4>
-        <a href="/partners">Partner program</a><a href="/partners-register">Register as partner</a><a href="/faq">FAQ</a>
-      </div>
-      <div class="foot-col"><h4>Legal & Contact</h4>
-        <a href="/terms">Terms of Service</a><a href="/privacy">Privacy Policy</a><a href="mailto:info@declutterpawnshop.com">info@declutterpawnshop.com</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2026 Declutter Pawn Shop · Lagos, Nigeria</p>
-      <div class="foot-social">
-        <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg></a>
-        <a href="https://instagram.com/declutter.pawnshop" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="https://facebook.com/declutterpawnshop" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.090 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.770l-.44 2.89h-2.33v6.99A10 10 0 0022 12z"/></svg></a>
-      </div>
-    </div>
-  </div>
-</footer>
+<div data-dps-footer></div>
 
 <!-- MODAL -->
 <div class="modal-bg" id="modalBg" aria-hidden="true">
@@ -826,8 +795,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <div class="offer-success-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <h3>Offer sent</h3>
-      <p>The seller has 24 hours to respond. You'll get an email the moment they accept, counter, or decline.</p>
+      <h3 id="offerSuccessTitle">Offer sent</h3>
+      <p id="offerSuccessText">The seller has 24 hours to respond. You'll get an email the moment they accept, counter, or decline.</p>
       <button class="btn btn-outline" id="offerDone" style="width:100%;margin-top:8px;" type="button">Done</button>
     </div>
   </div>
@@ -1514,10 +1483,57 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
   });
 
-  function showOfferSuccess() {
+  var OFFER_SENT_TEXT = "The seller has 24 hours to respond. You'll get an email the moment they accept, counter, or decline.";
+
+  // [v6] Title/text are optional so the return-from-Paystack flow can show progress
+  function showOfferSuccess(title, text) {
+    document.getElementById("offerSuccessTitle").textContent = title || "Offer sent";
+    document.getElementById("offerSuccessText").textContent = text || OFFER_SENT_TEXT;
     offerBody.style.display = "none";
     offerActions.style.display = "none";
     offerSuccess.classList.add("show");
+  }
+
+  // [v6] Buyer lands here from Paystack: /items?item=DPS10031&offer=sent&trxref=..&reference=..
+  function handleOfferReturn() {
+    var href = window.location.href;
+    if (!/[?&]offer=sent/.test(href)) return;
+
+    var refMatch = href.match(/[?&]reference=([^&#]+)/) || href.match(/[?&]trxref=([^&#]+)/);
+    var reference = refMatch ? decodeURIComponent(refMatch[1]) : "";
+    var idMatch = href.match(/[?&]item=([^&#?]+)/);
+    var itemId = idMatch ? decodeURIComponent(idMatch[1]).trim().toUpperCase() : "";
+
+    // Clean the URL so a refresh doesn't replay this
+    history.replaceState({}, "", window.location.pathname + (itemId ? "?item=" + encodeURIComponent(itemId) : ""));
+
+    setTimeout(function () {
+      var match = ALL_ITEMS.filter(function (x) { return String(x["Item ID"] || "").toUpperCase() === itemId; })[0];
+      if (match && !modalBg.classList.contains("open")) openModal(match);
+
+      offerBg.classList.add("open");
+      offerBg.setAttribute("aria-hidden", "false");
+      document.body.classList.add("locked");
+
+      if (!GAS || IS_DEMO || !reference) {
+        showOfferSuccess();
+        return;
+      }
+
+      showOfferSuccess("Confirming your payment…", "This takes a few seconds. Please keep this page open.");
+
+      fetch(GAS, { method: "POST", body: JSON.stringify({ action: "confirmOfferPayment", reference: reference }) })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && data.success) { showOfferSuccess(); return; }
+          showOfferSuccess("Payment not confirmed yet",
+            "If you were charged ₦300, your offer will reach the seller within 5 minutes. No need to pay again.");
+        })
+        .catch(function () {
+          showOfferSuccess("Payment not confirmed yet",
+            "If you were charged ₦300, your offer will reach the seller within 5 minutes. No need to pay again.");
+        });
+    }, 150);
   }
 
   document.addEventListener("keydown", function (e) {
@@ -1560,6 +1576,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
     checkDeepLink();
+    handleOfferReturn();   // [v6]
   }
 
   // [v5] Error state instead of silently showing fake items
@@ -1568,6 +1585,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("gridCount").textContent = "Couldn't load items";
     document.getElementById("gridFilter").textContent = "";
     document.getElementById("grid").innerHTML = '<div class="state"><div class="state-icon">⚠️</div><h3>Items didn\'t load.</h3><p>Refresh the page to try again. You can also browse the latest drops on the <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener">Telegram channel</a>.</p></div>';
+    handleOfferReturn();   // [v6] a paid offer still gets confirmed
   }
 
   function loadFromGAS() {
