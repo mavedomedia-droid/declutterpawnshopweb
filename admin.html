@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPS Admin</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#0B0F1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0B0F1A;
+  --bg-2: #0F1420;
+  --surf: #141A26;
+  --surf-2: #1A2130;
+  --surf-3: #232B3B;
+  --line: #232B3B;
+  --line-2: #2E3849;
+  --txt: #F0F3F7;
+  --txt-2: #B7C0D0;
+  --muted: #8A93A8;
+  --muted-2: #5D6679;
+  --green: #00C853;
+  --green-d: #00A843;
+  --green-bg: rgba(0,200,83,.10);
+  --green-line: rgba(0,200,83,.28);
+  --amber: #F59E0B;
+  --amber-bg: rgba(245,158,11,.10);
+  --amber-line: rgba(245,158,11,.30);
+  --red: #EF4444;
+  --red-bg: rgba(239,68,68,.10);
+  --red-line: rgba(239,68,68,.30);
+  --blue: #3B82F6;
+  --blue-bg: rgba(59,130,246,.10);
+  --blue-line: rgba(59,130,246,.30);
+  --purple: #A855F7;
+  --purple-bg: rgba(168,85,247,.10);
+  --fh: 'Manrope', system-ui, sans-serif;
+  --fb: 'DM Sans', system-ui, sans-serif;
+  --fm: 'DM Mono', ui-monospace, monospace;
+  --r: 10px; --r-sm: 6px; --r-pill: 999px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--txt);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, h4 { font-family: var(--fh); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surf-3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--line-2); }
+
+/* ── AUTH ─────────────────────────────────────────── */
+.auth-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 50% 30%, rgba(0,200,83,.08) 0%, transparent 55%), var(--bg);
+  padding: 24px;
+}
+.auth-card {
+  width: 100%; max-width: 380px;
+  background: var(--surf); border: 1px solid var(--line);
+  border-radius: 16px; padding: 32px 28px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.5);
+}
+.auth-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.auth-mark {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--green-bg); border: 1px solid var(--green-line);
+  color: var(--green); display: flex; align-items: center; justify-content: center;
+}
+.auth-title { font-family: var(--fh); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.auth-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.auth-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.auth-input {
+  width: 100%; background: var(--bg-2); border: 1.5px solid var(--line-2);
+  border-radius: 10px; padding: 12px 14px; font-size: 14px; color: var(--txt);
+  outline: none; transition: border-color .15s; font-family: var(--fm); letter-spacing: 0.02em;
+}
+.auth-input:focus { border-color: var(--green); }
+.auth-btn {
+  width: 100%; margin-top: 16px; padding: 13px;
+  background: var(--green); color: #062612; font-weight: 700; font-size: 14px;
+  border-radius: 10px; transition: background .15s;
+}
+.auth-btn:hover { background: var(--green-d); }
+.auth-err { font-size: 12px; color: var(--red); margin-top: 10px; display: none; }
+.auth-err.show { display: block; }
+
+/* ── SHELL ────────────────────────────────────────── */
+.shell { display: flex; flex-direction: column; min-height: 100vh; }
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,15,26,.94); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  display: flex; align-items: center; gap: 24px;
+  padding: 12px 24px; height: 60px;
+}
+.brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.brand-mark {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--green-bg); border: 1px solid var(--green-line);
+  color: var(--green); display: flex; align-items: center; justify-content: center;
+}
+.brand-name { font-family: var(--fh); font-weight: 800; font-size: 15px; letter-spacing: -0.02em; }
+.brand-sub { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.tabs { display: flex; gap: 4px; margin-left: 8px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  color: var(--txt-2); white-space: nowrap; transition: background .12s, color .12s;
+}
+.tab:hover { background: var(--surf); color: var(--txt); }
+.tab.active { background: var(--surf-2); color: var(--txt); }
+.tab-badge {
+  display: inline-block; min-width: 18px; padding: 0 5px; height: 18px; line-height: 18px;
+  text-align: center; font-family: var(--fm); font-size: 10.5px; font-weight: 600;
+  background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-line);
+  border-radius: 999px; margin-left: 6px;
+}
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.icon-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: background .12s, color .12s;
+}
+.icon-btn:hover { background: var(--surf); color: var(--txt); }
+.user-pill {
+  display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px;
+  background: var(--surf); border: 1px solid var(--line); border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--txt-2);
+}
+.user-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--green-bg); border: 1px solid var(--green-line); display: flex; align-items: center; justify-content: center; color: var(--green); }
+
+main { flex: 1; padding: 28px 24px 48px; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+/* ── COMMON ───────────────────────────────────────── */
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.page-title { font-family: var(--fh); font-weight: 800; font-size: 26px; letter-spacing: -0.03em; }
+.page-sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  transition: background .12s, border-color .12s, color .12s; white-space: nowrap;
+}
+.btn-primary { background: var(--green); color: #062612; }
+.btn-primary:hover { background: var(--green-d); }
+.btn-ghost { background: transparent; color: var(--txt-2); border: 1.5px solid var(--line-2); }
+.btn-ghost:hover { border-color: var(--muted); color: var(--txt); }
+.btn-danger { background: var(--red-bg); color: var(--red); border: 1.5px solid var(--red-line); }
+.btn-danger:hover { background: var(--red); color: #fff; }
+.btn-warn { background: var(--amber-bg); color: var(--amber); border: 1.5px solid var(--amber-line); }
+.btn-warn:hover { background: var(--amber); color: #1a1300; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.card {
+  background: var(--surf); border: 1px solid var(--line); border-radius: 12px;
+}
+.card-head { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.card-title { font-family: var(--fh); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
+.card-body { padding: 20px; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.4;
+}
+.badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-line); }
+.badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-line); }
+.badge-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-line); }
+.badge-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-line); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-line, rgba(168,85,247,.30)); }
+.badge-muted { background: var(--surf-3); color: var(--muted); border: 1px solid var(--line-2); }
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ── KPI GRID ─────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.kpi {
+  background: var(--surf); border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px 18px; position: relative; overflow: hidden;
+}
+.kpi-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.kpi-val { font-family: var(--fh); font-weight: 800; font-size: 26px; letter-spacing: -0.03em; margin-top: 8px; line-height: 1; }
+.kpi-sub { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+.kpi.accent-green { border-color: var(--green-line); background: linear-gradient(180deg, rgba(0,200,83,.06) 0%, rgba(0,200,83,0) 100%), var(--surf); }
+.kpi.accent-green .kpi-val { color: var(--green); }
+.kpi.accent-amber { border-color: var(--amber-line); background: linear-gradient(180deg, rgba(245,158,11,.06) 0%, rgba(245,158,11,0) 100%), var(--surf); }
+.kpi.accent-amber .kpi-val { color: var(--amber); }
+.kpi.accent-red { border-color: var(--red-line); background: linear-gradient(180deg, rgba(239,68,68,.06) 0%, rgba(239,68,68,0) 100%), var(--surf); }
+.kpi.accent-red .kpi-val { color: var(--red); }
+
+/* ── TODAY LAYOUT ─────────────────────────────────── */
+.today-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .today-grid { grid-template-columns: 1.2fr 1fr; } }
+
+.attention-list { display: flex; flex-direction: column; gap: 0; }
+.attention-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px 20px;
+  border-bottom: 1px solid var(--line); transition: background .12s;
+}
+.attention-item:last-child { border-bottom: none; }
+.attention-item:hover { background: var(--surf-2); cursor: pointer; }
+.attention-icon {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.attention-icon.amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-line); }
+.attention-icon.red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-line); }
+.attention-icon.blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-line); }
+.attention-icon.green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-line); }
+.attention-body { flex: 1; min-width: 0; }
+.attention-title { font-weight: 600; font-size: 13.5px; color: var(--txt); }
+.attention-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.attention-count { font-family: var(--fh); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; color: var(--txt); }
+
+.stat-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.stat-row:last-child { border-bottom: none; }
+.stat-lbl { color: var(--txt-2); }
+.stat-val { font-weight: 700; font-family: var(--fm); }
+.stat-val.green { color: var(--green); }
+.stat-val.amber { color: var(--amber); }
+.stat-val.red { color: var(--red); }
+
+/* ── TABLES ───────────────────────────────────────── */
+.table-wrap { overflow-x: auto; border-radius: 12px; }
+table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.tbl thead th {
+  text-align: left; padding: 11px 14px; font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  background: var(--bg-2); border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+.tbl tbody td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--txt-2); vertical-align: middle; }
+.tbl tbody tr:last-child td { border-bottom: none; }
+.tbl tbody tr:hover { background: var(--surf-2); }
+.tbl tbody tr.clickable { cursor: pointer; }
+.tbl .mono { font-family: var(--fm); font-size: 12px; }
+.tbl .num { text-align: right; font-family: var(--fm); }
+.tbl .strong { color: var(--txt); font-weight: 600; }
+.tbl .muted { color: var(--muted); }
+
+.item-thumb {
+  width: 40px; height: 40px; border-radius: 8px; object-fit: cover;
+  background: var(--surf-3); border: 1px solid var(--line-2); flex-shrink: 0;
+}
+.item-thumb-fallback {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: var(--surf-3); border: 1px solid var(--line-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 16px; flex-shrink: 0;
+}
+.cell-item { display: flex; align-items: center; gap: 12px; }
+.cell-item-info { min-width: 0; }
+.cell-item-name { color: var(--txt); font-weight: 600; font-size: 13.5px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px; }
+.cell-item-id { font-family: var(--fm); font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── FILTERS ──────────────────────────────────────── */
+.filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.search-box {
+  position: relative; flex: 1; min-width: 200px; max-width: 360px;
+  display: flex; align-items: center;
+}
+.search-box svg { position: absolute; left: 12px; color: var(--muted); pointer-events: none; }
+.search-box input {
+  width: 100%; padding: 10px 14px 10px 36px;
+  background: var(--surf); border: 1.5px solid var(--line-2);
+  border-radius: 9px; font-size: 13.5px; color: var(--txt); outline: none;
+  transition: border-color .15s;
+}
+.search-box input:focus { border-color: var(--green); }
+.search-box input::placeholder { color: var(--muted-2); }
+.chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  background: transparent; border: 1.5px solid var(--line-2); color: var(--txt-2);
+  transition: all .12s; white-space: nowrap;
+}
+.chip:hover { border-color: var(--muted); color: var(--txt); }
+.chip.active { background: var(--surf-2); border-color: var(--green); color: var(--green); }
+
+/* ── PARTNER CARDS ────────────────────────────────── */
+.partner-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 720px) { .partner-list { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .partner-list { grid-template-columns: repeat(3, 1fr); } }
+.partner-card {
+  background: var(--surf); border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px; cursor: pointer; transition: border-color .15s, transform .12s;
+  position: relative;
+}
+.partner-card:hover { border-color: var(--green); transform: translateY(-1px); }
+.partner-card.attention { border-color: var(--amber-line); background: linear-gradient(180deg, rgba(245,158,11,.04) 0%, rgba(245,158,11,0) 60%), var(--surf); }
+.partner-card.attention:hover { border-color: var(--amber); }
+.partner-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.partner-avatar {
+  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+  background: var(--surf-2); border: 1px solid var(--line-2);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; color: var(--muted); font-family: var(--fh); font-weight: 800; font-size: 15px;
+}
+.partner-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.partner-meta { min-width: 0; flex: 1; }
+.partner-name { font-family: var(--fh); font-weight: 700; font-size: 14.5px; letter-spacing: -0.01em; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.partner-handle { font-family: var(--fm); font-size: 11.5px; color: var(--green); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.partner-loc { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.partner-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); padding-top: 12px; }
+.partner-stat { text-align: center; padding: 0 4px; }
+.partner-stat-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.partner-stat-val { font-family: var(--fh); font-weight: 800; font-size: 15px; letter-spacing: -0.02em; margin-top: 3px; color: var(--txt); }
+.partner-stat-val.green { color: var(--green); }
+.partner-attention { position: absolute; top: 12px; right: 12px; }
+
+/* ── PARTNER DETAIL ───────────────────────────────── */
+.detail-header { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+.detail-logo {
+  width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0;
+  background: var(--surf-2); border: 1px solid var(--line-2);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; color: var(--muted); font-family: var(--fh); font-weight: 800; font-size: 22px;
+}
+.detail-logo img { width: 100%; height: 100%; object-fit: cover; }
+.detail-meta { flex: 1; min-width: 0; }
+.detail-name { font-family: var(--fh); font-weight: 800; font-size: 24px; letter-spacing: -0.03em; line-height: 1.15; }
+.detail-handle { font-family: var(--fm); font-size: 13px; color: var(--green); margin-top: 6px; }
+.detail-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+.back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); margin-bottom: 12px; transition: color .12s; }
+.back-link:hover { color: var(--txt); }
+
+.detail-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 1000px) { .detail-grid { grid-template-columns: 2fr 1fr; } }
+
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+.stat-cell { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.stat-cell-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.stat-cell-val { font-family: var(--fh); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; margin-top: 6px; line-height: 1; }
+.stat-cell-val.green { color: var(--green); }
+.stat-cell-val.mono { font-family: var(--fm); font-size: 17px; }
+
+.kv-list { display: flex; flex-direction: column; }
+.kv-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.kv-row:last-child { border-bottom: none; }
+.kv-k { color: var(--muted); flex-shrink: 0; }
+.kv-v { color: var(--txt); font-weight: 600; text-align: right; word-break: break-word; }
+.kv-v.mono { font-family: var(--fm); font-size: 12.5px; }
+
+/* ── MODAL ────────────────────────────────────────── */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(5,8,15,.75); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity .18s;
+}
+.modal-bg.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surf); border: 1px solid var(--line-2); border-radius: 14px;
+  width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 70px rgba(0,0,0,.6);
+  transform: scale(.97); transition: transform .18s;
+}
+.modal-bg.open .modal { transform: scale(1); }
+.modal-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.modal-title { font-family: var(--fh); font-weight: 700; font-size: 16px; letter-spacing: -0.015em; }
+.modal-close { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); transition: background .12s; }
+.modal-close:hover { background: var(--surf-3); color: var(--txt); }
+.modal-body { padding: 20px 22px; }
+.modal-foot { padding: 16px 22px; border-top: 1px solid var(--line); display: flex; gap: 10px; justify-content: flex-end; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.field input, .field textarea {
+  width: 100%; background: var(--bg-2); border: 1.5px solid var(--line-2);
+  border-radius: 9px; padding: 11px 13px; font-size: 13.5px; color: var(--txt);
+  outline: none; transition: border-color .15s;
+}
+.field textarea { resize: vertical; min-height: 100px; font-family: inherit; line-height: 1.5; }
+.field input:focus, .field textarea:focus { border-color: var(--green); }
+
+/* ── TOAST ────────────────────────────────────────── */
+.toast-wrap {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9000;
+  display: flex; flex-direction: column; gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  background: var(--surf-2); border: 1px solid var(--line-2); border-radius: 10px;
+  padding: 12px 16px; font-size: 13.5px; color: var(--txt);
+  box-shadow: 0 12px 40px rgba(0,0,0,.5);
+  display: flex; align-items: center; gap: 10px;
+  animation: toastIn .2s ease;
+  pointer-events: all; max-width: 360px;
+}
+.toast.green { border-color: var(--green-line); }
+.toast.green svg { color: var(--green); flex-shrink: 0; }
+.toast.red { border-color: var(--red-line); }
+.toast.red svg { color: var(--red); flex-shrink: 0; }
+.toast.amber { border-color: var(--amber-line); }
+.toast.amber svg { color: var(--amber); flex-shrink: 0; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── LOADING ──────────────────────────────────────── */
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; gap: 14px; color: var(--muted); }
+.spinner {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2.5px solid var(--surf-3); border-top-color: var(--green);
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state { text-align: center; padding: 60px 24px; color: var(--muted); }
+.empty-state svg { color: var(--muted-2); margin-bottom: 14px; }
+.empty-state h3 { font-family: var(--fh); font-weight: 700; font-size: 16px; color: var(--txt); margin-bottom: 6px; }
+.empty-state p { font-size: 13px; }
+
+/* ── MOBILE ───────────────────────────────────────── */
+@media (max-width: 720px) {
+  .topbar-inner { padding: 10px 16px; gap: 12px; }
+  .brand-sub { display: none; }
+  main { padding: 20px 16px 40px; }
+  .page-title { font-size: 22px; }
+  .kpi-val { font-size: 22px; }
+  .cell-item-name { max-width: 180px; }
+  .detail-name { font-size: 20px; }
+  .toast-wrap { left: 16px; right: 16px; bottom: 16px; }
+  .toast { max-width: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH GATE -->
+<div class="auth-gate" id="authGate" style="display:none;">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <div>
+        <div class="auth-title">DPS Admin</div>
+        <div class="auth-sub">Operations console</div>
+      </div>
+    </div>
+    <label class="auth-label" for="authKey">Access key</label>
+    <input class="auth-input" type="password" id="authKey" placeholder="Paste your admin key" autocomplete="off" spellcheck="false">
+    <button class="auth-btn" id="authSubmit">Continue</button>
+    <div class="auth-err" id="authErr">Invalid key. Try again.</div>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell" id="shell" style="display:none;">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="brand-name">DPS</div>
+          <div class="brand-sub">Admin</div>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs">
+        <a class="tab" data-route="today">Today</a>
+        <a class="tab" data-route="partners">Partners<span class="tab-badge" id="tabBadgePartners" style="display:none;"></span></a>
+        <a class="tab" data-route="items">Items<span class="tab-badge" id="tabBadgeItems" style="display:none;"></span></a>
+        <a class="tab" data-route="sales">Sales</a>
+      </nav>
+      <div class="topbar-right">
+        <button class="icon-btn" id="btnRefresh" title="Refresh">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        </button>
+        <button class="icon-btn" id="btnLogout" title="Log out">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main id="main"></main>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ══════════════════════════════════════════════════════════════
+  // CONFIG — set these
+  // ══════════════════════════════════════════════════════════════
+  var GAS_URL = "https://script.google.com/macros/s/AKfycbwimPAzCWYknvHBWf2LAdiH_RjJmiUrYLmD-x9Nob0fWntIopLYqSGx6BUG5Vfq1AqWzA/exec";
+  var KEY_STORE = "dps_admin_key";
+  // ══════════════════════════════════════════════════════════════
+
+  var state = {
+    key: localStorage.getItem(KEY_STORE) || "",
+    route: "today",
+    partnerId: null,
+    today: null,
+    partners: null,
+    partnerDetail: null,
+    items: null,
+    itemsFilter: { status: "", source: "", q: "" },
+    sales: null,
+    salesQ: "",
+    partnersQ: "",
+    partnersFilter: "all",
+    refreshing: false
+  };
+
+  // ── DOM HELPERS ──────────────────────────────────────────────
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, children) {
+    var e = document.createElement(tag);
+    if (attrs) for (var k in attrs) {
+      if (k === "class") e.className = attrs[k];
+      else if (k === "html") e.innerHTML = attrs[k];
+      else if (k.indexOf("on") === 0) e.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+      else if (attrs[k] !== null && attrs[k] !== undefined && attrs[k] !== false) e.setAttribute(k, attrs[k]);
+    }
+    if (children) {
+      if (!Array.isArray(children)) children = [children];
+      children.forEach(function(c){
+        if (c == null) return;
+        e.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+      });
+    }
+    return e;
+  }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c];
+    });
+  }
+  function naira(n) {
+    var v = parseInt(String(n == null ? "" : n).replace(/[^0-9-]/g, ""), 10) || 0;
+    return "₦" + v.toLocaleString("en-NG");
+  }
+  function initials(s) {
+    if (!s) return "?";
+    return String(s).trim().split(/\s+/).slice(0, 2).map(function(w){ return (w[0] || "").toUpperCase(); }).join("");
+  }
+  function fmtDate(v) {
+    if (!v) return "-";
+    var s = String(v);
+    // Try parseSheetTime-ish
+    var d = null;
+    if (s.indexOf("-") > 0 && s.indexOf(":") > 0) {
+      d = new Date(s.replace(" ", "T"));
+    } else {
+      d = new Date(s);
+    }
+    if (!d || isNaN(d.getTime())) return s;
+    var now = new Date();
+    var ms = now.getTime() - d.getTime();
+    if (ms < 60 * 1000) return "just now";
+    if (ms < 3600 * 1000) return Math.floor(ms / 60000) + "m ago";
+    if (ms < 86400 * 1000) return Math.floor(ms / 3600000) + "h ago";
+    if (ms < 7 * 86400 * 1000) return Math.floor(ms / 86400000) + "d ago";
+    return d.toLocaleDateString("en-NG", { year: "numeric", month: "short", day: "numeric" });
+  }
+  function fmtDateFull(v) {
+    if (!v) return "-";
+    var s = String(v);
+    var d = s.indexOf("T") > 0 ? new Date(s) : new Date(s.replace(" ", "T"));
+    if (!d || isNaN(d.getTime())) return s;
+    return d.toLocaleDateString("en-NG", { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+  }
+
+  // ── TOAST ────────────────────────────────────────────────────
+  function toast(msg, kind) {
+    kind = kind || "green";
+    var iconMap = {
+      green: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+      red: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+      amber: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+    };
+    var t = el("div", { class: "toast " + kind });
+    t.innerHTML = (iconMap[kind] || iconMap.green) + '<div>' + esc(msg) + '</div>';
+    $("toastWrap").appendChild(t);
+    setTimeout(function(){
+      t.style.opacity = "0";
+      t.style.transform = "translateY(8px)";
+      t.style.transition = "opacity .2s, transform .2s";
+      setTimeout(function(){ t.remove(); }, 220);
+    }, 3200);
+  }
+
+  // ── API ──────────────────────────────────────────────────────
+  function apiGet(action, extra) {
+    var q = "?action=" + encodeURIComponent(action) + "&key=" + encodeURIComponent(state.key);
+    if (extra) for (var k in extra) q += "&" + k + "=" + encodeURIComponent(extra[k]);
+    return fetch(GAS_URL + q).then(function(r){ return r.json(); });
+  }
+  function apiPost(action, data) {
+    var payload = Object.assign({ action: action, key: state.key }, data || {});
+    return fetch(GAS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).then(function(r){ return r.json(); });
+  }
+
+  // ── AUTH ─────────────────────────────────────────────────────
+  function showAuth() {
+    $("authGate").style.display = "flex";
+    $("shell").style.display = "none";
+    setTimeout(function(){ $("authKey").focus(); }, 100);
+  }
+  function showShell() {
+    $("authGate").style.display = "none";
+    $("shell").style.display = "flex";
+  }
+  function validateAndEnter(key) {
+    state.key = key;
+    return apiGet("adminToday").then(function(r){
+      if (r && r.success) {
+        localStorage.setItem(KEY_STORE, key);
+        state.today = r;
+        showShell();
+        route();
+        return true;
+      }
+      localStorage.removeItem(KEY_STORE);
+      state.key = "";
+      return false;
+    }).catch(function(){ return false; });
+  }
+  $("authSubmit").addEventListener("click", function(){
+    var k = $("authKey").value.trim();
+    if (!k) return;
+    $("authSubmit").textContent = "Checking…";
+    $("authSubmit").disabled = true;
+    $("authErr").classList.remove("show");
+    validateAndEnter(k).then(function(ok){
+      $("authSubmit").textContent = "Continue";
+      $("authSubmit").disabled = false;
+      if (!ok) $("authErr").classList.add("show");
+    });
+  });
+  $("authKey").addEventListener("keydown", function(e){
+    if (e.key === "Enter") $("authSubmit").click();
+  });
+  $("btnLogout").addEventListener("click", function(){
+    localStorage.removeItem(KEY_STORE);
+    state.key = "";
+    state.today = null; state.partners = null; state.partnerDetail = null;
+    state.items = null; state.sales = null;
+    showAuth();
+  });
+
+  // ── ROUTING ──────────────────────────────────────────────────
+  function setRoute(route, opts) {
+    opts = opts || {};
+    if (route === "partner" && opts.partnerId) {
+      state.partnerId = opts.partnerId;
+      location.hash = "#/partners/" + opts.partnerId;
+    } else {
+      state.route = route;
+      location.hash = route === "today" ? "#/" : "#/" + route;
+    }
+    route();
+  }
+  function route() {
+    var hash = (location.hash || "#/").replace(/^#\/?/, "");
+    var parts = hash.split("/");
+    var r = parts[0] || "today";
+    var pid = parts[1] || null;
+
+    if (r === "partners" && pid) {
+      state.route = "partnerDetail";
+      state.partnerId = pid;
+    } else if (r === "partners") {
+      state.route = "partners";
+    } else if (r === "items") {
+      state.route = "items";
+    } else if (r === "sales") {
+      state.route = "sales";
+    } else {
+      state.route = "today";
+    }
+    renderTabs();
+    render();
+  }
+  window.addEventListener("hashchange", route);
+
+  function renderTabs() {
+    var active = state.route === "partnerDetail" ? "partners" : state.route;
+    document.querySelectorAll(".tab").forEach(function(t){
+      t.classList.toggle("active", t.getAttribute("data-route") === active);
+    });
+    // Badge on partners: count attention
+    if (state.partners && state.partners.partners) {
+      var n = state.partners.partners.filter(function(p){ return p.needsAttention; }).length;
+      var b = $("tabBadgePartners");
+      if (n > 0) { b.textContent = n; b.style.display = "inline-block"; }
+      else { b.style.display = "none"; }
+    }
+    // Badge on items: pending approval count
+    if (state.today && state.today.needsAttention) {
+      var np = state.today.needsAttention.pendingApproval || 0;
+      var bi = $("tabBadgeItems");
+      if (np > 0) { bi.textContent = np; bi.style.display = "inline-block"; }
+      else { bi.style.display = "none"; }
+    }
+  }
+
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.addEventListener("click", function(e){
+      e.preventDefault();
+      setRoute(t.getAttribute("data-route"));
+    });
+  });
+
+  // ── RENDER ───────────────────────────────────────────────────
+  function render() {
+    var main = $("main");
+    main.innerHTML = "";
+    if (state.route === "today") return renderToday(main);
+    if (state.route === "partners") return renderPartners(main);
+    if (state.route === "partnerDetail") return renderPartnerDetail(main, state.partnerId);
+    if (state.route === "items") return renderItems(main);
+    if (state.route === "sales") return renderSales(main);
+  }
+
+  function loading() {
+    return el("div", { class: "loading", html: '<div class="spinner"></div><div>Loading…</div>' });
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // TODAY
+  // ══════════════════════════════════════════════════════════════
+  function renderToday(main) {
+    main.appendChild(loading());
+    apiGet("adminToday").then(function(r){
+      if (!r || !r.success) { main.innerHTML = ""; main.appendChild(el("div", { class: "empty-state", html: "<h3>Could not load today</h3><p>" + esc((r && r.error) || "Unknown error") + "</p>" })); return; }
+      state.today = r;
+      main.innerHTML = "";
+      renderTabs();
+      main.appendChild(buildTodayScreen(r));
+    }).catch(function(e){
+      main.innerHTML = "";
+      main.appendChild(el("div", { class: "empty-state", html: "<h3>Network error</h3><p>" + esc(e.message) + "</p>" }));
+    });
+  }
+
+  function buildTodayScreen(r) {
+    var wrap = el("div");
+
+    var hour = new Date().getHours();
+    var greet = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+
+    wrap.appendChild(el("div", { class: "page-head" }, [
+      el("div", null, [
+        el("div", { class: "page-title", html: greet + " 👋" }),
+        el("div", { class: "page-sub", html: "Here's today's DPS pulse · " + esc(r.today) })
+      ]),
+      el("div", { class: "page-actions" }, [
+        el("button", { class: "btn btn-ghost btn-sm", onclick: function(){ softRefresh(); }, html: "Refresh" })
+      ])
+    ]));
+
+    // KPIs
+    var na = r.needsAttention || {};
+    var mk = r.marketplace || {};
+    var sl = r.sales || {};
+    var pt = r.partners || {};
+
+    var kpis = el("div", { class: "kpi-grid" });
+    function kpi(label, val, sub, accent) {
+      return el("div", { class: "kpi" + (accent ? " accent-" + accent : "") }, [
+        el("div", { class: "kpi-label", html: esc(label) }),
+        el("div", { class: "kpi-val", html: esc(val) }),
+        el("div", { class: "kpi-sub", html: esc(sub || "") })
+      ]);
+    }
+    kpis.appendChild(kpi("Live items", String(mk.liveItems || 0), (mk.newToday || 0) + " new today"));
+    kpis.appendChild(kpi("Items sold today", String(sl.soldToday || 0), naira(sl.salesValueToday || 0), "green"));
+    kpis.appendChild(kpi("Pending approval", String(na.pendingApproval || 0), "Waiting for review", na.pendingApproval > 0 ? "amber" : ""));
+    kpis.appendChild(kpi("Partner issues", String(na.partnerIssues || 0), "Needs attention", na.partnerIssues > 0 ? "red" : ""));
+    wrap.appendChild(kpis);
+
+    // Two-column area
+    var grid = el("div", { class: "today-grid" });
+
+    // Left: needs attention
+    var attn = el("div", { class: "card" });
+    attn.appendChild(el("div", { class: "card-head" }, [
+      el("div", { class: "card-title", html: "Needs attention" }),
+      el("div", { class: "badge badge-amber" }, [el("span", { class: "badge-dot" }), document.createTextNode(" Live queue")])
+    ]));
+    var list = el("div", { class: "attention-list" });
+    var any = false;
+
+    if (na.pendingApproval > 0) {
+      any = true;
+      list.appendChild(attentionRow("amber", "Pending approvals", "New listings waiting for review", na.pendingApproval, function(){ setRoute("items"); state.itemsFilter.status = "pending approval"; render(); }));
+    }
+    if (na.partnerIssues > 0) {
+      any = true;
+      list.appendChild(attentionRow("red", "Partner issues", "Instagram sync errors or stale accounts", na.partnerIssues, function(){ setRoute("partners"); state.partnersFilter = "attention"; render(); }));
+    }
+    if (na.pickupFollowUps > 0) {
+      any = true;
+      list.appendChild(attentionRow("blue", "Pickup follow-ups", "Buyers who haven't picked up their items yet", na.pickupFollowUps, function(){ setRoute("sales"); }));
+    }
+    if (na.supportMessages > 0) {
+      any = true;
+      list.appendChild(attentionRow("amber", "Support messages", "Unresolved messages from users", na.supportMessages, function(){ toast("Support inbox coming soon", "amber"); }));
+    }
+    if (!any) {
+      list.appendChild(el("div", { class: "empty-state", html: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><h3>All clear</h3><p>Nothing needs your attention right now.</p>' }));
+    }
+    attn.appendChild(list);
+    grid.appendChild(attn);
+
+    // Right: marketplace + partners snapshot
+    var right = el("div", { style: "display:flex;flex-direction:column;gap:16px;" });
+
+    var mkt = el("div", { class: "card" });
+    mkt.appendChild(el("div", { class: "card-head" }, [el("div", { class: "card-title", html: "Marketplace" })]));
+    var mbody = el("div", { class: "card-body" });
+    mbody.appendChild(statRow("Live items", String(mk.liveItems || 0)));
+    mbody.appendChild(statRow("From partners", String(mk.partnerItems || 0)));
+    mbody.appendChild(statRow("From sellers", String(mk.sellerItems || 0)));
+    mbody.appendChild(statRow("New today", String(mk.newToday || 0)));
+    mkt.appendChild(mbody);
+    right.appendChild(mkt);
+
+    var pc = el("div", { class: "card" });
+    pc.appendChild(el("div", { class: "card-head" }, [el("div", { class: "card-title", html: "Partners" })]));
+    var pbody = el("div", { class: "card-body" });
+    pbody.appendChild(statRow("Active partners", String(pt.active || 0)));
+    pbody.appendChild(statRow("With live items", String(pt.withLiveItems || 0)));
+    pc.appendChild(pbody);
+    right.appendChild(pc);
+
+    grid.appendChild(right);
+    wrap.appendChild(grid);
+
+    return wrap;
+  }
+
+  function attentionRow(kind, title, desc, count, onclick) {
+    var iconSvg = {
+      amber: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+      red: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+      blue: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+      green: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+    };
+    return el("div", { class: "attention-item", onclick: onclick }, [
+      el("div", { class: "attention-icon " + kind, html: iconSvg[kind] }),
+      el("div", { class: "attention-body" }, [
+        el("div", { class: "attention-title", html: esc(title) }),
+        el("div", { class: "attention-desc", html: esc(desc) })
+      ]),
+      el("div", { class: "attention-count", html: String(count) })
+    ]);
+  }
+
+  function statRow(label, val, cls) {
+    return el("div", { class: "stat-row" }, [
+      el("span", { class: "stat-lbl", html: esc(label) }),
+      el("span", { class: "stat-val" + (cls ? " " + cls : ""), html: esc(val) })
+    ]);
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // PARTNERS LIST
+  // ══════════════════════════════════════════════════════════════
+  function renderPartners(main) {
+    main.appendChild(loading());
+    apiGet("adminPartners").then(function(r){
+      if (!r || !r.success) { main.innerHTML = ""; main.appendChild(el("div", { class: "empty-state", html: "<h3>Could not load partners</h3><p>" + esc((r && r.error) || "Unknown error") + "</p>" })); return; }
+      state.partners = r;
+      main.innerHTML = "";
+      renderTabs();
+      main.appendChild(buildPartnersScreen(r));
+    }).catch(function(e){
+      main.innerHTML = "";
+      main.appendChild(el("div", { class: "empty-state", html: "<h3>Network error</h3><p>" + esc(e.message) + "</p>" }));
+    });
+  }
+
+  function buildPartnersScreen(r) {
+    var wrap = el("div");
+    var all = r.partners || [];
+    var active = all.filter(function(p){ return String(p.status).toLowerCase() === "active"; }).length;
+    var pending = all.filter(function(p){ return String(p.status).toLowerCase() === "pending"; }).length;
+    var attention = all.filter(function(p){ return p.needsAttention; }).length;
+
+    wrap.appendChild(el("div", { class: "page-head" }, [
+      el("div", null, [
+        el("div", { class: "page-title", html: "Partners" }),
+        el("div", { class: "page-sub", html: all.length + " total · " + active + " active · " + pending + " pending · " + attention + " need attention" })
+      ])
+    ]));
+
+    // Filters
+    var filters = el("div", { class: "filters" });
+    var searchWrap = el("div", { class: "search-box" });
+    searchWrap.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    var searchInput = el("input", { type: "text", placeholder: "Search partners, handles, emails…", value: state.partnersQ || "" });
+    searchInput.addEventListener("input", function(e){ state.partnersQ = e.target.value; rerenderPartnersList(); });
+    searchWrap.appendChild(searchInput);
+    filters.appendChild(searchWrap);
+
+    var chips = el("div", { class: "chip-row" });
+    [["all", "All"], ["attention", "Needs attention"], ["active", "Active"], ["pending", "Pending"], ["suspended", "Suspended"]].forEach(function(pair){
+      var c = el("button", { class: "chip" + (state.partnersFilter === pair[0] ? " active" : ""), html: pair[1] });
+      c.addEventListener("click", function(){
+        state.partnersFilter = pair[0];
+        chips.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("active"); });
+        c.classList.add("active");
+        rerenderPartnersList();
+      });
+      chips.appendChild(c);
+    });
+    filters.appendChild(chips);
+    wrap.appendChild(filters);
+
+    var listWrap = el("div", { class: "partner-list", id: "partnerListWrap" });
+    wrap.appendChild(listWrap);
+
+    function rerenderPartnersList() {
+      var q = (state.partnersQ || "").toLowerCase().trim();
+      var f = state.partnersFilter;
+      var list = all.filter(function(p){
+        if (f === "attention" && !p.needsAttention) return false;
+        if (f === "active" && String(p.status).toLowerCase() !== "active") return false;
+        if (f === "pending" && String(p.status).toLowerCase() !== "pending") return false;
+        if (f === "suspended" && String(p.status).toLowerCase() !== "suspended") return false;
+        if (q) {
+          var blob = (p.businessName + " " + p.instagram + " " + p.email + " " + p.partnerId + " " + p.category + " " + p.location).toLowerCase();
+          if (blob.indexOf(q) < 0) return false;
+        }
+        return true;
+      });
+      listWrap.innerHTML = "";
+      if (!list.length) {
+        listWrap.appendChild(el("div", { class: "empty-state", html: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>No partners match</h3><p>Try a different filter or search term.</p>' }));
+        return;
+      }
+      list.forEach(function(p){
+        listWrap.appendChild(partnerCard(p));
+      });
+    }
+    rerenderPartnersList();
+
+    return wrap;
+  }
+
+  function partnerCard(p) {
+    var statusKind = {
+      "active": "badge-green",
+      "pending": "badge-amber",
+      "suspended": "badge-red"
+    }[String(p.status).toLowerCase()] || "badge-muted";
+    var handle = p.instagram ? ("@" + String(p.instagram).replace(/^@/, "")) : "no handle";
+    var card = el("div", { class: "partner-card" + (p.needsAttention ? " attention" : "") });
+    card.addEventListener("click", function(){ setRoute("partner", { partnerId: p.partnerId }); });
+
+    var avatarHTML = p.logoUrl
+      ? '<img src="' + esc(p.logoUrl) + '" alt="" onerror="this.parentNode.textContent=\'' + esc(initials(p.businessName)) + '\'">'
+      : esc(initials(p.businessName));
+
+    var head = el("div", { class: "partner-head" });
+    head.innerHTML =
+      '<div class="partner-avatar">' + avatarHTML + '</div>' +
+      '<div class="partner-meta">' +
+        '<div class="partner-name">' + esc(p.businessName || "Unnamed partner") + '</div>' +
+        '<div class="partner-handle">' + esc(handle) + '</div>' +
+        '<div class="partner-loc">' + esc([p.category, p.location].filter(Boolean).join(" · ") || "—") + '</div>' +
+      '</div>';
+    card.appendChild(head);
+
+    var stats = el("div", { class: "partner-stats" });
+    stats.innerHTML =
+      '<div class="partner-stat"><div class="partner-stat-lbl">Live</div><div class="partner-stat-val">' + (p.liveItems || 0) + '</div></div>' +
+      '<div class="partner-stat"><div class="partner-stat-lbl">Sold</div><div class="partner-stat-val">' + (p.sold || 0) + '</div></div>' +
+      '<div class="partner-stat"><div class="partner-stat-lbl">Earnings</div><div class="partner-stat-val green">' + esc(naira(p.partnerEarnings)) + '</div></div>';
+    card.appendChild(stats);
+
+    if (p.needsAttention) {
+      card.appendChild(el("div", { class: "partner-attention", html: '<span class="badge badge-amber"><span class="badge-dot"></span>' + esc(p.attentionReason || "Attention") + '</span>' }));
+    } else {
+      var b = el("div", { class: "partner-attention", html: '<span class="badge ' + statusKind + '">' + esc(p.status || "—") + '</span>' });
+      card.appendChild(b);
+    }
+    return card;
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // PARTNER DETAIL
+  // ══════════════════════════════════════════════════════════════
+  function renderPartnerDetail(main, partnerId) {
+    main.appendChild(loading());
+    apiGet("adminPartner", { id: partnerId }).then(function(r){
+      if (!r || !r.success) { main.innerHTML = ""; main.appendChild(el("div", { class: "empty-state", html: "<h3>Could not load partner</h3><p>" + esc((r && r.error) || "Unknown error") + "</p>" })); return; }
+      state.partnerDetail = r;
+      main.innerHTML = "";
+      main.appendChild(buildPartnerDetail(r));
+    }).catch(function(e){
+      main.innerHTML = "";
+      main.appendChild(el("div", { class: "empty-state", html: "<h3>Network error</h3><p>" + esc(e.message) + "</p>" }));
+    });
+  }
+
+  function buildPartnerDetail(r) {
+    var p = r.partner || {};
+    var s = r.stats || {};
+    var items = r.items || [];
+    var sales = r.sales || [];
+
+    var wrap = el("div");
+
+    var back = el("a", { class: "back-link", href: "#/partners" });
+    back.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> All partners';
+    back.addEventListener("click", function(e){ e.preventDefault(); setRoute("partners"); });
+    wrap.appendChild(back);
+
+    // Header
+    var header = el("div", { class: "detail-header" });
+    var logoHTML = p.logoUrl
+      ? '<img src="' + esc(p.logoUrl) + '" alt="" onerror="this.parentNode.textContent=\'' + esc(initials(p.businessName)) + '\'">'
+      : esc(initials(p.businessName));
+    header.appendChild(el("div", { class: "detail-logo", html: logoHTML }));
+
+    var meta = el("div", { class: "detail-meta" });
+    meta.appendChild(el("div", { class: "detail-name", html: esc(p.businessName || "—") }));
+    if (p.instagramHandle) meta.appendChild(el("div", { class: "detail-handle", html: '@' + esc(p.instagramHandle) }));
+
+    var tags = el("div", { class: "detail-tags" });
+    var statusKind = { "active": "badge-green", "pending": "badge-amber", "suspended": "badge-red" }[String(p.status).toLowerCase()] || "badge-muted";
+    tags.innerHTML =
+      '<span class="badge ' + statusKind + '">' + esc(p.status || "—") + '</span>' +
+      (p.verified === "Yes" ? '<span class="badge badge-green">Verified</span>' : '<span class="badge badge-muted">Unverified</span>') +
+      (String(p.dinaStatus).toLowerCase() === "active" ? '<span class="badge badge-green"><span class="badge-dot"></span> Dina active</span>' : '') +
+      (String(p.dinaStatus).toLowerCase() === "error" ? '<span class="badge badge-red">Dina error</span>' : '') +
+      (String(p.dinaStatus).toLowerCase() === "awaiting_code" ? '<span class="badge badge-amber">Awaiting IG code</span>' : '') +
+      (p.category ? '<span class="badge badge-muted">' + esc(p.category) + '</span>' : '') +
+      (p.location ? '<span class="badge badge-muted">' + esc(p.location) + '</span>' : '');
+    meta.appendChild(tags);
+
+    header.appendChild(meta);
+
+    // Actions
+    var actions = el("div", { class: "page-actions" });
+    if (p.verified !== "Yes") {
+      var vBtn = el("button", { class: "btn btn-primary btn-sm", html: "Verify partner" });
+      vBtn.addEventListener("click", function(){ partnerAction(vBtn, "adminVerifyPartner", { partnerId: p.partnerId }, "Partner verified", function(){ setRoute("partner", { partnerId: p.partnerId }); }); });
+      actions.appendChild(vBtn);
+    }
+    if (String(p.status).toLowerCase() === "active") {
+      var sBtn = el("button", { class: "btn btn-warn btn-sm", html: "Suspend" });
+      sBtn.addEventListener("click", function(){ promptReason("Suspend partner", "Reason for suspension", function(reason){ partnerAction(sBtn, "adminSuspendPartner", { partnerId: p.partnerId, reason: reason }, "Partner suspended", function(){ setRoute("partner", { partnerId: p.partnerId }); }); }); });
+      actions.appendChild(sBtn);
+    } else if (String(p.status).toLowerCase() === "suspended") {
+      var rBtn = el("button", { class: "btn btn-primary btn-sm", html: "Resume" });
+      rBtn.addEventListener("click", function(){ partnerAction(rBtn, "adminResumePartner", { partnerId: p.partnerId }, "Partner resumed", function(){ setRoute("partner", { partnerId: p.partnerId }); }); });
+      actions.appendChild(rBtn);
+    }
+    var dinaOn = String(p.dinaStatus).toLowerCase() === "active";
+    var dBtn = el("button", { class: "btn btn-ghost btn-sm", html: dinaOn ? "Disable Dina" : "Enable Dina" });
+    dBtn.addEventListener("click", function(){ partnerAction(dBtn, "adminToggleDina", { partnerId: p.partnerId, enabled: !dinaOn }, "Dina " + (dinaOn ? "disabled" : "enabled"), function(){ setRoute("partner", { partnerId: p.partnerId }); }); });
+    actions.appendChild(dBtn);
+
+    var eBtn = el("button", { class: "btn btn-ghost btn-sm", html: "Email partner" });
+    eBtn.addEventListener("click", function(){ openEmailComposer(p); });
+    actions.appendChild(eBtn);
+
+    header.appendChild(actions);
+    wrap.appendChild(header);
+
+    // Stats
+    var statsGrid = el("div", { class: "stats-grid", style: "margin-bottom:20px;" });
+    function statCell(lbl, val, cls) {
+      return el("div", { class: "stat-cell" }, [
+        el("div", { class: "stat-cell-lbl", html: esc(lbl) }),
+        el("div", { class: "stat-cell-val" + (cls ? " " + cls : ""), html: esc(val) })
+      ]);
+    }
+    statsGrid.appendChild(statCell("Total items", String(s.totalItems || 0)));
+    statsGrid.appendChild(statCell("Currently live", String(s.liveItems || 0), "green"));
+    statsGrid.appendChild(statCell("Sold", String(s.sold || 0)));
+    statsGrid.appendChild(statCell("Total sales", naira(s.salesValue), "green"));
+    statsGrid.appendChild(statCell("Partner earnings", naira(s.partnerEarnings), "green"));
+    statsGrid.appendChild(statCell("DPS revenue", naira(s.dpsRevenue)));
+    wrap.appendChild(statsGrid);
+
+    // Two-column: main + sidebar
+    var grid = el("div", { class: "detail-grid" });
+
+    // Left: items + sales
+    var left = el("div", { style: "display:flex;flex-direction:column;gap:16px;" });
+
+    // Items
+    var itemsCard = el("div", { class: "card" });
+    itemsCard.appendChild(el("div", { class: "card-head" }, [
+      el("div", { class: "card-title", html: "Current inventory" }),
+      el("span", { class: "badge badge-muted", html: items.length + " item" + (items.length === 1 ? "" : "s") })
+    ]));
+    if (items.length === 0) {
+      itemsCard.appendChild(el("div", { class: "empty-state", html: "<h3>No items yet</h3><p>This partner hasn't listed anything.</p>" }));
+    } else {
+      var tblWrap = el("div", { class: "table-wrap" });
+      var tbl = el("table", { class: "tbl" });
+      tbl.innerHTML =
+        '<thead><tr>' +
+          '<th>Item</th>' +
+          '<th class="num">Price</th>' +
+          '<th class="num">Views</th>' +
+          '<th>Status</th>' +
+          '<th>Imported</th>' +
+        '</tr></thead>';
+      var tb = el("tbody");
+      items.forEach(function(it){
+        var tr = el("tr", { class: "clickable" });
+        var photoHTML = it.photo
+          ? '<img class="item-thumb" src="' + esc(it.photo) + '" alt="" onerror="this.outerHTML=\'<div class=&quot;item-thumb-fallback&quot;>📦</div>\'">'
+          : '<div class="item-thumb-fallback">📦</div>';
+        var stKind = statusBadgeKind(it.status);
+        tr.innerHTML =
+          '<td><div class="cell-item">' + photoHTML +
+            '<div class="cell-item-info">' +
+              '<div class="cell-item-name">' + esc(it.itemName || "—") + '</div>' +
+              '<div class="cell-item-id">' + esc(it.itemId) + '</div>' +
+            '</div></div></td>' +
+          '<td class="num strong">' + esc(naira(it.price)) + '</td>' +
+          '<td class="num">' + (it.views || 0) + '</td>' +
+          '<td><span class="badge ' + stKind + '">' + esc(it.status || "—") + '</span></td>' +
+          '<td class="muted">' + esc(fmtDate(it.submissionTime)) + '</td>';
+        tr.addEventListener("click", function(){ openItemModal(it); });
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb);
+      tblWrap.appendChild(tbl);
+      itemsCard.appendChild(tblWrap);
+    }
+    left.appendChild(itemsCard);
+
+    // Sales
+    var salesCard = el("div", { class: "card" });
+    salesCard.appendChild(el("div", { class: "card-head" }, [
+      el("div", { class: "card-title", html: "Recent sales" }),
+      el("span", { class: "badge badge-muted", html: sales.length + " sale" + (sales.length === 1 ? "" : "s") })
+    ]));
+    if (sales.length === 0) {
+      salesCard.appendChild(el("div", { class: "empty-state", html: "<h3>No sales yet</h3><p>This partner hasn't sold anything through DPS.</p>" }));
+    } else {
+      var stWrap = el("div", { class: "table-wrap" });
+      var st = el("table", { class: "tbl" });
+      st.innerHTML =
+        '<thead><tr>' +
+          '<th>Item</th>' +
+          '<th class="num">Paid</th>' +
+          '<th class="num">Partner</th>' +
+          '<th>Buyer</th>' +
+          '<th>Status</th>' +
+          '<th>Date</th>' +
+        '</tr></thead>';
+      var stb = el("tbody");
+      sales.forEach(function(sl){
+        var tr = el("tr");
+        var stKind = statusBadgeKind(sl.status);
+        tr.innerHTML =
+          '<td><div class="cell-item-info">' +
+            '<div class="cell-item-name">' + esc(sl.itemName || "—") + '</div>' +
+            '<div class="cell-item-id">' + esc(sl.itemId) + '</div>' +
+          '</div></td>' +
+          '<td class="num strong">' + esc(naira(sl.amountPaid)) + '</td>' +
+          '<td class="num green" style="color:var(--green);font-weight:600;">' + esc(naira(sl.amountToSeller)) + '</td>' +
+          '<td class="muted">' + esc(sl.buyerName || sl.buyerEmail || "—") + '</td>' +
+          '<td><span class="badge ' + stKind + '">' + esc(sl.status || "—") + '</span></td>' +
+          '<td class="muted">' + esc(fmtDate(sl.timestamp)) + '</td>';
+        stb.appendChild(tr);
+      });
+      st.appendChild(stb);
+      stWrap.appendChild(st);
+      salesCard.appendChild(stWrap);
+    }
+    left.appendChild(salesCard);
+
+    grid.appendChild(left);
+
+    // Right: profile details
+    var right = el("div", { style: "display:flex;flex-direction:column;gap:16px;" });
+
+    var profileCard = el("div", { class: "card" });
+    profileCard.appendChild(el("div", { class: "card-head" }, [el("div", { class: "card-title", html: "Profile" })]));
+    var pbody = el("div", { class: "card-body" });
+    var kv = el("div", { class: "kv-list" });
+    function kvRow(k, v, mono) {
+      return el("div", { class: "kv-row" }, [
+        el("span", { class: "kv-k", html: esc(k) }),
+        el("span", { class: "kv-v" + (mono ? " mono" : ""), html: esc(v || "—") })
+      ]);
+    }
+    kv.appendChild(kvRow("Partner ID", p.partnerId, true));
+    kv.appendChild(kvRow("Email", p.email));
+    kv.appendChild(kvRow("WhatsApp", p.whatsapp, true));
+    kv.appendChild(kvRow("Rep", p.repName));
+    kv.appendChild(kvRow("Rep email", p.repEmail));
+    kv.appendChild(kvRow("Rep phone", p.repPhone, true));
+    kv.appendChild(kvRow("CAC", p.cac));
+    kv.appendChild(kvRow("Category", p.category));
+    kv.appendChild(kvRow("Location", p.location));
+    kv.appendChild(kvRow("Bank", p.bankName));
+    kv.appendChild(kvRow("Account name", p.accountName));
+    kv.appendChild(kvRow("Account no.", p.accountNumber, true));
+    pbody.appendChild(kv);
+    profileCard.appendChild(pbody);
+    right.appendChild(profileCard);
+
+    var dinaCard = el("div", { class: "card" });
+    dinaCard.appendChild(el("div", { class: "card-head" }, [el("div", { class: "card-title", html: "Dina status" })]));
+    var dbody = el("div", { class: "card-body" });
+    var dkv = el("div", { class: "kv-list" });
+    dkv.appendChild(kvRow("Enabled", p.dinaEnabled));
+    dkv.appendChild(kvRow("Status", p.dinaStatus));
+    dkv.appendChild(kvRow("Last sync", p.dinaLastSync ? fmtDateFull(p.dinaLastSync) : "—"));
+    dkv.appendChild(kvRow("Next sync", p.dinaNextSync ? fmtDateFull(p.dinaNextSync) : "—"));
+    dkv.appendChild(kvRow("Items imported", String(p.dinaItemsImported || 0)));
+    dbody.appendChild(dkv);
+    dinaCard.appendChild(dbody);
+    right.appendChild(dinaCard);
+
+    var metaCard = el("div", { class: "card" });
+    metaCard.appendChild(el("div", { class: "card-head" }, [el("div", { class: "card-title", html: "Timeline" })]));
+    var mbody2 = el("div", { class: "card-body" });
+    var mkv = el("div", { class: "kv-list" });
+    mkv.appendChild(kvRow("Registered", fmtDateFull(p.registeredAt)));
+    mkv.appendChild(kvRow("Verified", p.verifiedAt ? fmtDateFull(p.verifiedAt) : "Not yet"));
+    mkv.appendChild(kvRow("Updated", p.updatedAt ? fmtDateFull(p.updatedAt) : "—"));
+    mbody2.appendChild(mkv);
+    metaCard.appendChild(mbody2);
+    right.appendChild(metaCard);
+
+    grid.appendChild(right);
+    wrap.appendChild(grid);
+    return wrap;
+  }
+
+  function statusBadgeKind(st) {
+    st = String(st || "").toLowerCase();
+    if (st === "active" || st === "live" || st === "settled") return "badge-green";
+    if (st === "pending approval" || st === "pending" || st === "pending pickup" || st === "countered") return "badge-amber";
+    if (st === "rejected" || st === "removed" || st === "expired") return "badge-red";
+    if (st === "paid" || st === "sold") return "badge-blue";
+    return "badge-muted";
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // ITEMS
+  // ══════════════════════════════════════════════════════════════
+  function renderItems(main) {
+    main.appendChild(loading());
+    var f = state.itemsFilter || {};
+    apiGet("adminItems", { status: f.status, source: f.source, q: f.q }).then(function(r){
+      if (!r || !r.success) { main.innerHTML = ""; main.appendChild(el("div", { class: "empty-state", html: "<h3>Could not load items</h3><p>" + esc((r && r.error) || "Unknown error") + "</p>" })); return; }
+      state.items = r;
+      main.innerHTML = "";
+      renderTabs();
+      main.appendChild(buildItemsScreen(r));
+    }).catch(function(e){
+      main.innerHTML = "";
+      main.appendChild(el("div", { class: "empty-state", html: "<h3>Network error</h3><p>" + esc(e.message) + "</p>" }));
+    });
+  }
+
+  function buildItemsScreen(r) {
+    var wrap = el("div");
+    var items = r.items || [];
+
+    wrap.appendChild(el("div", { class: "page-head" }, [
+      el("div", null, [
+        el("div", { class: "page-title", html: "Items" }),
+        el("div", { class: "page-sub", html: items.length + " item" + (items.length === 1 ? "" : "s") + " shown" })
+      ])
+    ]));
+
+    // Filters
+    var filters = el("div", { class: "filters" });
+    var searchWrap = el("div", { class: "search-box" });
+    searchWrap.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    var sInput = el("input", { type: "text", placeholder: "Search item names, IDs, sellers…", value: state.itemsFilter.q || "" });
+    var debounce;
+    sInput.addEventListener("input", function(e){
+      state.itemsFilter.q = e.target.value;
+      clearTimeout(debounce);
+      debounce = setTimeout(function(){ rerenderItems(); }, 350);
+    });
+    searchWrap.appendChild(sInput);
+    filters.appendChild(searchWrap);
+
+    var statusChips = el("div", { class: "chip-row" });
+    [["", "All"], ["pending approval", "Pending"], ["active", "Live"], ["paid", "Sold"], ["rejected", "Rejected"], ["removed", "Removed"]].forEach(function(pair){
+      var c = el("button", { class: "chip" + (state.itemsFilter.status === pair[0] ? " active" : ""), html: pair[1] });
+      c.addEventListener("click", function(){
+        state.itemsFilter.status = pair[0];
+        statusChips.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("active"); });
+        c.classList.add("active");
+        rerenderItems();
+      });
+      statusChips.appendChild(c);
+    });
+    filters.appendChild(statusChips);
+    wrap.appendChild(filters);
+
+    var tableWrap = el("div", { class: "card", id: "itemsTableWrap" });
+    wrap.appendChild(tableWrap);
+
+    function rerenderItems() {
+      tableWrap.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+      var f = state.itemsFilter || {};
+      apiGet("adminItems", { status: f.status, source: f.source, q: f.q }).then(function(r2){
+        if (!r2 || !r2.success) { tableWrap.innerHTML = '<div class="empty-state"><h3>Error</h3><p>' + esc((r2 && r2.error) || "Unknown") + '</p></div>'; return; }
+        renderItemsTable(tableWrap, r2.items || []);
+      }).catch(function(e){
+        tableWrap.innerHTML = '<div class="empty-state"><h3>Network error</h3><p>' + esc(e.message) + '</p></div>';
+      });
+    }
+    rerenderItems();
+
+    return wrap;
+  }
+
+  function renderItemsTable(container, items) {
+    container.innerHTML = "";
+    if (!items.length) {
+      container.appendChild(el("div", { class: "empty-state", html: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>No items match</h3><p>Try a different filter or search term.</p>' }));
+      return;
+    }
+    var wrap = el("div", { class: "table-wrap" });
+    var tbl = el("table", { class: "tbl" });
+    tbl.innerHTML =
+      '<thead><tr>' +
+        '<th>Item</th>' +
+        '<th class="num">Price</th>' +
+        '<th>Source</th>' +
+        '<th>Status</th>' +
+        '<th class="num">Views</th>' +
+        '<th>Submitted</th>' +
+      '</tr></thead>';
+    var tb = el("tbody");
+    items.forEach(function(it){
+      var tr = el("tr", { class: "clickable" });
+      var photoHTML = it.photo
+        ? '<img class="item-thumb" src="' + esc(it.photo) + '" alt="" onerror="this.outerHTML=\'<div class=&quot;item-thumb-fallback&quot;>📦</div>\'">'
+        : '<div class="item-thumb-fallback">📦</div>';
+      var sourceHTML = it.partnerId
+        ? '<span class="badge badge-purple">Partner</span>'
+        : '<span class="badge badge-muted">Seller</span>';
+      var stKind = statusBadgeKind(it.status);
+      tr.innerHTML =
+        '<td><div class="cell-item">' + photoHTML +
+          '<div class="cell-item-info">' +
+            '<div class="cell-item-name">' + esc(it.itemName || "—") + '</div>' +
+            '<div class="cell-item-id">' + esc(it.itemId) + (it.partnerId ? ' · ' + esc(it.businessName || it.partnerId) : '') + '</div>' +
+          '</div></div></td>' +
+        '<td class="num strong">' + esc(naira(it.price)) + '</td>' +
+        '<td>' + sourceHTML + '</td>' +
+        '<td><span class="badge ' + stKind + '">' + esc(it.status || "—") + '</span></td>' +
+        '<td class="num">' + (it.views || 0) + '</td>' +
+        '<td class="muted">' + esc(fmtDate(it.submissionTime)) + '</td>';
+      tr.addEventListener("click", function(){ openItemModal(it); });
+      tb.appendChild(tr);
+    });
+    tbl.appendChild(tb);
+    wrap.appendChild(tbl);
+    container.appendChild(wrap);
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // SALES
+  // ══════════════════════════════════════════════════════════════
+  function renderSales(main) {
+    main.appendChild(loading());
+    apiGet("adminSales", { q: state.salesQ }).then(function(r){
+      if (!r || !r.success) { main.innerHTML = ""; main.appendChild(el("div", { class: "empty-state", html: "<h3>Could not load sales</h3><p>" + esc((r && r.error) || "Unknown error") + "</p>" })); return; }
+      state.sales = r;
+      main.innerHTML = "";
+      renderTabs();
+      main.appendChild(buildSalesScreen(r));
+    }).catch(function(e){
+      main.innerHTML = "";
+      main.appendChild(el("div", { class: "empty-state", html: "<h3>Network error</h3><p>" + esc(e.message) + "</p>" }));
+    });
+  }
+
+  function buildSalesScreen(r) {
+    var wrap = el("div");
+    var all = r.sales || [];
+
+    var total = 0, dpsRev = 0;
+    all.forEach(function(s){ total += s.amountPaid || 0; dpsRev += (s.amountPaid || 0) - (s.amountToSeller || 0); });
+
+    wrap.appendChild(el("div", { class: "page-head" }, [
+      el("div", null, [
+        el("div", { class: "page-title", html: "Sales" }),
+        el("div", { class: "page-sub", html: all.length + " sale" + (all.length === 1 ? "" : "s") + " · " + naira(total) + " total · " + naira(dpsRev) + " DPS revenue" })
+      ])
+    ]));
+
+    var filters = el("div", { class: "filters" });
+    var searchWrap = el("div", { class: "search-box" });
+    searchWrap.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    var sInput = el("input", { type: "text", placeholder: "Search item, buyer, seller…", value: state.salesQ || "" });
+    var debounce;
+    sInput.addEventListener("input", function(e){
+      state.salesQ = e.target.value;
+      clearTimeout(debounce);
+      debounce = setTimeout(function(){ rerenderSales(); }, 350);
+    });
+    searchWrap.appendChild(sInput);
+    filters.appendChild(searchWrap);
+    wrap.appendChild(filters);
+
+    var tableWrap = el("div", { class: "card", id: "salesTableWrap" });
+    wrap.appendChild(tableWrap);
+
+    function rerenderSales() {
+      tableWrap.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+      apiGet("adminSales", { q: state.salesQ }).then(function(r2){
+        if (!r2 || !r2.success) { tableWrap.innerHTML = '<div class="empty-state"><h3>Error</h3><p>' + esc((r2 && r2.error) || "Unknown") + '</p></div>'; return; }
+        renderSalesTable(tableWrap, r2.sales || []);
+      }).catch(function(e){
+        tableWrap.innerHTML = '<div class="empty-state"><h3>Network error</h3><p>' + esc(e.message) + '</p></div>';
+      });
+    }
+    rerenderSales();
+
+    return wrap;
+  }
+
+  function renderSalesTable(container, sales) {
+    container.innerHTML = "";
+    if (!sales.length) {
+      container.appendChild(el("div", { class: "empty-state", html: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>No sales match</h3><p>Try a different search term.</p>' }));
+      return;
+    }
+    var wrap = el("div", { class: "table-wrap" });
+    var tbl = el("table", { class: "tbl" });
+    tbl.innerHTML =
+      '<thead><tr>' +
+        '<th>Item</th>' +
+        '<th class="num">Paid</th>' +
+        '<th class="num">Partner/Seller</th>' +
+        '<th>Buyer</th>' +
+        '<th>Status</th>' +
+        '<th>When</th>' +
+      '</tr></thead>';
+    var tb = el("tbody");
+    sales.forEach(function(s){
+      var tr = el("tr");
+      var stKind = statusBadgeKind(s.status);
+      tr.innerHTML =
+        '<td><div class="cell-item-info">' +
+          '<div class="cell-item-name">' + esc(s.itemName || "—") + '</div>' +
+          '<div class="cell-item-id">' + esc(s.itemId) + '</div>' +
+        '</div></td>' +
+        '<td class="num strong">' + esc(naira(s.amountPaid)) + '</td>' +
+        '<td class="num" style="color:var(--green);font-weight:600;">' + esc(naira(s.amountToSeller)) + '</td>' +
+        '<td><div class="cell-item-info">' +
+          '<div class="cell-item-name" style="font-weight:500;font-size:13px;">' + esc(s.buyerName || "—") + '</div>' +
+          '<div class="cell-item-id">' + esc(s.buyerEmail || s.buyerPhone || "") + '</div>' +
+        '</div></td>' +
+        '<td><span class="badge ' + stKind + '">' + esc(s.status || "—") + '</span></td>' +
+        '<td class="muted">' + esc(fmtDate(s.timestamp)) + '</td>';
+      tb.appendChild(tr);
+    });
+    tbl.appendChild(tb);
+    wrap.appendChild(tbl);
+    container.appendChild(wrap);
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // MODALS
+  // ══════════════════════════════════════════════════════════════
+  function openModal(html, footButtons) {
+    var modal = $("modal");
+    modal.innerHTML = "";
+    var head = el("div", { class: "modal-head" });
+    head.innerHTML = '<div class="modal-title">' + html.title + '</div>';
+    var closeBtn = el("button", { class: "modal-close", html: "✕" });
+    closeBtn.addEventListener("click", closeModal);
+    head.appendChild(closeBtn);
+    modal.appendChild(head);
+
+    var body = el("div", { class: "modal-body" });
+    if (typeof html.body === "string") body.innerHTML = html.body;
+    else if (html.body) body.appendChild(html.body);
+    modal.appendChild(body);
+
+    if (footButtons && footButtons.length) {
+      var foot = el("div", { class: "modal-foot" });
+      footButtons.forEach(function(b){
+        var btn = el("button", { class: "btn " + (b.class || "btn-ghost"), html: b.label });
+        btn.addEventListener("click", function(){ b.onClick(btn); });
+        foot.appendChild(btn);
+      });
+      modal.appendChild(foot);
+    }
+    $("modalBg").classList.add("open");
+  }
+  function closeModal() { $("modalBg").classList.remove("open"); }
+  $("modalBg").addEventListener("click", function(e){ if (e.target === $("modalBg")) closeModal(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeModal(); });
+
+  function openItemModal(it) {
+    var body = el("div");
+    var photo = it.photo ? '<img src="' + esc(it.photo) + '" style="width:100%;border-radius:10px;margin-bottom:16px;" alt="">' : '';
+    var stKind = statusBadgeKind(it.status);
+    body.innerHTML =
+      photo +
+      '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">' +
+        '<span class="badge ' + stKind + '">' + esc(it.status || "—") + '</span>' +
+        (it.partnerId ? '<span class="badge badge-purple">Partner: ' + esc(it.businessName || it.partnerId) + '</span>' : '<span class="badge badge-muted">Seller</span>') +
+      '</div>' +
+      '<div class="kv-list">' +
+        '<div class="kv-row"><span class="kv-k">Item ID</span><span class="kv-v mono">' + esc(it.itemId) + '</span></div>' +
+        '<div class="kv-row"><span class="kv-k">Name</span><span class="kv-v">' + esc(it.itemName || "—") + '</span></div>' +
+        '<div class="kv-row"><span class="kv-k">Price</span><span class="kv-v">' + esc(naira(it.price)) + '</span></div>' +
+        '<div class="kv-row"><span class="kv-k">Condition</span><span class="kv-v">' + esc(it.condition || "—") + '</span></div>' +
+        '<div class="kv-row"><span class="kv-k">Location</span><span class="kv-v">' + esc(it.location || "—") + '</span></div>' +
+        '<div class="kv-row"><span class="kv-k">Views</span><span class="kv-v">' + (it.views || 0) + '</span></div>' +
+        '<div class="kv-row"><span class="kv-k">Submitted</span><span class="kv-v">' + esc(fmtDateFull(it.submissionTime)) + '</span></div>' +
+      '</div>';
+
+    var btns = [];
+    var st = String(it.status || "").toLowerCase();
+    if (st === "pending approval") {
+      btns.push({ label: "Approve", class: "btn-primary", onClick: function(b){ doApprove(it, b); } });
+      btns.push({ label: "Reject", class: "btn-danger", onClick: function(b){ promptReason("Reject item", "Reason for rejection (sent to seller)", function(reason){ doReject(it, reason, b); }); } });
+    } else if (st === "active") {
+      btns.push({ label: "Remove", class: "btn-danger", onClick: function(b){ promptReason("Remove item", "Reason for removal (internal only)", function(reason){ doRemove(it, reason, b); }); } });
+    }
+    btns.push({ label: "Close", class: "btn-ghost", onClick: closeModal });
+
+    openModal({ title: esc(it.itemName || "Item"), body: body }, btns);
+  }
+
+  function promptReason(title, placeholder, onConfirm) {
+    var body = el("div");
+    body.innerHTML =
+      '<div class="field">' +
+        '<label>Reason</label>' +
+        '<textarea id="reasonInput" placeholder="' + esc(placeholder) + '"></textarea>' +
+      '</div>';
+    openModal({ title: esc(title), body: body }, [
+      { label: "Cancel", class: "btn-ghost", onClick: closeModal },
+      { label: "Confirm", class: "btn-primary", onClick: function(){
+        var v = ($("reasonInput") ? $("reasonInput").value.trim() : "");
+        closeModal();
+        onConfirm(v);
+      }}
+    ]);
+  }
+
+  function openEmailComposer(p) {
+    var body = el("div");
+    var to = p.email || p.repEmail || "";
+    body.innerHTML =
+      '<div class="field"><label>To</label><input type="text" value="' + esc(to) + '" disabled></div>' +
+      '<div class="field"><label>Subject</label><input type="text" id="emailSubject" placeholder="Subject"></div>' +
+      '<div class="field"><label>Message</label><textarea id="emailBody" placeholder="Write your message…" style="min-height:180px;"></textarea></div>';
+    openModal({ title: "Email partner · " + esc(p.businessName), body: body }, [
+      { label: "Cancel", class: "btn-ghost", onClick: closeModal },
+      { label: "Send", class: "btn-primary", onClick: function(btn){
+        var subject = $("emailSubject").value.trim();
+        var message = $("emailBody").value.trim();
+        if (!subject || !message) { toast("Subject and message required", "red"); return; }
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        apiPost("adminEmailPartner", { partnerId: p.partnerId, subject: subject, body: message }).then(function(r){
+          if (r && r.success) { toast("Email sent to " + to, "green"); closeModal(); }
+          else { toast((r && r.error) || "Failed to send", "red"); btn.disabled = false; btn.textContent = "Send"; }
+        }).catch(function(e){ toast("Network error: " + e.message, "red"); btn.disabled = false; btn.textContent = "Send"; });
+      }}
+    ]);
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // ACTIONS
+  // ══════════════════════════════════════════════════════════════
+  function doApprove(it, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = "Approving…"; }
+    apiPost("adminApproveItem", { itemId: it.itemId }).then(function(r){
+      if (r && r.success) { toast("Item approved · " + it.itemId, "green"); closeModal(); softRefresh(); }
+      else { toast((r && r.error) || "Failed", "red"); if (btn) { btn.disabled = false; btn.textContent = "Approve"; } }
+    }).catch(function(e){ toast("Network error: " + e.message, "red"); if (btn) { btn.disabled = false; btn.textContent = "Approve"; } });
+  }
+  function doReject(it, reason, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = "Rejecting…"; }
+    apiPost("adminRejectItem", { itemId: it.itemId, reason: reason }).then(function(r){
+      if (r && r.success) { toast("Item rejected · " + it.itemId, "amber"); closeModal(); softRefresh(); }
+      else { toast((r && r.error) || "Failed", "red"); if (btn) { btn.disabled = false; btn.textContent = "Reject"; } }
+    }).catch(function(e){ toast("Network error: " + e.message, "red"); if (btn) { btn.disabled = false; btn.textContent = "Reject"; } });
+  }
+  function doRemove(it, reason, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = "Removing…"; }
+    apiPost("adminRemoveItem", { itemId: it.itemId, reason: reason }).then(function(r){
+      if (r && r.success) { toast("Item removed · " + it.itemId, "amber"); closeModal(); softRefresh(); }
+      else { toast((r && r.error) || "Failed", "red"); if (btn) { btn.disabled = false; btn.textContent = "Remove"; } }
+    }).catch(function(e){ toast("Network error: " + e.message, "red"); if (btn) { btn.disabled = false; btn.textContent = "Remove"; } });
+  }
+
+  function partnerAction(btn, action, data, successMsg, onSuccess) {
+    btn.disabled = true;
+    var original = btn.textContent;
+    btn.textContent = "Working…";
+    apiPost(action, data).then(function(r){
+      if (r && r.success) {
+        toast(successMsg, "green");
+        if (onSuccess) onSuccess();
+        else softRefresh();
+      } else {
+        toast((r && r.error) || "Failed", "red");
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    }).catch(function(e){
+      toast("Network error: " + e.message, "red");
+      btn.disabled = false;
+      btn.textContent = original;
+    });
+  }
+
+  // ── SOFT REFRESH ─────────────────────────────────────────────
+  function softRefresh() {
+    if (state.refreshing) return;
+    state.refreshing = true;
+    // Clear cached data
+    state.today = null;
+    state.partners = null;
+    state.partnerDetail = null;
+    state.items = null;
+    state.sales = null;
+    apiGet("adminToday").then(function(r){
+      if (r && r.success) state.today = r;
+      state.refreshing = false;
+      route();
+    }).catch(function(){ state.refreshing = false; route(); });
+  }
+  $("btnRefresh").addEventListener("click", softRefresh);
+
+  // ── INIT ─────────────────────────────────────────────────────
+  function init() {
+    if (state.key) {
+      validateAndEnter(state.key).then(function(ok){
+        if (!ok) showAuth();
+      });
+    } else {
+      showAuth();
+    }
+  }
+  init();
+
+})();
+</script>
+</body>
+</html>
