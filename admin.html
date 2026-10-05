@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="/js/dps-config.js"></script>
 <style>
 :root {
   --bg: #0B0F1A;
@@ -64,7 +65,6 @@ h1, h2, h3, h4 { font-family: var(--fh); font-weight: 700; letter-spacing: -0.02
 ::-webkit-scrollbar-thumb { background: var(--surf-3); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--line-2); }
 
-/* ── AUTH ─────────────────────────────────────────── */
 .auth-gate {
   position: fixed; inset: 0; z-index: 9999;
   display: flex; align-items: center; justify-content: center;
@@ -98,10 +98,11 @@ h1, h2, h3, h4 { font-family: var(--fh); font-weight: 700; letter-spacing: -0.02
   border-radius: 10px; transition: background .15s;
 }
 .auth-btn:hover { background: var(--green-d); }
-.auth-err { font-size: 12px; color: var(--red); margin-top: 10px; display: none; }
+.auth-btn:disabled { opacity: .55; cursor: not-allowed; }
+.auth-err { font-size: 12px; color: var(--red); margin-top: 10px; display: none; line-height: 1.5; }
 .auth-err.show { display: block; }
+.auth-err code { font-family: var(--fm); font-size: 11px; background: rgba(239,68,68,.12); padding: 1px 5px; border-radius: 3px; }
 
-/* ── SHELL ────────────────────────────────────────── */
 .shell { display: flex; flex-direction: column; min-height: 100vh; }
 .topbar {
   position: sticky; top: 0; z-index: 100;
@@ -141,16 +142,9 @@ h1, h2, h3, h4 { font-family: var(--fh); font-weight: 700; letter-spacing: -0.02
   color: var(--muted); transition: background .12s, color .12s;
 }
 .icon-btn:hover { background: var(--surf); color: var(--txt); }
-.user-pill {
-  display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px;
-  background: var(--surf); border: 1px solid var(--line); border-radius: 999px;
-  font-size: 12px; font-weight: 600; color: var(--txt-2);
-}
-.user-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--green-bg); border: 1px solid var(--green-line); display: flex; align-items: center; justify-content: center; color: var(--green); }
 
 main { flex: 1; padding: 28px 24px 48px; max-width: 1400px; margin: 0 auto; width: 100%; }
 
-/* ── COMMON ───────────────────────────────────────── */
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
 .page-title { font-family: var(--fh); font-weight: 800; font-size: 26px; letter-spacing: -0.03em; }
 .page-sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
@@ -172,9 +166,7 @@ main { flex: 1; padding: 28px 24px 48px; max-width: 1400px; margin: 0 auto; widt
 .btn-sm { padding: 6px 12px; font-size: 12px; }
 .btn:disabled { opacity: .5; cursor: not-allowed; }
 
-.card {
-  background: var(--surf); border: 1px solid var(--line); border-radius: 12px;
-}
+.card { background: var(--surf); border: 1px solid var(--line); border-radius: 12px; }
 .card-head { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .card-title { font-family: var(--fh); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
 .card-body { padding: 20px; }
@@ -188,11 +180,10 @@ main { flex: 1; padding: 28px 24px 48px; max-width: 1400px; margin: 0 auto; widt
 .badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-line); }
 .badge-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-line); }
 .badge-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-line); }
-.badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-line, rgba(168,85,247,.30)); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(168,85,247,.30); }
 .badge-muted { background: var(--surf-3); color: var(--muted); border: 1px solid var(--line-2); }
 .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-/* ── KPI GRID ─────────────────────────────────────── */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .kpi {
   background: var(--surf); border: 1px solid var(--line); border-radius: 12px;
@@ -208,7 +199,6 @@ main { flex: 1; padding: 28px 24px 48px; max-width: 1400px; margin: 0 auto; widt
 .kpi.accent-red { border-color: var(--red-line); background: linear-gradient(180deg, rgba(239,68,68,.06) 0%, rgba(239,68,68,0) 100%), var(--surf); }
 .kpi.accent-red .kpi-val { color: var(--red); }
 
-/* ── TODAY LAYOUT ─────────────────────────────────── */
 .today-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 900px) { .today-grid { grid-template-columns: 1.2fr 1fr; } }
 
@@ -240,7 +230,6 @@ main { flex: 1; padding: 28px 24px 48px; max-width: 1400px; margin: 0 auto; widt
 .stat-val.amber { color: var(--amber); }
 .stat-val.red { color: var(--red); }
 
-/* ── TABLES ───────────────────────────────────────── */
 .table-wrap { overflow-x: auto; border-radius: 12px; }
 table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .tbl thead th {
@@ -272,7 +261,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .cell-item-name { color: var(--txt); font-weight: 600; font-size: 13.5px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px; }
 .cell-item-id { font-family: var(--fm); font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-/* ── FILTERS ──────────────────────────────────────── */
 .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
 .search-box {
   position: relative; flex: 1; min-width: 200px; max-width: 360px;
@@ -296,7 +284,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .chip:hover { border-color: var(--muted); color: var(--txt); }
 .chip.active { background: var(--surf-2); border-color: var(--green); color: var(--green); }
 
-/* ── PARTNER CARDS ────────────────────────────────── */
 .partner-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
 @media (min-width: 720px) { .partner-list { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1100px) { .partner-list { grid-template-columns: repeat(3, 1fr); } }
@@ -327,7 +314,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .partner-stat-val.green { color: var(--green); }
 .partner-attention { position: absolute; top: 12px; right: 12px; }
 
-/* ── PARTNER DETAIL ───────────────────────────────── */
 .detail-header { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
 .detail-logo {
   width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0;
@@ -362,7 +348,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .kv-v { color: var(--txt); font-weight: 600; text-align: right; word-break: break-word; }
 .kv-v.mono { font-family: var(--fm); font-size: 12.5px; }
 
-/* ── MODAL ────────────────────────────────────────── */
 .modal-bg {
   position: fixed; inset: 0; z-index: 500;
   background: rgba(5,8,15,.75); backdrop-filter: blur(6px);
@@ -393,7 +378,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .field textarea { resize: vertical; min-height: 100px; font-family: inherit; line-height: 1.5; }
 .field input:focus, .field textarea:focus { border-color: var(--green); }
 
-/* ── TOAST ────────────────────────────────────────── */
 .toast-wrap {
   position: fixed; bottom: 24px; right: 24px; z-index: 9000;
   display: flex; flex-direction: column; gap: 8px;
@@ -415,7 +399,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .toast.amber svg { color: var(--amber); flex-shrink: 0; }
 @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── LOADING ──────────────────────────────────────── */
 .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; gap: 14px; color: var(--muted); }
 .spinner {
   width: 28px; height: 28px; border-radius: 50%;
@@ -429,7 +412,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .empty-state h3 { font-family: var(--fh); font-weight: 700; font-size: 16px; color: var(--txt); margin-bottom: 6px; }
 .empty-state p { font-size: 13px; }
 
-/* ── MOBILE ───────────────────────────────────────── */
 @media (max-width: 720px) {
   .topbar-inner { padding: 10px 16px; gap: 12px; }
   .brand-sub { display: none; }
@@ -445,7 +427,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 </head>
 <body>
 
-<!-- AUTH GATE -->
 <div class="auth-gate" id="authGate" style="display:none;">
   <div class="auth-card">
     <div class="auth-logo">
@@ -460,11 +441,10 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     <label class="auth-label" for="authKey">Access key</label>
     <input class="auth-input" type="password" id="authKey" placeholder="Paste your admin key" autocomplete="off" spellcheck="false">
     <button class="auth-btn" id="authSubmit">Continue</button>
-    <div class="auth-err" id="authErr">Invalid key. Try again.</div>
+    <div class="auth-err" id="authErr"></div>
   </div>
 </div>
 
-<!-- SHELL -->
 <div class="shell" id="shell" style="display:none;">
   <header class="topbar">
     <div class="topbar-inner">
@@ -507,10 +487,18 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   "use strict";
 
   // ══════════════════════════════════════════════════════════════
-  // CONFIG — set these
+  // CONFIG — pulled from /js/dps-config.js
   // ══════════════════════════════════════════════════════════════
-  var GAS_URL = "https://script.google.com/macros/s/AKfycbwimPAzCWYknvHBWf2LAdiH_RjJmiUrYLmD-x9Nob0fWntIopLYqSGx6BUG5Vfq1AqWzA/exec";
+  var GAS_URL = (typeof DPS_MAIN_GAS_URL !== "undefined" && DPS_MAIN_GAS_URL) ? DPS_MAIN_GAS_URL : "";
   var KEY_STORE = "dps_admin_key";
+
+  if (!GAS_URL) {
+    document.body.innerHTML = '<div style="padding:60px 24px;text-align:center;font-family:system-ui,sans-serif;color:#F0F3F7;background:#0B0F1A;min-height:100vh;">' +
+      '<h1 style="font-size:20px;margin-bottom:12px;">Configuration error</h1>' +
+      '<p style="color:#8A93A8;max-width:480px;margin:0 auto;line-height:1.6;">' +
+      '<code>DPS_MAIN_GAS_URL</code> is not defined. Check that <code>/js/dps-config.js</code> loads and exports it.</p></div>';
+    return;
+  }
   // ══════════════════════════════════════════════════════════════
 
   var state = {
@@ -529,7 +517,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     refreshing: false
   };
 
-  // ── DOM HELPERS ──────────────────────────────────────────────
   function $(id) { return document.getElementById(id); }
   function el(tag, attrs, children) {
     var e = document.createElement(tag);
@@ -564,13 +551,9 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   function fmtDate(v) {
     if (!v) return "-";
     var s = String(v);
-    // Try parseSheetTime-ish
     var d = null;
-    if (s.indexOf("-") > 0 && s.indexOf(":") > 0) {
-      d = new Date(s.replace(" ", "T"));
-    } else {
-      d = new Date(s);
-    }
+    if (s.indexOf("-") > 0 && s.indexOf(":") > 0) d = new Date(s.replace(" ", "T"));
+    else d = new Date(s);
     if (!d || isNaN(d.getTime())) return s;
     var now = new Date();
     var ms = now.getTime() - d.getTime();
@@ -588,7 +571,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     return d.toLocaleDateString("en-NG", { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
   }
 
-  // ── TOAST ────────────────────────────────────────────────────
   function toast(msg, kind) {
     kind = kind || "green";
     var iconMap = {
@@ -610,8 +592,11 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   // ── API ──────────────────────────────────────────────────────
   function apiGet(action, extra) {
     var q = "?action=" + encodeURIComponent(action) + "&key=" + encodeURIComponent(state.key);
-    if (extra) for (var k in extra) q += "&" + k + "=" + encodeURIComponent(extra[k]);
-    return fetch(GAS_URL + q).then(function(r){ return r.json(); });
+    if (extra) for (var k in extra) if (extra[k] != null) q += "&" + k + "=" + encodeURIComponent(extra[k]);
+    return fetch(GAS_URL + q).then(function(r){ return r.text(); }).then(function(text){
+      try { return JSON.parse(text); }
+      catch(e) { return { success: false, error: "Invalid JSON response: " + text.slice(0, 200) }; }
+    });
   }
   function apiPost(action, data) {
     var payload = Object.assign({ action: action, key: state.key }, data || {});
@@ -619,7 +604,10 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload)
-    }).then(function(r){ return r.json(); });
+    }).then(function(r){ return r.text(); }).then(function(text){
+      try { return JSON.parse(text); }
+      catch(e) { return { success: false, error: "Invalid JSON response: " + text.slice(0, 200) }; }
+    });
   }
 
   // ── AUTH ─────────────────────────────────────────────────────
@@ -631,6 +619,11 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   function showShell() {
     $("authGate").style.display = "none";
     $("shell").style.display = "flex";
+  }
+  function showAuthError(msg) {
+    var e = $("authErr");
+    e.innerHTML = esc(msg);
+    e.classList.add("show");
   }
   function validateAndEnter(key) {
     state.key = key;
@@ -644,8 +637,23 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
       }
       localStorage.removeItem(KEY_STORE);
       state.key = "";
+
+      // Show the actual reason, not just "Invalid key"
+      var reason = (r && r.error) ? r.error : "Unknown error from server";
+      if (r && r.error === "Unknown action") {
+        showAuthError("Server doesn't know adminToday. The Apps Script is either not redeployed or the admin block wasn't pasted. Redeploy from Apps Script: Deploy → Manage deployments → edit → New version → Deploy.");
+      } else if (r && (r.error === "Unauthorized")) {
+        showAuthError("Key doesn't match. Recheck the value in Apps Script → Project Settings → Script Properties → ADMIN_KEY. Watch for leading/trailing spaces.");
+      } else {
+        showAuthError(reason);
+      }
       return false;
-    }).catch(function(){ return false; });
+    }).catch(function(e){
+      state.key = "";
+      localStorage.removeItem(KEY_STORE);
+      showAuthError("Network error: " + (e && e.message ? e.message : "unknown") + ". Check that the deployment is public (Anyone) and the URL in dps-config.js is correct.");
+      return false;
+    });
   }
   $("authSubmit").addEventListener("click", function(){
     var k = $("authKey").value.trim();
@@ -656,7 +664,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     validateAndEnter(k).then(function(ok){
       $("authSubmit").textContent = "Continue";
       $("authSubmit").disabled = false;
-      if (!ok) $("authErr").classList.add("show");
+      if (!ok) {} // error already shown
     });
   });
   $("authKey").addEventListener("keydown", function(e){
@@ -710,14 +718,12 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     document.querySelectorAll(".tab").forEach(function(t){
       t.classList.toggle("active", t.getAttribute("data-route") === active);
     });
-    // Badge on partners: count attention
     if (state.partners && state.partners.partners) {
       var n = state.partners.partners.filter(function(p){ return p.needsAttention; }).length;
       var b = $("tabBadgePartners");
       if (n > 0) { b.textContent = n; b.style.display = "inline-block"; }
       else { b.style.display = "none"; }
     }
-    // Badge on items: pending approval count
     if (state.today && state.today.needsAttention) {
       var np = state.today.needsAttention.pendingApproval || 0;
       var bi = $("tabBadgeItems");
@@ -733,7 +739,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     });
   });
 
-  // ── RENDER ───────────────────────────────────────────────────
   function render() {
     var main = $("main");
     main.innerHTML = "";
@@ -748,9 +753,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     return el("div", { class: "loading", html: '<div class="spinner"></div><div>Loading…</div>' });
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // TODAY
-  // ══════════════════════════════════════════════════════════════
   function renderToday(main) {
     main.appendChild(loading());
     apiGet("adminToday").then(function(r){
@@ -767,7 +769,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
   function buildTodayScreen(r) {
     var wrap = el("div");
-
     var hour = new Date().getHours();
     var greet = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
 
@@ -781,7 +782,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
       ])
     ]));
 
-    // KPIs
     var na = r.needsAttention || {};
     var mk = r.marketplace || {};
     var sl = r.sales || {};
@@ -801,10 +801,8 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     kpis.appendChild(kpi("Partner issues", String(na.partnerIssues || 0), "Needs attention", na.partnerIssues > 0 ? "red" : ""));
     wrap.appendChild(kpis);
 
-    // Two-column area
     var grid = el("div", { class: "today-grid" });
 
-    // Left: needs attention
     var attn = el("div", { class: "card" });
     attn.appendChild(el("div", { class: "card-head" }, [
       el("div", { class: "card-title", html: "Needs attention" }),
@@ -835,7 +833,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     attn.appendChild(list);
     grid.appendChild(attn);
 
-    // Right: marketplace + partners snapshot
     var right = el("div", { style: "display:flex;flex-direction:column;gap:16px;" });
 
     var mkt = el("div", { class: "card" });
@@ -886,9 +883,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     ]);
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // PARTNERS LIST
-  // ══════════════════════════════════════════════════════════════
   function renderPartners(main) {
     main.appendChild(loading());
     apiGet("adminPartners").then(function(r){
@@ -917,7 +911,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
       ])
     ]));
 
-    // Filters
     var filters = el("div", { class: "filters" });
     var searchWrap = el("div", { class: "search-box" });
     searchWrap.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
@@ -1005,15 +998,11 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     if (p.needsAttention) {
       card.appendChild(el("div", { class: "partner-attention", html: '<span class="badge badge-amber"><span class="badge-dot"></span>' + esc(p.attentionReason || "Attention") + '</span>' }));
     } else {
-      var b = el("div", { class: "partner-attention", html: '<span class="badge ' + statusKind + '">' + esc(p.status || "—") + '</span>' });
-      card.appendChild(b);
+      card.appendChild(el("div", { class: "partner-attention", html: '<span class="badge ' + statusKind + '">' + esc(p.status || "—") + '</span>' }));
     }
     return card;
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // PARTNER DETAIL
-  // ══════════════════════════════════════════════════════════════
   function renderPartnerDetail(main, partnerId) {
     main.appendChild(loading());
     apiGet("adminPartner", { id: partnerId }).then(function(r){
@@ -1040,7 +1029,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     back.addEventListener("click", function(e){ e.preventDefault(); setRoute("partners"); });
     wrap.appendChild(back);
 
-    // Header
     var header = el("div", { class: "detail-header" });
     var logoHTML = p.logoUrl
       ? '<img src="' + esc(p.logoUrl) + '" alt="" onerror="this.parentNode.textContent=\'' + esc(initials(p.businessName)) + '\'">'
@@ -1065,7 +1053,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
     header.appendChild(meta);
 
-    // Actions
     var actions = el("div", { class: "page-actions" });
     if (p.verified !== "Yes") {
       var vBtn = el("button", { class: "btn btn-primary btn-sm", html: "Verify partner" });
@@ -1093,7 +1080,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     header.appendChild(actions);
     wrap.appendChild(header);
 
-    // Stats
     var statsGrid = el("div", { class: "stats-grid", style: "margin-bottom:20px;" });
     function statCell(lbl, val, cls) {
       return el("div", { class: "stat-cell" }, [
@@ -1109,13 +1095,9 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     statsGrid.appendChild(statCell("DPS revenue", naira(s.dpsRevenue)));
     wrap.appendChild(statsGrid);
 
-    // Two-column: main + sidebar
     var grid = el("div", { class: "detail-grid" });
-
-    // Left: items + sales
     var left = el("div", { style: "display:flex;flex-direction:column;gap:16px;" });
 
-    // Items
     var itemsCard = el("div", { class: "card" });
     itemsCard.appendChild(el("div", { class: "card-head" }, [
       el("div", { class: "card-title", html: "Current inventory" }),
@@ -1126,14 +1108,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     } else {
       var tblWrap = el("div", { class: "table-wrap" });
       var tbl = el("table", { class: "tbl" });
-      tbl.innerHTML =
-        '<thead><tr>' +
-          '<th>Item</th>' +
-          '<th class="num">Price</th>' +
-          '<th class="num">Views</th>' +
-          '<th>Status</th>' +
-          '<th>Imported</th>' +
-        '</tr></thead>';
+      tbl.innerHTML = '<thead><tr><th>Item</th><th class="num">Price</th><th class="num">Views</th><th>Status</th><th>Imported</th></tr></thead>';
       var tb = el("tbody");
       items.forEach(function(it){
         var tr = el("tr", { class: "clickable" });
@@ -1160,7 +1135,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     }
     left.appendChild(itemsCard);
 
-    // Sales
     var salesCard = el("div", { class: "card" });
     salesCard.appendChild(el("div", { class: "card-head" }, [
       el("div", { class: "card-title", html: "Recent sales" }),
@@ -1171,15 +1145,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     } else {
       var stWrap = el("div", { class: "table-wrap" });
       var st = el("table", { class: "tbl" });
-      st.innerHTML =
-        '<thead><tr>' +
-          '<th>Item</th>' +
-          '<th class="num">Paid</th>' +
-          '<th class="num">Partner</th>' +
-          '<th>Buyer</th>' +
-          '<th>Status</th>' +
-          '<th>Date</th>' +
-        '</tr></thead>';
+      st.innerHTML = '<thead><tr><th>Item</th><th class="num">Paid</th><th class="num">Partner</th><th>Buyer</th><th>Status</th><th>Date</th></tr></thead>';
       var stb = el("tbody");
       sales.forEach(function(sl){
         var tr = el("tr");
@@ -1190,7 +1156,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
             '<div class="cell-item-id">' + esc(sl.itemId) + '</div>' +
           '</div></td>' +
           '<td class="num strong">' + esc(naira(sl.amountPaid)) + '</td>' +
-          '<td class="num green" style="color:var(--green);font-weight:600;">' + esc(naira(sl.amountToSeller)) + '</td>' +
+          '<td class="num" style="color:var(--green);font-weight:600;">' + esc(naira(sl.amountToSeller)) + '</td>' +
           '<td class="muted">' + esc(sl.buyerName || sl.buyerEmail || "—") + '</td>' +
           '<td><span class="badge ' + stKind + '">' + esc(sl.status || "—") + '</span></td>' +
           '<td class="muted">' + esc(fmtDate(sl.timestamp)) + '</td>';
@@ -1204,7 +1170,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
     grid.appendChild(left);
 
-    // Right: profile details
     var right = el("div", { style: "display:flex;flex-direction:column;gap:16px;" });
 
     var profileCard = el("div", { class: "card" });
@@ -1271,9 +1236,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     return "badge-muted";
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // ITEMS
-  // ══════════════════════════════════════════════════════════════
   function renderItems(main) {
     main.appendChild(loading());
     var f = state.itemsFilter || {};
@@ -1300,7 +1262,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
       ])
     ]));
 
-    // Filters
     var filters = el("div", { class: "filters" });
     var searchWrap = el("div", { class: "search-box" });
     searchWrap.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
@@ -1354,15 +1315,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     }
     var wrap = el("div", { class: "table-wrap" });
     var tbl = el("table", { class: "tbl" });
-    tbl.innerHTML =
-      '<thead><tr>' +
-        '<th>Item</th>' +
-        '<th class="num">Price</th>' +
-        '<th>Source</th>' +
-        '<th>Status</th>' +
-        '<th class="num">Views</th>' +
-        '<th>Submitted</th>' +
-      '</tr></thead>';
+    tbl.innerHTML = '<thead><tr><th>Item</th><th class="num">Price</th><th>Source</th><th>Status</th><th class="num">Views</th><th>Submitted</th></tr></thead>';
     var tb = el("tbody");
     items.forEach(function(it){
       var tr = el("tr", { class: "clickable" });
@@ -1392,9 +1345,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     container.appendChild(wrap);
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // SALES
-  // ══════════════════════════════════════════════════════════════
   function renderSales(main) {
     main.appendChild(loading());
     apiGet("adminSales", { q: state.salesQ }).then(function(r){
@@ -1462,15 +1412,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     }
     var wrap = el("div", { class: "table-wrap" });
     var tbl = el("table", { class: "tbl" });
-    tbl.innerHTML =
-      '<thead><tr>' +
-        '<th>Item</th>' +
-        '<th class="num">Paid</th>' +
-        '<th class="num">Partner/Seller</th>' +
-        '<th>Buyer</th>' +
-        '<th>Status</th>' +
-        '<th>When</th>' +
-      '</tr></thead>';
+    tbl.innerHTML = '<thead><tr><th>Item</th><th class="num">Paid</th><th class="num">Partner/Seller</th><th>Buyer</th><th>Status</th><th>When</th></tr></thead>';
     var tb = el("tbody");
     sales.forEach(function(s){
       var tr = el("tr");
@@ -1495,9 +1437,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     container.appendChild(wrap);
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // MODALS
-  // ══════════════════════════════════════════════════════════════
   function openModal(html, footButtons) {
     var modal = $("modal");
     modal.innerHTML = "";
@@ -1601,9 +1540,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     ]);
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // ACTIONS
-  // ══════════════════════════════════════════════════════════════
   function doApprove(it, btn) {
     if (btn) { btn.disabled = true; btn.textContent = "Approving…"; }
     apiPost("adminApproveItem", { itemId: it.itemId }).then(function(r){
@@ -1647,11 +1583,9 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     });
   }
 
-  // ── SOFT REFRESH ─────────────────────────────────────────────
   function softRefresh() {
     if (state.refreshing) return;
     state.refreshing = true;
-    // Clear cached data
     state.today = null;
     state.partners = null;
     state.partnerDetail = null;
@@ -1665,7 +1599,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   }
   $("btnRefresh").addEventListener("click", softRefresh);
 
-  // ── INIT ─────────────────────────────────────────────────────
   function init() {
     if (state.key) {
       validateAndEnter(state.key).then(function(ok){
