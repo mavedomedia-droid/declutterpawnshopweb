@@ -98,10 +98,6 @@ input, select, textarea { font-family: inherit; }
 .nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
 @media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
-/* ═══ HERO ═══════════════════════════════════════════════════════
-   Compressed from 128px/48px padding and 72px h1 down to a tighter
-   band. Still leaves 28px of air below the 72px fixed nav.
-   ═══════════════════════════════════════════════════════════════ */
 .items-hero { background: var(--ink); color: var(--off-white); padding: 100px 0 30px; position: relative; overflow: hidden; }
 .items-hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
 .items-hero-inner { position: relative; z-index: 1; }
@@ -116,9 +112,6 @@ input, select, textarea { font-family: inherit; }
 .trust-chip:hover { border-color: rgba(0,200,83,.5); color: var(--white); }
 .trust-chip svg { color: var(--green); flex-shrink: 0; width: 13px; height: 13px; }
 
-/* ═══ FILTER BAR ════════════════════════════════════════════════
-   Slimmer: 11px vertical, 42px controls instead of 44px.
-   ═══════════════════════════════════════════════════════════════ */
 .bar { position: sticky; top: 72px; z-index: 150; background: var(--white); border-bottom: 1px solid var(--border); border-top: 2px solid var(--ink); padding: 11px 0; }
 .bar-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .search { position: relative; flex: 1; min-width: 200px; display: flex; align-items: center; }
@@ -139,9 +132,6 @@ input, select, textarea { font-family: inherit; }
 .chip:hover { border-color: var(--stone); color: var(--ink); }
 .chip.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-/* ═══ GRID ══════════════════════════════════════════════════════
-   Tighter gaps, less padding above the grid.
-   ═══════════════════════════════════════════════════════════════ */
 .grid-section { padding: 26px 0 72px; }
 .grid-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; font-size: 12.5px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
 .grid-meta strong { color: var(--ink); font-weight: 700; }
@@ -149,11 +139,6 @@ input, select, textarea { font-family: inherit; }
 @media (min-width: 640px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 
-/* ═══ CARD ══════════════════════════════════════════════════════
-   Tighter body padding. Name is slightly smaller with a min-height
-   so two cards in the same row always line up. Partner marker is a
-   subtle green dot + text, not a loud badge.
-   ═══════════════════════════════════════════════════════════════ */
 .item-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; }
 .item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
 .item-card-img { aspect-ratio: 4/3; background: var(--off-white); overflow: hidden; position: relative; }
@@ -242,6 +227,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 .gal-badge.hot { color: #B45309; } .gal-badge.hot .dot { background: #F59E0B; }
 .gal-badge.new { color: var(--green-dark); }
+/* [NEW] Photo counter — sits bottom-right of the gallery */
+.gal-counter { position: absolute; bottom: 12px; right: 14px; display: none; align-items: center; padding: 4px 9px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.03em; background: rgba(14,19,32,.68); color: var(--white); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 5; }
+.gal-counter.visible { display: inline-flex; }
 .gal-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; align-items: center; z-index: 5; }
 .gal-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.55); transition: all .2s; cursor: pointer; }
 .gal-dot.active { background: var(--white); width: 18px; border-radius: 3px; }
@@ -250,80 +238,49 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-arrow-prev { left: 14px; } .gal-arrow-next { right: 14px; }
 @media (hover: hover) { .gal:hover .gal-arrow { display: flex; } }
 
-/* Modal content: slightly tightened */
 .mc { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 12px; }
 @media (max-width: 520px) { .mc { padding: 16px 18px 20px; gap: 11px; } }
 
 .mc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.mc-title-wrap { min-width: 0; flex: 1; }
 .mc-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.15; }
+/* [NEW] Listed time under the title */
+.mc-listed { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.01em; }
+.mc-listed::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: inline-block; flex-shrink: 0; }
 .mc-idtag { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 .mc-idtag-lbl { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 .mc-idtag-val { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; color: var(--ink); background: var(--off-white); border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; line-height: 1; white-space: nowrap; }
 
-.mc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+/* [NEW] Tags row + condition help button */
+.mc-tags-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.mc-tags { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; min-width: 0; }
 .mc-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 7px; background: var(--white); font-size: 11.5px; font-weight: 600; color: var(--text-secondary); letter-spacing: -0.005em; }
 .mc-tag svg { color: var(--text-muted); flex-shrink: 0; }
 .mc-tag-cond { border-color: rgba(0,200,83,.28); background: var(--mint-soft); color: var(--green-dark); }
 .mc-tag-cond svg { color: var(--green-dark); }
+.mc-tag-help { flex-shrink: 0; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px dashed var(--border); background: var(--white); color: var(--text-muted); font-size: 11px; font-weight: 800; padding: 0; transition: border-color .15s, color .15s, background .15s; }
+.mc-tag-help:hover { border-color: var(--ink); color: var(--ink); }
+.mc-tag-help.active { background: var(--ink); border-color: var(--ink); border-style: solid; color: var(--white); }
 
-.mc-sell {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  padding: 16px;
-  background: linear-gradient(135deg, var(--tint-soft) 0%, #EAF2EE 100%);
-  border: 1px solid var(--tint-edge);
-  border-radius: 16px;
-}
-@media (min-width: 560px) {
-  .mc-sell {
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-    gap: 18px;
-    align-items: start;
-    padding: 18px;
-  }
-}
+/* [NEW] Condition legend panel */
+.mc-legend-panel { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; background: var(--off-white); border: 1px solid var(--border); border-radius: 10px; margin-top: 2px; }
+.mc-legend-panel[hidden] { display: none; }
+.mc-legend-item { display: flex; gap: 12px; font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); letter-spacing: -0.005em; }
+.mc-legend-item strong { flex-shrink: 0; color: var(--ink); font-weight: 700; min-width: 108px; }
+
+.mc-sell { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 16px; background: linear-gradient(135deg, var(--tint-soft) 0%, #EAF2EE 100%); border: 1px solid var(--tint-edge); border-radius: 16px; }
+@media (min-width: 560px) { .mc-sell { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 18px; align-items: start; padding: 18px; } }
 .mc-desc-col { min-width: 0; }
-.mc-lbl {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--green-dark);
-  margin-bottom: 10px;
-}
-.mc-lbl::before {
-  content: '';
-  width: 14px; height: 1.5px;
-  background: var(--green);
-  border-radius: 1px;
-}
-.mc-desc {
-  font-size: 14.5px; line-height: 1.65;
-  color: var(--text-primary);
-  letter-spacing: -0.005em;
-}
+.mc-lbl { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-dark); margin-bottom: 10px; }
+.mc-lbl::before { content: ''; width: 14px; height: 1.5px; background: var(--green); border-radius: 1px; }
+.mc-desc { font-size: 14.5px; line-height: 1.65; color: var(--text-primary); letter-spacing: -0.005em; }
 
-.mc-price-card {
-  background: var(--ink);
-  border-radius: 14px;
-  padding: 16px 16px 14px;
-  color: var(--white);
-  position: relative;
-  overflow: hidden;
-  display: flex; flex-direction: column;
-  box-shadow: 0 6px 20px rgba(14,19,32,.14);
-}
-.mc-price-card::after {
-  content: '';
-  position: absolute; top: -50%; right: -40%;
-  width: 160px; height: 160px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%);
-  pointer-events: none;
-}
+.mc-price-card { background: var(--ink); border-radius: 14px; padding: 16px 16px 14px; color: var(--white); position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 6px 20px rgba(14,19,32,.14); }
+.mc-price-card::after { content: ''; position: absolute; top: -50%; right: -40%; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.18) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
 .mc-price-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); position: relative; z-index: 1; }
 .mc-price-val { font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px, 5.4vw, 26px); letter-spacing: -0.032em; color: var(--white); line-height: 1.1; margin-top: 6px; display: flex; align-items: baseline; gap: 1px; flex-wrap: wrap; word-break: keep-all; overflow-wrap: break-word; position: relative; z-index: 1; font-variant-numeric: tabular-nums; }
 .mc-price-val .sym { color: var(--green); font-size: 0.62em; margin-right: 1px; }
 .mc-price-note { font-size: 10.5px; color: var(--stone-light); margin-top: 8px; line-height: 1.45; position: relative; z-index: 1; }
-
 .mc-quick { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.10); position: relative; z-index: 1; }
 .mc-quick-lbl { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
 .mc-quick-row { display: flex; align-items: center; gap: 5px; }
@@ -332,7 +289,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-quick-btn:active { background: rgba(0,200,83,.55); }
 .mc-quick-val { flex: 1; min-width: 0; text-align: center; font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: var(--white); background: rgba(255,255,255,.06); border-radius: 8px; padding: 8px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.02em; }
 .mc-quick-hint { font-size: 10px; color: var(--stone-light); margin-top: 8px; line-height: 1.4; }
-
 .mc-negotiate-btn { width: 100%; margin-top: 12px; padding: 11px 12px; border-radius: 10px; background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 0 var(--green-dark); transition: background .15s, box-shadow .15s, transform .1s; position: relative; z-index: 1; line-height: 1; }
 .mc-negotiate-btn:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
 .mc-negotiate-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
@@ -357,6 +313,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-seller-verified { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 4px; background: var(--mint-soft); color: var(--green-dark); font-family: var(--font-body); font-weight: 700; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
 .mc-seller-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* [NEW] Safety tips block */
+.mc-safety { padding: 14px 16px; background: var(--ink); border-radius: 12px; color: var(--white); }
+.mc-safety-head { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: 11px; font-weight: 800; color: var(--white); letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 10px; }
+.mc-safety-head svg { color: var(--green); flex-shrink: 0; }
+.mc-safety-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.mc-safety-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; line-height: 1.5; color: var(--stone-light); letter-spacing: -0.005em; }
+.mc-safety-list li::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-top: 7px; }
+
 .mc-share-row { display: flex; gap: 8px; align-items: stretch; }
 .mc-share { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: var(--r-button); background: transparent; border: 1.5px solid var(--border); font-size: 13px; font-weight: 700; color: var(--text-secondary); transition: border-color .15s, color .15s; }
 .mc-share:hover { border-color: var(--green); color: var(--green-dark); }
@@ -365,11 +329,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-copy:hover { border-color: var(--ink); }
 .mc-copy.copied { border-color: var(--green); color: var(--green-dark); }
 
-/* ═══ SIMILAR TRACK ═══════════════════════════════════════════
-   Was the mobile zoom-out culprit: margin -22px while the mobile
-   .mc padding drops to 18px → 4px of overflow per side. Fixed with
-   a matching media query override.
-   ══════════════════════════════════════════════════════════════ */
 .mc-similar { border-top: 1.5px solid var(--border-ink); padding-top: 14px; margin-top: 2px; }
 .mc-similar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .mc-similar-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); display: inline-flex; align-items: center; gap: 8px; }
@@ -385,6 +344,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sim-card-body { padding: 8px 10px 10px; }
 .sim-card-name { font-size: 11.5px; font-weight: 700; color: var(--ink); line-height: 1.3; letter-spacing: -0.005em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
 .sim-card-price { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; color: var(--ink); letter-spacing: -0.01em; margin-top: 6px; }
+
+/* [NEW] Report listing link */
+.mc-report { display: flex; justify-content: center; padding: 4px 0 0; }
+.mc-report a { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--text-muted); padding: 7px 12px; border-radius: 8px; transition: color .15s, background .15s; }
+.mc-report a:hover { color: var(--ink); background: var(--off-white); }
+.mc-report svg { opacity: .9; flex-shrink: 0; }
 
 .mc-actions-bar { flex-shrink: 0; padding: 12px 20px 16px; background: var(--white); border-top: 1.5px solid var(--border-ink); display: flex; flex-direction: column; gap: 10px; }
 .mc-buy-btn { width: 100%; padding: 15px 16px; border-radius: var(--r-button); background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: -0.005em; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 0 var(--green-dark); transition: background .15s, box-shadow .15s, transform .1s; }
@@ -404,59 +369,32 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-panel-alt { text-align: center; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); padding: 8px 0 0; border-top: 1px dashed var(--border); margin-top: 4px; transition: color .15s; }
 .mc-panel-alt:hover { color: var(--green-dark); }
 
-/* ═══════════════════════════════════════════════════════════════
-   OFFER SHEET
-   ═══════════════════════════════════════════════════════════════ */
 .offer-bg { position: fixed; inset: 0; z-index: 600; background: rgba(14,19,32,.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
 .offer-bg.open { opacity: 1; pointer-events: all; }
-.offer-sheet {
-  background: var(--white);
-  width: 100%;
-  max-width: 540px;
-  max-height: 92vh;
-  border-radius: 20px 20px 0 0;
-  display: flex; flex-direction: column;
-  transform: translateY(40px);
-  transition: transform .3s cubic-bezier(.2,.8,.3,1);
-  box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg);
-  overflow: hidden;
-}
+.offer-sheet { background: var(--white); width: 100%; max-width: 540px; max-height: 92vh; border-radius: 20px 20px 0 0; display: flex; flex-direction: column; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); overflow: hidden; }
 .offer-bg.open .offer-sheet { transform: translateY(0); }
 @media (min-width: 640px) { .offer-bg { align-items: center; padding: 32px; } .offer-sheet { border-radius: 20px; max-height: 88vh; } }
-
 .offer-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--ink); color: var(--white); flex-shrink: 0; }
 .offer-back { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--white); background: rgba(255,255,255,.08); transition: background .15s; flex-shrink: 0; }
 .offer-back:hover { background: rgba(255,255,255,.16); }
 .offer-title { flex: 1; font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.022em; color: var(--white); }
 .offer-close { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--stone-light); font-size: 14px; line-height: 1; transition: background .15s, color .15s; flex-shrink: 0; }
 .offer-close:hover { background: rgba(255,255,255,.08); color: var(--white); }
-
-.offer-body {
-  padding: 20px 20px 20px;
-  overflow-y: auto;
-  display: flex; flex-direction: column; gap: 16px;
-  flex: 1;
-  scrollbar-width: thin;
-  -webkit-overflow-scrolling: touch;
-}
+.offer-body { padding: 20px 20px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; flex: 1; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
 .offer-body::-webkit-scrollbar { width: 6px; }
 .offer-body::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
 @media (max-width: 520px) { .offer-body { padding: 16px 18px 16px; gap: 14px; } }
-
 .offer-item { display: flex; gap: 12px; align-items: center; padding: 12px; background: var(--tint-soft); border: 1px solid var(--tint-edge); border-radius: 12px; }
 .offer-item-img { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: var(--border); flex-shrink: 0; }
 .offer-item-info { min-width: 0; flex: 1; }
 .offer-item-name { font-family: var(--font-heading); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .offer-item-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; font-family: var(--font-mono); }
-
 .offer-lbl { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .offer-opt { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--text-muted); font-size: 10.5px; }
-
 .offer-asking { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--off-white); border-radius: 10px; border: 1px solid var(--border); }
 .offer-asking-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
 .offer-asking-val { font-family: var(--font-heading); font-weight: 800; font-size: 18px; letter-spacing: -0.025em; color: var(--ink); font-variant-numeric: tabular-nums; }
 .offer-asking-val .sym { color: var(--green-dark); font-size: 0.7em; }
-
 .offer-field { display: flex; flex-direction: column; }
 .offer-step-row { display: flex; align-items: stretch; gap: 8px; }
 .offer-step-btn { flex: 0 0 auto; width: 54px; border-radius: 12px; background: var(--ink); color: var(--white); font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; line-height: 1; transition: background .15s, transform .1s; user-select: none; -webkit-user-select: none; }
@@ -469,53 +407,21 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .offer-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; }
 .offer-err { font-size: 12px; color: #DC2626; margin-top: 6px; display: none; font-weight: 600; }
 .offer-err.show { display: block; }
-
 .offer-body textarea { width: 100%; min-height: 76px; padding: 12px 14px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 12px; font-size: 16px; color: var(--ink); outline: none; resize: vertical; font-family: inherit; transition: border-color .15s, background .15s; }
 .offer-body textarea:focus { border-color: var(--ink); background: var(--white); }
 .offer-body > .offer-field > input[type="email"] { width: 100%; height: 48px; padding: 0 14px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 12px; font-size: 16px; color: var(--ink); outline: none; transition: border-color .15s, background .15s; }
 .offer-body > .offer-field > input[type="email"]:focus { border-color: var(--ink); background: var(--white); }
-
-.offer-actions {
-  padding: 14px 18px 18px;
-  border-top: 1.5px solid var(--border-ink);
-  flex-shrink: 0;
-  background: var(--white);
-  display: flex; flex-direction: column; gap: 12px;
-}
+.offer-actions { padding: 14px 18px 18px; border-top: 1.5px solid var(--border-ink); flex-shrink: 0; background: var(--white); display: flex; flex-direction: column; gap: 12px; }
 @media (max-width: 520px) { .offer-actions { padding: 12px 16px 16px; gap: 10px; } }
-
-.offer-fee-box {
-  padding: 12px 14px;
-  background: var(--ink);
-  color: var(--white);
-  border-radius: 12px;
-  position: relative;
-  overflow: hidden;
-}
+.offer-fee-box { padding: 12px 14px; background: var(--ink); color: var(--white); border-radius: 12px; position: relative; overflow: hidden; }
 .offer-fee-box::after { content: ''; position: absolute; top: -50%; right: -30%; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.20) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
 .offer-fee-row { display: flex; align-items: center; justify-content: space-between; font-family: var(--font-heading); font-weight: 800; font-size: 14.5px; color: var(--white); letter-spacing: -0.01em; position: relative; z-index: 1; }
 .offer-fee-row .fee-amt { color: var(--green); }
 .offer-fee-note { font-size: 11px; line-height: 1.45; color: var(--stone-light); margin-top: 4px; position: relative; z-index: 1; }
-
-.offer-submit {
-  width: 100%;
-  padding: 15px 16px;
-  border-radius: var(--r-button);
-  background: var(--green);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: -0.005em;
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px;
-  box-shadow: 0 2px 0 var(--green-dark);
-  transition: background .15s, box-shadow .15s, transform .1s;
-}
+.offer-submit { width: 100%; padding: 15px 16px; border-radius: var(--r-button); background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: -0.005em; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 0 var(--green-dark); transition: background .15s, box-shadow .15s, transform .1s; }
 .offer-submit:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
 .offer-submit:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
 .offer-submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-
 .offer-success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 44px 32px 36px; gap: 12px; }
 .offer-success.show { display: flex; }
 .offer-success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--mint-soft); color: var(--green-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
@@ -623,18 +529,32 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <button class="gal-arrow gal-arrow-prev" id="galPrev" aria-label="Previous image" type="button">‹</button>
         <button class="gal-arrow gal-arrow-next" id="galNext" aria-label="Next image" type="button">›</button>
         <div class="gal-dots" id="galDots"></div>
+        <span class="gal-counter" id="galCounter">1 / 1</span>
       </div>
 
       <div class="mc">
         <div class="mc-head">
-          <div class="mc-title" id="mcTitle">—</div>
+          <div class="mc-title-wrap">
+            <div class="mc-title" id="mcTitle">—</div>
+            <div class="mc-listed" id="mcListed"></div>
+          </div>
           <div class="mc-idtag">
             <span class="mc-idtag-lbl">Item ID</span>
             <span class="mc-idtag-val" id="mcId">—</span>
           </div>
         </div>
 
-        <div class="mc-tags" id="mcTags"></div>
+        <div class="mc-tags-row">
+          <div class="mc-tags" id="mcTags"></div>
+          <button class="mc-tag-help" id="mcCondHelp" type="button" aria-label="Condition guide" aria-expanded="false">?</button>
+        </div>
+        <div class="mc-legend-panel" id="mcLegendPanel" hidden>
+          <div class="mc-legend-item"><strong>Brand New</strong><span>Sealed, never used.</span></div>
+          <div class="mc-legend-item"><strong>Like New</strong><span>Used once or twice, no visible wear.</span></div>
+          <div class="mc-legend-item"><strong>Good Condition</strong><span>Used, minor signs of wear, works perfectly.</span></div>
+          <div class="mc-legend-item"><strong>Fairly Used</strong><span>Clear signs of use, but functions as intended.</span></div>
+          <div class="mc-legend-item"><strong>Used</strong><span>Normal wear from regular use.</span></div>
+        </div>
 
         <div class="mc-sell">
           <div class="mc-desc-col">
@@ -702,6 +622,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           </div>
         </div>
 
+        <div class="mc-safety">
+          <div class="mc-safety-head">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Stay safe
+          </div>
+          <ul class="mc-safety-list">
+            <li>Meet in a public place, in daylight where possible</li>
+            <li>Inspect the item before you enter your PIN</li>
+            <li>Never share your PIN until you're holding the item</li>
+          </ul>
+        </div>
+
         <div class="mc-share-row">
           <a class="mc-share" id="mcWhatsapp" href="#" target="_blank" rel="noopener">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -716,6 +648,13 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
             <span class="mc-similar-lbl">You might also like</span>
           </div>
           <div class="mc-similar-track" id="mcSimilarTrack"></div>
+        </div>
+
+        <div class="mc-report">
+          <a id="mcReport" href="#" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            Report this listing
+          </a>
         </div>
       </div>
     </div>
@@ -818,14 +757,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var SITE_URL = (typeof DPS_SITE_URL !== "undefined") ? DPS_SITE_URL : window.location.origin;
 
   var SAMPLE_ITEMS = [
-    { "Item ID":"DPS10001", "Item Name":"iPhone 15 Pro Max 256GB Natural Titanium", "Description":"Barely used, upgraded to the 16 Pro. Battery health 98%. Comes with original box, cable, and a spare case.", "Condition":"Like New", "Amount to sell":1250000, "Location":"Island", "Status":"Active", "Inquiries":47, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=900&q=80" },
-    { "Item ID":"DPS10002", "Item Name":"MacBook Air M2 13\" Midnight 256GB", "Description":"Bought last year for design work. Now on a company MacBook. AppleCare till mid-2026.", "Condition":"Good Condition", "Amount to sell":780000, "Location":"Island", "Status":"Active", "Inquiries":62, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80" },
-    { "Item ID":"DPS10003", "Item Name":"PlayStation 5 Slim + 2 DualSense controllers", "Description":"Bought for FIFA, played twice. Brand new condition. Original packaging intact.", "Condition":"Brand New", "Amount to sell":720000, "Location":"Mainland", "Status":"Active", "Inquiries":89, "Seller Type":"Partner", "Business Name":"Demo Gadget Hub", "Product Photos":"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=900&q=80" },
-    { "Item ID":"DPS10004", "Item Name":"Sony WH-1000XM5 Wireless Headphones", "Description":"Top-of-the-line noise cancelling. My commute got shorter, so I stopped using them. Case and cable included.", "Condition":"Like New", "Amount to sell":285000, "Location":"Island", "Status":"Active", "Inquiries":34, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80" },
-    { "Item ID":"DPS10005", "Item Name":"Nike Air Jordan 1 Retro High OG Chicago", "Description":"Size UK9. Worn three times, still stiff. Original box and laces included.", "Condition":"Good Condition", "Amount to sell":195000, "Location":"Mainland", "Status":"Active", "Inquiries":71, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1552346154-21d32810aba3?w=900&q=80" },
-    { "Item ID":"DPS10006", "Item Name":"Louis Vuitton Neverfull MM Monogram", "Description":"Authentic, purchased in Dubai. Slight patina on handles, normal for age. Dust bag included.", "Condition":"Fairly Used", "Amount to sell":620000, "Location":"Island", "Status":"Active", "Inquiries":53, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&q=80" },
-    { "Item ID":"DPS10007", "Item Name":"Herman Miller Aeron Chair Size B", "Description":"Fully loaded with lumbar support, adjustable arms. Moving offices, must go this month.", "Condition":"Good Condition", "Amount to sell":340000, "Location":"Island", "Status":"Active", "Inquiries":28, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=900&q=80" },
-    { "Item ID":"DPS10008", "Item Name":"Canon EOS R50 + 18-45mm Lens Kit", "Description":"Brand new in box. Bought as a gift but recipient wanted Sony. Receipt available.", "Condition":"Brand New", "Amount to sell":465000, "Location":"Mainland", "Status":"Active", "Inquiries":41, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=80" }
+    { "Item ID":"DPS10001", "Item Name":"iPhone 15 Pro Max 256GB Natural Titanium", "Description":"Barely used, upgraded to the 16 Pro. Battery health 98%. Comes with original box, cable, and a spare case.", "Condition":"Like New", "Amount to sell":1250000, "Location":"Island", "Status":"Active", "Inquiries":47, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=900&q=80", "Submission Time":"2026-10-04 09:15:00" },
+    { "Item ID":"DPS10002", "Item Name":"MacBook Air M2 13\" Midnight 256GB", "Description":"Bought last year for design work. Now on a company MacBook. AppleCare till mid-2026.", "Condition":"Good Condition", "Amount to sell":780000, "Location":"Island", "Status":"Active", "Inquiries":62, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80", "Submission Time":"2026-09-30 11:22:00" },
+    { "Item ID":"DPS10003", "Item Name":"PlayStation 5 Slim + 2 DualSense controllers", "Description":"Bought for FIFA, played twice. Brand new condition. Original packaging intact.", "Condition":"Brand New", "Amount to sell":720000, "Location":"Mainland", "Status":"Active", "Inquiries":89, "Seller Type":"Partner", "Business Name":"Demo Gadget Hub", "Product Photos":"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=900&q=80", "Submission Time":"2026-10-03 14:00:00" },
+    { "Item ID":"DPS10004", "Item Name":"Sony WH-1000XM5 Wireless Headphones", "Description":"Top-of-the-line noise cancelling. My commute got shorter, so I stopped using them. Case and cable included.", "Condition":"Like New", "Amount to sell":285000, "Location":"Island", "Status":"Active", "Inquiries":34, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80", "Submission Time":"2026-10-01 08:30:00" },
+    { "Item ID":"DPS10005", "Item Name":"Nike Air Jordan 1 Retro High OG Chicago", "Description":"Size UK9. Worn three times, still stiff. Original box and laces included.", "Condition":"Good Condition", "Amount to sell":195000, "Location":"Mainland", "Status":"Active", "Inquiries":71, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1552346154-21d32810aba3?w=900&q=80", "Submission Time":"2026-09-27 17:00:00" },
+    { "Item ID":"DPS10006", "Item Name":"Louis Vuitton Neverfull MM Monogram", "Description":"Authentic, purchased in Dubai. Slight patina on handles, normal for age. Dust bag included.", "Condition":"Fairly Used", "Amount to sell":620000, "Location":"Island", "Status":"Active", "Inquiries":53, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&q=80", "Submission Time":"2026-09-25 20:10:00" },
+    { "Item ID":"DPS10007", "Item Name":"Herman Miller Aeron Chair Size B", "Description":"Fully loaded with lumbar support, adjustable arms. Moving offices, must go this month.", "Condition":"Good Condition", "Amount to sell":340000, "Location":"Island", "Status":"Active", "Inquiries":28, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=900&q=80", "Submission Time":"2026-09-22 10:00:00" },
+    { "Item ID":"DPS10008", "Item Name":"Canon EOS R50 + 18-45mm Lens Kit", "Description":"Brand new in box. Bought as a gift but recipient wanted Sony. Receipt available.", "Condition":"Brand New", "Amount to sell":465000, "Location":"Mainland", "Status":"Active", "Inquiries":41, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=80", "Submission Time":"2026-10-04 15:45:00" }
   ];
 
   var ALL_ITEMS     = [];
@@ -913,10 +852,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   function listedText(it) {
     var t = submittedMs(it["Submission Time"]);
     if (isNaN(t)) return "";
-    var days = Math.floor((Date.now() - t) / 86400000);
-    if (days <= 0) return "This one was listed today.";
-    if (days === 1) return "This one was listed yesterday.";
-    return "This one was listed " + days + " days ago.";
+    var mins = Math.round((Date.now() - t) / 60000);
+    if (mins < 60) return mins <= 1 ? "Listed just now" : "Listed " + mins + " minutes ago";
+    var hrs = Math.round(mins / 60);
+    if (hrs < 24) return "Listed " + hrs + (hrs === 1 ? " hour ago" : " hours ago");
+    var days = Math.floor(hrs / 24);
+    if (days === 1) return "Listed yesterday";
+    if (days < 14) return "Listed " + days + " days ago";
+    var weeks = Math.floor(days / 7);
+    return "Listed " + weeks + (weeks === 1 ? " week ago" : " weeks ago");
   }
   function handleOf(it) { return String(it["Partner Handle"] || "").replace(/^@+/, ""); }
 
@@ -944,7 +888,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var first = count > 1
       ? name + " has " + count + " items live on DPS."
       : (count === 1 ? "This is " + name + "'s only item live on DPS right now." : name + " is a DPS partner.");
-    var second = listedText(it);
+    var second = listedText(it).replace(/^Listed /, "It was listed ");
     return second ? first + " " + second : first;
   }
   function renderDina(it) {
@@ -1076,6 +1020,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var modalScroll = document.getElementById("modalScroll");
   var galTrack = document.getElementById("galTrack");
   var galDots = document.getElementById("galDots");
+  var galCounter = document.getElementById("galCounter");
   var galIdx = 0;
   var galTotal = 0;
   var currentItem = null;
@@ -1091,6 +1036,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     return base;
   }
 
+  function updateGalCounter() {
+    if (galTotal > 1) {
+      galCounter.textContent = (galIdx + 1) + " / " + galTotal;
+      galCounter.classList.add("visible");
+    } else {
+      galCounter.classList.remove("visible");
+    }
+  }
+
   function renderTags(it) {
     var out = [];
     var condSvg = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -1100,6 +1054,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (it["Location"])  out.push('<span class="mc-tag">' + pinSvg + escapeHTML(it["Location"]) + '</span>');
     if (it._inquiries)   out.push('<span class="mc-tag">' + eyeSvg + it._inquiries + ' views</span>');
     document.getElementById("mcTags").innerHTML = out.join("");
+    document.getElementById("mcCondHelp").style.display = it["Condition"] ? "" : "none";
   }
 
   function openModal(it) {
@@ -1123,6 +1078,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
     document.getElementById("galPrev").style.display = imgs.length > 1 ? "flex" : "none";
     document.getElementById("galNext").style.display = imgs.length > 1 ? "flex" : "none";
+    updateGalCounter();
 
     var badge = badgeFor(it);
     var badgeEl = document.getElementById("galBadge");
@@ -1131,7 +1087,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     document.getElementById("mcTitle").textContent = it["Item Name"] || "";
     document.getElementById("mcId").textContent = it["Item ID"] || "";
+    // Listed time under title
+    document.getElementById("mcListed").textContent = listedText(it);
     renderTags(it);
+
+    // Reset legend panel
+    document.getElementById("mcLegendPanel").setAttribute("hidden", "");
+    document.getElementById("mcCondHelp").classList.remove("active");
+    document.getElementById("mcCondHelp").setAttribute("aria-expanded", "false");
 
     document.getElementById("mcDesc").textContent = it["Description"] || "No description provided.";
     var asking = priceNum(it["Amount to sell"] || it["Amount to Buyer"]);
@@ -1155,6 +1118,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("mcCopy").classList.remove("copied");
     var shareTxt = (it["Item Name"] || "") + ": ₦" + formatPrice(asking) + "\n" + itemUrl;
     document.getElementById("mcWhatsapp").href = "https://wa.me/?text=" + encodeURIComponent(shareTxt);
+    // Report link
+    document.getElementById("mcReport").href = "https://t.me/declutterpawnshop2_bot?start=report-" + encodeURIComponent(it["Item ID"]);
 
     renderSimilar(it);
     closePaystackPanel();
@@ -1194,6 +1159,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     Array.prototype.forEach.call(galDots.querySelectorAll(".gal-dot"), function (d, j) {
       d.classList.toggle("active", j === i);
     });
+    updateGalCounter();
   }
 
   document.getElementById("galClose").addEventListener("click", closeModal);
@@ -1209,6 +1175,21 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       if (Math.abs(dx) > 40) gotoSlide(dx < 0 ? galIdx + 1 : galIdx - 1);
     });
   })();
+
+  // Condition legend toggle
+  document.getElementById("mcCondHelp").addEventListener("click", function () {
+    var panel = document.getElementById("mcLegendPanel");
+    var isHidden = panel.hasAttribute("hidden");
+    if (isHidden) {
+      panel.removeAttribute("hidden");
+      this.classList.add("active");
+      this.setAttribute("aria-expanded", "true");
+    } else {
+      panel.setAttribute("hidden", "");
+      this.classList.remove("active");
+      this.setAttribute("aria-expanded", "false");
+    }
+  });
 
   document.getElementById("mcCopy").addEventListener("click", function () {
     var btn = this, url = btn.dataset.url || "";
