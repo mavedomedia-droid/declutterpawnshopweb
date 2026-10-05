@@ -924,7 +924,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     // Variant 3: Dina imported this item herself
     if (it["Bot Source"] === "Dina Instagram" && handle) {
-      var parts = ["Found on @" + handle + "'s Instagram, price confirmed by partner."];
+      var parts = ["Found on @" + handle + "'s Instagram. The DPS price includes escrow protection."];   // [v7]
       var exp = submittedMs(it["Expires At"]);
       if (!isNaN(exp) && exp > Date.now()) {
         var h = Math.ceil((exp - Date.now()) / 3600000);
