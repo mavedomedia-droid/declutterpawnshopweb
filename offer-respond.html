@@ -13,29 +13,31 @@
 <style>
   :root{
     --green:#00C853; --green-dark:#00A843; --green-deep:#009933;
-    --ink:#0E1320; --ink-2:#161C2B; --ink-3:#1E2536; --off:#F5F7F8; --white:#fff;
-    --stone:#A7B0AA; --stone-light:#C6CFC9; --border:#E1E5E4; --border-ink:#D6DCE0; --border-dark:#242C3E;
-    --mint:#C8F0D8; --mint-soft:#E9F5EE;
+    --ink:#0E1320; --ink-2:#161C2B; --ink-3:#1E2536;
+    --off:#F5F7F8; --white:#fff;
+    --stone:#A7B0AA; --stone-light:#C6CFC9;
+    --border:#E1E5E4; --border-dark:#242C3E;
+    --mint-soft:#E9F5EE;
     --tint-soft:#F2F7F4; --tint-edge:#DCE7E0;
     --danger:#DC2626; --danger-soft:#FEF2F2; --danger-edge:#FECACA;
-    --text-secondary:#4F5860; --text-muted:#8A928C;
+    --amber:#B45309; --amber-soft:#FFFBEB; --amber-edge:#FDE68A;
+    --text-2:#4F5860; --text-3:#8A928C;
     --font-h:'Manrope',system-ui,sans-serif;
     --font-b:'DM Sans',system-ui,sans-serif;
     --font-m:'DM Mono',ui-monospace,monospace;
-    --r-card:16px; --r-button:12px; --r-pill:999px;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%}
   body{font-family:var(--font-b);background:var(--off);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  h1,h2,h3,h4,h5{font-family:var(--font-h);font-weight:800;letter-spacing:-.025em;line-height:1.05;color:var(--ink)}
+  h1,h2,h3,h4{font-family:var(--font-h);font-weight:800;letter-spacing:-.025em;line-height:1.1;color:var(--ink)}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%;height:auto}
-  button{font-family:inherit;cursor:pointer;border:none;background:none}
-  input,select,textarea{font-family:inherit}
-  .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
-  @media (min-width:768px){.wrap{padding:0 48px}}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input{font-family:inherit}
+  .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+  @media (min-width:768px){.wrap{padding:0 40px}}
 
-  /* ─── NAV CSS (partials script injects the markup) ─── */
+  /* ─── NAV (partials script injects the markup) ─── */
   .nav{position:sticky;top:0;left:0;right:0;z-index:200;background:rgba(14,19,32,.94);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
   .nav-logo img{height:34px;width:auto}
@@ -47,11 +49,11 @@
   @media (min-width:900px){.nav-links{display:flex}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px}}
   .nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px}
   @media (min-width:900px){.nav-mobile-cta{display:none}}
-  .btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:14px 26px;border-radius:var(--r-button);transition:transform .15s,box-shadow .15s,background .15s;white-space:nowrap}
+  .btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:14px 26px;border-radius:12px;transition:transform .15s,box-shadow .15s,background .15s;white-space:nowrap}
   .btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 0 var(--green-deep)}
   .btn-primary:active{transform:translateY(0);box-shadow:0 1px 0 var(--green-deep)}
 
-  /* ─── FOOTER CSS (partials script injects the markup) ─── */
+  /* ─── FOOTER (partials script injects the markup) ─── */
   footer{background:var(--ink-2);color:var(--stone-light);padding:64px 0 32px;border-top:1px solid var(--border-dark)}
   .foot-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px}
   @media (min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:56px}}
@@ -66,86 +68,142 @@
   .foot-social a:hover{background:rgba(0,200,83,.15)}
   .foot-social svg{width:16px;height:16px;color:var(--stone-light)}
 
-  /* ─── PAGE HEAD ─── */
-  .page-head{background:var(--ink);padding:96px 0 48px;position:relative;overflow:hidden}
-  .page-head::before{content:'';position:absolute;top:-40%;right:-15%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,.10) 0%,rgba(0,200,83,0) 65%);pointer-events:none}
-  .page-head-inner{position:relative;z-index:1;text-align:center}
-  .eyebrow-dark{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
-  .eyebrow-dark::before{content:'';width:22px;height:1.5px;background:var(--green)}
-  .page-head h1{font-size:clamp(30px,5.4vw,52px);color:var(--white);letter-spacing:-.035em;margin-top:14px;line-height:1.02}
-  .page-head p{color:var(--stone-light);font-size:15.5px;line-height:1.55;margin-top:14px;max-width:52ch;margin-left:auto;margin-right:auto}
+  /* ─── HEAD BAND ─── */
+  .head{background:var(--ink);padding:48px 0 96px;position:relative;overflow:hidden}
+  .head::after{content:'';position:absolute;top:-170px;right:-130px;width:540px;height:540px;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,200,83,.13) 0%,rgba(0,200,83,0) 68%);pointer-events:none}
+  .head-in{position:relative;z-index:1;max-width:640px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
+  .eyebrow::before{content:'';width:20px;height:1.5px;background:var(--green)}
+  .head h1{color:var(--white);font-size:clamp(26px,4.6vw,38px);margin-top:12px;letter-spacing:-.03em;line-height:1.05}
+  .head p{color:var(--stone-light);font-size:15px;margin-top:10px;max-width:48ch;line-height:1.55}
 
-  /* ─── OFFER CARD ─── */
-  .offer-wrap{padding:0 0 80px}
-  .offer-card{background:var(--white);border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:0 24px 70px rgba(14,19,32,.08);max-width:620px;margin:-40px auto 0;position:relative;z-index:2}
+  /* ─── STAGE ─── */
+  .stage{padding-bottom:88px}
+  .slot{margin-top:-64px;position:relative;z-index:2}
+  .banner{display:none;margin-bottom:12px;padding:12px 15px;background:var(--amber-soft);border:1px solid var(--amber-edge);
+    border-radius:12px;font-size:12.5px;line-height:1.5;color:var(--amber)}
+  .banner.show{display:block}
+  .banner strong{font-weight:700}
 
-  .state{padding:56px 28px;text-align:center}
-  .state-icon{width:56px;height:56px;border-radius:50%;background:var(--mint-soft);color:var(--green-dark);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-  .state-icon.err{background:var(--danger-soft);color:var(--danger)}
-  .state h2{font-size:22px;margin-bottom:8px}
-  .state p{font-size:14.5px;color:var(--text-secondary);max-width:38ch;margin:0 auto}
-  .state .btn-primary{margin-top:24px}
-  .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
-  @keyframes spin{to{transform:rotate(360deg)}}
+  /* ─── CARD ─── */
+  .sheet{background:var(--white);border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;max-width:600px;margin:0 auto;
+    box-shadow:0 24px 60px rgba(14,19,32,.10)}
 
-  .item-head{display:flex;gap:14px;align-items:center;padding:18px 22px;background:var(--tint-soft);border-bottom:1px solid var(--tint-edge)}
-  .item-img{width:64px;height:64px;border-radius:12px;object-fit:cover;background:var(--border);flex-shrink:0}
-  .item-img.fallback{display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--stone)}
-  .item-info{min-width:0;flex:1}
-  .item-name{font-family:var(--font-h);font-weight:700;font-size:15px;line-height:1.3;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .item-meta{font-family:var(--font-m);font-size:11.5px;color:var(--text-muted);margin-top:4px}
-  .countdown{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:var(--r-pill);background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.22);color:var(--green-dark);font-size:11.5px;font-weight:700;letter-spacing:.02em;margin-top:6px}
-  .countdown.warn{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#B45309}
+  /* item strip */
+  .item{display:flex;gap:14px;align-items:center;padding:16px 20px;background:var(--tint-soft);border-bottom:1px solid var(--tint-edge)}
+  .item-thumb{position:relative;width:60px;height:60px;flex:0 0 60px;border-radius:12px;overflow:hidden;background:#E3E8E5}
+  .item-thumb .item-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .item-thumb .ph{display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--stone)}
+  .item-body{min-width:0;flex:1}
+  .item-name{font-family:var(--font-h);font-weight:700;font-size:15px;line-height:1.3;letter-spacing:-.01em;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .item-meta{font-family:var(--font-m);font-size:11px;color:var(--text-3);margin-top:3px;letter-spacing:.03em;text-transform:uppercase}
 
-  .body{padding:22px}
-  .body > * + *{margin-top:18px}
-  .lbl{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-dark)}
+  .cd{display:inline-flex;align-items:center;gap:6px;margin-top:7px;padding:4px 10px;border-radius:999px;
+    background:rgba(0,200,83,.09);border:1px solid rgba(0,200,83,.25);color:#00702F;font-size:11px;font-weight:700;
+    font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .cd.warn{background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.35);color:#B45309}
+  .cd.dead{background:var(--danger-soft);border-color:var(--danger-edge);color:#B91C1C}
+
+  /* body */
+  .pad{padding:20px}
+  .pad > * + *{margin-top:16px}
+  .lbl{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--green-dark)}
   .lbl::before{content:'';width:14px;height:1.5px;background:var(--green);border-radius:1px}
 
-  .offer-box{background:var(--ink);color:#fff;border-radius:16px;padding:18px;position:relative;overflow:hidden;margin-top:10px}
-  .offer-box::after{content:'';position:absolute;top:-50%;right:-40%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,.20) 0%,rgba(0,200,83,0) 70%);pointer-events:none}
-  .offer-buyer{font-size:12px;font-weight:600;color:var(--stone-light);position:relative;z-index:1}
-  .offer-buyer strong{color:#fff;font-weight:700}
-  .offer-price{font-family:var(--font-h);font-weight:800;font-size:clamp(28px,8vw,36px);letter-spacing:-.035em;color:#fff;margin-top:6px;display:flex;align-items:baseline;gap:2px;position:relative;z-index:1;font-variant-numeric:tabular-nums}
-  .offer-price .sym{color:var(--green);font-size:.58em;margin-right:2px}
-  .offer-asking{font-size:12px;color:var(--stone-light);margin-top:8px;position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
-  .offer-asking strong{color:#fff;font-family:var(--font-m);font-weight:500}
-  .offer-diff{display:inline-block;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.08);font-size:10.5px;font-weight:700;letter-spacing:.04em}
-  .offer-note{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;line-height:1.55;color:var(--stone-light);font-style:italic;position:relative;z-index:1}
-  .offer-note.empty{opacity:.5;font-style:normal}
+  /* offer block */
+  .offer{background:var(--ink);color:#fff;border-radius:16px;padding:18px;position:relative;overflow:hidden;margin-top:10px}
+  .offer::after{content:'';position:absolute;top:-60%;right:-30%;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,200,83,.22) 0%,rgba(0,200,83,0) 70%);pointer-events:none}
+  .offer > *{position:relative;z-index:1}
+  .offer-from{font-size:12.5px;color:var(--stone-light)}
+  .offer-from strong{color:#fff;font-weight:700}
+  .offer-amt{font-family:var(--font-h);font-weight:800;font-size:clamp(30px,8vw,38px);letter-spacing:-.035em;
+    line-height:1.05;margin-top:6px;display:flex;align-items:baseline;font-variant-numeric:tabular-nums}
+  .offer-amt .sym{color:var(--green);font-size:.55em;margin-right:3px;font-weight:800}
+  .offer-sub{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;font-size:12px;color:var(--stone-light)}
+  .offer-sub strong{color:#fff;font-family:var(--font-m);font-weight:500}
+  .chip{padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.1);font-size:10.5px;font-weight:700;letter-spacing:.03em}
+  .chip.up{background:rgba(0,200,83,.2);color:#7BE8A8}
+  .offer-note{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;
+    line-height:1.55;color:var(--stone-light);font-style:italic}
 
-  .actions{display:flex;flex-direction:column;gap:10px}
-  .btn-action{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border-radius:12px;font-weight:700;font-size:15px;letter-spacing:-.005em;transition:background .15s,box-shadow .15s,transform .1s,border-color .15s,color .15s;line-height:1;text-align:center}
-  .btn-action:disabled{opacity:.55;cursor:not-allowed;transform:none}
-  .btn-accept{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark)}
-  .btn-accept:hover:not(:disabled){background:var(--green-dark);box-shadow:0 4px 0 var(--green-deep)}
-  .btn-accept:active:not(:disabled){transform:translateY(1px);box-shadow:0 1px 0 var(--green-dark)}
-  .btn-counter{background:var(--white);color:var(--ink);border:1.5px solid var(--border)}
-  .btn-counter:hover:not(:disabled){border-color:var(--ink)}
-  .btn-decline{background:transparent;color:var(--danger);border:1.5px solid var(--danger-edge)}
-  .btn-decline:hover:not(:disabled){background:var(--danger-soft)}
+  /* buttons */
+  .btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:15px 18px;border-radius:12px;
+    font-weight:700;font-size:15px;line-height:1;letter-spacing:-.005em;
+    transition:background .15s,box-shadow .15s,border-color .15s,color .15s,transform .08s}
+  .btn svg{flex:0 0 auto}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn-green{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark)}
+  .btn-green:hover:not(:disabled){background:var(--green-dark);box-shadow:0 4px 0 var(--green-deep)}
+  .btn-green:active:not(:disabled){transform:translateY(1px);box-shadow:0 1px 0 var(--green-dark)}
+  .btn-line{background:#fff;color:var(--ink);border:1.5px solid var(--border)}
+  .btn-line:hover:not(:disabled){border-color:var(--ink)}
+  .btn-danger{background:#fff;color:var(--danger);border:1.5px solid var(--danger-edge)}
+  .btn-danger:hover:not(:disabled){background:var(--danger-soft)}
+  .btn-danger-solid{background:var(--danger);color:#fff;box-shadow:0 2px 0 #B91C1C}
+  .btn-danger-solid:hover:not(:disabled){background:#B91C1C}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover:not(:disabled){background:var(--ink-2)}
+  .btn-quiet{background:transparent;color:var(--text-2);border:1.5px solid var(--border)}
+  .btn-quiet:hover:not(:disabled){border-color:var(--ink);color:var(--ink)}
+  .stack{display:flex;flex-direction:column;gap:10px}
 
-  .counter-form{display:none;padding:18px;background:var(--tint-soft);border:1px solid var(--tint-edge);border-radius:14px;margin-top:4px}
-  .counter-form.open{display:block}
-  .counter-form .lbl{margin-bottom:10px}
-  .step-row{display:flex;align-items:stretch;gap:8px;margin-bottom:10px}
-  .step-btn{flex:0 0 auto;width:52px;border-radius:12px;background:var(--ink);color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;user-select:none;-webkit-user-select:none}
-  .step-btn:hover{background:var(--ink-2)}
-  .step-btn:active{transform:scale(.96)}
-  .counter-input{flex:1;min-width:0;height:52px;padding:0 16px;background:#fff;border:1.5px solid var(--border);border-radius:12px;font-family:var(--font-h);font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);outline:none;text-align:center;font-variant-numeric:tabular-nums}
-  .counter-input:focus{border-color:var(--ink)}
-  .counter-hint{font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.5}
-  .counter-actions{display:flex;gap:8px}
-  .counter-actions .btn-action{flex:1}
+  /* counter form */
+  .cf{display:none;padding:16px;background:var(--tint-soft);border:1px solid var(--tint-edge);border-radius:14px}
+  .cf.open{display:block}
+  .cf .lbl{margin-bottom:10px}
+  .step{display:flex;gap:8px;margin-bottom:10px}
+  .step-btn{flex:0 0 52px;border-radius:12px;background:var(--ink);color:#fff;font-size:20px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;line-height:1;user-select:none;-webkit-user-select:none}
+  .step-btn:hover:not(:disabled){background:var(--ink-2)}
+  .step-btn:active:not(:disabled){transform:scale(.96)}
+  .cf-input{flex:1;min-width:0;height:52px;padding:0 14px;background:#fff;border:1.5px solid var(--border);
+    border-radius:12px;font-family:var(--font-h);font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);
+    outline:none;text-align:center;font-variant-numeric:tabular-nums}
+  .cf-input:focus{border-color:var(--ink)}
+  .cf-hint{font-size:12px;color:var(--text-3);line-height:1.5;margin-bottom:12px}
+  .cf-row{display:flex;gap:8px}
+  .cf-row .btn{flex:1;padding:13px 16px;font-size:14.5px}
 
-  .err{background:var(--danger-soft);border:1px solid var(--danger-edge);color:#B91C1C;padding:11px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none}
+  /* confirm panel */
+  .confirm{display:none;padding:16px;border-radius:14px;background:var(--danger-soft);border:1px solid var(--danger-edge)}
+  .confirm.open{display:block;animation:pop .18s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .confirm h3{font-size:15px;margin-bottom:6px}
+  .confirm p{font-size:13.5px;color:var(--text-2);line-height:1.55;margin-bottom:14px}
+  .confirm .row{display:flex;gap:8px}
+  .confirm .row .btn{flex:1;padding:12px 14px;font-size:14px}
+
+  /* alt link */
+  .alt{text-align:center;padding-top:2px}
+  .linkbtn{font-size:13px;font-weight:600;color:var(--text-3);text-decoration:underline;
+    text-underline-offset:3px;text-decoration-color:var(--border);transition:color .15s}
+  .linkbtn:hover:not(:disabled){color:var(--ink);text-decoration-color:var(--ink)}
+
+  /* error */
+  .err{display:none;padding:12px 14px;border-radius:10px;background:var(--danger-soft);border:1px solid var(--danger-edge);
+    color:#B91C1C;font-size:13px;line-height:1.5}
   .err.show{display:block}
-  .card-foot{padding:14px 22px 18px;text-align:center;font-size:11.5px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--off);line-height:1.5}
-  .card-foot code{font-family:var(--font-m);font-size:11px;background:rgba(14,19,32,.05);padding:1px 5px;border-radius:4px}
-  .hidden{display:none !important}
-  .demo-banner{max-width:620px;margin:16px auto 0;padding:12px 16px;background:#FFF8E1;border:1px solid #FCD34D;border-radius:12px;font-size:12.5px;color:#78350F;line-height:1.5;display:none}
-  .demo-banner.show{display:block}
-  .demo-banner strong{color:#78350F}
+
+  /* card foot */
+  .foot{padding:14px 20px 16px;border-top:1px solid var(--border);background:var(--off);text-align:center;
+    font-size:11.5px;color:var(--text-3);line-height:1.55}
+  .foot code{font-family:var(--font-m);font-size:11px;background:rgba(14,19,32,.06);padding:1px 5px;border-radius:4px}
+
+  /* states */
+  .state{padding:52px 24px;text-align:center}
+  .state .ico{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    margin:0 auto 18px;background:var(--mint-soft);color:var(--green-dark)}
+  .state .ico.bad{background:var(--danger-soft);color:var(--danger)}
+  .state h2{font-size:21px}
+  .state p{font-size:14.5px;color:var(--text-2);max-width:42ch;margin:8px auto 0;line-height:1.6}
+  .state .btn{width:auto;display:inline-flex;margin-top:24px;padding:14px 26px}
+  .spin{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;
+    animation:spin .8s linear infinite;margin:0 auto 20px}
+  @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -154,29 +212,29 @@
 
 <div data-dps-nav></div>
 
-<section class="page-head">
-  <div class="wrap page-head-inner">
-    <span class="eyebrow-dark">Offer inbox</span>
+<header class="head">
+  <div class="wrap head-in">
+    <span class="eyebrow">Offer inbox</span>
     <h1>Someone wants your item.</h1>
-    <p>Review the offer below. Accept, decline, or counter with your own price. The buyer has 24 hours to reply once you respond.</p>
+    <p>Accept, counter, or decline. Once you respond, the buyer has 24 hours to make their move.</p>
   </div>
-</section>
+</header>
 
-<section class="offer-wrap">
+<main class="stage">
   <div class="wrap">
-    <div class="demo-banner" id="demoBanner">
-      <strong>Preview mode.</strong> This is sample data so you can see the page. Real offers load when opened from the seller email link.
-    </div>
+    <div class="slot">
+      <div class="banner" id="banner"><strong>Preview mode.</strong> This is sample data so you can see how the page looks. Real offers load when you open the link in your email.</div>
 
-    <div class="offer-card" id="card">
-      <div class="state">
-        <div class="spinner"></div>
-        <h2>Loading offer…</h2>
-        <p>Fetching the latest details from DPS.</p>
+      <div class="sheet" id="card">
+        <div class="state">
+          <div class="spin"></div>
+          <h2>Loading offer…</h2>
+          <p>Fetching the latest details from DPS.</p>
+        </div>
       </div>
     </div>
   </div>
-</section>
+</main>
 
 <div data-dps-footer></div>
 
@@ -191,293 +249,485 @@
   var params  = new URLSearchParams(location.search);
   var offerId = (params.get("id")    || "").trim();
   var token   = (params.get("token") || "").trim();
-  var DEMO    = params.has("demo") || !offerId || !token;
+  var DEMO    = params.has("demo");
 
-  var SAMPLE = {
-    offer: {
-      offerId: "OFF10042",
-      offeredPrice: 1150000,
-      counterPrice: "",
-      status: "Pending",
-      note: "Can pick up today in Ikoyi if we agree — I'll bring cash on the spot.",
-      buyerName: "Tunde A.",
-      expiresAt: (function(){
-        var d = new Date(Date.now() + 22*3600*1000 + 14*60*1000);
-        function p(n){return n<10?"0"+n:""+n;}
-        return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes())+":00";
-      })()
-    },
-    item: {
-      itemId: "DPS10001",
-      itemName: "iPhone 15 Pro Max 256GB Natural Titanium",
-      condition: "Like New",
-      askingPrice: 1250000,
-      location: "Island",
-      photo: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&q=80"
-    }
-  };
+  var card   = document.getElementById("card");
+  var banner = document.getElementById("banner");
 
-  var card = document.getElementById("card");
-  var current = null;
-  var submitting = false;
+  var S = { data: null, busy: false, timer: null };
 
+  /* ─────────── icons ─────────── */
+  function icon(name, size, sw){
+    size = size || 16; sw = sw || 2.4;
+    var open = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+               'stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round">';
+    var p = {
+      check: '<polyline points="20 6 9 17 4 12"/>',
+      x:     '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+      chat:  '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+      box:   '<path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/>',
+      clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+      alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
+    };
+    return open + (p[name] || p.check) + '</svg>';
+  }
+
+  /* ─────────── utils ─────────── */
   function esc(s){
     return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
       return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];
     });
   }
-  function naira(n){
-    var v = parseInt(String(n==null?"":n).replace(/[^0-9]/g,""),10) || 0;
-    return v.toLocaleString("en-NG");
-  }
-  function priceNum(v){ return parseInt(String(v==null?"":v).replace(/[^0-9]/g,""),10) || 0; }
+  function num(v){ return parseInt(String(v == null ? "" : v).replace(/[^0-9]/g, ""), 10) || 0; }
+  function naira(v){ return num(v).toLocaleString("en-NG"); }
 
-  function stateError(title, msg){
-    card.innerHTML =
-      '<div class="state">'
-      + '<div class="state-icon err"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>'
-      + '<h2>' + esc(title) + '</h2>'
-      + '<p>' + esc(msg) + '</p>'
-      + '<a href="' + SITE + '/items" class="btn-primary">Back to marketplace</a>'
-      + '</div>';
+  function parseTime(v){
+    if (!v) return NaN;
+    var s = String(v).trim();
+    if (/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(:\d{2})?$/.test(s)) {
+      var iso = s.replace(" ", "T");
+      if (iso.length === 16) iso += ":00";
+      return new Date(iso + "+01:00").getTime();   // sheet times are Africa/Lagos
+    }
+    return new Date(s).getTime();
   }
 
-  function stateDone(kind, title, msg, extraNote){
-    var icon =
-      kind === "accept"
-        ? '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-        : kind === "counter"
-        ? '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>'
-        : '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-    card.innerHTML =
-      '<div class="state">'
-      + '<div class="state-icon">' + icon + '</div>'
-      + '<h2>' + esc(title) + '</h2>'
-      + '<p>' + esc(msg) + '</p>'
-      + (extraNote ? '<p style="margin-top:14px;font-size:12.5px;color:#8A928C">' + esc(extraNote) + '</p>' : '')
-      + '<a href="' + SITE + '/items" class="btn-primary">Back to marketplace</a>'
-      + '</div>';
-  }
-
-  function countdownText(expiresAt){
-    if (!expiresAt) return null;
-    var ms = new Date(String(expiresAt).replace(" ","T")).getTime() - Date.now();
-    if (isNaN(ms) || ms <= 0) return { text:"Expired", warn:true, ms:0 };
+  function countdown(expiresAt){
+    var ms = parseTime(expiresAt) - Date.now();
+    if (isNaN(ms)) return null;
+    if (ms <= 0) return { text: "Expired", tone: "dead", ms: 0 };
     var h = Math.floor(ms / 3600000);
     var m = Math.floor((ms % 3600000) / 60000);
-    var text = h > 0 ? (h + "h " + m + "m left") : (m + "m left");
-    return { text: text, warn: h < 4, ms: ms };
+    var text = h >= 24 ? (Math.floor(h / 24) + "d " + (h % 24) + "h left")
+             : h > 0    ? (h + "h " + m + "m left")
+             :            (m + "m left");
+    return { text: text, tone: h < 4 ? "warn" : "", ms: ms };
   }
 
+  /* ─────────── states ─────────── */
+  function stateBox(html){ card.innerHTML = '<div class="state">' + html + '</div>'; }
+
+  function showLoading(){
+    stateBox('<div class="spin"></div><h2>Loading offer…</h2><p>Fetching the latest details from DPS.</p>');
+  }
+
+  function showError(title, msg){
+    stateBox(
+      '<div class="ico bad">' + icon("alert", 26, 2.4) + '</div>' +
+      '<h2>' + esc(title) + '</h2>' +
+      '<p>' + esc(msg) + '</p>' +
+      '<a class="btn btn-green" href="' + SITE + '/items">Browse the marketplace</a>'
+    );
+  }
+
+  function showDone(kind, title, msg, sub){
+    var ico = { accept: "check", counter: "chat", decline: "x", unavailable: "box" }[kind] || "check";
+    stateBox(
+      '<div class="ico">' + icon(ico, 26, 2.4) + '</div>' +
+      '<h2>' + esc(title) + '</h2>' +
+      '<p>' + esc(msg) + '</p>' +
+      (sub ? '<p style="font-size:12.5px;color:var(--text-3);margin-top:12px">' + esc(sub) + '</p>' : '') +
+      '<a class="btn btn-green" href="' + SITE + '/items">Browse the marketplace</a>'
+    );
+  }
+
+  /* ─────────── demo payload ─────────── */
+  var SAMPLE = {
+    offer: {
+      offerId: "OFF10900",
+      offeredPrice: 1150000,
+      counterPrice: "",
+      status: "Pending",
+      expired: false,
+      note: "Can pick up today in Ikoyi if we agree — I'll bring cash on the spot.",
+      buyerName: "Tunde A.",
+      expiresAt: (function(){
+        var d = new Date(Date.now() + 22 * 3600 * 1000 + 14 * 60 * 1000);
+        function p(n){ return n < 10 ? "0" + n : "" + n; }
+        return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " " +
+               p(d.getHours()) + ":" + p(d.getMinutes()) + ":00";
+      })()
+    },
+    item: {
+      itemId: "DPS10091",
+      itemName: "MacBook Air M2 13-inch 256GB",
+      condition: "Like New",
+      askingPrice: 1250000,
+      location: "Lekki, Island",
+      status: "Active",
+      photo: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80"
+    }
+  };
+
+  /* ─────────── render ─────────── */
   function renderOffer(data){
-    current = data;
-    var o  = data.offer || {};
-    var it = data.item  || {};
-    var asking  = priceNum(it.askingPrice);
-    var offered = priceNum(o.offeredPrice);
-    var diff = (asking > 0 && offered > 0) ? Math.round((offered - asking) / asking * 100) : 0;
+    S.data = data;
 
-    var photoHTML = it.photo
-      ? '<img class="item-img" src="' + esc(it.photo) + '" alt="" onerror="this.classList.add(\'hidden\');this.nextElementSibling.classList.remove(\'hidden\')"><div class="item-img fallback hidden">📦</div>'
-      : '<div class="item-img fallback">📦</div>';
+    var o = data.offer || {};
+    var it = data.item || {};
 
-    var cd = countdownText(o.expiresAt);
-    var cdHTML = cd ? '<div class="countdown' + (cd.warn ? ' warn' : '') + '">⏱ ' + esc(cd.text) + '</div>' : '';
-    var diffChip = diff !== 0 ? '<span class="offer-diff">' + (diff > 0 ? "+" : "") + diff + '%</span>' : '';
-    var noteHTML = o.note
-      ? '<div class="offer-note">"' + esc(o.note) + '"</div>'
-      : '<div class="offer-note empty">No note from the buyer.</div>';
+    var asked   = num(it.askingPrice);
+    var offered = num(o.offeredPrice);
+    var diff    = (asked > 0 && offered > 0) ? Math.round((offered - asked) / asked * 100) : 0;
+
+    var cd = countdown(o.expiresAt);
+    var canAct = String(o.status || "").trim() === "Pending" && !o.expired;
+
+    var metaBits = [];
+    if (it.itemId)    metaBits.push(it.itemId);
+    if (it.condition) metaBits.push(it.condition);
+    if (it.location)  metaBits.push(it.location);
+
+    var thumb = '<div class="item-thumb">' +
+      '<div class="ph">📦</div>' +
+      (it.photo ? '<img class="item-img" src="' + esc(it.photo) + '" alt="" onerror="this.remove()">' : '') +
+    '</div>';
 
     card.innerHTML =
-      '<div class="item-head">'
-      +   photoHTML
-      +   '<div class="item-info">'
-      +     '<div class="item-name">' + esc(it.itemName || "Item") + '</div>'
-      +     '<div class="item-meta">' + esc(it.itemId || "") + ' · ' + esc(it.condition || "") + '</div>'
-      +     cdHTML
-      +   '</div>'
-      + '</div>'
+      '<div class="item">' +
+        thumb +
+        '<div class="item-body">' +
+          '<div class="item-name">' + esc(it.itemName || "Item") + '</div>' +
+          '<div class="item-meta">' + esc(metaBits.join(" · ")) + '</div>' +
+          (cd ? '<span class="cd ' + cd.tone + '" id="cd" data-exp="' + esc(o.expiresAt || "") + '">' +
+                icon("clock", 12, 2.6) + " " + esc(cd.text) + '</span>' : '') +
+        '</div>' +
+      '</div>' +
 
-      + '<div class="body">'
-      +   '<div>'
-      +     '<span class="lbl">Offer received</span>'
-      +     '<div class="offer-box">'
-      +       '<div class="offer-buyer">From <strong>' + esc(o.buyerName || "A buyer") + '</strong></div>'
-      +       '<div class="offer-price"><span class="sym">₦</span>' + naira(offered) + '</div>'
-      +       '<div class="offer-asking">Your asking: <strong>₦' + naira(asking) + '</strong>' + diffChip + '</div>'
-      +       noteHTML
-      +     '</div>'
-      +   '</div>'
-      +   '<div id="errBox" class="err"></div>'
-      +   '<div class="actions" id="actions">'
-      +     '<button class="btn-action btn-accept" id="btnAccept" type="button">'
-      +       '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-      +       'Accept ₦' + naira(offered)
-      +     '</button>'
-      +     '<button class="btn-action btn-counter" id="btnCounter" type="button">'
-      +       '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>'
-      +       'Counter with a different price'
-      +     '</button>'
-      +     '<button class="btn-action btn-decline" id="btnDecline" type="button">Decline offer</button>'
-      +   '</div>'
-      +   '<div class="counter-form" id="counterForm">'
-      +     '<span class="lbl">Your counter price</span>'
-      +     '<div class="step-row">'
-      +       '<button class="step-btn" id="cMinus" type="button" aria-label="Decrease by ₦1,000">−</button>'
-      +       '<input class="counter-input" id="counterInput" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Counter price in naira">'
-      +       '<button class="step-btn" id="cPlus" type="button" aria-label="Increase by ₦1,000">+</button>'
-      +     '</div>'
-      +     '<div class="counter-hint">± moves by ₦1,000. Pick a number between the buyer\'s offer and your asking price.</div>'
-      +     '<div class="counter-actions">'
-      +       '<button class="btn-action btn-counter" id="cCancel" type="button">Cancel</button>'
-      +       '<button class="btn-action btn-accept" id="cSubmit" type="button">Send counter</button>'
-      +     '</div>'
-      +   '</div>'
-      + '</div>'
+      '<div class="pad">' +
+        '<div>' +
+          '<span class="lbl">Offer received</span>' +
+          '<div class="offer">' +
+            '<div class="offer-from">From <strong>' + esc(o.buyerName || "a buyer") + '</strong></div>' +
+            '<div class="offer-amt"><span class="sym">₦</span>' + naira(offered) + '</div>' +
+            '<div class="offer-sub">Your asking price <strong>₦' + naira(asked) + '</strong>' +
+              (diff !== 0 ? '<span class="chip' + (diff > 0 ? ' up' : '') + '">' + (diff > 0 ? "+" : "") + diff + '%</span>' : '') +
+            '</div>' +
+            (o.note ? '<div class="offer-note">“' + esc(o.note) + '”</div>' : '') +
+          '</div>' +
+        '</div>' +
 
-      + '<div class="card-foot">Offer <code>' + esc(o.offerId || offerId) + '</code> · Only you can see this page — the buyer only sees the outcome.</div>';
+        '<div class="err" id="err"></div>' +
 
-    wireUp(o, it, asking, offered);
+        (canAct ? actionsHTML(offered) : '') +
+
+        '<div class="confirm" id="confirm"></div>' +
+      '</div>' +
+
+      '<div class="foot">Offer <code>' + esc(o.offerId || offerId) + '</code> · Only you can see this page. The buyer only sees the outcome.</div>';
+
+    if (canAct) wire(offered, asked);
+    startTicker();
   }
 
-  function wireUp(o, it, asking, offered){
-    var cf = document.getElementById("counterForm");
-    var ci = document.getElementById("counterInput");
+  function actionsHTML(offered){
+    return '' +
+      '<div class="stack" id="actions">' +
+        '<button class="btn btn-green" id="bAccept" type="button">' +
+          icon("check", 16, 2.8) + 'Accept ₦' + naira(offered) +
+        '</button>' +
+        '<button class="btn btn-line" id="bCounter" type="button">' +
+          icon("chat", 16, 2.2) + 'Counter with a different price' +
+        '</button>' +
+        '<button class="btn btn-danger" id="bDecline" type="button">' +
+          icon("x", 16, 2.4) + 'Decline this offer' +
+        '</button>' +
+      '</div>' +
 
+      '<div class="cf" id="cf">' +
+        '<span class="lbl">Your counter price</span>' +
+        '<div class="step">' +
+          '<button class="step-btn" id="cMinus" type="button" aria-label="Decrease by 1,000 naira">−</button>' +
+          '<input class="cf-input" id="cInput" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Counter price in naira">' +
+          '<button class="step-btn" id="cPlus" type="button" aria-label="Increase by 1,000 naira">+</button>' +
+        '</div>' +
+        '<div class="cf-hint">Use ± to move in ₦1,000 steps. Pick a number between the buyer’s offer and your asking price.</div>' +
+        '<div class="cf-row">' +
+          '<button class="btn btn-quiet" id="cCancel" type="button">Cancel</button>' +
+          '<button class="btn btn-green" id="cSend" type="button">Send counter</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="alt">' +
+        '<button class="linkbtn" id="bUnavail" type="button">Item is no longer available</button>' +
+      '</div>';
+  }
+
+  /* ─────────── wiring ─────────── */
+  function wire(offered, asked){
+    var cf = document.getElementById("cf");
+    var ci = document.getElementById("cInput");
+
+    function getCounter(){ return num(ci.value); }
     function setCounter(v){
-      if (isNaN(v) || v < 0) v = 0;
-      ci.value = v ? Number(v).toLocaleString("en-NG") : "";
-      hideErr();
+      v = num(v);
+      if (v < 0) v = 0;
+      ci.value = v ? v.toLocaleString("en-NG") : "";
+      clearErr();
     }
-    function getCounter(){ return priceNum(ci.value); }
     function defaultCounter(){
-      var mid = Math.round(((offered + asking) / 2) / STEP) * STEP;
+      var mid = Math.round(((offered + asked) / 2) / STEP) * STEP;
       if (mid <= offered) mid = offered + STEP;
-      if (asking && mid >= asking) mid = asking - STEP;
+      if (asked && mid >= asked) mid = asked - STEP;
       return mid > 0 ? mid : offered + STEP;
     }
 
-    document.getElementById("btnAccept").addEventListener("click", function(){ respond("accept"); });
-    document.getElementById("btnDecline").addEventListener("click", function(){ respond("decline"); });
+    document.getElementById("bAccept").onclick = function(){ respond("accept"); };
 
-    document.getElementById("btnCounter").addEventListener("click", function(){
+    document.getElementById("bDecline").onclick = function(){
+      var buyer = (S.data.offer && S.data.offer.buyerName) || "the buyer";
+      ask({
+        title: "Decline this offer?",
+        text: "We’ll let " + buyer + " know. Your item stays live and other buyers can still make offers.",
+        cta: "Yes, decline",
+        tone: "danger",
+        onYes: function(){ respond("decline"); }
+      });
+    };
+
+    document.getElementById("bUnavail").onclick = function(){
+      ask({
+        title: "Mark this item as unavailable?",
+        text: "Your listing comes off the marketplace and every open offer on it gets closed. Buyers are told the item is no longer available. You can relist it later.",
+        cta: "Yes, mark unavailable",
+        tone: "danger",
+        onYes: function(){ respond("unavailable"); }
+      });
+    };
+
+    document.getElementById("bCounter").onclick = function(){
       cf.classList.add("open");
       if (!getCounter()) setCounter(defaultCounter());
       ci.focus();
-    });
-    document.getElementById("cCancel").addEventListener("click", function(){ cf.classList.remove("open"); hideErr(); });
-    document.getElementById("cPlus").addEventListener("click", function(){ setCounter(getCounter() + STEP); });
-    document.getElementById("cMinus").addEventListener("click", function(){ setCounter(Math.max(0, getCounter() - STEP)); });
+      ci.select();
+    };
+
+    document.getElementById("cCancel").onclick = function(){ cf.classList.remove("open"); clearErr(); };
+    document.getElementById("cPlus").onclick   = function(){ setCounter(getCounter() + STEP); };
+    document.getElementById("cMinus").onclick  = function(){ setCounter(Math.max(0, getCounter() - STEP)); };
+
     ci.addEventListener("input", function(e){
-      var raw = e.target.value.replace(/[^0-9]/g,"");
+      var raw = e.target.value.replace(/[^0-9]/g, "");
       e.target.value = raw ? Number(raw).toLocaleString("en-NG") : "";
-      hideErr();
+      clearErr();
     });
-    document.getElementById("cSubmit").addEventListener("click", function(){
+
+    document.getElementById("cSend").onclick = function(){
       var v = getCounter();
-      if (!v || v <= 0) { showErr("Enter a counter price."); ci.focus(); return; }
-      if (asking && v > asking) { showErr("Counter can't be higher than your asking price (₦" + naira(asking) + ")."); return; }
-      if (v <= offered) { showErr("Counter must be higher than the buyer's offer (₦" + naira(offered) + ")."); return; }
+      if (!v) { showErr("Enter a counter price."); ci.focus(); return; }
+      if (v <= offered) {
+        showErr("Your counter has to be more than the buyer’s ₦" + naira(offered) + " offer.");
+        return;
+      }
+      if (asked && v > asked) {
+        showErr("Your counter can’t be higher than your ₦" + naira(asked) + " asking price.");
+        return;
+      }
       respond("counter", v);
+    };
+  }
+
+  /* ─────────── confirm panel ─────────── */
+  function ask(opts){
+    var box = document.getElementById("confirm");
+    if (!box) return;
+    box.innerHTML =
+      '<h3>' + esc(opts.title) + '</h3>' +
+      '<p>' + esc(opts.text) + '</p>' +
+      '<div class="row">' +
+        '<button class="btn btn-quiet" type="button" id="cfNo">Go back</button>' +
+        '<button class="btn ' + (opts.tone === "danger" ? "btn-danger-solid" : "btn-dark") + '" type="button" id="cfYes">' +
+          esc(opts.cta) + '</button>' +
+      '</div>';
+    box.classList.add("open");
+    document.getElementById("cfNo").onclick  = function(){ box.classList.remove("open"); };
+    document.getElementById("cfYes").onclick = function(){ box.classList.remove("open"); opts.onYes(); };
+    if (box.scrollIntoView) box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  /* ─────────── errors ─────────── */
+  function showErr(msg){
+    var b = document.getElementById("err");
+    if (!b) return;
+    b.textContent = msg;
+    b.classList.add("show");
+  }
+  function clearErr(){
+    var b = document.getElementById("err");
+    if (b) b.classList.remove("show");
+  }
+
+  /* ─────────── submit ─────────── */
+  function setBusy(on){
+    Array.prototype.forEach.call(card.querySelectorAll(".btn, .step-btn, .linkbtn"), function(b){
+      b.disabled = !!on;
     });
   }
 
-  function showErr(msg){ var b = document.getElementById("errBox"); if(!b) return; b.textContent = msg; b.classList.add("show"); }
-  function hideErr(){ var b = document.getElementById("errBox"); if(b) b.classList.remove("show"); }
-
   function respond(kind, counterPrice){
-    if (submitting || !current) return;
-    submitting = true;
+    if (S.busy || !S.data) return;
+    S.busy = true;
+    clearErr();
 
-    var labels = { accept:"Accepting…", decline:"Declining…", counter:"Sending counter…" };
-    var ids    = { accept:"btnAccept", decline:"btnDecline", counter:"cSubmit" };
-    var btn    = document.getElementById(ids[kind]);
-    var original = btn.textContent;
+    var labels = { accept: "Accepting…", decline: "Declining…", counter: "Sending…", unavailable: "Updating…" };
+    var ids    = { accept: "bAccept", decline: "bDecline", counter: "cSend", unavailable: "bUnavail" };
 
-    Array.prototype.forEach.call(
-      document.querySelectorAll(".actions .btn-action, .counter-actions .btn-action"),
-      function(b){ b.disabled = true; }
-    );
-    btn.textContent = labels[kind];
+    var btn = document.getElementById(ids[kind]);
+    var originalHTML = btn ? btn.innerHTML : "";
+    if (btn) btn.innerHTML = labels[kind];
+    setBusy(true);
 
-    function finish(){
+    var o = S.data.offer || {};
+    var buyer = o.buyerName || "the buyer";
+    var ref = o.offerId || offerId;
+
+    function done(){
+      S.busy = false;
       if (kind === "accept") {
-        stateDone("accept", "Offer accepted",
-          "The buyer has been notified by email and will proceed to payment. You'll get another email the moment the item sells.",
-          "Buyer: " + (current.offer.buyerName || ""));
+        showDone("accept", "Offer accepted",
+          "We’ve emailed " + buyer + " to confirm. They’ll complete payment next — you’ll get another email the moment your item sells.",
+          "Offer " + ref);
       } else if (kind === "counter") {
-        stateDone("counter", "Counter sent",
-          "You countered with ₦" + naira(counterPrice) + ". The buyer has 24 hours to accept, decline, or counter back.",
-          "We emailed " + (current.offer.buyerName || "the buyer") + ".");
+        showDone("counter", "Counter sent",
+          "You countered at ₦" + naira(counterPrice) + ". " + buyer + " has 24 hours to accept, decline, or counter back.",
+          "Offer " + ref);
+      } else if (kind === "decline") {
+        showDone("decline", "Offer declined",
+          "We’ve let " + buyer + " know. Your item stays live for other buyers.",
+          "Offer " + ref);
       } else {
-        stateDone("decline", "Offer declined",
-          "The buyer has been notified. Your item stays live and visible to other buyers.", "");
+        showDone("unavailable", "Item marked unavailable",
+          "Your listing is off the marketplace and any open offers on it have been closed. You can relist it whenever you’re ready.",
+          "Offer " + ref);
       }
     }
 
-    if (DEMO) { setTimeout(finish, 700); return; }
+    function fail(msg){
+      S.busy = false;
+      setBusy(false);
+      if (btn) btn.innerHTML = originalHTML;
+      showErr(msg);
+    }
 
-    var payload = {
-      action: "respondToOffer",
-      offerId: current.offer.offerId || offerId,
-      token: token,
-      response: kind,
-      counterPrice: kind === "counter" ? counterPrice : 0,
-      respondedBy: "seller"
-    };
+    if (DEMO) { setTimeout(done, 650); return; }
 
-    fetch(GAS, { method:"POST", body: JSON.stringify(payload) })
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        if (data && data.success) { finish(); return; }
-        submitting = false;
-        Array.prototype.forEach.call(
-          document.querySelectorAll(".actions .btn-action, .counter-actions .btn-action"),
-          function(b){ b.disabled = false; }
-        );
-        btn.textContent = original;
-        showErr((data && data.error) ? data.error : "Something went wrong. Please try again.");
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action:       "respondToOffer",
+        offerId:      ref,
+        token:        token,
+        response:     kind,
+        counterPrice: kind === "counter" ? counterPrice : 0,
+        respondedBy:  "seller"
       })
-      .catch(function(){
-        submitting = false;
-        Array.prototype.forEach.call(
-          document.querySelectorAll(".actions .btn-action, .counter-actions .btn-action"),
-          function(b){ b.disabled = false; }
-        );
-        btn.textContent = original;
-        showErr("Connection error. Please try again.");
-      });
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (res && res.success) { done(); return; }
+      fail((res && res.error) ? res.error : "Something went wrong. Please try again.");
+    })
+    .catch(function(){
+      fail("We couldn’t reach the server. Check your connection and try again.");
+    });
   }
 
-  // ── BOOT ──
+  /* ─────────── countdown ticker ─────────── */
+  function startTicker(){
+    if (S.timer) { clearInterval(S.timer); S.timer = null; }
+    var el = document.getElementById("cd");
+    if (!el) return;
+
+    S.timer = setInterval(function(){
+      var c = countdown(el.getAttribute("data-exp"));
+      if (!c) return;
+      el.className = "cd " + c.tone;
+      el.innerHTML = icon("clock", 12, 2.6) + " " + esc(c.text);
+
+      if (c.ms <= 0) {
+        clearInterval(S.timer);
+        S.timer = null;
+        var acts = document.getElementById("actions");
+        if (acts) acts.outerHTML = '<div class="err show">This offer just expired. Refresh the page for the latest status.</div>';
+        var cf = document.getElementById("cf"); if (cf) cf.remove();
+        var alt = document.querySelector(".alt"); if (alt) alt.remove();
+      }
+    }, 30000);
+  }
+
+  /* ─────────── boot ─────────── */
   if (DEMO) {
-    document.getElementById("demoBanner").classList.add("show");
+    if (banner) banner.classList.add("show");
+    showLoading();
     setTimeout(function(){ renderOffer(SAMPLE); }, 350);
     return;
   }
-  if (!GAS) { stateError("Configuration error", "The DPS server URL is not set. Contact info@declutterpawnshop.com."); return; }
+
+  if (!offerId || !token) {
+    showError("This link is incomplete",
+      "Open the button inside your offer email, or head to your DPS dashboard to see your offers.");
+    return;
+  }
+
+  if (!GAS) {
+    showError("Configuration error",
+      "The DPS server URL isn’t set. Email info@declutterpawnshop.com and we’ll sort it out.");
+    return;
+  }
+
+  showLoading();
 
   fetch(GAS + "?action=getOfferDetails&id=" + encodeURIComponent(offerId) + "&token=" + encodeURIComponent(token))
     .then(function(r){ return r.json(); })
     .then(function(data){
       if (!data || !data.success) {
-        stateError("Offer not found", (data && data.error) ? data.error : "This offer may have expired or been withdrawn.");
+        showError("Offer not found",
+          (data && data.error) ? data.error : "This offer may have expired or been withdrawn.");
         return;
       }
-      var status = String((data.offer && data.offer.status) || "").toLowerCase();
-      if (status === "expired")   { stateError("Offer expired",  "The 24-hour window closed before you responded. The buyer was notified."); return; }
-      if (status === "withdrawn") { stateError("Offer withdrawn","The buyer pulled this offer before you responded."); return; }
-      if (status === "accepted" || status === "declined" || status === "countered") {
-        var f = status.charAt(0).toUpperCase() + status.slice(1);
-        stateDone(status === "accepted" ? "accept" : status === "countered" ? "counter" : "decline",
-          "Already " + f.toLowerCase(),
-          "You already responded to this offer (" + f.toLowerCase() + "). Nothing else to do here.",
-          "Buyer: " + ((data.offer && data.offer.buyerName) || ""));
+
+      var offer = data.offer || {};
+      var item  = data.item  || {};
+      var st    = String(offer.status || "").trim().toLowerCase();
+      var buyer = offer.buyerName || "the buyer";
+
+      if (st === "expired") {
+        showError("This offer expired", "The 24-hour window closed before you responded. " + buyer + " was notified.");
         return;
       }
+      if (st === "withdrawn") {
+        showError("Offer withdrawn", "This offer was pulled before you responded.");
+        return;
+      }
+      if (st === "accepted" || st === "declined" || st === "countered" || st === "completed") {
+        var nice = {
+          accepted:  ["accept",  "Offer accepted"],
+          declined:  ["decline", "Offer declined"],
+          countered: ["counter", "Counter sent"],
+          completed: ["accept",  "Offer completed"]
+        }[st];
+        showDone(nice[0], nice[1],
+          "You already responded to this offer. Nothing else to do here.",
+          "Buyer: " + buyer);
+        return;
+      }
+      if (offer.expired) {
+        showError("This offer expired", "The response window closed. " + buyer + " was notified.");
+        return;
+      }
+
+      var itemStatus = String(item.status || "").trim().toLowerCase();
+      if (itemStatus && itemStatus !== "active") {
+        showError("Item is no longer listed",
+          "This item isn’t live on the marketplace anymore, so this offer can’t be actioned.");
+        return;
+      }
+
       renderOffer(data);
     })
-    .catch(function(){ stateError("Couldn't load offer", "Please check your internet connection and refresh the page."); });
+    .catch(function(){
+      showError("Couldn’t load this offer", "Check your internet connection and refresh the page.");
+    });
 })();
 </script>
 </body>
