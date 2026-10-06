@@ -2,346 +2,502 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Claim Payout — DPS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claim payout | Declutter Pawn Shop</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="/images/dps-logo.png">
+<meta name="theme-color" content="#0E1320">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="/js/dps-config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+:root {
+  --green: #00C853; --green-dark: #00A843; --green-deep: #009933;
+  --ink: #0E1320; --ink-2: #161C2B; --ink-3: #1E2536;
+  --off-white: #F5F7F8; --white: #FFFFFF;
+  --stone: #A7B0AA; --stone-light: #C6CFC9; --stone-dark: #5B635D;
+  --mint-soft: #E9F5EE;
+  --border: #E1E5E4; --border-ink: #D6DCE0; --border-dark: #242C3E;
+  --danger: #DC2626; --danger-soft: #FEF2F2; --danger-edge: #FECACA;
+  --amber: #B45309; --amber-soft: #FFFBEB; --amber-edge: #FDE68A;
+  --text-secondary: #4F5860; --text-muted: #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --r-card: 16px; --r-button: 12px; --r-pill: 999px;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --green:#00C853;--green2:#00A843;
-  --green-bg:rgba(0,200,83,0.07);--green-border:rgba(0,200,83,0.18);
-  --dark:#0D0D0D;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
-  --grey:#777;--muted:#555;--white:#F9F8F5;
-  --red:#EF5350;--amber:#FFB300;
-}
-html{scroll-behavior:smooth}
-body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--off-white);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:var(--font-heading);font-weight:800;letter-spacing:-0.025em;line-height:1.05;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input{font-family:inherit}
+img{display:block;max-width:100%;height:auto}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 20px}
+@media (min-width:768px){.wrap{padding:0 40px}}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,13,13,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);height:56px;padding:0 20px;display:flex;align-items:center;}
-.nav-logo img{height:26px;object-fit:contain;}
+/* ─── Nav CSS (shared partials inject the markup) ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(14,19,32,.92);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.nav-logo img{height:34px;width:auto}
+.nav-links{display:none;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--stone-light);transition:color .15s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a.active{color:var(--white)}
+.nav-cta{display:none}
+@media (min-width:900px){.nav-links{display:flex}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px}}
+.nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px}
+@media (min-width:900px){.nav-mobile-cta{display:none}}
 
-/* CARD */
-.card{width:100%;max-width:420px;background:var(--dark2);border:1px solid var(--dark4);border-radius:14px;overflow:hidden;margin-top:56px;}
-.card-stripe{height:2px;background:linear-gradient(90deg,var(--green),var(--green2));}
-.card-body{padding:32px 28px;}
+/* ─── Footer CSS (shared partials inject the markup) ─── */
+footer{background:var(--ink-2);color:var(--stone-light);padding:56px 0 28px;border-top:1px solid var(--border-dark)}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:40px}
+@media (min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}}
+.foot-brand img{height:34px;width:auto;margin-bottom:14px;opacity:.95}
+.foot-brand p{font-size:13.5px;line-height:1.6;max-width:34ch;color:var(--stone-light)}
+.foot-col h4{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+.foot-col a{display:block;font-size:13.5px;color:var(--stone-light);padding:5px 0;transition:color .15s}
+.foot-col a:hover{color:var(--green)}
+.foot-bottom{padding-top:28px;border-top:1px solid var(--border-dark);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted)}
+.foot-social{display:flex;gap:10px}
+.foot-social a{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);transition:background .15s}
+.foot-social a:hover{background:rgba(0,200,83,.15)}
+.foot-social svg{width:15px;height:15px;color:var(--stone-light)}
 
-/* HEADER */
-.card-eyebrow{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
-.card-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.5px;color:var(--white);line-height:1;margin-bottom:6px;}
-.card-sub{font-size:12px;color:var(--grey);line-height:1.5;margin-bottom:24px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:700;font-size:15px;padding:13px 24px;border-radius:var(--r-button);transition:transform .15s,box-shadow .15s,background .15s,color .15s,border-color .15s;cursor:pointer;white-space:nowrap;letter-spacing:-.005em}
+.btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark)}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 0 var(--green-deep)}
+.btn-primary:active{transform:translateY(0);box-shadow:0 1px 0 var(--green-deep)}
+.btn-primary:disabled{opacity:.55;cursor:not-allowed;transform:none;background:var(--green);box-shadow:0 2px 0 var(--green-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--ink)}
 
-/* DETAILS ROW */
-.detail-block{background:var(--dark);border:1px solid var(--dark5);border-radius:8px;padding:14px 16px;margin-bottom:20px;}
-.detail-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;}
-.detail-row:not(:last-child){border-bottom:1px solid var(--dark4);}
-.detail-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
-.detail-value{font-size:13px;font-weight:600;color:var(--white);text-align:right;}
-.detail-value.mono{font-family:'DM Mono',monospace;font-size:12px;color:var(--grey);}
-.detail-value.amount{font-family:'DM Mono',monospace;font-size:18px;color:var(--green);}
+/* ─── HERO band ─── */
+.head{background:var(--ink);padding:104px 0 96px;position:relative;overflow:hidden}
+.head::before{content:'';position:absolute;top:-40%;right:-15%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,.13) 0%,rgba(0,200,83,0) 65%);pointer-events:none}
+.head-in{position:relative;z-index:1;max-width:640px;margin:0 auto;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);padding:6px 14px 6px 6px;background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.28);border-radius:var(--r-pill)}
+.eyebrow-dot{width:22px;height:22px;border-radius:50%;background:rgba(0,200,83,.16);display:flex;align-items:center;justify-content:center;color:var(--green)}
+.eyebrow-dot svg{width:12px;height:12px}
+.head h1{color:var(--white);font-size:clamp(28px,5vw,42px);letter-spacing:-.035em;margin-top:16px;line-height:1.04}
+.head h1 .accent{color:var(--green)}
+.head p{color:var(--stone-light);font-size:15px;margin-top:10px;line-height:1.55;max-width:46ch;margin-left:auto;margin-right:auto}
 
-/* PIN INPUT */
-.pin-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:12px;}
-.pin-row{display:flex;gap:10px;justify-content:center;margin-bottom:8px;}
-.pin-box{
-  width:64px;height:72px;
-  background:var(--dark);
-  border:2px solid var(--dark5);
-  border-radius:10px;
-  font-family:'DM Mono',monospace;
-  font-size:32px;font-weight:700;
-  color:var(--white);
-  text-align:center;
-  outline:none;
-  transition:border-color .2s,box-shadow .2s;
-  caret-color:var(--green);
-  -webkit-appearance:none;
-}
-.pin-box:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,200,83,0.15);}
-.pin-box.filled{border-color:var(--dark4);color:var(--green);}
-.pin-box.error{border-color:var(--red);animation:shake .3s ease;}
+/* ─── Stage + card ─── */
+.stage{padding-bottom:80px}
+.slot{margin-top:-64px;position:relative;z-index:2}
+.card{background:var(--white);border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;max-width:480px;margin:0 auto;box-shadow:0 24px 60px rgba(14,19,32,.10)}
+.card-body{padding:28px}
+
+/* Details block */
+.details{background:var(--ink);border-radius:14px;padding:16px 18px;margin-bottom:20px;position:relative;overflow:hidden}
+.details::after{content:'';position:absolute;top:-50%;right:-30%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,.16) 0%,rgba(0,200,83,0) 70%);pointer-events:none}
+.detail-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;position:relative;z-index:1}
+.detail-row + .detail-row{border-top:1px solid rgba(255,255,255,.08)}
+.detail-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);flex-shrink:0}
+.detail-value{font-size:13.5px;font-weight:600;color:var(--white);text-align:right;word-break:break-word}
+.detail-value.mono{font-family:var(--font-mono);font-size:12px;color:var(--stone-light);letter-spacing:.02em}
+.detail-value.amount{font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--green);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+
+/* Skeleton state */
+.detail-value.sk{color:transparent;background:rgba(255,255,255,.08);border-radius:4px;min-width:80px;animation:skPulse 1.2s ease-in-out infinite}
+.detail-value.amount.sk{min-width:120px}
+@keyframes skPulse{0%,100%{opacity:.6}50%{opacity:.25}}
+
+/* PIN input */
+.pin-lbl{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pin-lbl::before{content:'';width:14px;height:1.5px;background:var(--green);border-radius:1px}
+.pin-row{display:flex;gap:10px;justify-content:center;margin-bottom:10px}
+.pin-box{width:64px;height:72px;background:var(--off-white);border:2px solid var(--border);border-radius:12px;font-family:var(--font-heading);font-size:30px;font-weight:800;color:var(--ink);text-align:center;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none;font-variant-numeric:tabular-nums}
+.pin-box:focus{border-color:var(--ink);background:var(--white);box-shadow:0 0 0 3px rgba(14,19,32,.06)}
+.pin-box.filled{border-color:var(--ink);background:var(--white);color:var(--ink)}
+.pin-box.error{border-color:var(--danger);animation:shake .3s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pin-box:disabled{opacity:.5;cursor:not-allowed}
+.pin-hint{font-size:12px;color:var(--text-muted);text-align:center;line-height:1.55;margin-bottom:20px}
 
-.pin-hint{font-size:10px;color:var(--muted);text-align:center;margin-bottom:24px;line-height:1.5;}
+/* Claim button */
+.btn-claim{width:100%;background:var(--green);color:var(--ink);font-family:var(--font-body);font-weight:700;font-size:15px;padding:15px 20px;border-radius:var(--r-button);border:none;cursor:pointer;transition:background .15s,box-shadow .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 2px 0 var(--green-dark);letter-spacing:-.005em}
+.btn-claim:hover:not(:disabled){background:var(--green-dark);box-shadow:0 4px 0 var(--green-deep)}
+.btn-claim:active:not(:disabled){transform:translateY(1px);box-shadow:0 1px 0 var(--green-dark)}
+.btn-claim:disabled{background:var(--border);color:var(--text-muted);cursor:not-allowed;box-shadow:none}
+.btn-claim svg{flex-shrink:0}
 
-/* BUTTON */
-.btn-claim{
-  width:100%;background:var(--green);color:var(--dark);
-  font-family:'DM Sans',sans-serif;font-weight:700;font-size:15px;
-  padding:15px;border-radius:8px;border:none;cursor:pointer;
-  transition:background .2s,opacity .2s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.btn-claim:hover{background:var(--green2);}
-.btn-claim:disabled{background:var(--dark4);color:var(--muted);cursor:not-allowed;}
-
-/* SPINNER */
-.spinner{width:18px;height:18px;border:2px solid rgba(13,13,13,0.3);border-top-color:var(--dark);border-radius:50%;animation:spin .7s linear infinite;display:none;}
+/* Spinner */
+.spinner{width:16px;height:16px;border:2px solid rgba(14,19,32,.25);border-top-color:var(--ink);border-radius:50%;animation:spin .7s linear infinite;display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ERROR / SUCCESS STATES */
-.msg{display:none;padding:12px 14px;border-radius:8px;font-size:12px;line-height:1.6;margin-top:16px;text-align:center;}
-.msg.error{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.3);color:var(--red);display:block;}
-.msg.success{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);display:block;}
+/* Messages */
+.msg{display:none;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.55;margin-top:14px}
+.msg.show{display:block}
+.msg.error{background:var(--danger-soft);border:1px solid var(--danger-edge);color:#B91C1C}
+.msg.info{background:var(--amber-soft);border:1px solid var(--amber-edge);color:var(--amber)}
+.msg.success{background:var(--mint-soft);border:1px solid rgba(0,200,83,.28);color:#0F5C32}
+.msg strong{font-weight:700}
 
-/* SUCCESS SCREEN */
-.success-screen{display:none;padding:40px 28px;text-align:center;}
-.success-icon{width:72px;height:72px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;}
-.success-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px;color:var(--white);margin-bottom:8px;}
-.success-body{font-size:13px;color:var(--grey);line-height:1.75;margin-bottom:24px;}
-.success-amount{font-family:'DM Mono',monospace;font-size:36px;font-weight:700;color:var(--green);margin-bottom:6px;}
-.success-note{font-size:11px;color:var(--muted);}
+/* Success view */
+.success{display:none;padding:40px 28px 32px;text-align:center}
+.success.show{display:block}
+.success-icon{width:64px;height:64px;border-radius:50%;background:var(--mint-soft);border:1px solid rgba(0,200,83,.28);display:flex;align-items:center;justify-content:center;color:var(--green-dark);margin:0 auto 18px}
+.success-icon svg{width:30px;height:30px}
+.success h2{font-size:26px;letter-spacing:-.025em;color:var(--ink)}
+.success-amount{font-family:var(--font-heading);font-size:34px;font-weight:800;color:var(--green-dark);letter-spacing:-.03em;margin:12px 0 6px;font-variant-numeric:tabular-nums}
+.success-note{font-size:12px;color:var(--text-muted);letter-spacing:.02em}
+.success-body{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-top:16px;max-width:34ch;margin-left:auto;margin-right:auto}
+.success .btn{margin-top:24px}
 
-@media(max-width:460px){
-  .pin-box{width:56px;height:64px;font-size:28px;}
-  .card-body{padding:24px 20px;}
+/* Blocking error state (no params, not found) */
+.blocking{display:none;padding:36px 28px 28px;text-align:center}
+.blocking.show{display:block}
+.blocking-icon{width:56px;height:56px;border-radius:50%;background:var(--danger-soft);border:1px solid var(--danger-edge);display:flex;align-items:center;justify-content:center;color:var(--danger);margin:0 auto 18px}
+.blocking-icon svg{width:26px;height:26px}
+.blocking h2{font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
+.blocking p{font-size:14px;color:var(--text-secondary);line-height:1.6;max-width:36ch;margin:0 auto}
+.blocking .btn{margin-top:20px}
+.blocking a.btn{text-decoration:none}
+
+@media (max-width:460px){
+  .pin-box{width:56px;height:64px;font-size:26px}
+  .card-body{padding:22px 18px}
+  .success{padding:32px 20px 24px}
+  .blocking{padding:32px 20px 24px}
 }
 </style>
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
 </head>
 <body>
 
-<nav>
-  <a href="/"><img src="/images/dps-logo.png" alt="DPS" style="height:26px;display:block;"></a>
-</nav>
+<div data-dps-nav></div>
 
-<div class="card" id="mainCard">
-  <div class="card-stripe"></div>
-  <div class="card-body" id="formView">
-
-    <div class="card-eyebrow">Payout</div>
-    <div class="card-title">Claim your payout</div>
-    <div class="card-sub">Enter the 4-digit PIN from the buyer to release your funds.</div>
-
-    <!-- DETAILS -->
-    <div class="detail-block" id="detailBlock">
-      <div class="detail-row">
-        <span class="detail-label">Seller</span>
-        <span class="detail-value" id="d-name">—</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Item</span>
-        <span class="detail-value" id="d-item">—</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Item ID</span>
-        <span class="detail-value mono" id="d-itemid">—</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Payout</span>
-        <span class="detail-value amount" id="d-amount">—</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Bank</span>
-        <span class="detail-value" id="d-bank">—</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Account</span>
-        <span class="detail-value mono" id="d-acct">—</span>
-      </div>
-    </div>
-
-    <!-- PIN -->
-    <div class="pin-label">Enter PIN from buyer</div>
-    <div class="pin-row">
-      <input class="pin-box" id="p1" type="tel" inputmode="numeric" maxlength="1" autocomplete="off">
-      <input class="pin-box" id="p2" type="tel" inputmode="numeric" maxlength="1" autocomplete="off">
-      <input class="pin-box" id="p3" type="tel" inputmode="numeric" maxlength="1" autocomplete="off">
-      <input class="pin-box" id="p4" type="tel" inputmode="numeric" maxlength="1" autocomplete="off">
-    </div>
-    <div class="pin-hint">The buyer received this PIN in their payment confirmation email.</div>
-
-    <button class="btn-claim" id="btnClaim" disabled>
-      <span id="btnText">Claim payout</span>
-      <div class="spinner" id="btnSpinner"></div>
-    </button>
-
-    <div class="msg" id="msgArea"></div>
-
+<header class="head">
+  <div class="wrap head-in">
+    <span class="eyebrow">
+      <span class="eyebrow-dot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+      Payout
+    </span>
+    <h1>Claim your <span class="accent">payout</span>.</h1>
+    <p>Enter the 4-digit PIN from the buyer. It's the same PIN they received by email — the sale is confirmed the moment it's accepted.</p>
   </div>
+</header>
 
-  <!-- SUCCESS VIEW -->
-  <div class="success-screen" id="successView">
-    <div class="success-icon">✓</div>
-    <div class="success-title">Payout Released</div>
-    <div class="success-amount" id="sv-amount">₦0</div>
-    <div class="success-note" id="sv-note">Funds on the way to your account</div>
-    <div class="success-body" id="sv-body">Your payout has been confirmed and will reflect in your account within a few hours. Thank you for selling on DPS.</div>
+<main class="stage">
+  <div class="wrap">
+    <div class="slot">
+
+      <!-- MAIN CARD -->
+      <div class="card" id="mainCard">
+
+        <!-- FORM VIEW -->
+        <div class="card-body" id="formView">
+
+          <div class="details" id="detailBlock">
+            <div class="detail-row">
+              <span class="detail-label">Seller</span>
+              <span class="detail-value" id="d-name">—</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Item</span>
+              <span class="detail-value" id="d-item">—</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Item ID</span>
+              <span class="detail-value mono" id="d-itemid">—</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Payout</span>
+              <span class="detail-value amount" id="d-amount">—</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bank</span>
+              <span class="detail-value" id="d-bank">—</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Account</span>
+              <span class="detail-value mono" id="d-acct">—</span>
+            </div>
+          </div>
+
+          <div class="pin-lbl">PIN from buyer</div>
+          <div class="pin-row">
+            <input class="pin-box" id="p1" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" disabled>
+            <input class="pin-box" id="p2" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" disabled>
+            <input class="pin-box" id="p3" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" disabled>
+            <input class="pin-box" id="p4" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" disabled>
+          </div>
+          <div class="pin-hint" id="pinHint">The buyer got this PIN in their payment confirmation email.</div>
+
+          <button class="btn-claim" id="btnClaim" type="button" disabled>
+            <span id="btnText">Claim payout</span>
+            <div class="spinner" id="btnSpinner"></div>
+          </button>
+
+          <div class="msg" id="msgArea"></div>
+
+        </div>
+
+        <!-- SUCCESS VIEW (inline, no redirect) -->
+        <div class="success" id="successView">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h2>Payout released</h2>
+          <div class="success-amount" id="sv-amount">₦0</div>
+          <div class="success-note" id="sv-note">Funds on the way to your account</div>
+          <p class="success-body">Your payout has been confirmed and will hit your account within a few hours. Thanks for selling on DPS.</p>
+          <a class="btn btn-outline" href="/items">Back to marketplace</a>
+        </div>
+
+        <!-- BLOCKING ERROR VIEW (no params, not found) -->
+        <div class="blocking" id="blockingView">
+          <div class="blocking-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h2 id="bl-title">Can't open this link</h2>
+          <p id="bl-text">Open the payout link from your "item sold" email, or message support.</p>
+          <a class="btn btn-primary" href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener">Message Dayo</a>
+        </div>
+
+      </div>
+
+    </div>
   </div>
-</div>
+</main>
+
+<div data-dps-footer></div>
 
 <script>
-// ── URL PARAMS ────────────────────────────────────────────────────────────────
-var params   = new URLSearchParams(window.location.search);
-var selEmail = (params.get('email') || '').trim().toLowerCase();
-var itemId   = (params.get('item') || '').trim().toUpperCase();
+(function () {
+  "use strict";
 
-// ── LOAD SELLER DETAILS ───────────────────────────────────────────────────────
-var APPS_SCRIPT_URL = (typeof DPS_MAIN_GAS_URL !== 'undefined') ? DPS_MAIN_GAS_URL : '';
+  var GAS = (typeof DPS_MAIN_GAS_URL !== 'undefined') ? DPS_MAIN_GAS_URL : '';
 
-function maskAccount(n) {
-  var s = String(n || '');
-  return s.length > 4 ? '****' + s.slice(-4) : s;
-}
+  // ─── URL params ──────────────────────────────────────────────────────────
+  // handleVerifyPin in Code.gs emails the seller a link with ?item=…&email=…
+  var params   = new URLSearchParams(window.location.search);
+  var selEmail = (params.get('email') || '').trim().toLowerCase();
+  var itemId   = (params.get('item')  || '').trim().toUpperCase();
 
-function formatAmount(n) {
-  var num = parseInt(String(n).replace(/[^0-9]/g,'')) || 0;
-  return '₦' + num.toLocaleString('en-NG');
-}
+  // ─── DOM refs ────────────────────────────────────────────────────────────
+  var formView     = document.getElementById('formView');
+  var successView  = document.getElementById('successView');
+  var blockingView = document.getElementById('blockingView');
+  var msgArea      = document.getElementById('msgArea');
+  var btnClaim     = document.getElementById('btnClaim');
+  var btnText      = document.getElementById('btnText');
+  var btnSpinner   = document.getElementById('btnSpinner');
+  var pinHint      = document.getElementById('pinHint');
 
-if (selEmail && itemId && APPS_SCRIPT_URL) {
-  fetch(APPS_SCRIPT_URL + '?action=getPayoutDetails&email=' + encodeURIComponent(selEmail) + '&item=' + encodeURIComponent(itemId))
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if (d.found) {
-        if (d.alreadyClaimed) {
-          showMsg('This payout has already been claimed. If you think this is an error, contact support.', 'error');
-          btnClaim.disabled = true;
-          return;
-        }
-        document.getElementById('d-name').textContent   = d.sellerName   || '—';
-        document.getElementById('d-item').textContent   = d.itemName     || '—';
-        document.getElementById('d-itemid').textContent = d.itemId       || itemId;
-        document.getElementById('d-amount').textContent = formatAmount(d.payoutAmount);
-        document.getElementById('d-bank').textContent   = d.bankName     || '—';
-        document.getElementById('d-acct').textContent   = maskAccount(d.accountNumber);
-      } else {
-        showMsg('Could not find payout details for this item. Please check your link or contact support.', 'error');
+  var pins = ['p1','p2','p3','p4'].map(function (id) { return document.getElementById(id); });
+
+  var pinAttempts  = 0;
+  var MAX_ATTEMPTS = 3;
+  var detailsLoaded = false;
+
+  // ─── Helpers ─────────────────────────────────────────────────────────────
+  function maskAccount(n) {
+    var s = String(n || '');
+    return s.length > 4 ? '****' + s.slice(-4) : (s || '—');
+  }
+  function formatAmount(n) {
+    var num = parseInt(String(n || '').replace(/[^0-9]/g, ''), 10) || 0;
+    return '₦' + num.toLocaleString('en-NG');
+  }
+  function setVal(id, text) { document.getElementById(id).textContent = text || '—'; }
+
+  function showMsg(text, type) {
+    msgArea.textContent = text;
+    msgArea.className = 'msg show ' + (type || 'info');
+  }
+  function clearMsg() { msgArea.className = 'msg'; msgArea.textContent = ''; }
+
+  function showBlocking(title, text) {
+    document.getElementById('bl-title').textContent = title;
+    document.getElementById('bl-text').textContent = text;
+    formView.style.display = 'none';
+    blockingView.classList.add('show');
+  }
+
+  function enablePins(on) {
+    pins.forEach(function (p) { p.disabled = !on; });
+    if (on) setTimeout(function () { pins[0].focus(); }, 100);
+  }
+
+  function checkReady() {
+    var all = pins.every(function (p) { return p.value.length === 1; });
+    btnClaim.disabled = !all || !detailsLoaded;
+  }
+
+  // ─── Guard: no params ────────────────────────────────────────────────────
+  if (!selEmail || !itemId) {
+    showBlocking('This link is incomplete',
+      'Open the payout link from your "item sold" email, or message Dayo and we’ll sort it.');
+    return;
+  }
+  if (!GAS) {
+    showBlocking('Configuration error',
+      'The DPS server URL isn’t set. Email info@declutterpawnshop.com and we’ll fix it.');
+    return;
+  }
+
+  // ─── Set immediate params so page never looks empty ──────────────────────
+  setVal('d-itemid', itemId);
+  setVal('d-amount', '—');
+  setVal('d-name', '—');
+  setVal('d-item', '—');
+  setVal('d-bank', '—');
+  setVal('d-acct', '—');
+
+  // ─── Load payout details ────────────────────────────────────────────────
+  fetch(GAS + '?action=getPayoutDetails' +
+              '&email=' + encodeURIComponent(selEmail) +
+              '&item='  + encodeURIComponent(itemId))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d || !d.found) {
+        showBlocking('Payout not found',
+          'We couldn’t find a payout record for this item. If you think this is wrong, message Dayo.');
+        return;
       }
-    })
-    .catch(function(){
-      // Silent — just show dashes, user can still attempt PIN
-    });
-} else {
-  // No params — just show blank form
-  document.getElementById('d-itemid').textContent = itemId || '—';
-}
+      if (d.alreadyClaimed) {
+        showBlocking('Already claimed',
+          'This payout has already been released. Check your bank statement, or message Dayo if nothing arrived.');
+        return;
+      }
 
-// ── PIN LOGIC ─────────────────────────────────────────────────────────────────
-var pins = ['p1','p2','p3','p4'].map(function(id){ return document.getElementById(id); });
-var btnClaim    = document.getElementById('btnClaim');
-var btnText     = document.getElementById('btnText');
-var btnSpinner  = document.getElementById('btnSpinner');
-var pinAttempts = 0;
-var MAX_ATTEMPTS = 3;
+      setVal('d-name',   d.sellerName   || '—');
+      setVal('d-item',   d.itemName     || '—');
+      setVal('d-itemid', d.itemId       || itemId);
+      setVal('d-bank',   d.bankName     || '—');
+      setVal('d-acct',   maskAccount(d.accountNumber));
 
-pins.forEach(function(box, i) {
-  box.addEventListener('input', function() {
-    // Keep only digits
-    this.value = this.value.replace(/[^0-9]/g,'');
-    if (this.value) {
-      this.classList.add('filled');
-      if (i < 3) pins[i+1].focus();
-    } else {
-      this.classList.remove('filled');
-    }
-    checkReady();
-  });
-  box.addEventListener('keydown', function(e) {
-    if (e.key === 'Backspace' && !this.value && i > 0) {
-      pins[i-1].focus();
-      pins[i-1].value = '';
-      pins[i-1].classList.remove('filled');
+      var amtEl = document.getElementById('d-amount');
+      amtEl.textContent = formatAmount(d.payoutAmount);
+
+      detailsLoaded = true;
+      enablePins(true);
       checkReady();
-    }
-  });
-  box.addEventListener('paste', function(e) {
-    e.preventDefault();
-    var pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g,'').slice(0,4);
-    pasted.split('').forEach(function(ch, j) {
-      if (pins[j]) { pins[j].value = ch; pins[j].classList.add('filled'); }
-    });
-    if (pins[Math.min(pasted.length, 3)]) pins[Math.min(pasted.length, 3)].focus();
-    checkReady();
-  });
-});
-
-function checkReady() {
-  var all = pins.every(function(p){ return p.value.length === 1; });
-  btnClaim.disabled = !all;
-}
-
-function getPin() {
-  return pins.map(function(p){ return p.value; }).join('');
-}
-
-function showMsg(text, type) {
-  var el = document.getElementById('msgArea');
-  el.textContent = text;
-  el.className = 'msg ' + type;
-}
-
-function shakePin() {
-  pins.forEach(function(p){ p.classList.add('error'); });
-  setTimeout(function(){ pins.forEach(function(p){ p.classList.remove('error'); }); }, 400);
-}
-
-// ── CLAIM ─────────────────────────────────────────────────────────────────────
-btnClaim.addEventListener('click', function() {
-  var pin = getPin();
-  if (pin.length < 4) return;
-
-  btnText.style.display    = 'none';
-  btnSpinner.style.display = 'block';
-  btnClaim.disabled        = true;
-  document.getElementById('msgArea').className = 'msg';
-
-  fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      action:  'verifyPin',
-      email:   selEmail,
-      itemId:  itemId,
-      pin:     pin
     })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d){
-    btnText.style.display    = 'block';
-    btnSpinner.style.display = 'none';
+    .catch(function () {
+      // Leave form usable so the PIN attempt can still go through — the
+      // backend re-checks everything anyway.
+      detailsLoaded = true;
+      enablePins(true);
+      checkReady();
+      showMsg('We couldn’t load the payout summary. You can still enter your PIN — we’ll re-check on the server.', 'info');
+    });
 
-    if (d.success) {
-      // Store data and redirect to success page
-      try {
-        sessionStorage.setItem('dps_payout_success', JSON.stringify({
-          payoutAmount:  d.payoutAmount,
-          bankName:      d.bankName,
-          itemName:      d.itemName,
-          itemId:        itemId,
-          accountNumber: d.accountNumber
-        }));
-      } catch(e){}
-      window.location.href = '/payout-success';
-    } else {
+  // ─── PIN input ───────────────────────────────────────────────────────────
+  pins.forEach(function (box, i) {
+    box.addEventListener('input', function () {
+      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1);
+      if (this.value) {
+        this.classList.add('filled');
+        if (i < 3) pins[i + 1].focus();
+      } else {
+        this.classList.remove('filled');
+      }
+      clearMsg();
+      checkReady();
+    });
+
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'Backspace' && !this.value && i > 0) {
+        pins[i - 1].focus();
+        pins[i - 1].value = '';
+        pins[i - 1].classList.remove('filled');
+        clearMsg();
+        checkReady();
+      }
+    });
+
+    box.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '').slice(0, 4);
+      if (!pasted) return;
+      pasted.split('').forEach(function (ch, j) {
+        if (pins[j]) { pins[j].value = ch; pins[j].classList.add('filled'); }
+      });
+      var nextIdx = Math.min(pasted.length, 3);
+      pins[nextIdx].focus();
+      clearMsg();
+      checkReady();
+    });
+  });
+
+  function getPin() { return pins.map(function (p) { return p.value; }).join(''); }
+
+  function shakePins() {
+    pins.forEach(function (p) { p.classList.add('error'); });
+    setTimeout(function () { pins.forEach(function (p) { p.classList.remove('error'); }); }, 400);
+  }
+
+  // ─── Claim ───────────────────────────────────────────────────────────────
+  btnClaim.addEventListener('click', function () {
+    var pin = getPin();
+    if (pin.length < 4) return;
+
+    btnText.textContent       = 'Verifying…';
+    btnSpinner.style.display  = 'block';
+    btnClaim.disabled         = true;
+    clearMsg();
+
+    fetch(GAS, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'verifyPin',
+        email:  selEmail,
+        itemId: itemId,
+        pin:    pin
+      })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      btnSpinner.style.display = 'none';
+      btnText.textContent      = 'Claim payout';
+
+      if (d && d.success) {
+        // Inline success view — no redirect
+        setVal('sv-amount', formatAmount(d.payoutAmount));
+        setVal('sv-note', 'To ' + (d.bankName || 'your bank') + ' · ' + maskAccount(d.accountNumber));
+        formView.style.display = 'none';
+        successView.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       pinAttempts++;
-      btnClaim.disabled = false;
-      shakePin();
-      pins.forEach(function(p){ p.value=''; p.classList.remove('filled'); });
+      shakePins();
+      pins.forEach(function (p) { p.value = ''; p.classList.remove('filled'); });
 
       if (pinAttempts >= MAX_ATTEMPTS) {
         btnClaim.disabled = true;
-        showMsg('Too many incorrect attempts. Please contact support to claim your payout — info@declutterpawnshop.com', 'error');
+        pins.forEach(function (p) { p.disabled = true; });
+        pinHint.textContent = 'PIN entry is locked on this page. Message support to continue.';
+        showMsg('Too many incorrect attempts. Message Dayo or email info@declutterpawnshop.com to claim this payout.', 'error');
       } else {
-        var remaining = MAX_ATTEMPTS - pinAttempts;
-        showMsg((d.error || 'Incorrect PIN.') + ' ' + remaining + ' attempt' + (remaining === 1 ? '' : 's') + ' remaining.', 'error');
+        var left = MAX_ATTEMPTS - pinAttempts;
+        showMsg((d && d.error ? d.error : 'Incorrect PIN.') + ' ' + left + ' attempt' + (left === 1 ? '' : 's') + ' remaining.', 'error');
         pins[0].focus();
+        btnClaim.disabled = true;
       }
-    }
-  })
-  .catch(function(){
-    btnText.style.display    = 'block';
-    btnSpinner.style.display = 'none';
-    btnClaim.disabled        = false;
-    showMsg('Connection error. Please try again.', 'error');
+    })
+    .catch(function () {
+      btnSpinner.style.display = 'none';
+      btnText.textContent      = 'Claim payout';
+      btnClaim.disabled        = false;
+      showMsg('Connection error. Please try again.', 'error');
+    });
   });
-});
 
-// Auto-focus first pin on load
-pins[0].focus();
+})();
 </script>
 </body>
 </html>
