@@ -86,6 +86,7 @@ input, select, textarea { font-family: inherit; }
 .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
 .btn-outline:hover { border-color: var(--ink); }
 
+/* NAV CSS (partials script injects the markup) */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
 .nav-logo img { height: 34px; width: auto; }
@@ -203,9 +204,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sk-line.tall { height: 14px; }
 @keyframes sk { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-/* ═══════════════════════════════════════════════════════════════
-   MODAL
-   ═══════════════════════════════════════════════════════════════ */
+/* MODAL */
 .modal-bg { position: fixed; inset: 0; z-index: 500; background: rgba(14,19,32,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; opacity: 0; pointer-events: none; transition: opacity .28s ease; }
 .modal-bg.open { opacity: 1; pointer-events: all; }
 .modal { background: var(--white); width: 100%; max-width: 620px; max-height: 94vh; border-radius: 20px 20px 0 0; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); position: relative; display: flex; flex-direction: column; box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-lg); overflow: hidden; }
@@ -227,7 +226,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 .gal-badge.hot { color: #B45309; } .gal-badge.hot .dot { background: #F59E0B; }
 .gal-badge.new { color: var(--green-dark); }
-/* [NEW] Photo counter — sits bottom-right of the gallery */
 .gal-counter { position: absolute; bottom: 12px; right: 14px; display: none; align-items: center; padding: 4px 9px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.03em; background: rgba(14,19,32,.68); color: var(--white); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 5; }
 .gal-counter.visible { display: inline-flex; }
 .gal-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; align-items: center; z-index: 5; }
@@ -244,14 +242,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
 .mc-title-wrap { min-width: 0; flex: 1; }
 .mc-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.15; }
-/* [NEW] Listed time under the title */
 .mc-listed { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.01em; }
 .mc-listed::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: inline-block; flex-shrink: 0; }
 .mc-idtag { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 .mc-idtag-lbl { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 .mc-idtag-val { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; color: var(--ink); background: var(--off-white); border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; line-height: 1; white-space: nowrap; }
 
-/* [NEW] Tags row + condition help button */
 .mc-tags-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .mc-tags { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; min-width: 0; }
 .mc-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 7px; background: var(--white); font-size: 11.5px; font-weight: 600; color: var(--text-secondary); letter-spacing: -0.005em; }
@@ -262,7 +258,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-tag-help:hover { border-color: var(--ink); color: var(--ink); }
 .mc-tag-help.active { background: var(--ink); border-color: var(--ink); border-style: solid; color: var(--white); }
 
-/* [NEW] Condition legend panel */
 .mc-legend-panel { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; background: var(--off-white); border: 1px solid var(--border); border-radius: 10px; margin-top: 2px; }
 .mc-legend-panel[hidden] { display: none; }
 .mc-legend-item { display: flex; gap: 12px; font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); letter-spacing: -0.005em; }
@@ -313,7 +308,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-seller-verified { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 4px; background: var(--mint-soft); color: var(--green-dark); font-family: var(--font-body); font-weight: 700; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
 .mc-seller-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* [NEW] Safety tips block */
 .mc-safety { padding: 14px 16px; background: var(--ink); border-radius: 12px; color: var(--white); }
 .mc-safety-head { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: 11px; font-weight: 800; color: var(--white); letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 10px; }
 .mc-safety-head svg { color: var(--green); flex-shrink: 0; }
@@ -345,7 +339,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sim-card-name { font-size: 11.5px; font-weight: 700; color: var(--ink); line-height: 1.3; letter-spacing: -0.005em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
 .sim-card-price { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; color: var(--ink); letter-spacing: -0.01em; margin-top: 6px; }
 
-/* [NEW] Report listing link */
 .mc-report { display: flex; justify-content: center; padding: 4px 0 0; }
 .mc-report a { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--text-muted); padding: 7px 12px; border-radius: 8px; transition: color .15s, background .15s; }
 .mc-report a:hover { color: var(--ink); background: var(--off-white); }
@@ -362,12 +355,33 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-panel-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 .mc-panel input { height: 46px; padding: 0 14px; background: var(--white); border: 1.5px solid var(--border); border-radius: 10px; font-size: 16px; color: var(--ink); outline: none; width: 100%; transition: border-color .15s; }
 .mc-panel input:focus { border-color: var(--ink); }
+.mc-panel input:disabled { background: #EFF2F1; color: var(--text-secondary); cursor: not-allowed; }
+.mc-panel-hint { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: -4px; }
 .mc-panel-err { font-size: 12px; color: #DC2626; display: none; font-weight: 600; }
 .mc-panel-err.show { display: block; }
 .mc-panel-cancel { font-size: 12px; color: var(--text-muted); padding: 6px; text-align: center; transition: color .15s; }
 .mc-panel-cancel:hover { color: var(--ink); }
 .mc-panel-alt { text-align: center; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); padding: 8px 0 0; border-top: 1px dashed var(--border); margin-top: 4px; transition: color .15s; }
 .mc-panel-alt:hover { color: var(--green-dark); }
+
+/* ACCEPTED / COUNTERED OFFER PANEL */
+.mc-offer-banner { display: none; flex-direction: column; gap: 10px; padding: 16px; background: linear-gradient(135deg, var(--mint-soft) 0%, #E0F3E8 100%); border: 1.5px solid var(--green); border-radius: 14px; }
+.mc-offer-banner.show { display: flex; }
+.mc-offer-head { display: flex; align-items: center; gap: 9px; font-family: var(--font-heading); font-weight: 800; font-size: 14px; letter-spacing: -0.01em; color: var(--green-dark); }
+.mc-offer-head svg { flex-shrink: 0; }
+.mc-offer-line { font-size: 13px; line-height: 1.5; color: var(--text-secondary); }
+.mc-offer-line strong { color: var(--ink); font-weight: 700; }
+.mc-offer-price { font-family: var(--font-heading); font-weight: 800; font-size: 28px; letter-spacing: -0.03em; color: var(--ink); line-height: 1.05; display: flex; align-items: baseline; margin-top: -2px; font-variant-numeric: tabular-nums; }
+.mc-offer-price .sym { color: var(--green-dark); font-size: .58em; margin-right: 3px; }
+.mc-offer-warn { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: rgba(245,158,11,.10); border: 1px solid rgba(245,158,11,.35); border-radius: 10px; font-size: 12.5px; line-height: 1.5; color: #92400E; }
+.mc-offer-warn svg { flex-shrink: 0; margin-top: 2px; color: #B45309; }
+.mc-offer-escrow { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); }
+.mc-offer-escrow svg { flex-shrink: 0; margin-top: 2px; color: var(--green-dark); }
+.mc-offer-cta { margin-top: 4px; padding: 14px 16px; border-radius: 12px; background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: -0.005em; box-shadow: 0 2px 0 var(--green-dark); display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .15s, box-shadow .15s, transform .1s; line-height: 1; }
+.mc-offer-cta:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
+.mc-offer-cta:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
+.mc-offer-cta svg { flex-shrink: 0; }
+.mc-offer-hint { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.5; margin-top: -2px; }
 
 .offer-bg { position: fixed; inset: 0; z-index: 600; background: rgba(14,19,32,.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
 .offer-bg.open { opacity: 1; pointer-events: all; }
@@ -556,6 +570,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           <div class="mc-legend-item"><strong>Used</strong><span>Normal wear from regular use.</span></div>
         </div>
 
+        <!-- Buyer-offer banner: hidden unless arriving with ?offer=OFFxxxx&token=... -->
+        <div class="mc-offer-banner" id="mcOfferBanner"></div>
+
         <div class="mc-sell">
           <div class="mc-desc-col">
             <span class="mc-lbl">About this item</span>
@@ -668,6 +685,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <div class="mc-panel" id="mcPanel">
         <span class="mc-panel-lbl">Enter your email to continue</span>
         <input id="mcEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        <div class="mc-panel-hint" id="mcEmailHint" style="display:none;">This is the email on your offer — your exclusive price will apply.</div>
         <div class="mc-panel-err" id="mcErr"></div>
         <button class="btn btn-primary" id="mcProceed" style="width:100%;" type="button">Pay with Paystack →</button>
         <a class="mc-panel-alt" id="mcDayo" href="#" target="_blank" rel="noopener">or ask Dayo about this item →</a>
@@ -677,7 +695,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
-<!-- OFFER SHEET -->
+<!-- OFFER SHEET (buyer-side ₦300 negotiation) -->
 <div class="offer-bg" id="offerBg" aria-hidden="true">
   <div class="offer-sheet" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
     <div class="offer-head">
@@ -780,6 +798,128 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var NEGOTIATION_FEE = 300;
   var STEP_NAIRA = 1000;
   var QUICK_OFFER_RATIO = 0.92;
+
+  /* ═══════════ BUYER OFFER CONTEXT (accepted / countered) ═══════════ */
+  var OFFER = { id: null, token: null, data: null, status: null, price: 0 };
+
+  function readOfferParams() {
+    var p = new URLSearchParams(window.location.search);
+    var oid = (p.get("offer") || "").trim();
+    var tok = (p.get("token") || "").trim();
+    if (!oid || !tok) return;
+    if (oid.toLowerCase() === "sent") return;       // ₦300-fee return flow — handled separately
+    if (!/^OFF/i.test(oid)) return;
+    OFFER.id = oid.toUpperCase();
+    OFFER.token = tok;
+  }
+
+  function loadOfferDetails() {
+    if (!OFFER.id || !OFFER.token) return Promise.resolve();
+
+    if (IS_DEMO) {
+      var demo = ALL_ITEMS[0];
+      if (demo) {
+        var fakePrice = Math.round(demo._price * 0.92);
+        OFFER.data = {
+          offer: { status: "Accepted", offeredPrice: fakePrice, counterPrice: 0,
+                   buyerName: "Demo Buyer", buyerEmail: "demo@example.com" },
+          item: { itemId: demo["Item ID"] }
+        };
+        OFFER.status = "Accepted";
+        OFFER.price = fakePrice;
+      }
+      return Promise.resolve();
+    }
+
+    if (!GAS) return Promise.resolve();
+
+    return fetch(GAS + "?action=getOfferDetails&id=" + encodeURIComponent(OFFER.id) +
+                        "&token=" + encodeURIComponent(OFFER.token))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.success) return;
+        var st = String(d.offer && d.offer.status || "").trim();
+        if (st !== "Accepted" && st !== "Countered") return;
+        OFFER.data = d;
+        OFFER.status = st;
+        OFFER.price = st === "Countered"
+          ? priceNum(d.offer.counterPrice)
+          : priceNum(d.offer.offeredPrice);
+      })
+      .catch(function () {});
+  }
+
+  function renderOfferBanner() {
+    var el = document.getElementById("mcOfferBanner");
+    if (!el) return;
+
+    if (!OFFER.data || !currentItem) {
+      el.classList.remove("show"); el.innerHTML = ""; restoreBuyerDefaults(); return;
+    }
+    var offerItemId = String(OFFER.data.item && OFFER.data.item.itemId || "").toUpperCase();
+    var currentId   = String(currentItem["Item ID"] || "").toUpperCase();
+    if (offerItemId !== currentId) {
+      el.classList.remove("show"); el.innerHTML = ""; restoreBuyerDefaults(); return;
+    }
+
+    var normalPrice = priceNum(currentItem["Amount to sell"] || currentItem["Amount to Buyer"]);
+    var isCounter   = OFFER.status === "Countered";
+    var headline    = isCounter ? "Seller countered your offer" : "Your offer was accepted";
+    var line        = isCounter
+      ? "You offered ₦" + formatPrice(OFFER.data.offer.offeredPrice) + ". The seller came back with:"
+      : "Only you can pay this price. Everyone else sees ₦" + formatPrice(normalPrice) + ".";
+
+    el.innerHTML =
+      '<div class="mc-offer-head">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+        escapeHTML(headline) +
+      '</div>' +
+      '<div class="mc-offer-line">' + escapeHTML(line) + '</div>' +
+      '<div class="mc-offer-price"><span class="sym">₦</span>' + formatPrice(OFFER.price) + '</div>' +
+      '<div class="mc-offer-warn">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
+        '<span>Pay before someone else buys at the regular ₦' + formatPrice(normalPrice) + ' price. Your exclusive price is held for you until you complete payment.</span>' +
+      '</div>' +
+      '<div class="mc-offer-escrow">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+        '<span>Your payment is held in escrow. You get a 4-digit PIN — the seller is only paid after you collect the item and inspect it.</span>' +
+      '</div>' +
+      '<button class="mc-offer-cta" id="mcOfferPay" type="button">' +
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+        'Proceed to payment — ₦' + formatPrice(OFFER.price) +
+      '</button>' +
+      '<div class="mc-offer-hint">Pay with the same email you used for your offer, so your price applies automatically.</div>';
+
+    el.classList.add("show");
+
+    var payBtn = document.getElementById("mcOfferPay");
+    if (payBtn) payBtn.addEventListener("click", openPaystackPanel);
+
+    var negotiateBtn = document.getElementById("mcNegotiate");
+    if (negotiateBtn) negotiateBtn.style.display = "none";
+    var quick = document.querySelector(".mc-quick");
+    if (quick) quick.style.display = "none";
+
+    var buyBtn = document.getElementById("mcBuy");
+    if (buyBtn) {
+      buyBtn.innerHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+        'Pay ₦' + formatPrice(OFFER.price) + ' (your accepted price)';
+    }
+  }
+
+  function restoreBuyerDefaults() {
+    var negotiateBtn = document.getElementById("mcNegotiate");
+    if (negotiateBtn) negotiateBtn.style.display = "";
+    var quick = document.querySelector(".mc-quick");
+    if (quick) quick.style.display = "";
+    var buyBtn = document.getElementById("mcBuy");
+    if (buyBtn) {
+      buyBtn.innerHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Buy now';
+    }
+  }
+  /* ═══════════ end buyer offer context ═══════════ */
 
   function escapeHTML(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -1087,11 +1227,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     document.getElementById("mcTitle").textContent = it["Item Name"] || "";
     document.getElementById("mcId").textContent = it["Item ID"] || "";
-    // Listed time under title
     document.getElementById("mcListed").textContent = listedText(it);
     renderTags(it);
 
-    // Reset legend panel
     document.getElementById("mcLegendPanel").setAttribute("hidden", "");
     document.getElementById("mcCondHelp").classList.remove("active");
     document.getElementById("mcCondHelp").setAttribute("aria-expanded", "false");
@@ -1118,7 +1256,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("mcCopy").classList.remove("copied");
     var shareTxt = (it["Item Name"] || "") + ": ₦" + formatPrice(asking) + "\n" + itemUrl;
     document.getElementById("mcWhatsapp").href = "https://wa.me/?text=" + encodeURIComponent(shareTxt);
-    // Report link
     document.getElementById("mcReport").href = "https://t.me/declutterpawnshop2_bot?start=report-" + encodeURIComponent(it["Item ID"]);
 
     renderSimilar(it);
@@ -1127,6 +1264,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     modalBg.classList.add("open");
     modalBg.setAttribute("aria-hidden", "false");
     document.body.classList.add("locked");
+
+    renderOfferBanner();
 
     if (GAS && !IS_DEMO) {
       try {
@@ -1148,6 +1287,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     modalBg.setAttribute("aria-hidden", "true");
     if (!offerBg.classList.contains("open")) document.body.classList.remove("locked");
     if (currentItem) history.replaceState({}, "", window.location.pathname + (IS_DEMO ? "?demo" : ""));
+    restoreBuyerDefaults();
     currentItem = null;
   }
 
@@ -1176,7 +1316,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   })();
 
-  // Condition legend toggle
   document.getElementById("mcCondHelp").addEventListener("click", function () {
     var panel = document.getElementById("mcLegendPanel");
     var isHidden = panel.hasAttribute("hidden");
@@ -1246,57 +1385,91 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   }
 
+  /* ═══════════ PAYSTACK PANEL ═══════════ */
   function openPaystackPanel() {
-    document.getElementById("mcPanel").classList.add("open");
-    document.getElementById("mcEmail").value = "";
+    var panel = document.getElementById("mcPanel");
+    var emailEl = document.getElementById("mcEmail");
+    var hintEl = document.getElementById("mcEmailHint");
+
+    panel.classList.add("open");
     document.getElementById("mcErr").classList.remove("show");
+
+    var offerEmail = OFFER.data && OFFER.data.offer && OFFER.data.offer.buyerEmail;
+    if (offerEmail) {
+      // Locked to the offer email so the correct price is guaranteed
+      emailEl.value = offerEmail;
+      emailEl.disabled = true;
+      if (hintEl) hintEl.style.display = "block";
+    } else {
+      emailEl.value = "";
+      emailEl.disabled = false;
+      if (hintEl) hintEl.style.display = "none";
+    }
+
     document.getElementById("mcBuy").style.display = "none";
-    setTimeout(function () { document.getElementById("mcEmail").focus(); }, 100);
+    setTimeout(function () { if (!emailEl.disabled) emailEl.focus(); }, 100);
   }
+
   function closePaystackPanel() {
     document.getElementById("mcPanel").classList.remove("open");
     document.getElementById("mcBuy").style.display = "";
   }
+
   document.getElementById("mcBuy").addEventListener("click", openPaystackPanel);
   document.getElementById("mcCancel").addEventListener("click", closePaystackPanel);
 
   document.getElementById("mcProceed").addEventListener("click", function () {
-    var email = document.getElementById("mcEmail").value.trim().toLowerCase();
+    var emailEl = document.getElementById("mcEmail");
+    var email = emailEl.value.trim().toLowerCase();
     var err = document.getElementById("mcErr");
+
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       err.textContent = "Please enter a valid email address.";
-      err.classList.add("show"); return;
+      err.classList.add("show");
+      return;
     }
     err.classList.remove("show");
-    var btn = this; btn.disabled = true; btn.textContent = "Connecting…";
 
-    var payload = {
-      action: "initPayment",
-      itemId: currentItem["Item ID"],
-      itemName: currentItem["Item Name"],
-      buyerEmail: email,
-      callbackUrl: SITE_URL + "/payment-success"
-    };
+    var btn = this;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Connecting to Paystack…";
+
+    var itemId = currentItem ? currentItem["Item ID"] : "";
 
     if (!GAS || IS_DEMO) {
-      btn.disabled = false; btn.textContent = "Pay with Paystack →";
+      btn.disabled = false;
+      btn.textContent = originalText;
       err.textContent = "Demo mode: no live endpoint. In production this opens Paystack.";
-      err.classList.add("show"); return;
+      err.classList.add("show");
+      return;
     }
 
-    fetch(GAS, { method: "POST", body: JSON.stringify(payload) })
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "initPayment",
+        itemId: itemId,
+        itemName: currentItem ? currentItem["Item Name"] : "",
+        buyerEmail: email,
+        callbackUrl: SITE_URL + "/payment-success"
+      })
+    })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        btn.disabled = false; btn.textContent = "Pay with Paystack →";
-        if (data.success && data.authorization_url) {
+        if (data && data.success && data.authorization_url) {
+          btn.textContent = "Opening Paystack…";
           window.location.href = data.authorization_url;
-        } else {
-          err.textContent = data.error || "Could not initialize payment.";
-          err.classList.add("show");
+          return;
         }
+        btn.disabled = false;
+        btn.textContent = originalText;
+        err.textContent = (data && data.error) ? data.error : "Could not initialize payment. Please try again.";
+        err.classList.add("show");
       })
       .catch(function () {
-        btn.disabled = false; btn.textContent = "Pay with Paystack →";
+        btn.disabled = false;
+        btn.textContent = originalText;
         err.textContent = "Connection error. Please try again.";
         err.classList.add("show");
       });
@@ -1317,6 +1490,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     openOfferSheet(currentQuickOffer);
   });
 
+  /* ═══════════ OFFER SHEET (buyer-side ₦300 negotiation) ═══════════ */
   var offerBg = document.getElementById("offerBg");
   var offerBody = document.getElementById("offerBody");
   var offerActions = document.getElementById("offerActions");
@@ -1470,6 +1644,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     offerSuccess.classList.add("show");
   }
 
+  /* Return from ₦300-fee Paystack redirect (?item=…&offer=sent) */
   function handleOfferReturn() {
     var href = window.location.href;
     if (!/[?&]offer=sent/.test(href)) return;
@@ -1548,8 +1723,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     renderChips(); render(); renderSoldStrip();
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
-    checkDeepLink();
-    handleOfferReturn();
+
+    readOfferParams();
+    Promise.resolve()
+      .then(loadOfferDetails)
+      .then(function () {
+        checkDeepLink();
+        handleOfferReturn();
+      });
   }
 
   function showLoadError() {
