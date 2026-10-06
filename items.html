@@ -26,6 +26,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<link rel="dns-prefetch" href="https://script.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -445,6 +448,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+.dps-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); z-index: 800; max-width: 440px; width: calc(100% - 32px); background: var(--ink); color: #fff; border-radius: 12px; padding: 14px 16px; font-size: 13.5px; line-height: 1.5; box-shadow: var(--shadow-lg); opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; }
+.dps-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.dps-toast a { color: var(--green); font-weight: 700; }
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -489,7 +496,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     <div class="bar-row">
       <label class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="searchInput" type="search" placeholder="Search items, brands, categories…" autocomplete="off">
+        <input id="searchInput" type="search" placeholder="Search items, brands, categories…" autocomplete="off" aria-label="Search items">
         <button class="search-clear" id="searchClear" aria-label="Clear search" type="button">✕</button>
       </label>
       <div class="sort">
@@ -785,6 +792,77 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var args = Array.prototype.slice.call(arguments);
     args.unshift("[DPS]");
     console.warn.apply(console, args);
+  }
+
+  /* ---- added: cache, image fallback, view dedupe, focus trap, toast, analytics ---- */
+  var ITEMS_CACHE_KEY = "dps_items_v1";
+  var ITEMS_CACHE_TTL = 60 * 1000;   // 60s, matches the server cache
+
+  var PH_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="#F5F7F8"/><text x="200" y="150" dominant-baseline="central" text-anchor="middle" font-family="Manrope,Arial,sans-serif" font-size="34" font-weight="800" letter-spacing="3" fill="#C6CFC9">DPS</text></svg>';
+  var DPS_PLACEHOLDER = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(PH_SVG);
+  window.imgFail = function (img) {
+    if (!img || img.dataset.failed) return;
+    img.dataset.failed = "1";
+    img.src = DPS_PLACEHOLDER;
+  };
+
+  function readItemsCache() {
+    try {
+      var raw = localStorage.getItem(ITEMS_CACHE_KEY);
+      if (!raw) return null;
+      var p = JSON.parse(raw);
+      if (!p || !p.ts || !p.data || !Array.isArray(p.data.items)) return null;
+      if (Date.now() - p.ts > ITEMS_CACHE_TTL) return null;
+      return p;
+    } catch (e) { return null; }
+  }
+  function itemsSignature(data) {
+    var items = (data && Array.isArray(data.items)) ? data.items : [];
+    return items.map(function (it) {
+      return (it["Item ID"] || "") + ":" +
+             (it["Amount to sell"] || it["Amount to Buyer"] || "") + ":" +
+             (it["Status"] || "");
+    }).sort().join("|");
+  }
+
+  function viewTracked(id) { try { return (sessionStorage.getItem("dps_viewed_" + id) === "1"); } catch (e) { return false; } }
+  function markViewed(id) { try { sessionStorage.setItem("dps_viewed_" + id, "1"); } catch (e) {} }
+
+  var _lastFocus = null;
+  function focusables(container) {
+    if (!container) return [];
+    return Array.prototype.slice.call(container.querySelectorAll(
+      "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex=\"-1\"])"
+    )).filter(function (el) { return el.offsetParent !== null; });
+  }
+  function trapTab(container, e) {
+    var fo = focusables(container);
+    if (!fo.length) return;
+    var first = fo[0], last = fo[fo.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  function showToast(html, ms) {
+    var t = document.getElementById("dpsToast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "dpsToast"; t.className = "dps-toast"; t.setAttribute("role", "status");
+      document.body.appendChild(t);
+    }
+    t.innerHTML = html;
+    t.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { t.classList.remove("show"); }, ms || 7000);
+  }
+
+  function dlPush(event, extra) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      var o = { event: event };
+      if (extra) for (var k in extra) o[k] = extra[k];
+      window.dataLayer.push(o);
+    } catch (e) {}
   }
 
   var SAMPLE_ITEMS = [
@@ -1147,7 +1225,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var eyeSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
     var viewsHTML = views > 0 ? '<span class="card-views">' + eyeSvg + views + '</span>' : '';
     var imgHTML = img
-      ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '" loading="lazy" onerror="this.style.display=\'none\'">'
+      ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '" loading="lazy" onerror="imgFail(this)">'
       : '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;color:#A7B0AA;">📦</div>';
     var partnerTag = isPartnerItem(it) ? '<span class="card-partner">Partner</span>' : '';
     return ''
@@ -1173,7 +1251,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return ''
         + '<div class="sold-card">'
         +   '<span class="sold-badge">Sold</span>'
-        +   (img ? '<img class="sold-card-img" src="' + escapeAttr(img) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="sold-card-img"></div>')
+        +   (img ? '<img class="sold-card-img" src="' + escapeAttr(img) + '" alt="" loading="lazy" onerror="imgFail(this)">' : '<div class="sold-card-img"></div>')
         +   '<div class="sold-body">'
         +     '<div class="sold-name">' + escapeHTML(it["Item Name"]) + '</div>'
         +     '<div class="sold-price">₦' + formatPrice(it["Amount Paid"]) + '</div>'
@@ -1235,7 +1313,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     galIdx = 0; galTotal = imgs.length;
     galTrack.innerHTML = imgs.map(function (u) {
       return u
-        ? '<img class="gal-img" src="' + escapeAttr(u) + '" alt="" onerror="this.style.display=\'none\'">'
+        ? '<img class="gal-img" src="' + escapeAttr(u) + '" alt="" onerror="imgFail(this)">'
         : '<div class="gal-img" style="display:flex;align-items:center;justify-content:center;font-size:52px;color:#C6CFC9;">📦</div>';
     }).join("");
     galTrack.style.transform = "translateX(0)";
@@ -1294,20 +1372,31 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     modalBg.setAttribute("aria-hidden", "false");
     document.body.classList.add("locked");
 
+    _lastFocus = document.activeElement;
+    setTimeout(function () { var c = document.getElementById("galClose"); if (c) c.focus(); }, 50);
+    dlPush("item_view", { item_id: it["Item ID"], item_name: it["Item Name"], price: asking });
+
     renderOfferBanner();
 
     if (GAS && !IS_DEMO) {
-      try {
-        fetch(GAS + "?action=trackView&id=" + encodeURIComponent(it["Item ID"]))
-          .then(function (r) { return r.json(); })
-          .then(function (data) {
-            if (data && data.ok && data.views && currentItem && currentItem["Item ID"] === it["Item ID"]) {
-              currentItem._inquiries = data.views;
-              renderTags(currentItem);
-            }
-          })
-          .catch(function () {});
-      } catch (e) {}
+      var trackId = it["Item ID"];
+      var track = function () {
+        if (viewTracked(trackId)) return;
+        markViewed(trackId);
+        try {
+          fetch(GAS + "?action=trackView&id=" + encodeURIComponent(trackId))
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (data && data.ok && data.views && currentItem && currentItem["Item ID"] === trackId) {
+                currentItem._inquiries = data.views;
+                renderTags(currentItem);
+              }
+            })
+            .catch(function () {});
+        } catch (e) {}
+      };
+      if (window.requestIdleCallback) requestIdleCallback(track, { timeout: 2000 });
+      else setTimeout(track, 300);
     }
   }
 
@@ -1317,6 +1406,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (!offerBg.classList.contains("open")) document.body.classList.remove("locked");
     if (currentItem) history.replaceState({}, "", window.location.pathname + (IS_DEMO ? "?demo" : ""));
     restoreBuyerDefaults();
+    if (_lastFocus && _lastFocus.focus) { try { _lastFocus.focus(); } catch (e) {} }
+    _lastFocus = null;
     currentItem = null;
   }
 
@@ -1393,7 +1484,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return ''
         + '<button class="sim-card" data-id="' + escapeAttr(it["Item ID"]) + '" type="button">'
         +   (img
-              ? '<img class="sim-card-img" src="' + escapeAttr(img) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+              ? '<img class="sim-card-img" src="' + escapeAttr(img) + '" alt="" loading="lazy" onerror="imgFail(this)">'
               : '<div class="sim-card-img" style="display:flex;align-items:center;justify-content:center;font-size:24px;color:#A7B0AA;">📦</div>')
         +   '<div class="sim-card-body">'
         +     '<div class="sim-card-name">' + escapeHTML(it["Item Name"]) + '</div>'
@@ -1465,6 +1556,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     btn.textContent = "Connecting to Paystack…";
 
     var itemId = currentItem ? currentItem["Item ID"] : "";
+    dlPush("begin_checkout", { item_id: itemId });
 
     if (!GAS || IS_DEMO) {
       btn.disabled = false;
@@ -1570,6 +1662,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     offerBg.classList.add("open");
     offerBg.setAttribute("aria-hidden", "false");
     document.body.classList.add("locked");
+    setTimeout(function () { try { offerInputEl.focus(); offerInputEl.select(); } catch (e) {} }, 60);
   }
 
   function closeOfferSheet() {
@@ -1630,6 +1723,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       note: (noteInput.value || "").trim().slice(0, 140),
       feeAmount: NEGOTIATION_FEE * 100
     };
+    dlPush("submit_offer", { item_id: currentItem["Item ID"], offer: offerNum });
 
     if (!GAS || IS_DEMO) {
       offerSubmitBtn.disabled = true;
@@ -1718,6 +1812,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   document.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") {
+      if (offerBg.classList.contains("open")) { trapTab(document.querySelector("#offerBg .offer-sheet"), e); return; }
+      if (modalBg.classList.contains("open")) { trapTab(document.querySelector("#modalBg .modal"), e); return; }
+      return;
+    }
     if (e.key !== "Escape") return;
     if (offerBg.classList.contains("open")) { closeOfferSheet(); return; }
     if (modalBg.classList.contains("open")) closeModal();
@@ -1757,6 +1856,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
 
+    if (hydrate._booted) return;
+    hydrate._booted = true;
     readOfferParams();
     Promise.resolve()
       .then(loadOfferDetails)
@@ -1779,6 +1880,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (data) {
         if (!data || data.success === false || !Array.isArray(data.items)) throw new Error((data && data.error) || "bad response");
+        try { localStorage.setItem(ITEMS_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
         return data;
       });
   }
@@ -1793,10 +1895,22 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   } else if (!GAS) {
     showLoadError();
   } else {
-    loadFromGAS().then(hydrate).catch(function (e) {
-      warn("getItems failed:", e && e.message);
-      showLoadError();
-    });
+    var cached = readItemsCache();
+    if (cached) {
+      log("hydrating from cache, age", Math.round((Date.now() - cached.ts) / 1000) + "s");
+      hydrate(cached.data);
+      loadFromGAS().then(function (fresh) {
+        if (fresh && itemsSignature(fresh) !== itemsSignature(cached.data)) {
+          log("cache stale (content changed) — re-hydrating");
+          hydrate(fresh);
+        }
+      }).catch(function (e) { warn("background refresh failed:", e && e.message); });
+    } else {
+      loadFromGAS().then(hydrate).catch(function (e) {
+        warn("getItems failed:", e && e.message);
+        showLoadError();
+      });
+    }
   }
 
   function checkDeepLink() {
@@ -1830,9 +1944,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           if (!el) return;
           // Auto-open the modal with a placeholder so the banner is visible
           if (!modalBg.classList.contains("open")) {
-            alert(
-              "This offer is for item " + id + ", but that item isn't live on the marketplace right now. " +
-              "It may have been marked sold or taken down. Please contact support at info@declutterpawnshop.com."
+            showToast(
+              "Item " + escapeHTML(id) + " isn't live right now — it may be sold or taken down. " +
+              "Contact <a href=\"mailto:info@declutterpawnshop.com\">info@declutterpawnshop.com</a> and we'll help."
             );
           }
         }, 300);
