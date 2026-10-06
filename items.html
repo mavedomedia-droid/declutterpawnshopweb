@@ -570,7 +570,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           <div class="mc-legend-item"><strong>Used</strong><span>Normal wear from regular use.</span></div>
         </div>
 
-        <!-- Buyer-offer banner: hidden unless arriving with ?offer=OFFxxxx&token=... -->
         <div class="mc-offer-banner" id="mcOfferBanner"></div>
 
         <div class="mc-sell">
@@ -695,7 +694,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
-<!-- OFFER SHEET (buyer-side ₦300 negotiation) -->
+<!-- OFFER SHEET -->
 <div class="offer-bg" id="offerBg" aria-hidden="true">
   <div class="offer-sheet" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
     <div class="offer-head">
@@ -773,6 +772,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
   var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
   var SITE_URL = (typeof DPS_SITE_URL !== "undefined") ? DPS_SITE_URL : window.location.origin;
+  var DEBUG = true;   // set to false to silence console logs
+
+  function log() {
+    if (!DEBUG || !window.console) return;
+    var args = Array.prototype.slice.call(arguments);
+    args.unshift("[DPS]");
+    console.log.apply(console, args);
+  }
+  function warn() {
+    if (!DEBUG || !window.console) return;
+    var args = Array.prototype.slice.call(arguments);
+    args.unshift("[DPS]");
+    console.warn.apply(console, args);
+  }
 
   var SAMPLE_ITEMS = [
     { "Item ID":"DPS10001", "Item Name":"iPhone 15 Pro Max 256GB Natural Titanium", "Description":"Barely used, upgraded to the 16 Pro. Battery health 98%. Comes with original box, cable, and a spare case.", "Condition":"Like New", "Amount to sell":1250000, "Location":"Island", "Status":"Active", "Inquiries":47, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=900&q=80", "Submission Time":"2026-10-04 09:15:00" },
@@ -800,21 +813,22 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var QUICK_OFFER_RATIO = 0.92;
 
   /* ═══════════ BUYER OFFER CONTEXT (accepted / countered) ═══════════ */
-  var OFFER = { id: null, token: null, data: null, status: null, price: 0 };
+  var OFFER = { id: null, token: null, data: null, status: null, price: 0, itemId: null };
 
   function readOfferParams() {
     var p = new URLSearchParams(window.location.search);
     var oid = (p.get("offer") || "").trim();
     var tok = (p.get("token") || "").trim();
+    log("readOfferParams: offer=", oid || "(none)", "token=", tok ? tok.slice(0,6)+"…" : "(none)");
     if (!oid || !tok) return;
-    if (oid.toLowerCase() === "sent") return;       // ₦300-fee return flow — handled separately
-    if (!/^OFF/i.test(oid)) return;
+    if (oid.toLowerCase() === "sent") { log("readOfferParams: ₦300-fee return flow"); return; }
+    if (!/^OFF/i.test(oid)) { warn("readOfferParams: offer id doesn't look like OFF… skipping"); return; }
     OFFER.id = oid.toUpperCase();
     OFFER.token = tok;
   }
 
   function loadOfferDetails() {
-    if (!OFFER.id || !OFFER.token) return Promise.resolve();
+    if (!OFFER.id || !OFFER.token) { log("loadOfferDetails: no offer params, skipping"); return Promise.resolve(); }
 
     if (IS_DEMO) {
       var demo = ALL_ITEMS[0];
@@ -827,38 +841,50 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         };
         OFFER.status = "Accepted";
         OFFER.price = fakePrice;
+        OFFER.itemId = demo["Item ID"];
+        log("loadOfferDetails (demo): ", OFFER.status, OFFER.price, "→", OFFER.itemId);
       }
       return Promise.resolve();
     }
 
-    if (!GAS) return Promise.resolve();
+    if (!GAS) { warn("loadOfferDetails: no GAS url configured"); return Promise.resolve(); }
 
+    log("loadOfferDetails: fetching", OFFER.id);
     return fetch(GAS + "?action=getOfferDetails&id=" + encodeURIComponent(OFFER.id) +
                         "&token=" + encodeURIComponent(OFFER.token))
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d || !d.success) return;
+        log("loadOfferDetails response:", d);
+        if (!d || !d.success) { warn("loadOfferDetails: backend error:", d && d.error); return; }
         var st = String(d.offer && d.offer.status || "").trim();
-        if (st !== "Accepted" && st !== "Countered") return;
+        if (st !== "Accepted" && st !== "Countered") { warn("loadOfferDetails: offer status is '" + st + "' — not Accepted/Countered"); return; }
         OFFER.data = d;
         OFFER.status = st;
+        OFFER.itemId = String(d.item && d.item.itemId || "").toUpperCase();
         OFFER.price = st === "Countered"
           ? priceNum(d.offer.counterPrice)
           : priceNum(d.offer.offeredPrice);
+        log("loadOfferDetails: applied →", OFFER.status, "₦" + OFFER.price, "item:", OFFER.itemId, "buyerEmail:", d.offer.buyerEmail);
       })
-      .catch(function () {});
+      .catch(function (err) { warn("loadOfferDetails fetch failed:", err && err.message); });
   }
 
   function renderOfferBanner() {
     var el = document.getElementById("mcOfferBanner");
     if (!el) return;
 
+    log("renderOfferBanner:",
+      "hasOfferData?", !!OFFER.data,
+      "currentItem?", currentItem && currentItem["Item ID"],
+      "offerItemId?", OFFER.itemId,
+      "offerPrice?", OFFER.price);
+
     if (!OFFER.data || !currentItem) {
       el.classList.remove("show"); el.innerHTML = ""; restoreBuyerDefaults(); return;
     }
-    var offerItemId = String(OFFER.data.item && OFFER.data.item.itemId || "").toUpperCase();
-    var currentId   = String(currentItem["Item ID"] || "").toUpperCase();
-    if (offerItemId !== currentId) {
+    var currentId = String(currentItem["Item ID"] || "").toUpperCase();
+    if (OFFER.itemId && OFFER.itemId !== currentId) {
+      warn("renderOfferBanner: item mismatch — offer is for", OFFER.itemId, "but modal opened", currentId);
       el.classList.remove("show"); el.innerHTML = ""; restoreBuyerDefaults(); return;
     }
 
@@ -906,6 +932,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
         'Pay ₦' + formatPrice(OFFER.price) + ' (your accepted price)';
     }
+    log("renderOfferBanner: rendered for ₦" + OFFER.price);
   }
 
   function restoreBuyerDefaults() {
@@ -1198,8 +1225,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function openModal(it) {
+    if (!it) { warn("openModal: called without an item"); return; }
     currentItem = it;
     modalScroll.scrollTop = 0;
+    log("openModal:", it["Item ID"], "—", it["Item Name"]);
 
     var imgs = allImages(it["Product Photos"]);
     if (!imgs.length) imgs = [""];
@@ -1385,7 +1414,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   }
 
-  /* ═══════════ PAYSTACK PANEL ═══════════ */
+  /* PAYSTACK PANEL */
   function openPaystackPanel() {
     var panel = document.getElementById("mcPanel");
     var emailEl = document.getElementById("mcEmail");
@@ -1396,10 +1425,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     var offerEmail = OFFER.data && OFFER.data.offer && OFFER.data.offer.buyerEmail;
     if (offerEmail) {
-      // Locked to the offer email so the correct price is guaranteed
       emailEl.value = offerEmail;
       emailEl.disabled = true;
       if (hintEl) hintEl.style.display = "block";
+      log("openPaystackPanel: locked email to", offerEmail);
     } else {
       emailEl.value = "";
       emailEl.disabled = false;
@@ -1445,6 +1474,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return;
     }
 
+    log("mcProceed: initPayment →", itemId, email);
     fetch(GAS, {
       method: "POST",
       body: JSON.stringify({
@@ -1457,6 +1487,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     })
       .then(function (r) { return r.json(); })
       .then(function (data) {
+        log("initPayment response:", data);
         if (data && data.success && data.authorization_url) {
           btn.textContent = "Opening Paystack…";
           window.location.href = data.authorization_url;
@@ -1467,7 +1498,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         err.textContent = (data && data.error) ? data.error : "Could not initialize payment. Please try again.";
         err.classList.add("show");
       })
-      .catch(function () {
+      .catch(function (err2) {
+        warn("initPayment failed:", err2 && err2.message);
         btn.disabled = false;
         btn.textContent = originalText;
         err.textContent = "Connection error. Please try again.";
@@ -1490,7 +1522,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     openOfferSheet(currentQuickOffer);
   });
 
-  /* ═══════════ OFFER SHEET (buyer-side ₦300 negotiation) ═══════════ */
+  /* OFFER SHEET */
   var offerBg = document.getElementById("offerBg");
   var offerBody = document.getElementById("offerBody");
   var offerActions = document.getElementById("offerActions");
@@ -1720,6 +1752,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return String(it["Status"] || "").trim().toLowerCase() === "active";
     });
     RECENT_SOLD = (data && Array.isArray(data.recentSold)) ? data.recentSold : [];
+    log("hydrate:", ALL_ITEMS.length, "active items,", RECENT_SOLD.length, "recent sold");
     renderChips(); render(); renderSoldStrip();
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
@@ -1761,7 +1794,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     showLoadError();
   } else {
     loadFromGAS().then(hydrate).catch(function (e) {
-      if (window.console) console.warn("getItems failed:", e && e.message);
+      warn("getItems failed:", e && e.message);
       showLoadError();
     });
   }
@@ -1769,9 +1802,42 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   function checkDeepLink() {
     var params = new URLSearchParams(window.location.search);
     var id = (params.get("item") || "").trim().toUpperCase();
-    if (!id) return;
-    var match = ALL_ITEMS.filter(function (x) { return String(x["Item ID"] || "").toUpperCase() === id; })[0];
-    if (match) setTimeout(function () { openModal(match); }, 100);
+
+    // Fallback: use the offer's own item id if no ?item= param
+    if (!id && OFFER.itemId) {
+      id = String(OFFER.itemId).trim().toUpperCase();
+      log("checkDeepLink: no ?item= — using offer's item:", id);
+    }
+
+    if (!id) {
+      log("checkDeepLink: nothing to open (no ?item= and no offer)");
+      return;
+    }
+
+    var match = ALL_ITEMS.filter(function (x) {
+      return String(x["Item ID"] || "").toUpperCase() === id;
+    })[0];
+
+    if (match) {
+      log("checkDeepLink: opening modal for", id);
+      setTimeout(function () { openModal(match); }, 100);
+    } else {
+      warn("checkDeepLink: item", id, "not in live feed — it may no longer be Status=Active.");
+      if (OFFER.itemId) {
+        // Offer exists but item isn't in the live feed → tell the buyer politely
+        setTimeout(function () {
+          var el = document.getElementById("mcOfferBanner");
+          if (!el) return;
+          // Auto-open the modal with a placeholder so the banner is visible
+          if (!modalBg.classList.contains("open")) {
+            alert(
+              "This offer is for item " + id + ", but that item isn't live on the marketplace right now. " +
+              "It may have been marked sold or taken down. Please contact support at info@declutterpawnshop.com."
+            );
+          }
+        }, 300);
+      }
+    }
   }
 
   var io = new IntersectionObserver(function (entries) {
@@ -1779,6 +1845,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }, { threshold: 0.1 });
   document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
 
+  log("items.html booted | GAS:", GAS ? "configured" : "MISSING", "| DEMO:", IS_DEMO);
 })();
 </script>
 </body>
