@@ -1,259 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
-<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Confirmed — Declutter Pawn Shop</title>
+<title>Payment received — Declutter Pawn Shop</title>
+<meta name="description" content="Your payment is held in escrow. Here's what happens next.">
 <meta name="robots" content="noindex">
-<link rel="icon" href="/images/dps-logo.png">
+<meta name="theme-color" content="#0E1320">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --green:#00C853; --green2:#00A843;
-  --dark:#0D0D0D; --dark2:#111111; --dark3:#1A1A1A; --dark4:#242424; --dark5:#2E2E2E;
-  --mid:#4A4A4A; --grey:#777; --white:#F9F8F5;
-  --amber:#F59E0B;
+  --green: #00C853; --green-dark: #00A843; --green-deep: #009933;
+  --ink: #0E1320; --ink-2: #161C2B; --ink-3: #1E2536; --ink-4: #2A3248;
+  --off-white: #F5F7F8; --white: #FFFFFF;
+  --stone: #A7B0AA; --stone-light: #C6CFC9; --stone-dark: #5B635D;
+  --mint: #C8F0D8; --mint-soft: #E9F5EE;
+  --border: #E1E5E4; --border-ink: #D6DCE0; --border-dark: #242C3E;
+  --text-primary: var(--ink);
+  --text-secondary: #4F5860;
+  --text-muted: #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --r-card: 16px; --r-button: 12px; --r-pill: 999px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);min-height:100vh;overflow-x:hidden;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(13,13,13,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--dark3);}
-.nav-logo img{height:32px;object-fit:contain;}
-.nav-back{font-size:12px;color:var(--grey);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
-.nav-back:hover{color:var(--white);}
-
-/* PAGE LAYOUT */
-.page{min-height:100vh;padding:80px 16px 64px;display:flex;flex-direction:column;align-items:center;}
-.inner{width:100%;max-width:480px;}
-
-/* SUCCESS BLOCK */
-.success-block{text-align:center;padding:48px 0 36px;}
-.ring{width:64px;height:64px;border-radius:50%;background:rgba(0,200,83,0.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 20px;animation:pop .5s cubic-bezier(.34,1.56,.64,1) both;}
-@keyframes pop{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
-.success-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
-.success-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,72px);letter-spacing:1px;line-height:.93;color:var(--white);}
-.success-title .g{color:var(--green);}
-.success-sub{font-size:14px;color:var(--grey);margin-top:12px;line-height:1.65;max-width:340px;margin-left:auto;margin-right:auto;}
-
-/* ITEM CARD */
-.item-card{display:flex;gap:14px;align-items:center;background:var(--dark2);border:1px solid var(--dark4);border-left:3px solid var(--green);border-radius:8px;padding:14px 16px;margin:0 0 6px;}
-.item-card-img{width:48px;height:48px;border-radius:6px;object-fit:cover;background:var(--dark3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--mid);}
-.item-card-img img{width:48px;height:48px;border-radius:6px;object-fit:cover;}
-.item-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:3px;}
-.item-name{font-weight:700;font-size:14px;color:var(--white);line-height:1.3;}
-.item-amt{font-family:'DM Mono',monospace;font-size:12px;color:var(--grey);margin-top:2px;}
-.secured-badge{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--grey);padding:7px 10px;background:var(--dark2);border:1px solid var(--dark4);border-radius:5px;margin-bottom:24px;}
-.secured-badge span{color:#00C3E3;font-weight:700;}
-
-/* CARDS */
-.card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;overflow:hidden;margin-bottom:10px;}
-.card-stripe{height:2px;}
-.stripe-green{background:linear-gradient(90deg,var(--green),var(--green2));}
-.stripe-amber{background:linear-gradient(90deg,var(--amber),#D97706);}
-.card-body{padding:18px 20px;}
-.card-eyebrow{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;}
-.eyebrow-green{color:var(--green);}
-.eyebrow-amber{color:var(--amber);}
-.card-title{font-weight:700;font-size:15px;color:var(--white);margin-bottom:8px;line-height:1.3;}
-.card-text{font-size:13px;color:var(--grey);line-height:1.65;}
-.card-text strong{color:var(--white);}
-
-/* PIN CARD */
-.pin-row{display:flex;align-items:flex-start;gap:14px;}
-.pin-icon{width:38px;height:38px;border-radius:8px;background:rgba(0,200,83,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-
-/* STEPS */
-.steps{display:flex;flex-direction:column;gap:0;margin-bottom:10px;}
-.step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--dark3);}
-.step:last-child{border-bottom:none;}
-.step-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green);line-height:1;flex-shrink:0;width:24px;}
-.step-t{font-weight:600;font-size:13px;color:var(--white);margin-bottom:2px;}
-.step-d{font-size:12px;color:var(--grey);line-height:1.6;}
-
-/* DIVIDER */
-.divider{height:1px;background:var(--dark3);margin:20px 0;}
-
-/* ACTIONS */
-.actions{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
-.btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:var(--dark);font-weight:700;font-size:13px;padding:13px 24px;border-radius:6px;text-decoration:none;transition:background .2s;}
-.btn-primary:hover{background:var(--green2);}
-.btn-secondary{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;border:1px solid var(--dark4);color:var(--grey);font-size:13px;padding:12px 24px;border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s;}
-.btn-secondary:hover{border-color:var(--grey);color:var(--white);}
-
-/* FOOTER */
-footer{border-top:1px solid var(--dark3);padding:24px 16px;text-align:center;}
-footer p{font-size:11px;color:var(--mid);}
-footer a{color:var(--grey);text-decoration:none;font-size:11px;}
-footer a:hover{color:var(--green);}
-
-@media(min-width:540px){
-  nav{padding:14px 48px;}
-  .page{padding:96px 24px 80px;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body); background: var(--off-white); color: var(--text-primary);
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; min-height: 100vh;
 }
+h1,h2,h3,h4,h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { display: block; max-width: 100%; height: auto; }
+.wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+/* ─── Nav CSS (shared partials script injects the markup) ─── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.nav-logo img { height: 34px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--white); }
+.nav-cta { display: none; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 10px 20px; font-size: 13.5px; } }
+.nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
+@media (min-width: 900px) { .nav-mobile-cta { display: none; } }
+
+/* ─── Footer CSS (shared partials script injects the markup) ─── */
+footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28px; border-top: 1px solid var(--border-dark); }
+.foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+@media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; } }
+.foot-brand img { height: 34px; width: auto; margin-bottom: 14px; opacity: .95; }
+.foot-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; color: var(--stone-light); }
+.foot-col h4 { font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+.foot-col a { display: block; font-size: 13.5px; color: var(--stone-light); padding: 5px 0; transition: color .15s; }
+.foot-col a:hover { color: var(--green); }
+.foot-bottom { padding-top: 28px; border-top: 1px solid var(--border-dark); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+.foot-social { display: flex; gap: 10px; }
+.foot-social a { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.05); transition: background .15s; }
+.foot-social a:hover { background: rgba(0,200,83,.15); }
+.foot-social svg { width: 15px; height: 15px; color: var(--stone-light); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: var(--r-button); transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s; cursor: pointer; white-space: nowrap; letter-spacing: -0.005em; }
+.btn-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
+.btn-outline-light { background: transparent; color: var(--off-white); border: 1.5px solid rgba(245,247,248,.22); }
+.btn-outline-light:hover { border-color: var(--off-white); background: rgba(255,255,255,.05); }
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════════ */
+.ty-hero {
+  background: var(--ink);
+  color: var(--off-white);
+  padding: 104px 0 56px;
+  position: relative; overflow: hidden;
+}
+.ty-hero::before {
+  content: '';
+  position: absolute; top: -40%; right: -15%;
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none;
+}
+.ty-hero-wrap { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+@media (min-width: 768px) { .ty-hero-wrap { max-width: 720px; } }
+
+.ty-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green);
+  padding: 6px 14px 6px 6px;
+  background: rgba(0,200,83,.08);
+  border: 1px solid rgba(0,200,83,.28);
+  border-radius: var(--r-pill);
+}
+.ty-check-inline {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(0,200,83,.16);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green);
+}
+.ty-check-inline svg { width: 12px; height: 12px; }
+
+.ty-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 5.6vw, 48px);
+  color: var(--white);
+  letter-spacing: -0.038em;
+  line-height: 1.02;
+  font-weight: 800;
+  margin-top: 18px;
+}
+.ty-title .accent { color: var(--green); }
+.ty-sub {
+  color: var(--stone-light);
+  font-size: 15.5px; line-height: 1.55;
+  margin-top: 12px;
+  max-width: 46ch;
+}
+
+/* ─── Item showcase card ─── */
+.showcase {
+  margin-top: 28px;
+  background: var(--ink-2);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+}
+.showcase::before {
+  content: '';
+  position: absolute; top: -40%; right: -30%;
+  width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 70%);
+  pointer-events: none;
+}
+
+.showcase-top {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  position: relative; z-index: 1;
+}
+@media (min-width: 520px) {
+  .showcase-top {
+    grid-template-columns: 148px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+  }
+}
+
+.showcase-img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ink-3);
+  border: 1px solid var(--border-dark);
+  position: relative;
+}
+@media (min-width: 520px) {
+  .showcase-img { aspect-ratio: 4/3; }
+}
+.showcase-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.showcase-img-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone);
+}
+.showcase-img-placeholder svg { width: 32px; height: 32px; }
+
+.showcase-info { min-width: 0; }
+.showcase-meta {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.showcase-id {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--green);
+  padding: 4px 9px;
+  background: rgba(0,200,83,.10);
+  border: 1px solid rgba(0,200,83,.3);
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+}
+.showcase-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600;
+  color: var(--stone-light);
+  padding: 4px 10px 4px 8px;
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+.showcase-status .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+@keyframes pulseSoft { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+.showcase-name {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 18px; line-height: 1.25;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.showcase-price {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 24px; color: var(--white);
+  letter-spacing: -0.03em;
+  margin-top: 8px;
+  display: flex; align-items: baseline; gap: 2px;
+}
+.showcase-price .sym { color: var(--green); font-size: 0.66em; }
+.showcase-seller {
+  font-size: 12.5px; color: var(--stone-light);
+  margin-top: 6px;
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+}
+.showcase-seller .sep { color: var(--border-dark); }
+.showcase-seller strong { color: var(--white); font-weight: 600; }
+
+/* PIN / receipt row */
+.showcase-pin {
+  padding: 16px 18px 18px;
+  border-top: 1px solid var(--border-dark);
+  background: rgba(255,255,255,.015);
+  position: relative; z-index: 1;
+}
+@media (min-width: 520px) { .showcase-pin { padding: 16px 20px 20px; } }
+.showcase-pin-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.showcase-pin-head svg { width: 13px; height: 13px; flex-shrink: 0; }
+.showcase-pin-text {
+  font-size: 13.5px; line-height: 1.55;
+  color: var(--stone-light);
+}
+.showcase-pin-text strong { color: var(--white); font-weight: 600; }
+.showcase-ref {
+  margin-top: 12px;
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 11.5px;
+  color: var(--stone);
+}
+.showcase-ref .ref-val {
+  color: var(--stone-light);
+  padding: 3px 8px;
+  background: var(--ink);
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOW IT WORKS
+   ═══════════════════════════════════════════════════════════════ */
+.ty-flow {
+  padding: 72px 0 88px;
+  background: var(--off-white);
+}
+.flow-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+.flow-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green-dark);
+  margin-bottom: 14px;
+}
+.flow-eyebrow::before, .flow-eyebrow::after {
+  content: ''; width: 22px; height: 1.5px; background: var(--green);
+}
+.flow-title {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(26px, 3.4vw, 36px);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.flow-sub {
+  font-size: 15.5px; color: var(--text-secondary);
+  margin-top: 12px; line-height: 1.6;
+}
+
+.flow-list {
+  max-width: 640px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.flow-item {
+  display: flex; gap: 16px;
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  transition: border-color .2s;
+}
+.flow-item:hover { border-color: var(--ink); }
+.flow-num {
+  width: 34px; height: 34px; border-radius: 10px;
+  flex-shrink: 0;
+  background: var(--ink); color: var(--white);
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: -0.01em;
+}
+.flow-item.highlight .flow-num { background: var(--green); color: var(--ink); }
+.flow-body { min-width: 0; flex: 1; }
+.flow-step-title {
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: 16px; color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.flow-step-desc {
+  font-size: 14.5px; color: var(--text-secondary);
+  line-height: 1.6;
+}
+.flow-step-desc strong { color: var(--ink); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SAFETY NOTE
+   ═══════════════════════════════════════════════════════════════ */
+.ty-safety {
+  max-width: 640px; margin: 28px auto 0;
+  display: flex; gap: 12px;
+  padding: 16px 18px;
+  background: var(--mint-soft);
+  border: 1px solid rgba(0,200,83,.28);
+  border-radius: 14px;
+}
+.ty-safety svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--green-dark); margin-top: 1px; }
+.ty-safety p { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+.ty-safety strong { color: var(--ink); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA
+   ═══════════════════════════════════════════════════════════════ */
+.ty-cta {
+  padding: 0 0 88px;
+  background: var(--off-white);
+}
+.ty-cta-inner {
+  max-width: 640px; margin: 0 auto;
+  background: var(--ink);
+  border-radius: 20px;
+  padding: 44px 36px;
+  text-align: center;
+  position: relative; overflow: hidden;
+  border: 1.5px solid var(--ink);
+}
+@media (max-width: 520px) { .ty-cta-inner { padding: 36px 24px; } }
+.ty-cta-inner::before {
+  content: '';
+  position: absolute; top: -50%; right: -20%;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 70%);
+  pointer-events: none;
+}
+.ty-cta-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: rgba(34,158,217,.16);
+  border: 1.5px solid rgba(34,158,217,.35);
+  color: #5BC0F0;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  position: relative; z-index: 1;
+}
+.ty-cta-icon svg { width: 26px; height: 26px; }
+.ty-cta-inner h3 {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--white); letter-spacing: -0.028em;
+  position: relative; z-index: 1;
+}
+.ty-cta-inner p {
+  color: var(--stone-light);
+  font-size: 15px; line-height: 1.6;
+  margin-top: 12px;
+  position: relative; z-index: 1;
+  max-width: 44ch; margin-left: auto; margin-right: auto;
+}
+.ty-cta-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+  margin-top: 26px;
+  position: relative; z-index: 1;
+}
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<nav>
-  <a href="/" class="nav-logo"><img src="/images/dps-logo.png" alt="Declutter Pawn Shop"></a>
-  <a href="/items" class="nav-back">← Browse items</a>
-</nav>
+<div data-dps-nav></div>
 
-<div class="page">
-  <div class="inner">
-
-    <!-- SUCCESS HERO -->
-    <div class="success-block">
-      <div class="ring">✓</div>
-      <div class="success-label">Payment confirmed</div>
-      <div class="success-title">MONEY<br><span class="g">ESCROWED.</span></div>
-      <p class="success-sub">Your funds are held in escrow by DPS — not released until you physically confirm the item at pickup.</p>
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="ty-hero">
+  <div class="wrap ty-hero-wrap">
+    <div class="ty-eyebrow">
+      <span class="ty-check-inline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      Payment received
     </div>
 
-    <!-- ITEM CARD (shown if URL params present) -->
-    <div class="item-card" id="itemCard" style="display:none;">
-      <div class="item-card-img" id="itemImg">📦</div>
-      <div>
-        <div class="item-lbl">Item purchased</div>
-        <div class="item-name" id="itemName">—</div>
-        <div class="item-amt" id="itemAmount"></div>
-      </div>
-    </div>
+    <h1 class="ty-title" id="tyTitle">Payment's in. <span class="accent">Your money's safe.</span></h1>
+    <p class="ty-sub" id="tySub">We're holding your payment in escrow — not sending it to the seller. It's only released once you've met them, seen the item, and entered your PIN.</p>
 
-    <div class="secured-badge">
-      🔒 Secured by <span>Paystack</span> &nbsp;·&nbsp; Escrow held until pickup
-    </div>
-
-    <!-- PIN CARD -->
-    <div class="card">
-      <div class="card-stripe stripe-green"></div>
-      <div class="card-body">
-        <div class="pin-row">
-          <div class="pin-icon">📬</div>
-          <div>
-            <div class="card-eyebrow eyebrow-green">Your pickup PIN</div>
-            <div class="card-title">Check your email — your 4-digit PIN is there.</div>
-            <div class="card-text">You'll need it at pickup. <strong>Only give the PIN to the seller after you've inspected the item and you're satisfied.</strong> That's when payment gets released.</div>
+    <!-- Item showcase card -->
+    <div class="showcase" id="showcase">
+      <div class="showcase-top">
+        <div class="showcase-img" id="showcaseImg">
+          <img id="showcaseImgEl" src="" alt="" style="display:none" onerror="this.style.display='none'">
+          <div class="showcase-img-placeholder" id="showcaseImgPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="showcase-info">
+          <div class="showcase-meta">
+            <span class="showcase-id" id="showcaseId">DPS—</span>
+            <span class="showcase-status"><span class="dot"></span>Paid · in escrow</span>
+          </div>
+          <h2 class="showcase-name" id="showcaseName">Your purchase</h2>
+          <div class="showcase-price" id="showcasePrice"><span class="sym">₦</span>—</div>
+          <div class="showcase-seller" id="showcaseSeller">
+            <span>Held safely by DPS until you confirm</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- WARNING CARD -->
-    <div class="card">
-      <div class="card-stripe stripe-amber"></div>
-      <div class="card-body">
-        <div class="card-eyebrow eyebrow-amber">⚠ Don't share it early</div>
-        <div class="card-text">Once the PIN is used, escrow releases to the seller. Don't hand it over until you're holding the item and happy with it.</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- STEPS -->
-    <div class="card">
-      <div class="card-body" style="padding-bottom:6px;">
-        <div class="card-eyebrow eyebrow-green" style="margin-bottom:12px;">What happens next</div>
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">01</div>
-            <div>
-              <div class="step-t">Contact the seller</div>
-              <div class="step-d">You'll receive seller contact details by email. Reach out and agree on a pickup time.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">02</div>
-            <div>
-              <div class="step-t">Inspect the item</div>
-              <div class="step-d">Test it, check it thoroughly. Don't rush — your money is safe until you confirm.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">03</div>
-            <div>
-              <div class="step-t">Give the PIN, deal done</div>
-              <div class="step-d">Happy with the item? Share your 4-digit PIN with the seller. That confirms the handover and releases their payout. ✓</div>
-            </div>
-          </div>
+      <div class="showcase-pin">
+        <div class="showcase-pin-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Your release PIN
+        </div>
+        <p class="showcase-pin-text">We've emailed your <strong>4-digit release PIN</strong> and receipt. You'll give the PIN to the seller only after you've seen the item — never before. DPS will never ask you for it.</p>
+        <div class="showcase-ref" id="showcaseRefWrap" style="display:none;">
+          Reference <span class="ref-val" id="showcaseRef">—</span>
         </div>
       </div>
     </div>
-
-    <div class="divider"></div>
-
-    <!-- DISPATCH NOTE -->
-    <div class="card">
-      <div class="card-stripe stripe-amber"></div>
-      <div class="card-body">
-        <div class="card-eyebrow eyebrow-amber">Sending a rider?</div>
-        <div class="card-title">Brief them before they go.</div>
-        <div class="card-text">Tell them exactly what to check, give them the PIN, and make clear — <strong>don't confirm until the item is good.</strong> Handing over the PIN via dispatch counts as your acceptance.</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- SUPPORT -->
-    <div style="text-align:center;margin-bottom:8px;">
-      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:8px;">Need help?</div>
-      <div style="font-size:13px;color:var(--grey);margin-bottom:16px;">No PIN email? No seller contact? Message Dayo and we'll sort it.</div>
-    </div>
-    <div class="actions">
-      <a href="https://t.me/declutterpawnshop2_bot?start" class="btn-primary" target="_blank">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
-        Chat with Dayo
-      </a>
-      <a href="/items" class="btn-secondary">← Browse more items</a>
-    </div>
-
   </div>
-</div>
+</section>
 
-<footer>
-  <p style="margin-bottom:8px;">
-    <a href="/items">Browse Items</a> &nbsp;·&nbsp;
-    <a href="https://t.me/declutterpawnshop">Telegram</a> &nbsp;·&nbsp;
-    <a href="/terms.html">Terms</a>
-  </p>
-  <p>© 2026 Declutter Pawn Shop · Lagos</p>
-</footer>
+<!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+<section class="ty-flow">
+  <div class="wrap">
+    <div class="flow-head reveal">
+      <div class="flow-eyebrow">What happens next</div>
+      <h2 class="flow-title">From payment to pickup.</h2>
+      <p class="flow-sub">Four steps, and your money stays protected through all of them.</p>
+    </div>
+
+    <div class="flow-list">
+      <div class="flow-item reveal">
+        <div class="flow-num">01</div>
+        <div class="flow-body">
+          <div class="flow-step-title">Your payment is held in escrow</div>
+          <p class="flow-step-desc">Your money is with DPS, not the seller. It's safe for both sides — neither of you can touch it until you confirm the handover.</p>
+        </div>
+      </div>
+
+      <div class="flow-item reveal">
+        <div class="flow-num">02</div>
+        <div class="flow-body">
+          <div class="flow-step-title">Meet the seller</div>
+          <p class="flow-step-desc">You both get each other's contact details. Agree on a <strong>public place in daylight</strong> and a time that works.</p>
+        </div>
+      </div>
+
+      <div class="flow-item reveal">
+        <div class="flow-num">03</div>
+        <div class="flow-body">
+          <div class="flow-step-title">Inspect before you confirm</div>
+          <p class="flow-step-desc">Check the item properly. Test it if it's electronic. If it isn't as described, keep your PIN and message Dayo — we'll refund you. Your money hasn't left DPS.</p>
+        </div>
+      </div>
+
+      <div class="flow-item highlight reveal">
+        <div class="flow-num">04</div>
+        <div class="flow-body">
+          <div class="flow-step-title">Your PIN completes the sale</div>
+          <p class="flow-step-desc">Happy with it? Give the seller your <strong>4-digit PIN</strong>. Escrow releases to them, and the item is officially yours. Done.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ty-safety reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <p><strong>Never share your PIN before you're holding the item.</strong> The PIN is what releases your money. Once you give it out, the sale is final.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA ═══════════════════ -->
+<section class="ty-cta">
+  <div class="wrap">
+    <div class="ty-cta-inner reveal">
+      <div class="ty-cta-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+      </div>
+      <h3>Need a hand with this order?</h3>
+      <p>Can't reach the seller, or something doesn't look right? Message Dayo on Telegram — we're here to help, and your payment stays protected the whole time.</p>
+      <div class="ty-cta-actions">
+        <a id="dayoLink" href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener" class="btn btn-primary">
+          Message Dayo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <a href="/items" class="btn btn-outline-light">Browse more items</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-dps-footer></div>
 
 <script>
 (function() {
-  var p = new URLSearchParams(window.location.search);
-  var name   = p.get('item_name') || p.get('name');
-  var amount = p.get('amount');
-  var ref    = p.get('reference') || p.get('trxref');
-  var img    = p.get('image');
+  "use strict";
 
-  if (name || ref) {
-    var card = document.getElementById('itemCard');
-    card.style.display = 'flex';
-    if (name)   document.getElementById('itemName').textContent   = decodeURIComponent(name);
-    if (!name && ref) document.getElementById('itemName').textContent = 'Ref: ' + ref;
-    if (amount) {
-      var n = parseInt(amount);
-      if (!isNaN(n)) document.getElementById('itemAmount').textContent = '₦' + n.toLocaleString('en-NG');
+  var GAS = (typeof DPS_MAIN_GAS_URL !== 'undefined') ? DPS_MAIN_GAS_URL : '';
+
+  var params = new URLSearchParams(window.location.search);
+
+  // Code.gs appends &item_id=..., Paystack then appends &reference=... / &trxref=...
+  // Accept all three spellings so this works no matter which path sent us here.
+  var itemId = (
+    params.get('item_id') ||
+    params.get('itemId')  ||
+    params.get('item')    ||
+    ''
+  ).trim().toUpperCase();
+
+  var reference = (params.get('reference') || params.get('trxref') || '').trim();
+
+  // ─── Reference number (receipt)
+  if (reference) {
+    document.getElementById('showcaseRef').textContent = reference;
+    document.getElementById('showcaseRefWrap').style.display = 'flex';
+  }
+
+  // ─── Item id + Dayo deep link
+  if (itemId) {
+    document.getElementById('showcaseId').textContent = itemId;
+    document.getElementById('dayoLink').href =
+      'https://t.me/declutterpawnshop2_bot?start=' + encodeURIComponent(itemId);
+  }
+
+  // ─── Fetch item via lookupItem (finds any status, incl. Paid/Sold).
+  //     getItems would filter this item out — its Status is now Paid.
+  if (GAS && itemId) {
+    fetch(GAS + '?action=lookupItem&item=' + encodeURIComponent(itemId))
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(data) {
+        if (data && data.found) populateShowcase(data);
+      })
+      .catch(function() { /* silent — fallbacks already set */ });
+  }
+
+  function populateShowcase(item) {
+    var name = String(item.itemName || '').trim();
+    var price = parseInt(String(item.price || '0').replace(/[^0-9]/g, ''), 10) || 0;
+    var img = firstImage(item.photo);
+    var sellerName = String(item.businessName || '').trim();
+
+    if (name) document.getElementById('showcaseName').textContent = name;
+    if (price) {
+      document.getElementById('showcasePrice').innerHTML = '<span class="sym">₦</span>' + price.toLocaleString('en-NG');
     }
+
+    var sellerEl = document.getElementById('showcaseSeller');
+    if (sellerName) {
+      sellerEl.innerHTML = '<strong>' + escapeHTML(sellerName) + '</strong><span class="sep">·</span><span>Held in escrow until you confirm</span>';
+    } else {
+      sellerEl.innerHTML = '<span>Verified seller on DPS</span><span class="sep">·</span><span>Held in escrow until you confirm</span>';
+    }
+
     if (img) {
-      var el = document.getElementById('itemImg');
-      el.innerHTML = '<img src="' + decodeURIComponent(img) + '" alt="Item">';
+      var imgEl = document.getElementById('showcaseImgEl');
+      imgEl.src = img;
+      imgEl.style.display = 'block';
+      imgEl.onload = function() {
+        var ph = document.getElementById('showcaseImgPlaceholder');
+        if (ph) ph.style.display = 'none';
+      };
+      imgEl.onerror = function() {
+        imgEl.style.display = 'none';
+      };
     }
   }
+
+  function firstImage(raw) {
+    if (!raw) return '';
+    var cleaned = String(raw).replace(/__/g, ' ').replace(/\s+/g, ' ').trim();
+    var parts = cleaned.split(/[,\s]+/);
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].indexOf('http') === 0) {
+        var m = parts[i].match(/drive\.google\.com\/file\/d\/([^/]+)/);
+        return m ? 'https://drive.google.com/uc?export=view&id=' + m[1] : parts[i];
+      }
+    }
+    return '';
+  }
+
+  function escapeHTML(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c];
+    });
+  }
+
+  // ─── Reveal-on-scroll
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
 })();
 </script>
 </body>
