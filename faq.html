@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
-<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ — Declutter Pawn Shop</title>
 <meta name="description" content="Everything you need to know about buying, selling, negotiating, escrow, payouts, and Dayo on Declutter Pawn Shop.">
@@ -55,9 +53,38 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-dark);}
 .eyebrow::before{content:'';width:22px;height:1.5px;background:var(--green);}
 
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(14,19,32,.92);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px;max-width:1240px;margin:0 auto;padding:0 20px;}
+@media (min-width:768px){.nav-inner{padding:0 40px;}}
+.nav-logo{display:inline-flex;align-items:center;}
+.nav-logo img{height:44px;width:auto;display:block;}
+.nav-links{display:none;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--stone-light);transition:color .15s;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.active{color:var(--white);}
+.nav-cta{display:none;}
+@media (min-width:900px){.nav-links{display:flex;}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px;}}
+.nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px;}
+@media (min-width:900px){.nav-mobile-cta{display:none;}}
+
+footer{background:var(--ink-2);color:var(--stone-light);padding:64px 0 32px;border-top:1px solid var(--border-dark);}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px;}
+@media (min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;}}
+.foot-brand img{height:52px;width:auto;margin-bottom:20px;opacity:.95;display:block;}
+.foot-brand p{font-size:14px;line-height:1.65;max-width:32ch;color:var(--stone-light);}
+.foot-col h4{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);margin-bottom:18px;}
+.foot-col a{display:block;font-size:14px;color:var(--stone-light);padding:6px 0;transition:color .15s;}
+.foot-col a:hover{color:var(--green);}
+.foot-bottom{padding-top:32px;border-top:1px solid var(--border-dark);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--text-muted);}
+.foot-social{display:flex;gap:12px;}
+.foot-social a{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);transition:background .15s;}
+.foot-social a:hover{background:rgba(0,200,83,.15);}
+.foot-social svg{width:16px;height:16px;color:var(--stone-light);}
+
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-weight:700;font-size:15px;padding:13px 24px;border-radius:12px;transition:transform .15s,box-shadow .15s,background .15s,color .15s,border-color .15s;cursor:pointer;white-space:nowrap;letter-spacing:-0.005em;text-decoration:none;border:none;background:none;}
 .btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark);}
 .btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 0 var(--green-deep);}
+.btn-primary:active{transform:translateY(0);box-shadow:0 1px 0 var(--green-deep);}
 .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);}
 .btn-outline:hover{border-color:var(--ink);}
 
@@ -71,7 +98,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .jump-bar{position:sticky;top:72px;z-index:150;background:var(--white);border-bottom:1px solid var(--border);border-top:2px solid var(--ink);padding:10px 0;}
 .jump-inner{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0;}
 .jump-inner::-webkit-scrollbar{display:none;}
-.jump-link{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r-pill);border:1.5px solid var(--border);background:transparent;font-size:12.5px;font-weight:600;color:var(--text-secondary);transition:all .15s;white-space:nowrap;}
+.jump-link{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r-pill);border:1.5px solid var(--border);background:transparent;font-size:12.5px;font-weight:600;color:var(--text-secondary);transition:all .15s;white-space:nowrap;cursor:pointer;}
 .jump-link:hover{border-color:var(--ink);color:var(--ink);}
 .jump-link.active{background:var(--ink);color:var(--white);border-color:var(--ink);}
 .jump-link .jump-count{font-family:var(--font-mono);font-size:10.5px;font-weight:500;opacity:.7;}
@@ -122,7 +149,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .faq-cta-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px;}
 .faq-cta .btn-outline{color:var(--white);border-color:rgba(255,255,255,.22);}
 .faq-cta .btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.05);}
-@media (max-width:640px){.faq-cta{padding:32px 22px;border-radius:20px;}}
+@media (max-width:640px){.faq-cta{padding:32px 22px;border-radius:20px;}.faq-hero{padding:120px 0 44px;}.nav-logo img{height:36px;}}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -143,14 +170,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 <div class="jump-bar">
   <div class="wrap">
     <div class="jump-inner" id="jumpInner">
-      <a href="#buying"      class="jump-link" data-jump="buying">Buying <span class="jump-count">6</span></a>
-      <a href="#offers"      class="jump-link" data-jump="offers">Offers <span class="jump-count">6</span></a>
-      <a href="#escrow"      class="jump-link" data-jump="escrow">Escrow &amp; PIN <span class="jump-count">5</span></a>
-      <a href="#selling"     class="jump-link" data-jump="selling">Selling <span class="jump-count">6</span></a>
-      <a href="#payouts"     class="jump-link" data-jump="payouts">Payouts <span class="jump-count">4</span></a>
-      <a href="#dayo"        class="jump-link" data-jump="dayo">Dayo &amp; Telegram <span class="jump-count">4</span></a>
-      <a href="#partners"    class="jump-link" data-jump="partners">Partners <span class="jump-count">4</span></a>
-      <a href="#safety"      class="jump-link" data-jump="safety">Safety &amp; disputes <span class="jump-count">4</span></a>
+      <a href="#buying"   class="jump-link" data-jump="buying">Buying <span class="jump-count">6</span></a>
+      <a href="#offers"   class="jump-link" data-jump="offers">Offers <span class="jump-count">6</span></a>
+      <a href="#escrow"   class="jump-link" data-jump="escrow">Escrow &amp; PIN <span class="jump-count">5</span></a>
+      <a href="#selling"  class="jump-link" data-jump="selling">Selling <span class="jump-count">6</span></a>
+      <a href="#payouts"  class="jump-link" data-jump="payouts">Payouts <span class="jump-count">4</span></a>
+      <a href="#dayo"     class="jump-link" data-jump="dayo">Dayo &amp; Telegram <span class="jump-count">4</span></a>
+      <a href="#partners" class="jump-link" data-jump="partners">Partners <span class="jump-count">4</span></a>
+      <a href="#safety"   class="jump-link" data-jump="safety">Safety &amp; disputes <span class="jump-count">4</span></a>
     </div>
   </div>
 </div>
@@ -169,10 +196,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I buy an item?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I buy an item?</span></summary>
           <div class="faq-a">
             <p>Find the item you want on <a href="/items">Live Items</a> or in the Telegram channel. Click <strong>Buy now</strong>. Enter your email, pay through Paystack, and we'll send your 4-digit PIN.</p>
             <p>Once payment clears, you and the seller get each other's contact details. Coordinate pickup, inspect the item, and only share your PIN once you're satisfied. That's when escrow releases to the seller.</p>
@@ -180,10 +204,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I know listings are real?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I know listings are real?</span></summary>
           <div class="faq-a">
             <p>Every listing is reviewed by our team before it goes live. We check the photos, the description, the price, and the seller's history. If something looks off — clearly misleading, missing key detail, or suspiciously priced — it doesn't go up.</p>
             <p>That's why DPS prices tend to be higher than unverified marketplaces. What you see is what you get.</p>
@@ -191,10 +212,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can I buy at the asking price, or do I have to negotiate?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can I buy at the asking price, or do I have to negotiate?</span></summary>
           <div class="faq-a">
             <p>Both work. <strong>Buy now</strong> purchases the item at the listed price — the fastest route. If you want to negotiate, tap <strong>Negotiate</strong> and submit your offer for a ₦300 fee.</p>
             <p>Most people negotiate on higher-priced items. For smaller things, buying at asking is usually quicker and just as safe.</p>
@@ -202,10 +220,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What payment methods can I use?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What payment methods can I use?</span></summary>
           <div class="faq-a">
             <p>All payments run through <strong>Paystack</strong>, Nigeria's leading payment processor. You can pay with:</p>
             <ul>
@@ -219,10 +234,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can I inspect the item before paying?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can I inspect the item before paying?</span></summary>
           <div class="faq-a">
             <p>Yes — but not before paying. Here's why: the item stays visible to other buyers until payment confirms it. Once escrow holds your funds, the item is reserved for you, and you can inspect it fully at pickup.</p>
             <p>If anything doesn't match the listing, you walk away without sharing your PIN. Full refund, no argument.</p>
@@ -234,10 +246,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Do I pay extra fees as a buyer?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Do I pay extra fees as a buyer?</span></summary>
           <div class="faq-a">
             <p>No. Buyers pay the agreed price — nothing else. Commission comes out of the seller's payout.</p>
             <p>The only additional cost is the <strong>₦300 negotiation fee</strong> if you choose to make an offer instead of buying at the asking price. That fee is charged by Paystack at the point of offer.</p>
@@ -258,10 +267,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I make an offer?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I make an offer?</span></summary>
           <div class="faq-a">
             <p>Open the item page, tap <strong>Negotiate</strong>, and enter your offer. Use the ± buttons to move in ₦1,000 steps, or just type the number. Add an optional note, enter your email, and pay the ₦300 fee through Paystack.</p>
             <p>The seller gets notified immediately. They have 24 hours to accept, counter, or decline.</p>
@@ -269,10 +275,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Why is there a ₦300 fee?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Why is there a ₦300 fee?</span></summary>
           <div class="faq-a">
             <p>Because it keeps offers serious. Without a fee, marketplaces get flooded with lowball offers from people who aren't actually ready to buy. The ₦300 filters that out.</p>
             <p>The fee also covers verification, buyer screening, and the email infrastructure that keeps you informed at every step.</p>
@@ -284,10 +287,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What happens after I send an offer?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What happens after I send an offer?</span></summary>
           <div class="faq-a">
             <p>Three possibilities, and you'll get an email for whichever happens:</p>
             <ul>
@@ -299,10 +299,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can I withdraw my offer?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can I withdraw my offer?</span></summary>
           <div class="faq-a">
             <p>Yes. Any time before the seller responds, you can pull your offer from the link in your confirmation email. The seller is notified that you've withdrawn.</p>
             <p>The ₦300 fee is not refunded — it covered the submission and verification, which already happened.</p>
@@ -310,10 +307,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What if the seller doesn't respond?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What if the seller doesn't respond?</span></summary>
           <div class="faq-a">
             <p>The offer expires automatically after 24 hours. You get an email when it does. The item stays live and you can try again with a fresh offer if you want.</p>
             <p>Sellers who repeatedly let offers expire without responding get flagged in our system. It affects their visibility on the platform.</p>
@@ -321,10 +315,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can I have two offers on the same item?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can I have two offers on the same item?</span></summary>
           <div class="faq-a">
             <p>No. Only one live offer per buyer per item at a time. If you already have a pending or countered offer, you'll need to respond to it, withdraw it, or wait for it to expire before submitting a new one.</p>
             <p>This prevents accidental double-payment and keeps things clean on the seller's side.</p>
@@ -345,10 +336,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How does escrow actually work?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How does escrow actually work?</span></summary>
           <div class="faq-a">
             <p>Buyer pays → funds sit with DPS (not the seller) → buyer inspects at pickup → buyer shares PIN → funds release to the seller minus commission.</p>
             <p>Your money never moves without your action. Until the PIN is entered, everything is reversible. That's the whole safety layer.</p>
@@ -356,10 +344,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What is the PIN and how does it work?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What is the PIN and how does it work?</span></summary>
           <div class="faq-a">
             <p>The PIN is a 4-digit code you get by email the moment your payment is confirmed. You share it with the seller at pickup, <strong>only after you've inspected and accepted the item</strong>.</p>
             <p>The seller enters it into the system. That's the release signal. Escrow opens, they get paid, the sale is complete.</p>
@@ -367,10 +352,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What if I never share the PIN?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What if I never share the PIN?</span></summary>
           <div class="faq-a">
             <p>Nothing moves. The money stays in escrow. If the item turned out not to match, you did the right thing — walk away, and contact us to arrange a refund.</p>
             <p>If it's just pickup logistics taking time, no problem. Escrow holds until you and the seller are ready.</p>
@@ -378,10 +360,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Who can see my PIN?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Who can see my PIN?</span></summary>
           <div class="faq-a">
             <p>Only you. It's emailed to the address you paid with, and to nobody else. Not the seller, not even DPS staff.</p>
             <div class="faq-note warn">
@@ -392,10 +371,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can the money be refunded after I share the PIN?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can the money be refunded after I share the PIN?</span></summary>
           <div class="faq-a">
             <p>No. Once the PIN is entered and verified, escrow releases and the transaction is final. That's the entire point of the PIN — it's your last checkpoint.</p>
             <p>If a problem surfaces afterward, contact us anyway. We'll look into it, but reversal isn't something we can promise.</p>
@@ -416,10 +392,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I list an item?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I list an item?</span></summary>
           <div class="faq-a">
             <p>Tap <strong>Sell</strong> on the site, or send your details to Dayo on Telegram. You'll need:</p>
             <ul>
@@ -436,10 +409,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How long until my item goes live?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How long until my item goes live?</span></summary>
           <div class="faq-a">
             <p>Most listings are reviewed within a few hours. We check photos, description, price, and general quality. If everything looks good, it goes live and starts appearing on the marketplace and Telegram channel.</p>
             <p>If something needs fixing — blurry photos, vague description — we'll email you with specific notes so you can resubmit.</p>
@@ -447,10 +417,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What's the commission?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What's the commission?</span></summary>
           <div class="faq-a">
             <p>Individual sellers: <strong>13% commission</strong>. You keep 87% of the sale price.</p>
             <p>DPS Partners: <strong>5% commission</strong>. Partners keep 95%. Partner rates apply after account verification.</p>
@@ -459,10 +426,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can I reject an offer?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can I reject an offer?</span></summary>
           <div class="faq-a">
             <p>Absolutely. Every offer comes with three buttons: Accept, Counter, or Decline. You choose.</p>
             <p>If you decline, the buyer is notified and the item stays live. If you counter, the buyer has 24 hours to respond to your price. No obligation to accept anything you don't want.</p>
@@ -470,10 +434,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What if a buyer never shows up for pickup?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What if a buyer never shows up for pickup?</span></summary>
           <div class="faq-a">
             <p>Contact us. We'll reach the buyer and, if needed, extend the escrow window so you're not stuck waiting. Buyers with a pattern of no-shows get flagged and restricted.</p>
             <p>The money stays safely in escrow during the delay. You're not out anything.</p>
@@ -481,10 +442,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Can I list multiple items at once?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Can I list multiple items at once?</span></summary>
           <div class="faq-a">
             <p>Yes. Sellers can list as many items as they want. Partners can list at scale — including automated import from their Instagram page through <strong>Dina</strong>.</p>
             <p>For high-volume sellers, the <a href="/partners">Partner Program</a> is worth looking at. Lower commission, bulk tools, and dedicated support.</p>
@@ -505,20 +463,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">When do I get paid after a sale?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">When do I get paid after a sale?</span></summary>
           <div class="faq-a">
             <p>Once the buyer shares their PIN and the sale is confirmed, payout is queued to your bank account. Most payouts land <strong>within 24 hours</strong> of PIN verification, typically the same day during banking hours.</p>
           </div>
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I add or change my bank details?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I add or change my bank details?</span></summary>
           <div class="faq-a">
             <p>Bank details are collected during your first listing. If they need updating, contact us at <a href="mailto:info@declutterpawnshop.com">info@declutterpawnshop.com</a> from the email on your account. We'll verify and update.</p>
             <p>For security, we don't allow self-service bank detail changes. This prevents account takeover from redirecting payouts.</p>
@@ -526,10 +478,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What if my bank details are wrong?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What if my bank details are wrong?</span></summary>
           <div class="faq-a">
             <p>If a payout fails because of incorrect bank details, we'll contact you. The money stays in escrow until we get corrected details and re-attempt the payout. You're not at risk of losing the funds.</p>
             <p>Please double-check your bank name, account number, and account name when you first set them up.</p>
@@ -537,10 +486,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Do I pay tax on my DPS earnings?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Do I pay tax on my DPS earnings?</span></summary>
           <div class="faq-a">
             <p>That depends on your individual tax situation. DPS doesn't withhold or report on your behalf beyond what's legally required. If you're a regular seller, we recommend keeping records of your payouts and consulting a tax professional.</p>
             <p>Transaction records are retained for 7 years and available on request if you need them for accounting.</p>
@@ -561,10 +507,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What is Dayo?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What is Dayo?</span></summary>
           <div class="faq-a">
             <p>Dayo is our Telegram bot. He answers questions, checks item availability, sends payment links, and helps sellers list items — all through a chat interface, 24/7.</p>
             <p>Think of him as a personal DPS concierge who never sleeps.</p>
@@ -572,10 +515,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What can Dayo do?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What can Dayo do?</span></summary>
           <div class="faq-a">
             <ul>
               <li>Check if a specific item is still available</li>
@@ -589,10 +529,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I reach Dayo?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I reach Dayo?</span></summary>
           <div class="faq-a">
             <p>Open Telegram and search for <strong>@declutterpawnshop2_bot</strong>, or tap <a href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener">this link</a>. Send any message to get started.</p>
             <p>Dayo will greet you and guide you from there.</p>
@@ -600,10 +537,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Is there a DPS Telegram channel?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Is there a DPS Telegram channel?</span></summary>
           <div class="faq-a">
             <p>Yes — <a href="https://t.me/declutterpawnshop" target="_blank" rel="noopener">@declutterpawnshop</a>. Every new listing goes out there the moment it's approved. It's the fastest way to see items as they drop.</p>
             <p>The channel is notifications only. For conversations, use Dayo.</p>
@@ -624,10 +558,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What's the Partner Program?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What's the Partner Program?</span></summary>
           <div class="faq-a">
             <p>It's DPS for businesses. You list inventory at scale, get a lower commission rate (5% vs 13%), and unlock <strong>Dina</strong> — our Instagram automation that imports listings directly from your Instagram page.</p>
             <p>If you run a declutter page, a thrift store, or any pre-owned business, this is built for you.</p>
@@ -635,10 +566,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What is Dina?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What is Dina?</span></summary>
           <div class="faq-a">
             <p>Dina is our Instagram scraper and listing bot. Once your account is verified as a Partner, Dina monitors your Instagram page and imports new posts as DPS listings — automatically.</p>
             <p>You keep posting on Instagram like normal. Dina handles the rest: pricing, description cleanup, image optimization, and publishing to DPS.</p>
@@ -646,10 +574,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I become a Partner?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I become a Partner?</span></summary>
           <div class="faq-a">
             <p>Register at <a href="/partner-register">/partner-register</a>. You'll need:</p>
             <ul>
@@ -663,10 +588,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Is there a monthly fee for Partners?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Is there a monthly fee for Partners?</span></summary>
           <div class="faq-a">
             <p>No. No listing fees, no subscription, no upfront cost. Partner commission (5%) is deducted automatically at payout — same as individual sellers, just a lower rate.</p>
             <p>You only pay when you sell.</p>
@@ -687,20 +609,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">Where should I meet for pickup?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">Where should I meet for pickup?</span></summary>
           <div class="faq-a">
             <p>Public place, daytime, well-lit. A mall, a coffee shop, a busy street corner. Bring a friend if it's a high-value item. Trust your instincts — if something feels off, walk away without sharing your PIN.</p>
           </div>
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What if the item doesn't match the listing?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What if the item doesn't match the listing?</span></summary>
           <div class="faq-a">
             <p>Don't share the PIN. Walk away. Contact us with photos or a description of the discrepancy and we'll process a full refund to your original payment method.</p>
             <p>That's exactly the scenario escrow exists for.</p>
@@ -708,10 +624,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">What if I've already shared my PIN but there's a problem?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">What if I've already shared my PIN but there's a problem?</span></summary>
           <div class="faq-a">
             <p>Contact us immediately at <a href="mailto:info@declutterpawnshop.com">info@declutterpawnshop.com</a>. Post-confirmation disputes are harder to resolve — escrow has already released — but we'll look into every case individually and take action against bad actors.</p>
             <p>If there's evidence of fraud, we'll escalate it seriously.</p>
@@ -719,10 +632,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
         </details>
 
         <details class="faq-item">
-          <summary class="faq-q">
-            <span class="faq-q-mark">+</span>
-            <span class="faq-q-text">How do I report a suspicious listing or user?</span>
-          </summary>
+          <summary class="faq-q"><span class="faq-q-mark">+</span><span class="faq-q-text">How do I report a suspicious listing or user?</span></summary>
           <div class="faq-a">
             <p>Every listing has a <strong>Report this listing</strong> link at the bottom. It opens a conversation with Dayo, who forwards it to our team. You can also email us directly.</p>
             <p>We investigate every report. Reports of scams, stolen goods, or misrepresentation are handled urgently.</p>
@@ -755,35 +665,27 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 <script>
 (function(){
   "use strict";
-
   var jumpLinks = document.querySelectorAll('.jump-link');
   var groups = Array.prototype.map.call(jumpLinks, function(a){
     var id = a.getAttribute('data-jump');
     return { link: a, el: document.getElementById(id) };
   }).filter(function(x){ return x.el; });
-
   function updateJump(){
     var scrollY = window.scrollY + 220;
     var current = null;
-    for (var i = 0; i < groups.length; i++){
-      if (groups[i].el.offsetTop <= scrollY) current = groups[i];
-    }
+    for(var i=0;i<groups.length;i++){ if(groups[i].el.offsetTop <= scrollY) current = groups[i]; }
     jumpLinks.forEach(function(a){ a.classList.remove('active'); });
-    if (current) current.link.classList.add('active');
+    if(current) current.link.classList.add('active');
   }
   window.addEventListener('scroll', updateJump, { passive: true });
   window.addEventListener('resize', updateJump);
   updateJump();
 
-  var items = document.querySelectorAll('.faq-item');
-  items.forEach(function(d){
+  document.querySelectorAll('.faq-item').forEach(function(d){
     d.addEventListener('toggle', function(){
-      if (d.open) {
-        d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      if(d.open) d.scrollIntoView({ behavior:'smooth', block:'nearest' });
     });
   });
-
 })();
 </script>
 </body>
