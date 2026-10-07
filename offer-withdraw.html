@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Withdraw your offer | Declutter Pawn Shop</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0E1320">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green:        #00C853;
+  --green-dark:   #00A843;
+  --green-deep:   #009933;
+  --ink:          #0E1320;
+  --ink-2:        #161C2B;
+  --ink-3:        #1E2536;
+  --ink-4:        #2A3248;
+  --off-white:    #F5F7F8;
+  --white:        #FFFFFF;
+  --stone:        #A7B0AA;
+  --stone-light:  #C6CFC9;
+  --stone-dark:   #5B635D;
+  --mint:         #C8F0D8;
+  --mint-soft:    #E9F5EE;
+  --tint-soft:    #F2F7F4;
+  --tint-edge:    #DCE7E0;
+  --border:       #E1E5E4;
+  --border-ink:   #D6DCE0;
+  --border-dark:  #242C3E;
+  --danger:       #DC2626;
+  --danger-soft:  #FEF2F2;
+  --danger-edge:  #FECACA;
+  --amber:        #B45309;
+  --amber-soft:   #FFFBEB;
+  --amber-edge:   #FDE68A;
+  --text-primary:   var(--ink);
+  --text-secondary: #4F5860;
+  --text-muted:     #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', ui-monospace, monospace;
+  --r-card:   16px;
+  --r-button: 12px;
+  --r-pill:   999px;
+  --shadow-sm: 0 1px 2px rgba(14,19,32,.04), 0 1px 1px rgba(14,19,32,.03);
+  --shadow-md: 0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
+  --shadow-lg: 0 24px 70px rgba(14,19,32,.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-body); background: var(--off-white); color: var(--text-primary); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body.locked { overflow: hidden; }
+h1,h2,h3,h4,h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+.wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .wrap { padding: 0 40px; } }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-dark); }
+.eyebrow::before { content: ''; width: 22px; height: 1.5px; background: var(--green); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: var(--r-button); transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s; cursor: pointer; white-space: nowrap; letter-spacing: -0.005em; }
+.btn-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
+.btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--ink); }
+
+/* ─── NAV CSS ─── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.nav-logo img { height: 34px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--white); }
+.nav-cta { display: none; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 10px 20px; font-size: 13.5px; } }
+.nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
+@media (min-width: 900px) { .nav-mobile-cta { display: none; } }
+
+/* ─── FOOTER CSS ─── */
+footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28px; border-top: 1px solid var(--border-dark); }
+.foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+@media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; } }
+.foot-brand img { height: 34px; width: auto; margin-bottom: 14px; opacity: .95; }
+.foot-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; color: var(--stone-light); }
+.foot-col h4 { font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+.foot-col a { display: block; font-size: 13.5px; color: var(--stone-light); padding: 5px 0; transition: color .15s; }
+.foot-col a:hover { color: var(--green); }
+.foot-bottom { padding-top: 28px; border-top: 1px solid var(--border-dark); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+.foot-social { display: flex; gap: 10px; }
+.foot-social a { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.05); transition: background .15s; }
+.foot-social a:hover { background: rgba(0,200,83,.15); }
+.foot-social svg { width: 15px; height: 15px; color: var(--stone-light); }
+
+/* ─── PAGE HERO ─── */
+.page-hero { background: var(--ink); color: var(--off-white); padding: 100px 0 56px; position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
+.page-hero-inner { position: relative; z-index: 1; max-width: 720px; }
+.page-hero .eyebrow { color: var(--green); }
+.page-hero h1 { color: var(--white); font-size: clamp(30px, 5vw, 52px); letter-spacing: -0.032em; margin-top: 10px; line-height: 1; }
+.page-hero-sub { color: var(--stone-light); font-size: 15px; line-height: 1.55; margin-top: 12px; max-width: 52ch; }
+.trust-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; position: relative; z-index: 1; }
+.trust-chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border: 1.5px solid rgba(245,247,248,.16); border-radius: var(--r-pill); font-size: 12px; font-weight: 600; color: var(--stone-light); background: rgba(255,255,255,.02); }
+.trust-chip svg { color: var(--green); flex-shrink: 0; width: 13px; height: 13px; }
+
+/* ─── OFFER CARD ─── */
+.offer-section { padding: 0 0 88px; }
+.offer-slot { margin-top: -32px; position: relative; z-index: 2; }
+.banner { display: none; max-width: 600px; margin: 0 auto 12px; padding: 12px 15px; background: var(--amber-soft); border: 1px solid var(--amber-edge); border-radius: 12px; font-size: 12.5px; line-height: 1.5; color: var(--amber); }
+.banner.show { display: block; }
+.banner strong { font-weight: 700; }
+
+.card { background: var(--white); border: 1.5px solid var(--ink); border-radius: 20px; overflow: hidden; max-width: 600px; margin: 0 auto; box-shadow: 0 24px 60px rgba(14,19,32,.10); }
+
+/* item strip */
+.item-head { display: flex; gap: 14px; align-items: center; padding: 16px 20px; background: var(--tint-soft); border-bottom: 1px solid var(--tint-edge); }
+.item-thumb { position: relative; width: 60px; height: 60px; flex: 0 0 60px; border-radius: 12px; overflow: hidden; background: #E3E8E5; }
+.item-thumb .item-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.item-thumb .ph { display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--stone); height: 100%; }
+.item-info { min-width: 0; flex: 1; }
+.item-name { font-family: var(--font-heading); font-weight: 700; font-size: 15px; line-height: 1.3; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.item-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.03em; text-transform: uppercase; }
+.cd { display: inline-flex; align-items: center; gap: 6px; margin-top: 7px; padding: 4px 10px; border-radius: var(--r-pill); background: rgba(0,200,83,.09); border: 1px solid rgba(0,200,83,.25); color: #00702F; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cd.warn { background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.35); color: #B45309; }
+.cd.dead { background: var(--danger-soft); border-color: var(--danger-edge); color: #B91C1C; }
+
+/* card body */
+.pad { padding: 20px; }
+.pad > * + * { margin-top: 16px; }
+.lbl { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-dark); }
+.lbl::before { content: ''; width: 14px; height: 1.5px; background: var(--green); border-radius: 1px; }
+
+.offer-box { background: var(--ink); color: #fff; border-radius: 16px; padding: 18px; position: relative; overflow: hidden; margin-top: 10px; }
+.offer-box::after { content: ''; position: absolute; top: -60%; right: -30%; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.22) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
+.offer-box > * { position: relative; z-index: 1; }
+.offer-from { font-size: 12.5px; color: var(--stone-light); }
+.offer-from strong { color: #fff; font-weight: 700; }
+.offer-amt { font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 8vw, 38px); letter-spacing: -0.035em; line-height: 1.05; margin-top: 6px; display: flex; align-items: baseline; font-variant-numeric: tabular-nums; color: #fff; }
+.offer-amt .sym { color: var(--green); font-size: .55em; margin-right: 3px; font-weight: 800; }
+.offer-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; color: var(--stone-light); }
+.offer-sub strong { color: #fff; font-family: var(--font-mono); font-weight: 500; }
+.offer-sub .was { text-decoration: line-through; text-decoration-thickness: 1px; opacity: .7; }
+.chip { padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,.1); font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; }
+.chip.up { background: rgba(0,200,83,.2); color: #7BE8A8; }
+
+/* fee note */
+.fee-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--amber-soft); border: 1px solid var(--amber-edge); color: var(--amber); font-size: 12.5px; line-height: 1.5; }
+.fee-note svg { flex: 0 0 auto; margin-top: 1px; }
+
+/* buttons */
+.act { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; padding: 15px 18px; border-radius: var(--r-button); font-weight: 700; font-size: 15px; line-height: 1; letter-spacing: -0.005em; transition: background .15s, box-shadow .15s, border-color .15s, color .15s, transform .08s; }
+.act svg { flex: 0 0 auto; }
+.act:disabled { opacity: .5; cursor: not-allowed; }
+.act-green { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
+.act-green:hover:not(:disabled) { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
+.act-green:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
+.act-line { background: var(--white); color: var(--ink); border: 1.5px solid var(--border); }
+.act-line:hover:not(:disabled) { border-color: var(--ink); }
+.act-danger { background: var(--white); color: var(--danger); border: 1.5px solid var(--danger-edge); }
+.act-danger:hover:not(:disabled) { background: var(--danger-soft); }
+.act-danger-solid { background: var(--danger); color: var(--white); box-shadow: 0 2px 0 #B91C1C; }
+.act-danger-solid:hover:not(:disabled) { background: #B91C1C; }
+.act-dark { background: var(--ink); color: var(--white); }
+.act-dark:hover:not(:disabled) { background: var(--ink-2); }
+.act-quiet { background: transparent; color: var(--text-secondary); border: 1.5px solid var(--border); }
+.act-quiet:hover:not(:disabled) { border-color: var(--ink); color: var(--ink); }
+.stack { display: flex; flex-direction: column; gap: 10px; }
+
+/* confirm panel */
+.confirm { display: none; padding: 16px; border-radius: 14px; background: var(--danger-soft); border: 1px solid var(--danger-edge); }
+.confirm.open { display: block; animation: pop .18s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.confirm h3 { font-size: 15px; margin-bottom: 6px; }
+.confirm p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+.confirm .row { display: flex; gap: 8px; }
+.confirm .row .act { flex: 1; padding: 12px 14px; font-size: 14px; }
+
+.alt { text-align: center; padding-top: 2px; }
+.linkbtn { font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border); transition: color .15s; }
+.linkbtn:hover:not(:disabled) { color: var(--ink); text-decoration-color: var(--ink); }
+
+.err { display: none; padding: 12px 14px; border-radius: 10px; background: var(--danger-soft); border: 1px solid var(--danger-edge); color: #B91C1C; font-size: 13px; line-height: 1.5; }
+.err.show { display: block; }
+
+.card-foot { padding: 14px 20px 16px; border-top: 1px solid var(--border); background: var(--off-white); text-align: center; font-size: 11.5px; color: var(--text-muted); line-height: 1.55; }
+.card-foot code { font-family: var(--font-mono); font-size: 11px; background: rgba(14,19,32,.06); padding: 1px 5px; border-radius: 4px; }
+
+/* states */
+.state { padding: 52px 24px; text-align: center; }
+.state .ico { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; background: var(--mint-soft); color: var(--green-dark); }
+.state .ico.bad { background: var(--danger-soft); color: var(--danger); }
+.state .ico.warn { background: var(--amber-soft); color: var(--amber); }
+.state h2 { font-size: 21px; }
+.state p { font-size: 14.5px; color: var(--text-secondary); max-width: 42ch; margin: 8px auto 0; line-height: 1.6; }
+.state .act { width: auto; display: inline-flex; margin-top: 24px; padding: 14px 26px; }
+.spin { width: 34px; height: 34px; border: 3px solid var(--border); border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 20px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
+</head>
+<body>
+
+<div data-dps-nav></div>
+
+<header class="page-hero">
+  <div class="wrap page-hero-inner">
+    <span class="eyebrow">Your offer</span>
+    <h1>Changed your mind?</h1>
+    <p class="page-hero-sub">You can pull your offer any time before the seller responds. Once they accept, counter, or decline, it's out of your hands.</p>
+    <div class="trust-row">
+      <span class="trust-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Only you see this page
+      </span>
+      <span class="trust-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="20 6 9 17 4 12"/></svg>
+        Seller is notified
+      </span>
+      <span class="trust-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        Withdraw any time while pending
+      </span>
+    </div>
+  </div>
+</header>
+
+<main class="offer-section">
+  <div class="wrap">
+    <div class="offer-slot">
+      <div class="banner" id="banner"><strong>Preview mode.</strong> This is sample data so you can see how the page looks. Real offers load when you open the link in your email.</div>
+      <div class="card" id="card">
+        <div class="state">
+          <div class="spin"></div>
+          <h2>Loading your offer…</h2>
+          <p>Fetching the latest details from DPS.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div data-dps-footer></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var GAS  = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
+  var SITE = (typeof DPS_SITE_URL     !== "undefined") ? DPS_SITE_URL     : "https://declutterpawnshop.com";
+
+  var params  = new URLSearchParams(location.search);
+  var offerId = (params.get("id")    || "").trim();
+  var token   = (params.get("token") || "").trim();
+  var DEMO    = params.has("demo");
+
+  var card   = document.getElementById("card");
+  var banner = document.getElementById("banner");
+
+  var S = { data: null, busy: false };
+
+  /* ─── icons ─── */
+  function icon(name, size, sw) {
+    size = size || 16; sw = sw || 2.4;
+    var open = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+               'stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round">';
+    var p = {
+      check:  '<polyline points="20 6 9 17 4 12"/>',
+      x:      '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+      alert:  '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+      info:   '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+      clock:  '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+      undo:   '<path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7.7L3 8"/>',
+      box:    '<path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/>'
+    };
+    return open + (p[name] || p.check) + '</svg>';
+  }
+
+  /* ─── utils ─── */
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c];
+    });
+  }
+  function num(v) { return parseInt(String(v == null ? "" : v).replace(/[^0-9]/g, ""), 10) || 0; }
+  function naira(v) { return num(v).toLocaleString("en-NG"); }
+
+  /* ─── states ─── */
+  function stateBox(html) { card.innerHTML = '<div class="state">' + html + '</div>'; }
+
+  function showLoading() {
+    stateBox('<div class="spin"></div><h2>Loading your offer…</h2><p>Fetching the latest details from DPS.</p>');
+  }
+  function showError(title, msg) {
+    stateBox(
+      '<div class="ico bad">' + icon("alert", 26, 2.4) + '</div>' +
+      '<h2>' + esc(title) + '</h2>' +
+      '<p>' + esc(msg) + '</p>' +
+      '<a class="act act-green" href="' + SITE + '/items">Browse the marketplace</a>'
+    );
+  }
+  function showWarn(kind, title, msg) {
+    var ico = { withdrawn: "undo", expired: "clock", responded: "check", notfound: "alert" }[kind] || "info";
+    var icoClass = kind === "notfound" ? "bad" : "warn";
+    stateBox(
+      '<div class="ico ' + icoClass + '">' + icon(ico, 26, 2.4) + '</div>' +
+      '<h2>' + esc(title) + '</h2>' +
+      '<p>' + esc(msg) + '</p>' +
+      '<a class="act act-green" href="' + SITE + '/items">Browse the marketplace</a>'
+    );
+  }
+  function showSuccess(msg, sub) {
+    stateBox(
+      '<div class="ico">' + icon("check", 26, 2.4) + '</div>' +
+      '<h2>Offer withdrawn</h2>' +
+      '<p>' + esc(msg) + '</p>' +
+      (sub ? '<p style="font-size:12.5px;color:var(--text-muted);margin-top:12px">' + esc(sub) + '</p>' : '') +
+      '<a class="act act-green" href="' + SITE + '/items">Browse the marketplace</a>'
+    );
+  }
+
+  /* ─── demo payload ─── */
+  var SAMPLE = {
+    offer: {
+      offerId: "OFF10900",
+      offeredPrice: 1150000,
+      status: "Pending",
+      expired: false,
+      expiresAt: (function () {
+        var d = new Date(Date.now() + 22 * 3600 * 1000 + 14 * 60 * 1000);
+        function p(n) { return n < 10 ? "0" + n : "" + n; }
+        return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " " +
+               p(d.getHours()) + ":" + p(d.getMinutes()) + ":00";
+      })()
+    },
+    item: {
+      itemId: "DPS10091",
+      itemName: "MacBook Air M2 13-inch 256GB",
+      condition: "Like New",
+      askingPrice: 1250000,
+      location: "Lekki, Island",
+      status: "Active",
+      photo: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80"
+    }
+  };
+
+  /* ─── render ─── */
+  function renderOffer(data) {
+    S.data = data;
+
+    var o  = data.offer || {};
+    var it = data.item  || {};
+    var asked   = num(it.askingPrice);
+    var offered = num(o.offeredPrice);
+
+    var metaBits = [];
+    if (it.itemId)    metaBits.push(it.itemId);
+    if (it.condition) metaBits.push(it.condition);
+    if (it.location)  metaBits.push(it.location);
+
+    var thumb = '<div class="item-thumb">' +
+      '<div class="ph">📦</div>' +
+      (it.photo ? '<img class="item-img" src="' + esc(it.photo) + '" alt="" onerror="this.remove()">' : '') +
+    '</div>';
+
+    card.innerHTML =
+      '<div class="item-head">' +
+        thumb +
+        '<div class="item-info">' +
+          '<div class="item-name">' + esc(it.itemName || "Item") + '</div>' +
+          '<div class="item-meta">' + esc(metaBits.join(" · ")) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="pad">' +
+        '<div>' +
+          '<span class="lbl">Your offer</span>' +
+          '<div class="offer-box">' +
+            '<div class="offer-from">You offered <strong>' + esc(o.buyerName || "this price") + '</strong></div>' +
+            '<div class="offer-amt"><span class="sym">₦</span>' + naira(offered) + '</div>' +
+            '<div class="offer-sub">Seller asking <strong class="was">₦' + naira(asked) + '</strong></div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="fee-note">' +
+          icon("info", 15, 2.4) +
+          '<span>The ₦300 negotiation fee is non-refundable — it stays with the platform whether or not the deal completes.</span>' +
+        '</div>' +
+
+        '<div class="err" id="err"></div>' +
+
+        '<div id="actions">' +
+          '<button class="act act-danger" id="bWithdraw" type="button">' +
+            icon("undo", 16, 2.4) + 'Withdraw my offer' +
+          '</button>' +
+        '</div>' +
+
+        '<div class="confirm" id="confirm"></div>' +
+      '</div>' +
+
+      '<div class="card-foot">Offer <code>' + esc(o.offerId || offerId) + '</code> · Only you can see this page. The seller only sees the outcome.</div>';
+
+    wire(offered);
+  }
+
+  /* ─── wiring ─── */
+  function wire(offered) {
+    var btn = document.getElementById("bWithdraw");
+    if (!btn) return;
+
+    btn.onclick = function () {
+      ask({
+        title: "Withdraw this offer?",
+        text: "Your ₦300 negotiation fee stays with the platform, and the seller is notified that you've pulled out.",
+        cta: "Yes, withdraw",
+        tone: "danger",
+        onYes: function () { submitWithdraw(); }
+      });
+    };
+  }
+
+  /* ─── confirm panel ─── */
+  function ask(opts) {
+    var box = document.getElementById("confirm");
+    if (!box) return;
+    box.innerHTML =
+      '<h3>' + esc(opts.title) + '</h3>' +
+      '<p>' + esc(opts.text) + '</p>' +
+      '<div class="row">' +
+        '<button class="act act-quiet" type="button" id="cfNo">Go back</button>' +
+        '<button class="act ' + (opts.tone === "danger" ? "act-danger-solid" : "act-dark") + '" type="button" id="cfYes">' +
+          esc(opts.cta) + '</button>' +
+      '</div>';
+    box.classList.add("open");
+    document.getElementById("cfNo").onclick  = function () { box.classList.remove("open"); };
+    document.getElementById("cfYes").onclick = function () { box.classList.remove("open"); opts.onYes(); };
+    if (box.scrollIntoView) box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  /* ─── errors ─── */
+  function showErr(msg) {
+    var b = document.getElementById("err");
+    if (!b) return;
+    b.textContent = msg;
+    b.classList.add("show");
+  }
+  function clearErr() {
+    var b = document.getElementById("err");
+    if (b) b.classList.remove("show");
+  }
+
+  /* ─── submit ─── */
+  function setBusy(on) {
+    Array.prototype.forEach.call(card.querySelectorAll(".act, .linkbtn"), function (b) {
+      b.disabled = !!on;
+    });
+  }
+
+  function submitWithdraw() {
+    if (S.busy || !S.data) return;
+    S.busy = true;
+    clearErr();
+
+    var btn = document.getElementById("bWithdraw");
+    var originalHTML = btn ? btn.innerHTML : "";
+    if (btn) btn.innerHTML = "Withdrawing…";
+    setBusy(true);
+
+    var o = S.data.offer || {};
+    var ref = o.offerId || offerId;
+    var buyerFacing = "The seller has been notified and your ₦300 negotiation fee stays with the platform.";
+
+    function done() {
+      S.busy = false;
+      showSuccess(buyerFacing, "Offer " + ref);
+    }
+    function fail(msg) {
+      S.busy = false;
+      setBusy(false);
+      if (btn) btn.innerHTML = originalHTML;
+      showErr(msg);
+    }
+
+    if (DEMO) { setTimeout(done, 650); return; }
+
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action:  "withdrawOffer",
+        offerId: ref,
+        token:   token
+      })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (res && res.success) { done(); return; }
+
+      // Map server-side reasons to the correct terminal state
+      var reason = (res && (res.reason || res.error) || "").toString().toLowerCase();
+      if (reason.indexOf("already_withdrawn") !== -1 || reason === "withdrawn") {
+        showWarn("withdrawn", "Offer already withdrawn",
+          "You've already pulled this offer. The seller was notified.");
+        return;
+      }
+      if (reason.indexOf("expired") !== -1) {
+        showWarn("expired", "This offer expired",
+          "The 24-hour window closed before this could be withdrawn. Nothing more to do here.");
+        return;
+      }
+      if (["accepted","countered","declined","completed","paid","sold"].some(function (k) { return reason.indexOf(k) !== -1; })) {
+        showWarn("responded", "Offer already responded to",
+          "The seller already responded — you can't withdraw it now.");
+        return;
+      }
+      if (reason.indexOf("not_found") !== -1 || reason.indexOf("invalid_token") !== -1 || reason.indexOf("unauthorized") !== -1) {
+        showWarn("notfound", "Offer not found",
+          "This link is invalid or has expired. Check your email for the latest one.");
+        return;
+      }
+      fail((res && res.error) ? res.error : "Something went wrong. Please try again.");
+    })
+    .catch(function () {
+      fail("We couldn't reach the server. Check your connection and try again.");
+    });
+  }
+
+  /* ─── boot ─── */
+  if (DEMO) {
+    if (banner) banner.classList.add("show");
+    showLoading();
+    setTimeout(function () { renderOffer(SAMPLE); }, 350);
+    return;
+  }
+  if (!offerId || !token) {
+    showWarn("notfound", "This link is incomplete",
+      "Open the button inside your offer email, or head to your DPS dashboard to see your offers.");
+    return;
+  }
+  if (!GAS) {
+    showError("Configuration error",
+      "The DPS server URL isn't set. Email info@declutterpawnshop.com and we'll sort it out.");
+    return;
+  }
+
+  showLoading();
+
+  fetch(GAS + "?action=getOfferDetails&id=" + encodeURIComponent(offerId) + "&token=" + encodeURIComponent(token))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data.success) {
+        showWarn("notfound", "Offer not found",
+          (data && data.error) ? data.error : "This offer may have expired or been withdrawn.");
+        return;
+      }
+
+      var offer = data.offer || {};
+      var item  = data.item  || {};
+      var st    = String(offer.status || "").trim().toLowerCase();
+
+      // Terminal states — never show the withdraw button
+      if (st === "withdrawn") {
+        showWarn("withdrawn", "Offer already withdrawn",
+          "You've already pulled this offer. The seller was notified.");
+        return;
+      }
+      if (st === "expired" || offer.expired) {
+        showWarn("expired", "This offer expired",
+          "The 24-hour window closed before it could be withdrawn. Nothing more to do here.");
+        return;
+      }
+      if (st === "accepted" || st === "declined" || st === "countered" || st === "completed" || st === "paid" || st === "sold") {
+        var map = {
+          accepted:  "The seller accepted your offer — withdrawal is no longer possible. Check your email for the payment link.",
+          countered: "The seller sent a counter-offer. Respond to it from your email instead of withdrawing.",
+          declined:  "The seller declined this offer. You can't withdraw it now.",
+          completed: "This deal is already complete. You can't withdraw it now.",
+          paid:      "Payment has already gone through. You can't withdraw this offer now.",
+          sold:      "This item has been sold. You can't withdraw this offer now."
+        };
+        showWarn("responded", "Offer already responded to",
+          map[st] || "The seller already responded — you can't withdraw it now.");
+        return;
+      }
+
+      renderOffer(data);
+    })
+    .catch(function () {
+      showError("Couldn't load your offer", "Check your internet connection and refresh the page.");
+    });
+})();
+</script>
+</body>
+</html>
