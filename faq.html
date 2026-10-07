@@ -55,22 +55,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-dark);}
 .eyebrow::before{content:'';width:22px;height:1.5px;background:var(--green);}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:700;font-size:15px;padding:13px 24px;border-radius:var(--r-button);transition:transform .15s,box-shadow .15s,background .15s,color .15s,border-color .15s;cursor:pointer;white-space:nowrap;letter-spacing:-0.005em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-weight:700;font-size:15px;padding:13px 24px;border-radius:12px;transition:transform .15s,box-shadow .15s,background .15s,color .15s,border-color .15s;cursor:pointer;white-space:nowrap;letter-spacing:-0.005em;text-decoration:none;border:none;background:none;}
 .btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark);}
 .btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 0 var(--green-deep);}
 .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);}
 .btn-outline:hover{border-color:var(--ink);}
 
-/* HERO */
 .faq-hero{background:var(--ink);color:var(--off-white);padding:128px 0 60px;position:relative;overflow:hidden;}
 .faq-hero::before{content:'';position:absolute;top:-40%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,.10) 0%,rgba(0,200,83,0) 65%);pointer-events:none;}
 .faq-hero-inner{position:relative;z-index:1;max-width:720px;}
 .faq-hero .eyebrow{color:var(--green);}
 .faq-hero h1{font-size:clamp(34px,5.5vw,58px);color:var(--white);letter-spacing:-0.035em;margin-top:12px;line-height:1.02;}
 .faq-hero-sub{color:var(--stone-light);font-size:16.5px;line-height:1.55;margin-top:16px;max-width:56ch;}
-@media (max-width:640px){.faq-hero{padding:120px 0 44px;}}
 
-/* QUICK JUMP STRIP */
 .jump-bar{position:sticky;top:72px;z-index:150;background:var(--white);border-bottom:1px solid var(--border);border-top:2px solid var(--ink);padding:10px 0;}
 .jump-inner{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0;}
 .jump-inner::-webkit-scrollbar{display:none;}
@@ -79,7 +76,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .jump-link.active{background:var(--ink);color:var(--white);border-color:var(--ink);}
 .jump-link .jump-count{font-family:var(--font-mono);font-size:10.5px;font-weight:500;opacity:.7;}
 
-/* BODY */
 .faq-body{padding:48px 0 96px;}
 .faq-group{margin-bottom:72px;scroll-margin-top:180px;}
 .faq-group:last-child{margin-bottom:0;}
@@ -88,7 +84,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .faq-group-title{font-size:clamp(24px,3.2vw,32px);letter-spacing:-0.028em;line-height:1.15;color:var(--ink);}
 .faq-group-sub{font-size:14.5px;color:var(--text-secondary);line-height:1.6;margin-top:6px;max-width:60ch;}
 
-/* ACCORDION */
 .faq-list{display:flex;flex-direction:column;gap:10px;}
 .faq-item{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .15s,box-shadow .15s;}
 .faq-item:hover{border-color:var(--border-ink);}
@@ -113,13 +108,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .faq-a ul li{display:flex;gap:12px;align-items:flex-start;}
 .faq-a ul li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--green);margin-top:9px;}
 
-/* INLINE CALLOUT */
 .faq-note{display:flex;gap:12px;padding:12px 14px;margin:12px 0;border-radius:10px;background:var(--mint-soft);border:1px solid var(--tint-edge);font-size:13.5px;line-height:1.6;color:var(--text-primary);}
 .faq-note svg{flex-shrink:0;color:var(--green-dark);margin-top:2px;}
 .faq-note.warn{background:#FFFBEB;border-color:#FDE68A;}
 .faq-note.warn svg{color:#B45309;}
 
-/* CONTACT */
 .faq-cta{margin-top:96px;background:var(--ink);color:var(--white);border-radius:24px;padding:48px 40px;position:relative;overflow:hidden;text-align:center;}
 .faq-cta::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,.14) 0%,rgba(0,200,83,0) 65%);pointer-events:none;}
 .faq-cta-inner{position:relative;z-index:1;max-width:640px;margin:0 auto;}
@@ -165,7 +158,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 <main class="faq-body">
   <div class="wrap">
 
-    <!-- ══════ BUYING ══════ -->
     <section class="faq-group" id="buying">
       <div class="faq-group-head">
         <span class="faq-group-num">01</span>
@@ -255,7 +247,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ OFFERS ══════ -->
     <section class="faq-group" id="offers">
       <div class="faq-group-head">
         <span class="faq-group-num">02</span>
@@ -343,7 +334,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ ESCROW & PIN ══════ -->
     <section class="faq-group" id="escrow">
       <div class="faq-group-head">
         <span class="faq-group-num">03</span>
@@ -415,7 +405,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ SELLING ══════ -->
     <section class="faq-group" id="selling">
       <div class="faq-group-head">
         <span class="faq-group-num">04</span>
@@ -505,7 +494,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ PAYOUTS ══════ -->
     <section class="faq-group" id="payouts">
       <div class="faq-group-head">
         <span class="faq-group-num">05</span>
@@ -562,7 +550,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ DAYO ══════ -->
     <section class="faq-group" id="dayo">
       <div class="faq-group-head">
         <span class="faq-group-num">06</span>
@@ -626,7 +613,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ PARTNERS ══════ -->
     <section class="faq-group" id="partners">
       <div class="faq-group-head">
         <span class="faq-group-num">07</span>
@@ -690,7 +676,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ SAFETY ══════ -->
     <section class="faq-group" id="safety">
       <div class="faq-group-head">
         <span class="faq-group-num">08</span>
@@ -747,7 +732,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       </div>
     </section>
 
-    <!-- ══════ CONTACT CTA ══════ -->
     <div class="faq-cta">
       <div class="faq-cta-inner">
         <span class="eyebrow">Still confused?</span>
@@ -772,7 +756,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 (function(){
   "use strict";
 
-  // Jump-bar active state — highlight category as user scrolls
   var jumpLinks = document.querySelectorAll('.jump-link');
   var groups = Array.prototype.map.call(jumpLinks, function(a){
     var id = a.getAttribute('data-jump');
@@ -792,8 +775,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
   window.addEventListener('resize', updateJump);
   updateJump();
 
-  // Smooth accordion — close other open items in the same group (optional nicer UX)
-  // Not enforced — user can keep multiple open. Just ensure opens are clean.
   var items = document.querySelectorAll('.faq-item');
   items.forEach(function(d){
     d.addEventListener('toggle', function(){
