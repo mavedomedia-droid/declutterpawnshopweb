@@ -252,7 +252,6 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
 .empty-state h3{font-family:var(--fh);font-weight:700;font-size:16px;color:var(--txt);margin-bottom:6px;}
 .empty-state p{font-size:13px;}
 
-/* Dina log */
 .log-list{display:flex;flex-direction:column;font-family:var(--fm);font-size:12.5px;}
 .log-row{display:grid;grid-template-columns:150px 100px 1fr;gap:14px;padding:11px 20px;border-bottom:1px solid var(--line);align-items:center;}
 .log-row:last-child{border-bottom:none;}
@@ -373,8 +372,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
     partnersQ: "",
     partnersFilter: "all",
     dinaLog: null,
-    dinaFilter: "",
-    dinaQ: "",
+    dinaPartnerFilter: "",
     refreshing: false
   };
 
@@ -473,7 +471,13 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
   function validateAndEnter(key){
     state.key = key;
     return apiGet("adminToday").then(function(r){
-      if (r && r.success) { localStorage.setItem(KEY_STORE, key); state.today = r; showShell(); route(); return true; }
+      if (r && r.success) {
+        localStorage.setItem(KEY_STORE, key);
+        state.today = r;
+        showShell();
+        try { route_(); } catch(e) { console.error("Router crashed on entry:", e); }
+        return true;
+      }
       localStorage.removeItem(KEY_STORE); state.key = "";
       var reason = (r && r.error) ? r.error : "Unknown error from server";
       if (r && r.error === "Unknown action") showAuthError("Server doesn't know adminToday. Redeploy from Apps Script: Deploy → Manage deployments → edit → New version → Deploy.");
@@ -1498,8 +1502,13 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
   $("btnRefresh").addEventListener("click", softRefresh);
 
   function init(){
-    if (state.key) validateAndEnter(state.key).then(function(ok){ if (!ok) showAuth(); });
-    else showAuth();
+    if (state.key) {
+      validateAndEnter(state.key)
+        .then(function(ok){ if (!ok) showAuth(); })
+        .catch(function(e){ console.error("Admin init failed:", e); showAuth(); });
+    } else {
+      showAuth();
+    }
   }
   init();
 
