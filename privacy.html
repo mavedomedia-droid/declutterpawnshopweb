@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
-<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Declutter Pawn Shop</title>
 <meta name="description" content="How Declutter Pawn Shop collects, uses, stores, and protects your personal information.">
@@ -57,9 +55,37 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-dark);}
 .eyebrow::before{content:'';width:22px;height:1.5px;background:var(--green);}
 
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(14,19,32,.92);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px;}
+.nav-logo{display:inline-flex;align-items:center;}
+.nav-logo img{height:44px;width:auto;display:block;}
+.nav-links{display:none;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--stone-light);transition:color .15s;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.active{color:var(--white);}
+.nav-cta{display:none;}
+@media (min-width:900px){.nav-links{display:flex;}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px;}}
+.nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px;}
+@media (min-width:900px){.nav-mobile-cta{display:none;}}
+
+footer{background:var(--ink-2);color:var(--stone-light);padding:64px 0 32px;border-top:1px solid var(--border-dark);}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px;}
+@media (min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;}}
+.foot-brand img{height:52px;width:auto;margin-bottom:20px;opacity:.95;display:block;}
+.foot-brand p{font-size:14px;line-height:1.65;max-width:32ch;color:var(--stone-light);}
+.foot-col h4{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);margin-bottom:18px;}
+.foot-col a{display:block;font-size:14px;color:var(--stone-light);padding:6px 0;transition:color .15s;}
+.foot-col a:hover{color:var(--green);}
+.foot-bottom{padding-top:32px;border-top:1px solid var(--border-dark);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--text-muted);}
+.foot-social{display:flex;gap:12px;}
+.foot-social a{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);transition:background .15s;}
+.foot-social a:hover{background:rgba(0,200,83,.15);}
+.foot-social svg{width:16px;height:16px;color:var(--stone-light);}
+
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-weight:700;font-size:15px;padding:13px 24px;border-radius:12px;transition:transform .15s,box-shadow .15s,background .15s,color .15s,border-color .15s;cursor:pointer;white-space:nowrap;letter-spacing:-0.005em;text-decoration:none;border:none;background:none;}
 .btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark);}
 .btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 0 var(--green-deep);}
+.btn-primary:active{transform:translateY(0);box-shadow:0 1px 0 var(--green-deep);}
 .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);}
 .btn-outline:hover{border-color:var(--ink);}
 
@@ -79,7 +105,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 @media (min-width:720px){.summary-list{grid-template-columns:1fr 1fr;gap:10px 32px;}}
 .summary-item{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.55;color:var(--text-primary);letter-spacing:-0.005em;}
 .summary-item::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:7px;}
-@media (max-width:640px){.summary{padding:16px;margin-top:-24px;}.summary-item{font-size:13px;}}
 
 .legal-body{padding:64px 0 96px;}
 .legal-layout{display:grid;grid-template-columns:1fr;gap:48px;align-items:start;}
@@ -139,16 +164,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .contact-box .eyebrow{color:var(--green);}
 .contact-box h3{color:var(--white);font-size:22px;margin-top:10px;letter-spacing:-0.025em;}
 .contact-box p{color:var(--stone-light);font-size:15px;line-height:1.6;margin-top:10px;max-width:48ch;}
-.contact-box p a{color:var(--green);font-weight:700;border-bottom:1.5px solid rgba(0,200,83,.35);transition:border-color .15s;}
+.contact-box p a{color:var(--green);font-weight:700;border-bottom:1.5px solid rgba(0,200,83,.35);}
 .contact-box p a:hover{border-bottom-color:var(--green);}
 .contact-box-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
 .contact-box .btn-outline{color:var(--white);border-color:rgba(255,255,255,.2);}
 .contact-box .btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.05);}
-@media (max-width:640px){.contact-box{padding:24px 20px;}}
 
 .back-top{display:flex;justify-content:center;padding:32px 0 0;}
 .back-top a{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);padding:8px 14px;border-radius:var(--r-pill);border:1.5px solid var(--border);transition:border-color .15s,color .15s;background:var(--white);}
 .back-top a:hover{border-color:var(--ink);color:var(--ink);}
+
+@media (max-width:640px){
+  .legal-hero{padding:120px 0 44px;}
+  .summary{padding:16px;margin-top:-24px;}
+  .summary-item{font-size:13px;}
+  .nav-logo img{height:36px;}
+}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -220,7 +251,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
       <article class="legal-section" id="p2">
         <div class="legal-section-head"><span class="legal-section-num">02</span><h2>What we collect</h2></div>
         <p>We collect the minimum needed to run the platform. Nothing more.</p>
-
         <h3>Information you give us directly</h3>
         <div class="data-table">
           <div class="data-row"><div class="data-row-k">Name</div><div class="data-row-v">Your full name or business name, as registered.</div></div>
@@ -230,14 +260,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
           <div class="data-row"><div class="data-row-k">Telegram username</div><div class="data-row-v">If you interact with Dayo, your Telegram ID may be stored to link your account.</div></div>
           <div class="data-row"><div class="data-row-k">Item listings</div><div class="data-row-v">Names, descriptions, photos, prices, and locations you submit for sale.</div></div>
         </div>
-
         <h3>Information we collect automatically</h3>
         <div class="data-table">
           <div class="data-row"><div class="data-row-k">Device &amp; browser</div><div class="data-row-v">Type, operating system, screen size — used to keep the site working.</div></div>
           <div class="data-row"><div class="data-row-k">Usage data</div><div class="data-row-v">Pages visited, items viewed, actions taken — through Google Tag Manager analytics.</div></div>
           <div class="data-row"><div class="data-row-k">IP address</div><div class="data-row-v">Used for fraud prevention and rough geographic inference.</div></div>
         </div>
-
         <h3>Information from payments</h3>
         <p>When you buy or pay a negotiation fee, Paystack processes the payment and shares a transaction reference with us. We <strong>never see or store your full card number, CVV, or PIN</strong>. Paystack holds that data under its own compliance obligations.</p>
       </article>
@@ -372,12 +400,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 
       <article class="legal-section" id="p15">
         <div class="legal-section-head"><span class="legal-section-num">15</span><h2>Contact</h2></div>
-        <p>Questions about your data, or want to exercise any of your rights? Reach us.</p>
+        <p>Questions about your data, or want to exercise any of your rights? Reach us. Write to us at <a href="mailto:info@declutterpawnshop.com">info@declutterpawnshop.com</a>.</p>
         <div class="contact-box">
           <div class="contact-box-inner">
             <span class="eyebrow">Data enquiries</span>
             <h3>Talk to us.</h3>
-            <p>For access requests, corrections, deletions, or general privacy questions — email is the fastest way to reach our team. Write to us at <a href="mailto:info@declutterpawnshop.com">info@declutterpawnshop.com</a>.</p>
+            <p>For access requests, corrections, deletions, or general privacy questions — email is the fastest way to reach our team.</p>
             <div class="contact-box-actions">
               <a href="mailto:info@declutterpawnshop.com" class="btn btn-primary">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -413,11 +441,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
   function update(){
     var scrollY = window.scrollY + 140;
     var current = null;
-    for (var i = 0; i < sections.length; i++){
-      if (sections[i].el.offsetTop <= scrollY) current = sections[i];
-    }
+    for(var i=0;i<sections.length;i++){ if(sections[i].el.offsetTop <= scrollY) current = sections[i]; }
     links.forEach(function(a){ a.classList.remove('active'); });
-    if (current) current.link.classList.add('active');
+    if(current) current.link.classList.add('active');
   }
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
