@@ -1875,13 +1875,25 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     handleOfferReturn();
   }
 
+  // Static feed published from Apps Script every 5 min. Served by Netlify
+  // from the same origin, so no cold start and no CORS. Falls back to the
+  // live GAS endpoint if the file is missing or malformed.
+  var FEED_URL = "/items.json";
+
   function loadFromGAS() {
-    return fetch(GAS + "?action=getItems")
-      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-      .then(function (data) {
-        if (!data || data.success === false || !Array.isArray(data.items)) throw new Error((data && data.error) || "bad response");
-        try { localStorage.setItem(ITEMS_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
-        return data;
+    function accept(data) {
+      if (!data || data.success === false || !Array.isArray(data.items)) throw new Error((data && data.error) || "bad response");
+      try { localStorage.setItem(ITEMS_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
+      return data;
+    }
+    function get(url) {
+      return fetch(url).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+    }
+    return get(FEED_URL + "?v=" + Math.floor(Date.now() / 60000))
+      .then(accept)
+      .catch(function (e) {
+        warn("items.json unavailable, falling back to GAS:", e && e.message);
+        return get(GAS + "?action=getItems").then(accept);
       });
   }
 
