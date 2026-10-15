@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];l.dataLayer=l.dataLayer||[];l.push({'gtm.start':
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -102,23 +102,57 @@ input, select, textarea { font-family: inherit; }
 .nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
 @media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
-.items-hero { background: var(--ink); color: var(--off-white); padding: 100px 0 30px; position: relative; overflow: hidden; }
-.items-hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
+/* The hero is signage, not the product. It gets a band, not half the screen. */
+.items-hero { background: var(--ink); color: var(--off-white); padding: 92px 0 16px; position: relative; overflow: hidden; }
+.items-hero::before { content: ''; position: absolute; top: -60%; right: -10%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
 .items-hero-inner { position: relative; z-index: 1; }
-.items-hero-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-.items-hero h1 { font-size: clamp(30px, 5vw, 52px); color: var(--white); letter-spacing: -0.032em; margin-top: 10px; line-height: 1; }
-.items-hero-sub { color: var(--stone-light); font-size: 14px; line-height: 1.55; margin-top: 10px; max-width: 44ch; }
-.live-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; background: rgba(0,200,83,.08); border: 1px solid rgba(0,200,83,.22); border-radius: var(--r-pill); font-size: 12.5px; font-weight: 600; color: var(--green); white-space: nowrap; }
+.items-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.items-hero h1 { font-size: clamp(26px, 4.4vw, 46px); color: var(--white); letter-spacing: -0.032em; line-height: 1; }
+.items-hero-sub { color: var(--stone-light); font-size: 13px; line-height: 1.5; margin-top: 7px; max-width: 52ch; }
+@media (max-width: 767px) { .items-hero-sub { display: none; } }
+.live-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; background: rgba(0,200,83,.08); border: 1px solid rgba(0,200,83,.22); border-radius: var(--r-pill); font-size: 12.5px; font-weight: 600; color: var(--green); white-space: nowrap; flex-shrink: 0; }
 .live-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
-.trust-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; position: relative; z-index: 1; }
-.trust-chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border: 1.5px solid rgba(245,247,248,.16); border-radius: var(--r-pill); font-size: 12px; font-weight: 600; color: var(--stone-light); background: rgba(255,255,255,.02); transition: border-color .15s, color .15s; }
-.trust-chip:hover { border-color: rgba(0,200,83,.5); color: var(--white); }
-.trust-chip svg { color: var(--green); flex-shrink: 0; width: 13px; height: 13px; }
+
+/* Proof, without the oval boxes. One thin line instead of 73px of pills. */
+.trust-row { display: flex; flex-wrap: nowrap; gap: 18px; margin-top: 11px; position: relative; z-index: 1;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.trust-row::-webkit-scrollbar { display: none; }
+.trust-chip { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; white-space: nowrap; font-size: 11.5px; font-weight: 600; color: var(--stone); letter-spacing: -0.005em; }
+.trust-chip svg { color: var(--green); flex-shrink: 0; width: 12px; height: 12px; }
+
+/* ═══ HOT STRIP ═══
+   Cycles the hottest items every 5s. Ranked by views per hour since
+   listing, computed from the feed that is already loaded, so it costs
+   exactly zero extra requests. */
+.hot { display: none; align-items: center; gap: 11px; margin-top: 14px; padding: 8px 12px 8px 8px;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px; position: relative; z-index: 1; width: 100%; text-align: left;
+  transition: border-color .15s, background .15s; }
+.hot.on { display: flex; }
+.hot:hover { background: rgba(255,255,255,.06); border-color: rgba(0,200,83,.4); }
+.hot-lbl { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; font-size: 9.5px;
+  font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #F59E0B; }
+.hot-lbl svg { width: 12px; height: 12px; }
+.hot-slide { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;
+  opacity: 1; transition: opacity .3s ease; }
+.hot-slide.fade { opacity: 0; }
+.hot-img { width: 36px; height: 36px; border-radius: 7px; object-fit: cover; flex-shrink: 0;
+  background: var(--ink-3); }
+.hot-txt { min-width: 0; flex: 1; }
+.hot-name { font-size: 12.5px; font-weight: 600; color: var(--white); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.01em; }
+.hot-sub { font-family: var(--font-mono); font-size: 10.5px; color: var(--stone); margin-top: 2px; }
+.hot-sub b { color: var(--green); font-weight: 500; }
+.hot-dots { display: flex; gap: 4px; flex-shrink: 0; }
+.hot-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.2); transition: background .25s; }
+.hot-dot.on { background: var(--green); }
+@media (max-width: 520px) { .hot-lbl span { display: none; } .hot-dots { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hot-slide { transition: none; } }
 
 .bar { position: sticky; top: 72px; z-index: 150; background: var(--white); border-bottom: 1px solid var(--border); border-top: 2px solid var(--ink); padding: 11px 0; }
 .bar-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.search { position: relative; flex: 1; min-width: 200px; display: flex; align-items: center; }
+.search { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
 .search svg { position: absolute; left: 13px; color: var(--text-muted); pointer-events: none; width: 15px; height: 15px; }
 .search input { width: 100%; height: 42px; padding: 0 38px 0 40px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; font-size: 14.5px; color: var(--ink); outline: none; transition: border-color .15s, background .15s; }
 .search input:focus { border-color: var(--ink); background: var(--white); }
@@ -127,7 +161,17 @@ input, select, textarea { font-family: inherit; }
 .search-clear:hover { background: rgba(0,0,0,.08); color: var(--ink); }
 .search-clear.visible { display: flex; }
 .sort { position: relative; flex-shrink: 0; }
-.sort select { appearance: none; -webkit-appearance: none; height: 42px; padding: 0 36px 0 14px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: border-color .15s; }
+.sort select { appearance: none; -webkit-appearance: none; height: 42px; max-width: 148px; padding: 0 32px 0 12px; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: border-color .15s; text-overflow: ellipsis; }
+.bar-row > .sort { flex: 0 1 auto; min-width: 0; }
+@media (max-width: 420px) { .sort select { max-width: 118px; font-size: 12.5px; } }
+/* The count lives in the chip row now, not in a block of its own. */
+.chips-wrap { display: flex; align-items: center; gap: 0; margin-top: 10px; position: relative; }
+.chips-wrap .chips { margin-top: 0; flex: 1; min-width: 0; padding-right: 8px; }
+.chips-wrap::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 88px;
+  background: linear-gradient(to right, rgba(255,255,255,0), var(--white) 44%); pointer-events: none; }
+.chip-count { position: relative; z-index: 1; flex-shrink: 0; padding-left: 10px; font-size: 11px;
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+.chip-count strong { color: var(--ink); }
 .sort select:focus { border-color: var(--ink); }
 .sort::after { content: ''; position: absolute; right: 15px; top: 50%; width: 8px; height: 8px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .chips { display: flex; align-items: center; gap: 6px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -136,9 +180,8 @@ input, select, textarea { font-family: inherit; }
 .chip:hover { border-color: var(--stone); color: var(--ink); }
 .chip.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-.grid-section { padding: 26px 0 72px; }
-.grid-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; font-size: 12.5px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
-.grid-meta strong { color: var(--ink); font-weight: 700; }
+.grid-section { padding: 16px 0 72px; }
+.grid-meta { display: none; }
 .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 @media (min-width: 640px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
@@ -151,18 +194,34 @@ input, select, textarea { font-family: inherit; }
 .card-badge { position: absolute; top: 9px; left: 9px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,.94); color: var(--ink); backdrop-filter: blur(6px); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
 .card-badge.hot  { color: #B45309; }
 .card-badge.new  { color: var(--green-dark); }
+.card-badge.pickup { color: #B45309; }
+.card-badge.pickup .dot { background: #F59E0B; }
 .card-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
 .card-badge.hot .dot { background: #F59E0B; }
 .card-views { position: absolute; top: 9px; right: 9px; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 9.5px; font-weight: 500; background: rgba(14,19,32,.72); color: var(--white); backdrop-filter: blur(6px); }
-.card-body { padding: 12px 13px 14px; flex: 1; display: flex; flex-direction: column; }
-.card-id { font-family: var(--font-mono); font-size: 10px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
-.card-partner { display: inline-flex; align-items: center; gap: 4px; color: var(--green-dark); font-weight: 700; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; }
-.card-partner::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: inline-block; }
-.card-name { font-family: var(--font-heading); font-weight: 700; font-size: 14.5px; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.5em; margin-bottom: 10px; }
-.card-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
+.card-body { padding: 10px 11px 11px; flex: 1; display: flex; flex-direction: column; }
+/* The item ID moved onto the photo, where it costs no height. */
+.card-id { position: absolute; left: 9px; bottom: 9px; font-family: var(--font-mono); font-size: 9.5px;
+  font-weight: 500; letter-spacing: .04em; padding: 2px 6px; border-radius: 5px;
+  background: rgba(14,19,32,.72); color: rgba(255,255,255,.9); backdrop-filter: blur(6px); }
+.card-partner { display: inline-flex; align-items: center; gap: 4px; color: var(--green-dark); font-weight: 700; font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; }
+.card-partner::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--green); display: inline-block; }
+.card-name { font-family: var(--font-heading); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.28; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.56em; margin-bottom: 7px; }
+.card-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 7px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
+
+/* Interested, straight from the grid. This is where most taps happen. */
+.card-like { position: absolute; right: 9px; bottom: 9px; width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.92);
+  backdrop-filter: blur(6px); box-shadow: 0 1px 4px rgba(0,0,0,.14); transition: background .15s; z-index: 2; }
+.card-like:hover { background: #fff; }
+.card-like svg { width: 15px; height: 15px; fill: none; stroke: var(--text-secondary); stroke-width: 2.2; transition: stroke .2s; }
+.card-like[aria-pressed="true"] svg { fill: #FF4D6D; stroke: #FF4D6D; animation: likePop .42s ease; }
+@keyframes likePop { 0%{transform:scale(1)} 35%{transform:scale(1.32)} 62%{transform:scale(.92)} 100%{transform:scale(1)} }
+@media (prefers-reduced-motion: reduce) { .card-like[aria-pressed="true"] svg { animation: none; } }
 .card-price { font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--ink); letter-spacing: -0.015em; line-height: 1; font-variant-numeric: tabular-nums; }
 .card-price .sym { color: var(--green-dark); font-size: 0.78em; margin-right: 1px; }
-.card-meta { font-size: 10px; color: var(--text-muted); text-align: right; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; line-height: 1.35; }
+.card-meta { font-size: 10px; color: var(--text-muted); text-align: right; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; line-height: 1.35; min-width: 0; max-width: 58%; }
+.card-meta > span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .state { grid-column: 1 / -1; text-align: center; padding: 72px 24px; color: var(--text-secondary); }
 .state-icon { font-size: 48px; margin-bottom: 16px; opacity: .9; }
 .state h3 { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.02em; }
@@ -342,6 +401,92 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .sim-card-name { font-size: 11.5px; font-weight: 700; color: var(--ink); line-height: 1.3; letter-spacing: -0.005em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
 .sim-card-price { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; color: var(--ink); letter-spacing: -0.01em; margin-top: 6px; }
 
+/* ═══ Item ID: the handle for the whole transaction ═══
+   It was 11px in a corner. Buyers paste it to Dayo, so it is now a dark
+   mono chip on its own line, and tapping it copies. */
+.mc-head { flex-direction: column; align-items: stretch; gap: 10px; }
+.mc-subhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.mc-listed { margin-top: 0; }
+.mc-idchip { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+  background: var(--ink); color: var(--white); border-radius: 8px; padding: 7px 10px 7px 12px;
+  font-family: var(--font-mono); font-weight: 500; font-size: 14px; letter-spacing: .02em;
+  line-height: 1; transition: background .15s; }
+.mc-idchip:hover { background: var(--ink-3); }
+.mc-idchip svg { color: var(--stone); flex-shrink: 0; transition: color .15s; }
+.mc-idchip:hover svg { color: var(--green); }
+.mc-idchip.copied { background: var(--green); color: var(--ink); }
+.mc-idchip.copied svg { color: var(--ink); }
+
+/* ═══ Pickup area reveal ═══ */
+.mc-tag-reveal { cursor: pointer; border-style: dashed; border-color: var(--border-ink); }
+.mc-tag-reveal:hover { border-color: var(--ink); color: var(--ink); border-style: solid; }
+.mc-tag-reveal .rv { color: var(--green-dark); font-weight: 700; }
+.mc-tag.is-revealed { border-color: rgba(0,200,83,.28); background: var(--mint-soft); color: var(--green-dark); }
+.mc-tag.is-revealed svg { color: var(--green-dark); }
+.mc-tag-pickup { border-color: rgba(245,158,11,.4); background: rgba(245,158,11,.1); color: #92400E; }
+.mc-tag-pickup svg { color: #B45309; }
+
+/* ═══ Declared defects ═══ */
+.mc-defects { display: flex; gap: 10px; align-items: flex-start; padding: 11px 13px; margin-top: 10px;
+  background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.3); border-radius: 10px; }
+.mc-defects svg { flex-shrink: 0; margin-top: 2px; color: #B45309; }
+.mc-defects-lbl { font-family: var(--font-heading); font-size: 10px; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase; color: #92400E; margin-bottom: 3px; }
+.mc-defects-text { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+/* ═══ Availability (parked) ═══ */
+.mc-avail { width: 100%; margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+  background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.16); color: var(--white);
+  font-family: var(--font-body); font-weight: 700; font-size: 12.5px; display: flex;
+  align-items: center; justify-content: center; gap: 7px; position: relative; z-index: 1; line-height: 1; }
+.mc-avail:hover { border-color: rgba(0,200,83,.5); }
+.mc-avail .soon { font-size: 8.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--green); color: var(--ink); padding: 3px 6px; border-radius: 4px; }
+
+/* ═══ Interested: a tap on the photo, email offered after ═══ */
+.gal-like { position: absolute; bottom: 12px; left: 18px; z-index: 5;
+  display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 11px;
+  border-radius: var(--r-pill); background: rgba(255,255,255,.94); backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  font-family: var(--font-body); font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1; }
+.gal-like:hover { background: #fff; box-shadow: 0 3px 12px rgba(0,0,0,.18); }
+.gal-like .hrt { width: 15px; height: 15px; flex-shrink: 0; color: var(--text-muted);
+  fill: none; stroke: currentColor; stroke-width: 2.2; transition: color .2s; }
+.gal-like .n { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px;
+  color: var(--text-muted); padding-left: 7px; border-left: 1px solid var(--border); }
+.gal-like .n[hidden] { display: none; }
+.gal-like[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.gal-like[aria-pressed="true"] .hrt { color: #FF4D6D; fill: #FF4D6D; animation: likePop .42s ease; }
+.gal-like[aria-pressed="true"] .n { color: var(--green); border-left-color: rgba(255,255,255,.18); }
+.gal-like .burst { position: absolute; left: 22px; top: 50%; width: 26px; height: 26px;
+  margin: -13px 0 0 -13px; border-radius: 50%; border: 2px solid #FF4D6D; opacity: 0; pointer-events: none; }
+.gal-like.go .burst { animation: likeBurst .5s ease-out; }
+.gal-like .plus { position: absolute; left: 16px; top: -4px; font-family: var(--font-mono);
+  font-size: 12px; font-weight: 500; color: #FF4D6D; opacity: 0; pointer-events: none; }
+.gal-like.go .plus { animation: likeFloat .8s ease-out; }
+@keyframes likeBurst { 0%{opacity:.9;transform:scale(.2)} 100%{opacity:0;transform:scale(1.85)} }
+@keyframes likeFloat { 0%{opacity:0;transform:translateY(0) scale(.7)} 22%{opacity:1} 100%{opacity:0;transform:translateY(-30px) scale(1.06)} }
+@media (prefers-reduced-motion: reduce) {
+  .gal-like[aria-pressed="true"] .hrt, .gal-like.go .burst, .gal-like.go .plus { animation: none; }
+}
+.mc-notify { display: none; align-items: center; gap: 9px; padding: 11px 13px;
+  background: var(--mint-soft); border: 1px solid rgba(0,200,83,.28); border-radius: 12px; }
+.mc-notify.show { display: flex; }
+.mc-notify-body { flex: 1; min-width: 0; }
+.mc-notify-lbl { font-size: 12.5px; font-weight: 700; color: var(--green-dark); line-height: 1.4; }
+.mc-notify-row { display: flex; gap: 7px; margin-top: 8px; }
+.mc-notify-row input { flex: 1; min-width: 0; height: 40px; padding: 0 12px; background: var(--white);
+  border: 1.5px solid var(--border); border-radius: 9px; font-size: 16px; color: var(--ink); outline: none; }
+.mc-notify-row input:focus { border-color: var(--green-dark); }
+.mc-notify-row input.err { border-color: #DC2626; }
+.mc-notify-row button { flex-shrink: 0; padding: 0 16px; border-radius: 9px; background: var(--ink);
+  color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 13px; }
+.mc-notify-note { font-size: 10.5px; color: var(--text-secondary); line-height: 1.45; margin-top: 7px; }
+.mc-notify-x { flex-shrink: 0; align-self: flex-start; width: 24px; height: 24px; border-radius: 50%;
+  color: var(--text-muted); font-size: 13px; line-height: 1; display: flex; align-items: center; justify-content: center; }
+.mc-notify-x:hover { background: rgba(0,0,0,.06); color: var(--ink); }
+.mc-notify.done { background: var(--off-white); border-color: var(--border); }
+
 .mc-report { display: flex; justify-content: center; padding: 4px 0 0; }
 .mc-report a { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--text-muted); padding: 7px 12px; border-radius: 8px; transition: color .15s, background .15s; }
 .mc-report a:hover { color: var(--ink); background: var(--off-white); }
@@ -464,16 +609,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 <section class="items-hero">
   <div class="wrap items-hero-inner">
     <div class="items-hero-top">
-      <div>
-        <div class="eyebrow">Marketplace</div>
-        <h1>Live items.</h1>
-        <p class="items-hero-sub">Every listing is reviewed before it goes live. Payments are escrow-protected, so money moves only when you confirm.</p>
-      </div>
+      <h1>Live items.</h1>
       <div id="heroLivePill" class="live-pill">
         <span class="live-dot"></span>
         <span id="heroLiveText">Loading…</span>
       </div>
     </div>
+    <p class="items-hero-sub">Every listing is reviewed before it goes live. Payments are escrow-protected, so money moves only when you confirm.</p>
+
     <div class="trust-row">
       <span class="trust-chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -488,6 +631,21 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         Dayo on Telegram
       </span>
     </div>
+
+    <button class="hot" id="hotStrip" type="button">
+      <span class="hot-lbl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        <span>Hot now</span>
+      </span>
+      <span class="hot-slide" id="hotSlide">
+        <img class="hot-img" id="hotImg" alt="" onerror="imgFail(this)">
+        <span class="hot-txt">
+          <span class="hot-name" id="hotName">—</span>
+          <span class="hot-sub" id="hotSub"></span>
+        </span>
+      </span>
+      <span class="hot-dots" id="hotDots"></span>
+    </button>
   </div>
 </section>
 
@@ -499,6 +657,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <input id="searchInput" type="search" placeholder="Search items, brands, categories…" autocomplete="off" aria-label="Search items">
         <button class="search-clear" id="searchClear" aria-label="Clear search" type="button">✕</button>
       </label>
+      <div class="sort" id="vendorWrap" style="display:none;">
+        <select id="vendorSelect" aria-label="Filter by vendor">
+          <option value="">All vendors</option>
+        </select>
+      </div>
       <div class="sort">
         <select id="sortSelect" aria-label="Sort items">
           <option value="newest">Newest first</option>
@@ -508,7 +671,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         </select>
       </div>
     </div>
-    <div class="chips" id="chips"></div>
+    <div class="chips-wrap">
+      <div class="chips" id="chips"></div>
+      <span class="chip-count" id="chipCount"></span>
+    </div>
   </div>
 </div>
 
@@ -551,18 +717,36 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <button class="gal-arrow gal-arrow-next" id="galNext" aria-label="Next image" type="button">›</button>
         <div class="gal-dots" id="galDots"></div>
         <span class="gal-counter" id="galCounter">1 / 1</span>
+        <button class="gal-like" id="galLike" type="button" aria-pressed="false">
+          <span class="burst"></span><span class="plus">+1</span>
+          <svg class="hrt" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          Interested
+          <span class="n" id="galLikeN" hidden></span>
+        </button>
       </div>
 
       <div class="mc">
         <div class="mc-head">
-          <div class="mc-title-wrap">
-            <div class="mc-title" id="mcTitle">—</div>
+          <div class="mc-title" id="mcTitle">—</div>
+          <div class="mc-subhead">
             <div class="mc-listed" id="mcListed"></div>
+            <button class="mc-idchip" id="mcIdChip" type="button" title="Copy item ID">
+              <span id="mcId">—</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
           </div>
-          <div class="mc-idtag">
-            <span class="mc-idtag-lbl">Item ID</span>
-            <span class="mc-idtag-val" id="mcId">—</span>
+        </div>
+
+        <div class="mc-notify" id="mcNotify">
+          <div class="mc-notify-body">
+            <div class="mc-notify-lbl" id="mcNotifyLbl">Noted. Want us to tell you if the price drops or it sells?</div>
+            <div class="mc-notify-row" id="mcNotifyRow">
+              <input type="email" id="mcNotifyEmail" placeholder="your@email.com" autocomplete="email">
+              <button type="button" id="mcNotifySend">Send</button>
+            </div>
+            <div class="mc-notify-note" id="mcNotifyNote">Used only for this item. Nothing else, no list.</div>
           </div>
+          <button class="mc-notify-x" id="mcNotifyX" type="button" aria-label="Dismiss">&#10005;</button>
         </div>
 
         <div class="mc-tags-row">
@@ -583,6 +767,13 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           <div class="mc-desc-col">
             <span class="mc-lbl">About this item</span>
             <p class="mc-desc" id="mcDesc">—</p>
+            <div class="mc-defects" id="mcDefects" style="display:none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+              <div>
+                <div class="mc-defects-lbl">Seller declared</div>
+                <div class="mc-defects-text" id="mcDefectsText"></div>
+              </div>
+            </div>
           </div>
 
           <div class="mc-price-card">
@@ -604,6 +795,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
               Negotiate
               <span class="mc-negotiate-fee">₦300</span>
+            </button>
+
+            <button class="mc-avail" id="mcAvail" type="button">
+              Check it&#39;s still available <span class="soon">Soon</span>
             </button>
           </div>
         </div>
@@ -866,25 +1061,32 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   var SAMPLE_ITEMS = [
-    { "Item ID":"DPS10001", "Item Name":"iPhone 15 Pro Max 256GB Natural Titanium", "Description":"Barely used, upgraded to the 16 Pro. Battery health 98%. Comes with original box, cable, and a spare case.", "Condition":"Like New", "Amount to sell":1250000, "Location":"Island", "Status":"Active", "Inquiries":47, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=900&q=80", "Submission Time":"2026-10-04 09:15:00" },
-    { "Item ID":"DPS10002", "Item Name":"MacBook Air M2 13\" Midnight 256GB", "Description":"Bought last year for design work. Now on a company MacBook. AppleCare till mid-2026.", "Condition":"Good Condition", "Amount to sell":780000, "Location":"Island", "Status":"Active", "Inquiries":62, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80", "Submission Time":"2026-09-30 11:22:00" },
-    { "Item ID":"DPS10003", "Item Name":"PlayStation 5 Slim + 2 DualSense controllers", "Description":"Bought for FIFA, played twice. Brand new condition. Original packaging intact.", "Condition":"Brand New", "Amount to sell":720000, "Location":"Mainland", "Status":"Active", "Inquiries":89, "Seller Type":"Partner", "Business Name":"Demo Gadget Hub", "Product Photos":"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=900&q=80", "Submission Time":"2026-10-03 14:00:00" },
-    { "Item ID":"DPS10004", "Item Name":"Sony WH-1000XM5 Wireless Headphones", "Description":"Top-of-the-line noise cancelling. My commute got shorter, so I stopped using them. Case and cable included.", "Condition":"Like New", "Amount to sell":285000, "Location":"Island", "Status":"Active", "Inquiries":34, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80", "Submission Time":"2026-10-01 08:30:00" },
-    { "Item ID":"DPS10005", "Item Name":"Nike Air Jordan 1 Retro High OG Chicago", "Description":"Size UK9. Worn three times, still stiff. Original box and laces included.", "Condition":"Good Condition", "Amount to sell":195000, "Location":"Mainland", "Status":"Active", "Inquiries":71, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1552346154-21d32810aba3?w=900&q=80", "Submission Time":"2026-09-27 17:00:00" },
-    { "Item ID":"DPS10006", "Item Name":"Louis Vuitton Neverfull MM Monogram", "Description":"Authentic, purchased in Dubai. Slight patina on handles, normal for age. Dust bag included.", "Condition":"Fairly Used", "Amount to sell":620000, "Location":"Island", "Status":"Active", "Inquiries":53, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&q=80", "Submission Time":"2026-09-25 20:10:00" },
-    { "Item ID":"DPS10007", "Item Name":"Herman Miller Aeron Chair Size B", "Description":"Fully loaded with lumbar support, adjustable arms. Moving offices, must go this month.", "Condition":"Good Condition", "Amount to sell":340000, "Location":"Island", "Status":"Active", "Inquiries":28, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=900&q=80", "Submission Time":"2026-09-22 10:00:00" },
-    { "Item ID":"DPS10008", "Item Name":"Canon EOS R50 + 18-45mm Lens Kit", "Description":"Brand new in box. Bought as a gift but recipient wanted Sony. Receipt available.", "Condition":"Brand New", "Amount to sell":465000, "Location":"Mainland", "Status":"Active", "Inquiries":41, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=80", "Submission Time":"2026-10-04 15:45:00" }
+    { "Item ID":"DPS10001", "Item Name":"iPhone 15 Pro Max 256GB Natural Titanium", "Description":"Barely used, upgraded to the 16 Pro. Battery health 98%. Comes with original box, cable, and a spare case.", "Condition":"Like New", "Amount to sell":1250000, "Location":"Island", "Status":"Active", "Inquiries":47, "Views":342, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=900&q=80", "Submission Time":"2026-10-04 09:15:00" },
+    { "Item ID":"DPS10002", "Item Name":"MacBook Air M2 13\" Midnight 256GB", "Description":"Bought last year for design work. Now on a company MacBook. AppleCare till mid-2026.", "Condition":"Good Condition", "Amount to sell":780000, "Location":"Island", "Status":"Active", "Inquiries":62, "Views":447, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80", "Submission Time":"2026-09-30 11:22:00" },
+    { "Item ID":"DPS10003", "Item Name":"PlayStation 5 Slim + 2 DualSense controllers", "Description":"Bought for FIFA, played twice. Brand new condition. Original packaging intact.", "Condition":"Brand New", "Amount to sell":720000, "Location":"Mainland", "Status":"Active", "Inquiries":89, "Views":636, "Seller Type":"Partner", "Business Name":"Demo Gadget Hub", "Product Photos":"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=900&q=80", "Submission Time":"2026-10-03 14:00:00" },
+    { "Item ID":"DPS10004", "Item Name":"Sony WH-1000XM5 Wireless Headphones", "Description":"Top-of-the-line noise cancelling. My commute got shorter, so I stopped using them. Case and cable included.", "Condition":"Like New", "Amount to sell":285000, "Location":"Island", "Status":"Active", "Inquiries":34, "Views":251, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80", "Submission Time":"2026-10-01 08:30:00" },
+    { "Item ID":"DPS10005", "Item Name":"Nike Air Jordan 1 Retro High OG Chicago", "Description":"Size UK9. Worn three times, still stiff. Original box and laces included.", "Condition":"Good Condition", "Amount to sell":195000, "Location":"Mainland", "Status":"Active", "Inquiries":71, "Views":510, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1552346154-21d32810aba3?w=900&q=80", "Submission Time":"2026-09-27 17:00:00" },
+    { "Item ID":"DPS10006", "Item Name":"Louis Vuitton Neverfull MM Monogram", "Description":"Authentic, purchased in Dubai. Slight patina on handles, normal for age. Dust bag included.", "Condition":"Fairly Used", "Amount to sell":620000, "Location":"Island", "Status":"Active", "Inquiries":53, "Views":384, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&q=80", "Submission Time":"2026-09-25 20:10:00" },
+    { "Item ID":"DPS10007", "Item Name":"Herman Miller Aeron Chair Size B", "Description":"Fully loaded with lumbar support, adjustable arms. Moving offices, must go this month.", "Condition":"Good Condition", "Amount to sell":340000, "Location":"Island", "Status":"Active", "Inquiries":28, "Views":209, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=900&q=80", "Submission Time":"2026-09-22 10:00:00" },
+    { "Item ID":"DPS10008", "Item Name":"Canon EOS R50 + 18-45mm Lens Kit", "Description":"Brand new in box. Bought as a gift but recipient wanted Sony. Receipt available.", "Condition":"Brand New", "Amount to sell":465000, "Location":"Mainland", "Status":"Active", "Inquiries":41, "Views":300, "Seller Type":"Individual", "Product Photos":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=80", "Submission Time":"2026-10-04 15:45:00" }
   ];
 
   var ALL_ITEMS     = [];
   var RECENT_SOLD   = [];
   var ACTIVE_FILTER = "All";
+  var ACTIVE_VENDOR = "";
   var ACTIVE_SORT   = "newest";
   var SEARCH_QUERY  = "";
   var PAGE          = 1;
   var PAGE_SIZE     = 12;
   var IS_DEMO       = new URLSearchParams(window.location.search).has("demo");
   var NEW_WINDOW_MS = 48 * 3600 * 1000;
+  var HOT_PER_HOUR  = 2;     // views/hour to earn the Hot badge
+  var HOT_MIN_VIEWS = 20;    // ...and a floor, so a 1-hour-old item cannot fluke it
+  var HOT_ROTATE_MS = 5000;
+  var LIKE_KEY      = "dps_liked_";
+  var INTEREST_SHOW_AT = 5;   // hide the interest count below this
+  var NOTIFY_KEY    = "dps_notify_";
 
   var NEGOTIATION_FEE = 300;
   var STEP_NAIRA = 1000;
@@ -1014,10 +1216,13 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function restoreBuyerDefaults() {
+    // "Default" means this item's default. A fixed-price item must not get
+    // its Negotiate button back just because there is no accepted offer.
+    var neg = !currentItem || isNegotiable(currentItem);
     var negotiateBtn = document.getElementById("mcNegotiate");
-    if (negotiateBtn) negotiateBtn.style.display = "";
+    if (negotiateBtn) negotiateBtn.style.display = neg ? "" : "none";
     var quick = document.querySelector(".mc-quick");
-    if (quick) quick.style.display = "";
+    if (quick) quick.style.display = neg ? "" : "none";
     var buyBtn = document.getElementById("mcBuy");
     if (buyBtn) {
       buyBtn.innerHTML =
@@ -1059,7 +1264,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
   function priceNum(raw) { return parseInt(String(raw || "0").replace(/[^0-9]/g, "")) || 0; }
 
-  function detectCategory(name) {
+  // The Category column is authoritative. guessCategory() below is only for
+  // rows listed before that column existed, so nothing vanishes mid-backfill.
+  function categoryOf(it) {
+    var c = String(it["Category"] || "").trim();
+    return c || guessCategory(it["Item Name"]);
+  }
+
+  function guessCategory(name) {
     var n = String(name || "").toLowerCase();
     var map = {
       "Electronics": ["iphone","samsung","pixel","macbook","laptop","ipad","tablet","tv","television","speaker","headphone","airpod","camera","monitor","console","playstation","xbox","nintendo","switch","apple watch","sony","lg","canon","fujifilm"],
@@ -1079,13 +1291,45 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (m) s = m[1] + "T" + ("0" + m[2]).slice(-2) + ":" + m[3] + ":" + (m[4] || "00") + "+01:00";
     return new Date(s).getTime();
   }
+  // "Immediate Pickup" holds the moment the window shuts, not a yes/no.
+  // That makes the tag self-cleaning: it counts down, then is simply not
+  // rendered. Nothing has to sweep it.
+  function pickupLeft(it) {
+    var t = submittedMs(it && it["Immediate Pickup"]);
+    if (isNaN(t)) return null;
+    var ms = t - Date.now();
+    if (ms <= 0) return null;
+    var mins = Math.round(ms / 60000);
+    if (mins < 60) return mins <= 1 ? "Pickup now" : "Pickup within " + mins + "m";
+    return "Pickup within " + Math.floor(mins / 60) + "h";
+  }
+
+  function isNegotiable(it) {
+    var v = String(it["Negotiable"] || "").trim().toLowerCase();
+    return v !== "no" && v !== "false" && v !== "n";   // default is yes
+  }
+
+  // Heat = views per hour since listing. We only hold a lifetime Views
+  // count, so a true 24h window is not derivable from the feed; this is
+  // the honest stand-in and matches what Dina already calls hot.
+  function heatOf(it) {
+    var t = submittedMs(it["Submission Time"]);
+    if (isNaN(t)) return 0;
+    var hrs = Math.max(1, (Date.now() - t) / 3600000);
+    return (it._views || 0) / hrs;
+  }
+
   function badgeFor(it) {
+    var p = pickupLeft(it);
+    if (p) return { cls: "pickup", label: p };
+    if (heatOf(it) >= HOT_PER_HOUR && (it._views || 0) >= HOT_MIN_VIEWS) return { cls: "hot", label: "Hot" };
     var t = submittedMs(it && it["Submission Time"]);
     if (!isNaN(t) && (Date.now() - t) < NEW_WINDOW_MS) return { cls: "new", label: "New" };
     return { cls: "", label: "Active" };
   }
 
-  function isPartnerItem(it) { return it["Seller Type"] === "Partner" || !!it["Partner ID"]; }
+  // "Partner" is the internal word. Buyers see "Vendor".
+  function isVendorItem(it) { return it["Seller Type"] === "Partner" || !!it["Partner ID"]; }
   function agoText(ms) {
     var mins = Math.max(0, Math.round((Date.now() - ms) / 60000));
     if (mins < 60) return mins <= 1 ? "just now" : mins + " min ago";
@@ -1107,40 +1351,53 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var weeks = Math.floor(days / 7);
     return "Listed " + weeks + (weeks === 1 ? " week ago" : " weeks ago");
   }
-  function handleOf(it) { return String(it["Partner Handle"] || "").replace(/^@+/, ""); }
-
+  // NOTE: the vendor's Instagram handle is deliberately never shown or
+  // published. A buyer holding it can go buy direct and cut DPS out, which
+  // is also why "Source URL" was removed from the feed.
   function dinaLine(it) {
-    var name = it["Business Name"] || "This partner";
-    var handle = handleOf(it);
-
-    if (it["Bot Source"] === "Dina Instagram" && handle) {
-      var parts = ["Found on @" + handle + "'s Instagram. The DPS price includes escrow protection."];
-      var exp = submittedMs(it["Expires At"]);
-      if (!isNaN(exp) && exp > Date.now()) {
-        var h = Math.ceil((exp - Date.now()) / 3600000);
-        parts.push("Live for " + h + (h === 1 ? " more hour." : " more hours."));
+    var name = it["Business Name"] || "This vendor";
+    var exp = submittedMs(it["Expires At"]);
+    if (!isNaN(exp) && exp > Date.now()) {
+      var h = Math.ceil((exp - Date.now()) / 3600000);
+      if (h <= 48) {
+        return name + " listed this through DPS. Live for " + h +
+               (h === 1 ? " more hour, " : " more hours, ") + "escrow protection included.";
       }
-      return parts.join(" ");
-    }
-
-    var checked = submittedMs(it["Source Checked At"] || it["Dina Last Sync At"]);
-    if (it["Dina Active"] === true && handle && !isNaN(checked)) {
-      return "Tracking @" + handle + " on Instagram. Last checked " + agoText(checked) + ".";
     }
 
     var pid = String(it["Partner ID"] || "");
     var count = pid ? ALL_ITEMS.filter(function (x) { return String(x["Partner ID"] || "") === pid; }).length : 0;
     var first = count > 1
       ? name + " has " + count + " items live on DPS."
-      : (count === 1 ? "This is " + name + "'s only item live on DPS right now." : name + " is a DPS partner.");
+      : (count === 1 ? "This is " + name + "'s only item live on DPS right now." : name + " is a DPS vendor.");
     var second = listedText(it).replace(/^Listed /, "It was listed ");
     return second ? first + " " + second : first;
   }
   function renderDina(it) {
     var tile = document.getElementById("mcDina");
-    if (!isPartnerItem(it)) { tile.style.display = "none"; return; }
+    if (!isVendorItem(it)) { tile.style.display = "none"; return; }
     document.getElementById("mcDinaText").textContent = dinaLine(it);
     tile.style.display = "flex";
+  }
+
+  // Vendors get a select rather than a second chip row: the bar is already
+  // sticky, and a second row of chips pushes the grid down again.
+  function renderVendors() {
+    var wrap = document.getElementById("vendorWrap");
+    var sel = document.getElementById("vendorSelect");
+    if (!wrap || !sel) return;
+    var names = [];
+    ALL_ITEMS.forEach(function (it) {
+      if (it._vendor && names.indexOf(it._vendor) === -1) names.push(it._vendor);
+    });
+    names.sort(function (a, b) { return a.localeCompare(b); });
+    if (names.length < 2) { wrap.style.display = "none"; ACTIVE_VENDOR = ""; return; }
+    wrap.style.display = "";
+    sel.innerHTML = '<option value="">All vendors</option>' + names.map(function (n) {
+      return '<option value="' + escapeAttr(n) + '">' + escapeHTML(n) + '</option>';
+    }).join("");
+    sel.value = ACTIVE_VENDOR;
+    sel.onchange = function () { ACTIVE_VENDOR = sel.value; PAGE = 1; render(); };
   }
 
   function renderChips() {
@@ -1178,22 +1435,24 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     var items = ALL_ITEMS.slice();
     if (ACTIVE_FILTER !== "All") items = items.filter(function (it) { return it._category === ACTIVE_FILTER; });
+    if (ACTIVE_VENDOR) items = items.filter(function (it) { return it._vendor === ACTIVE_VENDOR; });
     if (SEARCH_QUERY) {
       var q = SEARCH_QUERY.toLowerCase();
-      items = items.filter(function (it) {
-        return (it["Item Name"] || "").toLowerCase().indexOf(q) >= 0
-            || (it["Description"] || "").toLowerCase().indexOf(q) >= 0
-            || (it["Item ID"] || "").toLowerCase().indexOf(q) >= 0;
-      });
+      // _hay covers name, description, id, category, brand, model,
+      // variant and vendor. Searching "iphone 13" should not depend on the
+      // seller having typed it into the title.
+      items = items.filter(function (it) { return it._hay.indexOf(q) >= 0; });
     }
     if (ACTIVE_SORT === "newest")    items.sort(function (a,b) { return b._num - a._num; });
     if (ACTIVE_SORT === "priceLow")  items.sort(function (a,b) { return a._price - b._price; });
     if (ACTIVE_SORT === "priceHigh") items.sort(function (a,b) { return b._price - a._price; });
-    if (ACTIVE_SORT === "watching")  items.sort(function (a,b) { return (b._inquiries||0) - (a._inquiries||0); });
+    if (ACTIVE_SORT === "watching")  items.sort(function (a,b) { return (b._views||0) - (a._views||0); });
 
     gridCount.innerHTML = "Showing <strong>" + items.length + "</strong> item" + (items.length === 1 ? "" : "s");
     gridFilter.textContent = (ACTIVE_FILTER !== "All" ? ACTIVE_FILTER : "") +
       (SEARCH_QUERY ? (ACTIVE_FILTER !== "All" ? " · " : "") + "search: \"" + SEARCH_QUERY + "\"" : "");
+    var cc = document.getElementById("chipCount");
+    if (cc) cc.innerHTML = "<strong>" + items.length + "</strong> item" + (items.length === 1 ? "" : "s");
 
     var visible = items.slice(0, PAGE * PAGE_SIZE);
     document.getElementById("showMoreWrap").style.display = (visible.length < items.length) ? "block" : "none";
@@ -1204,12 +1463,41 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     }
     grid.innerHTML = visible.map(buildCardHTML).join("");
     Array.prototype.forEach.call(grid.querySelectorAll(".item-card"), function (card) {
-      card.addEventListener("click", function () {
+      card.addEventListener("click", function (e) {
+        // The heart sits inside the card; it must not also open the modal.
+        if (e.target.closest(".card-like")) return;
         var id = card.getAttribute("data-id");
         var item = ALL_ITEMS.filter(function (x) { return x["Item ID"] === id; })[0];
         if (item) openModal(item);
       });
     });
+    Array.prototype.forEach.call(grid.querySelectorAll(".card-like"), function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        sendInterest(btn.getAttribute("data-like"), "", btn);
+      });
+    });
+  }
+
+  var EYE_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var HEART_SVG = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+
+  function hasLiked(id) { try { return localStorage.getItem(LIKE_KEY + id) === "1"; } catch (e) { return false; } }
+  function markLiked(id) { try { localStorage.setItem(LIKE_KEY + id, "1"); } catch (e) {} }
+  // Someone who already gave an address for this item is not asked again.
+  function hasNotify(id) { try { return localStorage.getItem(NOTIFY_KEY + id) === "1"; } catch (e) { return false; } }
+  function markNotify(id) { try { localStorage.setItem(NOTIFY_KEY + id, "1"); } catch (e) {} }
+
+  // "Good Condition" does not fit a card foot and ellipsising it to
+  // "GOOD CO..." looks broken. The full wording stays in the modal.
+  var COND_SHORT = {
+    "brand new": "New", "new": "New", "like new": "Like New",
+    "good condition": "Good", "good": "Good",
+    "fairly used": "Fair", "fair": "Fair", "used": "Used"
+  };
+  function shortCond(c) {
+    var k = String(c || "").trim().toLowerCase();
+    return COND_SHORT[k] || String(c || "").trim();
   }
 
   function buildCardHTML(it) {
@@ -1219,28 +1507,99 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var loc = it["Location"] || "";
     var price = formatPrice(it["Amount to sell"] || it["Amount to Buyer"]);
     var img = firstImage(it["Product Photos"]);
-    var views = it._inquiries || 0;
     var badge = badgeFor(it);
-    var badgeHTML = '<span class="card-badge ' + badge.cls + '"><span class="dot"></span>' + badge.label + '</span>';
-    var eyeSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-    var viewsHTML = views > 0 ? '<span class="card-views">' + eyeSvg + views + '</span>' : '';
+    var badgeHTML = '<span class="card-badge ' + badge.cls + '"><span class="dot"></span>' + escapeHTML(badge.label) + '</span>';
+    var viewsHTML = it._views > 0 ? '<span class="card-views">' + EYE_SVG + it._views + '</span>' : '';
     var imgHTML = img
       ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '" loading="lazy" onerror="imgFail(this)">'
       : '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;color:#A7B0AA;">📦</div>';
-    var partnerTag = isPartnerItem(it) ? '<span class="card-partner">Partner</span>' : '';
+    // Vendor replaces Condition in the foot when there is one: who is
+    // selling matters more than a repeat of the condition tag.
+    var right = isVendorItem(it) && it._vendor
+      ? '<span class="card-partner">' + escapeHTML(it._vendor) + '</span><span>' + escapeHTML(loc) + '</span>'
+      : '<span>' + escapeHTML(shortCond(cond)) + '</span><span>' + escapeHTML(loc) + '</span>';
+    var liked = hasLiked(id);
     return ''
       + '<div class="item-card" data-id="' + escapeAttr(id) + '">'
-      +   '<div class="item-card-img">' + imgHTML + badgeHTML + viewsHTML + '</div>'
+      +   '<div class="item-card-img">' + imgHTML + badgeHTML + viewsHTML
+      +     '<span class="card-id">' + escapeHTML(id) + '</span>'
+      +     '<button class="card-like" type="button" data-like="' + escapeAttr(id) + '"'
+      +       ' aria-pressed="' + (liked ? "true" : "false") + '"'
+      +       ' aria-label="Interested in ' + escapeAttr(name) + '">' + HEART_SVG + '</button>'
+      +   '</div>'
       +   '<div class="card-body">'
-      +     '<div class="card-id">' + escapeHTML(id) + partnerTag + '</div>'
       +     '<div class="card-name">' + escapeHTML(name) + '</div>'
       +     '<div class="card-foot">'
       +       '<div class="card-price"><span class="sym">₦</span>' + price + '</div>'
-      +       '<div class="card-meta">' + escapeHTML(cond) + '<br>' + escapeHTML(loc) + '</div>'
+      +       '<div class="card-meta">' + right + '</div>'
       +     '</div>'
       +   '</div>'
       + '</div>';
   }
+
+  // ── HOT STRIP ────────────────────────────────────────────────────────
+  // Ranked from ALL_ITEMS, which is already in memory. No extra request,
+  // ever, however long the page stays open.
+  var HOT = [], hotIdx = 0, hotTimer = null;
+
+  function renderHot() {
+    var strip = document.getElementById("hotStrip");
+    if (!strip) return;
+    HOT = ALL_ITEMS.slice()
+      .filter(function (it) { return (it._views || 0) > 0; })
+      .sort(function (a, b) { return heatOf(b) - heatOf(a); })
+      .slice(0, 10);
+
+    if (HOT.length < 3) { strip.classList.remove("on"); stopHot(); return; }
+    strip.classList.add("on");
+    document.getElementById("hotDots").innerHTML = HOT.map(function (_, i) {
+      return '<span class="hot-dot' + (i === 0 ? " on" : "") + '"></span>';
+    }).join("");
+    hotIdx = 0;
+    paintHot();
+    startHot();
+  }
+
+  function paintHot() {
+    var it = HOT[hotIdx];
+    if (!it) return;
+    var img = firstImage(it["Product Photos"]);
+    var el = document.getElementById("hotImg");
+    // imgFail latches per element and this one <img> is reused on every
+    // rotation, so the latch has to be cleared or a later failure shows broken.
+    delete el.dataset.failed;
+    if (img) { el.src = img; el.style.visibility = ""; } else { el.style.visibility = "hidden"; }
+    document.getElementById("hotName").textContent = it["Item Name"] || "";
+    document.getElementById("hotSub").innerHTML =
+      "₦" + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) +
+      '  ·  <b>' + (it._views || 0) + " views</b>";
+    Array.prototype.forEach.call(document.querySelectorAll(".hot-dot"), function (d, i) {
+      d.classList.toggle("on", i === hotIdx);
+    });
+  }
+
+  function startHot() {
+    stopHot();
+    hotTimer = setInterval(function () {
+      if (document.hidden || modalBg.classList.contains("open")) return;
+      var slide = document.getElementById("hotSlide");
+      slide.classList.add("fade");
+      setTimeout(function () {
+        hotIdx = (hotIdx + 1) % HOT.length;
+        paintHot();
+        slide.classList.remove("fade");
+      }, 300);
+    }, HOT_ROTATE_MS);
+  }
+  function stopHot() { if (hotTimer) { clearInterval(hotTimer); hotTimer = null; } }
+
+  (function wireHot() {
+    var strip = document.getElementById("hotStrip");
+    if (strip) strip.addEventListener("click", function () {
+      var it = HOT[hotIdx];
+      if (it) openModal(it);
+    });
+  })();
 
   function renderSoldStrip() {
     var strip = document.getElementById("soldStrip");
@@ -1290,16 +1649,121 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     }
   }
 
+  var TAG_SVG = {
+    cond: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    pin:  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    eye:  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+    bolt: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    tag:  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22l-9-9V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>'
+  };
+
   function renderTags(it) {
     var out = [];
-    var condSvg = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    var pinSvg  = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-    var eyeSvg  = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-    if (it["Condition"]) out.push('<span class="mc-tag mc-tag-cond">' + condSvg + escapeHTML(it["Condition"]) + '</span>');
-    if (it["Location"])  out.push('<span class="mc-tag">' + pinSvg + escapeHTML(it["Location"]) + '</span>');
-    if (it._inquiries)   out.push('<span class="mc-tag">' + eyeSvg + it._inquiries + ' views</span>');
+    if (it["Condition"]) out.push('<span class="mc-tag mc-tag-cond">' + TAG_SVG.cond + escapeHTML(it["Condition"]) + '</span>');
+
+    // The location tag IS the reveal button. The precise area is not in
+    // items.json, so tapping it is a real server call, not a CSS trick.
+    var loc = it["Location"] || "";
+    if (it._area) {
+      out.push('<span class="mc-tag is-revealed">' + TAG_SVG.pin + escapeHTML(it._area) + '</span>');
+    } else if (loc) {
+      out.push('<button class="mc-tag mc-tag-reveal" id="mcReveal" type="button">'
+        + TAG_SVG.pin + escapeHTML(loc) + ' <span class="rv">· Show area</span></button>');
+    }
+
+    var pick = pickupLeft(it);
+    if (pick) out.push('<span class="mc-tag mc-tag-pickup">' + TAG_SVG.bolt + escapeHTML(pick) + '</span>');
+
+    // Brand, model and variant read as one thing, not three tags.
+    var spec = [it["Brand"], it["Model"], it["Variant"]]
+      .map(function (v) { return String(v || "").trim(); }).filter(Boolean).join(" · ");
+    if (spec) out.push('<span class="mc-tag">' + TAG_SVG.tag + escapeHTML(spec) + '</span>');
+
+    if (it._views) out.push('<span class="mc-tag">' + TAG_SVG.eye + it._views + ' views</span>');
+
     document.getElementById("mcTags").innerHTML = out.join("");
     document.getElementById("mcCondHelp").style.display = it["Condition"] ? "" : "none";
+
+    var rv = document.getElementById("mcReveal");
+    if (rv) rv.addEventListener("click", function () { doReveal(it, rv); });
+  }
+
+  // ── Pickup area ──────────────────────────────────────────────────────
+  function doReveal(it, btn) {
+    var id = it["Item ID"];
+    btn.disabled = true;
+    btn.innerHTML = TAG_SVG.pin + "Checking…";
+    if (!GAS || IS_DEMO) {   // demo: show what we already hold
+      it._area = it["Location"] || "";
+      renderTags(it);
+      return;
+    }
+    fetch(GAS + "?action=revealArea&id=" + encodeURIComponent(id))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.ok) {
+          it._area = d.display || d.area || it["Location"] || "";
+          if (typeof d.reveals === "number") it["Reveals"] = d.reveals;
+        } else {
+          it._area = it["Location"] || "";
+        }
+        if (currentItem && currentItem["Item ID"] === id) renderTags(it);
+      })
+      .catch(function (e) {
+        warn("revealArea failed:", e && e.message);
+        it._area = it["Location"] || "";
+        if (currentItem && currentItem["Item ID"] === id) renderTags(it);
+      });
+  }
+
+  // ── Interested ───────────────────────────────────────────────────────
+  // The tap counts straight away. The email is asked for afterwards and is
+  // optional, so the button never feels like a form.
+  function sendInterest(itemId, email, btnEl) {
+    if (!itemId) return Promise.resolve(null);
+    var fresh = !hasLiked(itemId);
+
+    if (btnEl && fresh) {
+      btnEl.setAttribute("aria-pressed", "true");
+      btnEl.classList.remove("go");
+      void btnEl.offsetWidth;          // restart the animation
+      btnEl.classList.add("go");
+    }
+    if (fresh) {
+      markLiked(itemId);
+      var it = ALL_ITEMS.filter(function (x) { return x["Item ID"] === itemId; })[0];
+      if (it) it._interested = (it._interested || 0) + 1;
+      if (currentItem && currentItem["Item ID"] === itemId) paintLikeCount();
+      dlPush("item_interest", { item_id: itemId, with_email: !!email });
+    }
+    if (!fresh && !email) return Promise.resolve({ already: true });
+    if (!GAS || IS_DEMO) return Promise.resolve({ success: true });
+
+    return fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({ action: "addInterest", itemId: itemId, email: email || "", source: "items page" })
+    }).then(function (r) { return r.json(); })
+      .catch(function (e) { warn("addInterest failed:", e && e.message); return null; });
+  }
+
+  function paintLikeCount() {
+    var n = document.getElementById("galLikeN");
+    if (!n || !currentItem) return;
+    var c = currentItem._interested || 0;
+    // A count of 2 reads as "nobody wants this". Stay quiet until it means something.
+    if (c >= INTEREST_SHOW_AT) { n.textContent = String(c); n.removeAttribute("hidden"); }
+    else n.setAttribute("hidden", "");
+  }
+
+  function resetNotify() {
+    var n = document.getElementById("mcNotify");
+    n.className = "mc-notify";
+    document.getElementById("mcNotifyLbl").textContent = "Noted. Want us to tell you if the price drops or it sells?";
+    document.getElementById("mcNotifyRow").style.display = "";
+    document.getElementById("mcNotifyNote").style.display = "";
+    document.getElementById("mcNotifySend").textContent = "Send";
+    var e = document.getElementById("mcNotifyEmail");
+    e.value = ""; e.classList.remove("err");
   }
 
   function openModal(it) {
@@ -1334,8 +1798,29 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     document.getElementById("mcTitle").textContent = it["Item Name"] || "";
     document.getElementById("mcId").textContent = it["Item ID"] || "";
+    document.getElementById("mcIdChip").classList.remove("copied");
     document.getElementById("mcListed").textContent = listedText(it);
     renderTags(it);
+
+    // Declared defects get their own block. Burying a known flaw in the
+    // description is what turns into an argument at handover.
+    var defects = String(it["Defects"] || "").trim();
+    var defBox = document.getElementById("mcDefects");
+    if (defects) {
+      document.getElementById("mcDefectsText").textContent = defects;
+      defBox.style.display = "";
+    } else {
+      defBox.style.display = "none";
+    }
+
+    // Negotiable gating lives in restoreBuyerDefaults(), which runs at the
+    // end of this function via renderOfferBanner().
+
+    var like = document.getElementById("galLike");
+    like.setAttribute("aria-pressed", hasLiked(it["Item ID"]) ? "true" : "false");
+    like.classList.remove("go");
+    resetNotify();
+    paintLikeCount();
 
     document.getElementById("mcLegendPanel").setAttribute("hidden", "");
     document.getElementById("mcCondHelp").classList.remove("active");
@@ -1348,12 +1833,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     currentQuickOffer = computeQuickOffer(asking);
     document.getElementById("mcQuickVal").textContent = "₦" + currentQuickOffer.toLocaleString("en-NG");
 
-    var isPartner = isPartnerItem(it);
+    var isPartner = isVendorItem(it);
     renderDina(it);
-    var sellerName = (isPartner && it["Business Name"]) ? it["Business Name"] : (isPartner ? "DPS Partner" : "DPS Seller");
+    var sellerName = (isPartner && it["Business Name"]) ? it["Business Name"] : (isPartner ? "DPS Vendor" : "DPS Seller");
     document.getElementById("mcSellerAvatar").textContent = initials(sellerName);
     document.getElementById("mcSellerName").textContent = sellerName;
-    document.getElementById("mcSellerMeta").textContent = (isPartner ? "Partner on DPS" : "Seller on DPS") + " · escrow-protected";
+    document.getElementById("mcSellerMeta").textContent = (isPartner ? "Vendor on DPS" : "Seller on DPS") + " · escrow-protected";
 
     document.getElementById("mcDayo").href = "https://t.me/declutterpawnshop2_bot?start=" + encodeURIComponent(it["Item ID"]);
     var itemUrl = SITE_URL + "/items?item=" + encodeURIComponent(it["Item ID"]);
@@ -1388,7 +1873,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
             .then(function (r) { return r.json(); })
             .then(function (data) {
               if (data && data.ok && data.views && currentItem && currentItem["Item ID"] === trackId) {
-                currentItem._inquiries = data.views;
+                currentItem._views = data.views;
                 renderTags(currentItem);
               }
             })
@@ -1401,6 +1886,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function closeModal() {
+    // A like made inside the modal has to show on the card behind it.
+    if (currentItem) {
+      var cb = document.querySelector('.card-like[data-like="' + currentItem["Item ID"] + '"]');
+      if (cb) cb.setAttribute("aria-pressed", hasLiked(currentItem["Item ID"]) ? "true" : "false");
+    }
     modalBg.classList.remove("open");
     modalBg.setAttribute("aria-hidden", "true");
     if (!offerBg.classList.contains("open")) document.body.classList.remove("locked");
@@ -1834,13 +2324,81 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   });
   document.getElementById("showMore").addEventListener("click", function () { PAGE += 1; render(); });
 
+  // ── Item ID: tap to copy. Buyers paste this into Dayo. ──
+  (function wireIdChip() {
+    var chip = document.getElementById("mcIdChip");
+    if (!chip) return;
+    chip.addEventListener("click", function () {
+      var id = document.getElementById("mcId").textContent.trim();
+      var done = function () {
+        chip.classList.add("copied");
+        setTimeout(function () { chip.classList.remove("copied"); }, 1400);
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(id).then(done, done);
+      else done();
+    });
+  })();
+
+  // ── Interested, from the modal ──
+  (function wireLike() {
+    var like = document.getElementById("galLike");
+    if (!like) return;
+    like.addEventListener("click", function () {
+      if (!currentItem) return;
+      var id = currentItem["Item ID"];
+      // Tapping again does not double count, but it must still do
+      // something: someone who liked from the grid has never been offered
+      // the email, and a dead tap reads as broken.
+      if (like.getAttribute("aria-pressed") !== "true") sendInterest(id, "", like);
+      if (!hasNotify(id)) document.getElementById("mcNotify").classList.add("show");
+    });
+
+    document.getElementById("mcNotifyX").addEventListener("click", function () {
+      document.getElementById("mcNotify").classList.remove("show");
+    });
+
+    document.getElementById("mcNotifySend").addEventListener("click", function () {
+      var input = document.getElementById("mcNotifyEmail");
+      var v = input.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { input.classList.add("err"); input.focus(); return; }
+      input.classList.remove("err");
+      this.textContent = "…";
+      var id = currentItem ? currentItem["Item ID"] : "";
+      sendInterest(id, v, null).then(function () {
+        markNotify(id);
+        var n = document.getElementById("mcNotify");
+        n.classList.add("done");
+        document.getElementById("mcNotifyLbl").textContent = "Done. We will email you about this item.";
+        document.getElementById("mcNotifyRow").style.display = "none";
+        document.getElementById("mcNotifyNote").style.display = "none";
+      });
+    });
+  })();
+
+  // ── Availability, parked ──
+  (function wireAvail() {
+    var b = document.getElementById("mcAvail");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      showToast("<b>Check it&#39;s still available</b> is coming soon. You will pay 10% to ask the vendor whether the item is still there, and only balance the rest if they say yes.");
+    });
+  })();
+
   function normalise(raw) {
     return raw.map(function (it) {
       return Object.assign({}, it, {
-        _category: detectCategory(it["Item Name"]),
+        _category: categoryOf(it),
         _price: priceNum(it["Amount to sell"] || it["Amount to Buyer"]),
+        // Views = people who opened it. Inquiries = people who made contact.
+        // These were the same number before; they are not the same thing.
+        _views: parseInt(it["Views"]) || 0,
         _inquiries: parseInt(it["Inquiries"]) || 0,
-        _num: parseInt(String(it["Item ID"] || "").replace(/[^0-9]/g, "")) || 0
+        _interested: parseInt(it["Interested"]) || 0,
+        _vendor: String(it["Business Name"] || "").trim(),
+        _num: parseInt(String(it["Item ID"] || "").replace(/[^0-9]/g, "")) || 0,
+        _hay: [it["Item Name"], it["Description"], it["Item ID"], it["Category"],
+               it["Brand"], it["Model"], it["Variant"], it["Business Name"]]
+               .join(" ").toLowerCase()
       });
     });
   }
@@ -1852,7 +2410,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
     RECENT_SOLD = (data && Array.isArray(data.recentSold)) ? data.recentSold : [];
     log("hydrate:", ALL_ITEMS.length, "active items,", RECENT_SOLD.length, "recent sold");
-    renderChips(); render(); renderSoldStrip();
+    renderChips(); renderVendors(); render(); renderSoldStrip(); renderHot();
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
 
