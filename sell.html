@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];l.dataLayer=l.dataLayer||[];l.push({'gtm.start':
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -317,6 +317,31 @@ input, select, textarea { font-family: inherit; }
 .form-terms { font-size: 11.5px; color: var(--text-muted); text-align: center; line-height: 1.6; padding: 0 4px; }
 .form-terms a { color: var(--text-secondary); text-decoration: underline; text-decoration-color: var(--border); }
 
+/* ─── Added fields: toggles and the optional disclosure ─── */
+.swf { display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--off-white);
+  border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 13px;
+  user-select: none; -webkit-user-select: none; transition: border-color .15s; }
+.swf:hover { border-color: var(--border-ink); }
+.swf input { position: absolute; opacity: 0; width: 0; height: 0; }
+.swf-ui { position: relative; width: 38px; height: 22px; border-radius: 999px;
+  background: var(--border-ink); flex-shrink: 0; transition: background .18s; }
+.swf-ui::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+  border-radius: 50%; background: #fff; transition: transform .18s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.swf input:checked + .swf-ui { background: var(--green); }
+.swf input:checked + .swf-ui::after { transform: translateX(16px); }
+.swf input:focus-visible + .swf-ui { outline: 2px solid var(--ink); outline-offset: 2px; }
+.swf-tx { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.25; }
+.more-btn { display: flex; align-items: center; justify-content: space-between; width: 100%;
+  padding: 11px 13px; background: var(--off-white); border: 1.5px dashed var(--border-ink);
+  border-radius: 10px; font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  color: var(--text-secondary); transition: border-color .15s, color .15s; }
+.more-btn:hover { border-color: var(--ink); color: var(--ink); }
+.more-btn .chev { transition: transform .2s; flex-shrink: 0; }
+.more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.more-panel { display: none; flex-direction: column; gap: 14px; margin-top: 12px; }
+.more-panel.open { display: flex; }
+@media (prefers-reduced-motion: reduce) { .swf-ui, .swf-ui::after, .more-btn .chev { transition: none; } }
+
 /* ─── Footer ─── */
 .sell-footer { background: var(--off-white); border-top: 1px solid var(--border); padding: 24px 0 32px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
 .sell-footer p { margin-bottom: 4px; }
@@ -381,6 +406,13 @@ input, select, textarea { font-family: inherit; }
             <input type="text" id="li-name" placeholder="e.g. Samsung Galaxy S23 128GB Black" maxlength="80">
             <div class="field-hint">Include brand, model, size, colour where relevant.</div>
           </div>
+          <div class="field">
+            <label>Category <em>*</em></label>
+            <select id="li-category">
+              <option value="">Select</option>
+              <option>Phones & Tablets</option><option>Computers</option><option>Audio</option><option>Cameras</option><option>Gaming</option><option>Fashion</option><option>Bags & Shoes</option><option>Watches & Jewellery</option><option>Furniture</option><option>Home & Appliances</option><option>Fitness</option><option>Other</option>
+            </select>
+          </div>
           <div class="field-row">
             <div class="field">
               <label>Condition <em>*</em></label>
@@ -401,10 +433,33 @@ input, select, textarea { font-family: inherit; }
               </select>
             </div>
           </div>
+          <div class="field" id="area-field" style="display:none;">
+            <label>Area <em>*</em></label>
+            <select id="li-area"><option value="">Select</option></select>
+            <div class="field-hint">Buyers only see Island or Mainland until they tap to reveal the area.</div>
+          </div>
           <div class="field">
             <label>Description <em>*</em></label>
             <textarea id="li-desc" placeholder="What is it, what does it do, what's included, any flaws? Be honest — buyers trust accurate descriptions." maxlength="600"></textarea>
             <div class="char-count" id="desc-count">0 / 600</div>
+          </div>
+          <div class="field">
+            <label>Any defects or flaws?</label>
+            <textarea id="li-defects" placeholder="e.g. small scratch on the back, battery drains faster than new. Leave blank if there are none." maxlength="300" style="min-height:62px;"></textarea>
+            <div class="field-hint">Say it here and it shows on the listing. Declared flaws prevent arguments at handover.</div>
+          </div>
+          <div class="field">
+            <button type="button" class="more-btn" id="more-btn" aria-expanded="false" aria-controls="more-panel">
+              <span>Add brand and model (optional)</span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="more-panel" id="more-panel">
+              <div class="field-row">
+                <div class="field"><label>Brand</label><input type="text" id="li-brand" placeholder="e.g. Apple" maxlength="40"></div>
+                <div class="field"><label>Model</label><input type="text" id="li-model" placeholder="e.g. iPhone 15 Pro" maxlength="60"></div>
+              </div>
+              <div class="field"><label>Variant</label><input type="text" id="li-variant" placeholder="e.g. 256GB Natural Titanium" maxlength="60"></div>
+            </div>
           </div>
           <div class="field">
             <label>Asking price (₦) <em>*</em></label>
@@ -414,6 +469,22 @@ input, select, textarea { font-family: inherit; }
             </div>
             <div class="price-display-wrap"><div class="price-display" id="li-price-display"></div></div>
             <div class="field-hint">Set a fair price. The lower it is, the faster it sells.</div>
+          </div>
+          <div class="field-row">
+            <label class="swf"><input type="checkbox" id="li-negotiable" checked><span class="swf-ui"></span><span class="swf-tx">Open to offers</span></label>
+            <label class="swf"><input type="checkbox" id="li-pickupnow"><span class="swf-ui"></span><span class="swf-tx">Ready for collection now</span></label>
+          </div>
+          <div class="field" id="pickup-dur-field" style="display:none;">
+            <label>How long will it stay ready?</label>
+            <select id="li-pickupdur">
+              <option value="2">The next 2 hours</option>
+              <option value="6" selected>The next 6 hours</option>
+              <option value="today">The rest of today</option>
+              <option value="24">The next 24 hours</option>
+              <option value="48">The next 2 days</option>
+              <option value="72">The next 3 days</option>
+            </select>
+            <div class="field-hint">The badge counts down and disappears on its own. Your listing stays up either way.</div>
           </div>
           <div class="field">
             <label>Preferred pickup time <em>*</em></label>
@@ -668,6 +739,54 @@ input, select, textarea { font-family: inherit; }
     el.classList.toggle("warn", count > 510);
   });
 
+  /* ─── Added fields ─────────────────────────────────────────────── */
+  var AREAS = {
+    Island:   ["Lekki Phase 1", "Lekki (other)", "Ajah", "Victoria Island", "Ikoyi", "Oniru", "Island (other)"],
+    Mainland: ["Yaba", "Surulere", "Ikeja", "Gbagada", "Magodo", "Maryland", "Festac", "Ikorodu", "Mainland (other)"]
+  };
+
+  // Area cascades off Island/Mainland. It is required, but it is never
+  // published in items.json - the items page fetches it on tap.
+  document.getElementById("li-location").addEventListener("change", function () {
+    var list = AREAS[this.value] || [];
+    var sel = document.getElementById("li-area");
+    var wrap = document.getElementById("area-field");
+    sel.innerHTML = '<option value="">Select</option>' + list.map(function (a) {
+      return '<option>' + a + '</option>';
+    }).join("");
+    wrap.style.display = list.length ? "flex" : "none";
+  });
+
+  document.getElementById("li-pickupnow").addEventListener("change", function () {
+    document.getElementById("pickup-dur-field").style.display = this.checked ? "flex" : "none";
+  });
+
+  (function () {
+    var b = document.getElementById("more-btn");
+    var p = document.getElementById("more-panel");
+    b.addEventListener("click", function () {
+      var open = p.classList.toggle("open");
+      b.setAttribute("aria-expanded", String(open));
+    });
+  })();
+
+  // Collected on Continue, sent on submit.
+  function readExtras() {
+    var pickOn = document.getElementById("li-pickupnow").checked;
+    return {
+      category:   document.getElementById("li-category").value,
+      area:       document.getElementById("li-area").value,
+      brand:      document.getElementById("li-brand").value.trim(),
+      model:      document.getElementById("li-model").value.trim(),
+      variant:    document.getElementById("li-variant").value.trim(),
+      defects:    document.getElementById("li-defects").value.trim(),
+      negotiable: document.getElementById("li-negotiable").checked ? "Yes" : "No",
+      // The hours go to the server, which stamps the expiry in Lagos time.
+      // Computing it here would trust the visitor's clock.
+      pickupHours: pickOn ? document.getElementById("li-pickupdur").value : ""
+    };
+  }
+
   document.getElementById("btn-continue-item").addEventListener("click", function () {
     clearItemError();
     var name = document.getElementById("li-name").value.trim();
@@ -680,6 +799,9 @@ input, select, textarea { font-family: inherit; }
     if (!name) { showItemError("Please enter the item name."); return; }
     if (!cond) { showItemError("Please select the condition."); return; }
     if (!loc) { showItemError("Please select Mainland or Island."); return; }
+    var x = readExtras();
+    if (!x.category) { showItemError("Please choose a category."); return; }
+    if (!x.area) { showItemError("Please select the area."); return; }
     if (desc.length < 30) { showItemError("Please add a description (minimum 30 characters)."); return; }
     if (!pickup) { showItemError("Please select a preferred pickup time."); return; }
     if (price < 500) { showItemError("Please enter a price of at least ₦500."); return; }
@@ -689,6 +811,7 @@ input, select, textarea { font-family: inherit; }
       return;
     }
 
+    itemState.extras = x;
     itemState.name = name;
     itemState.condition = cond;
     itemState.location = loc;
@@ -873,7 +996,7 @@ input, select, textarea { font-family: inherit; }
     if (!GAS) {
       setTimeout(function () {
         var fakeId = "DPS" + (10000 + Math.floor(Math.random() * 9000));
-        window.location.href = "/thank-you?seller=" + (identity.mode === "returning" ? "returning" : "new") + "&name=" + encodeURIComponent(identity.name) + "&itemId=" + fakeId;
+        window.location.href = "/thank-you?itemId=" + fakeId;
       }, 1200);
       return;
     }
@@ -902,6 +1025,14 @@ input, select, textarea { font-family: inherit; }
           bank: identity.bank, acctName: identity.acctName, acct: identity.acct,
           itemName: itemState.name, condition: itemState.condition, description: itemState.description,
           location: itemState.location, pickupTime: itemState.pickup,
+          area: (itemState.extras || {}).area || "",
+          category: (itemState.extras || {}).category || "",
+          brand: (itemState.extras || {}).brand || "",
+          model: (itemState.extras || {}).model || "",
+          variant: (itemState.extras || {}).variant || "",
+          defects: (itemState.extras || {}).defects || "",
+          negotiable: (itemState.extras || {}).negotiable || "Yes",
+          pickupHours: (itemState.extras || {}).pickupHours || "",
           amountToSell: itemState.price, amountToBuyer: itemState.price,
           amountToSeller: amountToSeller, dpsProfit: dpsProfit,
           photoUrls: photoUrls.join(", "),
@@ -913,12 +1044,7 @@ input, select, textarea { font-family: inherit; }
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.success) {
-        var params = new URLSearchParams({
-          seller: identity.mode === "returning" ? (identity.sellerType === "Partner" ? "partner" : "returning") : "new",
-          name: (identity.sellerType === "Partner" ? identity.businessName : identity.name) || "",
-          itemId: data.itemId || ""
-        });
-        window.location.href = "/thank-you?" + params.toString();
+        window.location.href = "/thank-you?itemId=" + encodeURIComponent(data.itemId || "");
       } else {
         nextBtn.disabled = false; proceedBtn.disabled = false;
         nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
