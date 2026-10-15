@@ -407,6 +407,31 @@ body.sell-modal-locked { overflow: hidden; }
 .sell-modal-bg .card-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; }
 .sell-modal-bg .card-foot { padding: 0 22px 20px; display: flex; flex-direction: column; gap: 10px; }
 @media (max-width: 520px) { .sell-modal-bg .card-head { padding: 16px 16px 14px; } .sell-modal-bg .card-body { padding: 16px 16px; } .sell-modal-bg .card-foot { padding: 0 16px 18px; } .sell-modal-bg .card-title { font-size: 18px; } }
+/* ─── Added fields: toggles and the optional disclosure ─── */
+.swf { display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--off-white);
+  border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 13px;
+  user-select: none; -webkit-user-select: none; transition: border-color .15s; }
+.swf:hover { border-color: var(--border-ink); }
+.swf input { position: absolute; opacity: 0; width: 0; height: 0; }
+.swf-ui { position: relative; width: 38px; height: 22px; border-radius: 999px;
+  background: var(--border-ink); flex-shrink: 0; transition: background .18s; }
+.swf-ui::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+  border-radius: 50%; background: #fff; transition: transform .18s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.swf input:checked + .swf-ui { background: var(--green); }
+.swf input:checked + .swf-ui::after { transform: translateX(16px); }
+.swf input:focus-visible + .swf-ui { outline: 2px solid var(--ink); outline-offset: 2px; }
+.swf-tx { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.25; }
+.more-btn { display: flex; align-items: center; justify-content: space-between; width: 100%;
+  padding: 11px 13px; background: var(--off-white); border: 1.5px dashed var(--border-ink);
+  border-radius: 10px; font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  color: var(--text-secondary); transition: border-color .15s, color .15s; }
+.more-btn:hover { border-color: var(--ink); color: var(--ink); }
+.more-btn .chev { transition: transform .2s; flex-shrink: 0; }
+.more-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.more-panel { display: none; flex-direction: column; gap: 14px; margin-top: 12px; }
+.more-panel.open { display: flex; }
+@media (prefers-reduced-motion: reduce) { .swf-ui, .swf-ui::after, .more-btn .chev { transition: none; } }
+
 .sell-modal-bg .step-view { display: none; }
 .sell-modal-bg .step-view.active { display: block; }
 .sell-modal-bg .field { display: flex; flex-direction: column; gap: 6px; }
@@ -1054,18 +1079,64 @@ body.sell-modal-locked { overflow: hidden; }
                 <label>Item name <em>*</em></label>
                 <input type="text" id="sm-li-name" placeholder="e.g. Samsung Galaxy S23 128GB Black" maxlength="80">
               </div>
+              <div class="field">
+                <label>Category <em>*</em></label>
+                <select id="sm-li-category">
+                  <option value="">Select</option>
+                  <option>Phones & Tablets</option><option>Computers</option><option>Audio</option><option>Cameras</option><option>Gaming</option><option>Fashion</option><option>Bags & Shoes</option><option>Watches & Jewellery</option><option>Furniture</option><option>Home & Appliances</option><option>Fitness</option><option>Other</option>
+                </select>
+              </div>
               <div class="field-row">
                 <div class="field"><label>Condition <em>*</em></label><select id="sm-li-cond"><option value="">Select</option><option>Brand New</option><option>Like New</option><option>Good Condition</option><option>Fairly Used</option></select></div>
                 <div class="field"><label>Location <em>*</em></label><select id="sm-li-location"><option value="">Select</option><option value="Mainland">Mainland</option><option value="Island">Island</option></select></div>
+              </div>
+              <div class="field" id="sm-area-field" style="display:none;">
+                <label>Area <em>*</em></label>
+                <select id="sm-li-area"><option value="">Select</option></select>
+                <div class="field-hint">Buyers only see Island or Mainland until they tap to reveal the area.</div>
               </div>
               <div class="field">
                 <label>Description <em>*</em></label>
                 <textarea id="sm-li-desc" placeholder="What is it, what's included, any flaws?" maxlength="600"></textarea>
               </div>
               <div class="field">
+                <label>Any defects or flaws?</label>
+                <textarea id="sm-li-defects" placeholder="e.g. small scratch on the back, battery drains faster than new. Leave blank if there are none." maxlength="300" style="min-height:62px;"></textarea>
+                <div class="field-hint">Say it here and it shows on the listing. Declared flaws prevent arguments at handover.</div>
+              </div>
+              <div class="field">
+                <button type="button" class="more-btn" id="sm-more-btn" aria-expanded="false" aria-controls="sm-more-panel">
+                  <span>Add brand and model (optional)</span>
+                  <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="more-panel" id="sm-more-panel">
+                  <div class="field-row">
+                    <div class="field"><label>Brand</label><input type="text" id="sm-li-brand" placeholder="e.g. Apple" maxlength="40"></div>
+                    <div class="field"><label>Model</label><input type="text" id="sm-li-model" placeholder="e.g. iPhone 15 Pro" maxlength="60"></div>
+                  </div>
+                  <div class="field"><label>Variant</label><input type="text" id="sm-li-variant" placeholder="e.g. 256GB Natural Titanium" maxlength="60"></div>
+                </div>
+              </div>
+              <div class="field">
                 <label>Asking price (₦) <em>*</em></label>
                 <div class="price-wrap"><span class="price-sym">₦</span><input type="text" id="sm-li-price" placeholder="0" inputmode="numeric" autocomplete="off"></div>
                 <div class="price-display-wrap"><div class="price-display" id="sm-li-price-display"></div></div>
+              </div>
+              <div class="field-row">
+                <label class="swf"><input type="checkbox" id="sm-li-negotiable" checked><span class="swf-ui"></span><span class="swf-tx">Open to offers</span></label>
+                <label class="swf"><input type="checkbox" id="sm-li-pickupnow"><span class="swf-ui"></span><span class="swf-tx">Ready for collection now</span></label>
+              </div>
+              <div class="field" id="sm-pickup-dur-field" style="display:none;">
+                <label>How long will it stay ready?</label>
+                <select id="sm-li-pickupdur">
+                  <option value="2">The next 2 hours</option>
+                  <option value="6" selected>The next 6 hours</option>
+                  <option value="today">The rest of today</option>
+                  <option value="24">The next 24 hours</option>
+                  <option value="48">The next 2 days</option>
+                  <option value="72">The next 3 days</option>
+                </select>
+                <div class="field-hint">The badge counts down and disappears on its own. Your listing stays up either way.</div>
               </div>
               <div class="field">
                 <label>Preferred pickup time <em>*</em></label>
@@ -1477,6 +1548,54 @@ body.sell-modal-locked { overflow: hidden; }
     else { el.classList.remove("show"); }
   });
 
+  /* ─── Added fields ─────────────────────────────────────────────── */
+  var sm_AREAS = {
+    Island:   ["Lekki Phase 1", "Lekki (other)", "Ajah", "Victoria Island", "Ikoyi", "Oniru", "Island (other)"],
+    Mainland: ["Yaba", "Surulere", "Ikeja", "Gbagada", "Magodo", "Maryland", "Festac", "Ikorodu", "Mainland (other)"]
+  };
+
+  // Area cascades off Island/Mainland. It is required, but it is never
+  // published in items.json - the items page fetches it on tap.
+  document.getElementById("sm-li-location").addEventListener("change", function () {
+    var list = sm_AREAS[this.value] || [];
+    var sel = document.getElementById("sm-li-area");
+    var wrap = document.getElementById("sm-area-field");
+    sel.innerHTML = '<option value="">Select</option>' + list.map(function (a) {
+      return '<option>' + a + '</option>';
+    }).join("");
+    wrap.style.display = list.length ? "flex" : "none";
+  });
+
+  document.getElementById("sm-li-pickupnow").addEventListener("change", function () {
+    document.getElementById("sm-pickup-dur-field").style.display = this.checked ? "flex" : "none";
+  });
+
+  (function () {
+    var b = document.getElementById("sm-more-btn");
+    var p = document.getElementById("sm-more-panel");
+    b.addEventListener("click", function () {
+      var open = p.classList.toggle("open");
+      b.setAttribute("aria-expanded", String(open));
+    });
+  })();
+
+  // Collected on Continue, sent on submit.
+  function sm_readExtras() {
+    var pickOn = document.getElementById("sm-li-pickupnow").checked;
+    return {
+      category:   document.getElementById("sm-li-category").value,
+      area:       document.getElementById("sm-li-area").value,
+      brand:      document.getElementById("sm-li-brand").value.trim(),
+      model:      document.getElementById("sm-li-model").value.trim(),
+      variant:    document.getElementById("sm-li-variant").value.trim(),
+      defects:    document.getElementById("sm-li-defects").value.trim(),
+      negotiable: document.getElementById("sm-li-negotiable").checked ? "Yes" : "No",
+      // The hours go to the server, which stamps the expiry in Lagos time.
+      // Computing it here would trust the visitor's clock.
+      pickupHours: pickOn ? document.getElementById("sm-li-pickupdur").value : ""
+    };
+  }
+
   document.getElementById("sm-btn-continue-item").addEventListener("click", function () {
     sm_clearItemError();
     var name = document.getElementById("sm-li-name").value.trim();
@@ -1488,6 +1607,9 @@ body.sell-modal-locked { overflow: hidden; }
     if (!name) { sm_showItemError("Please enter the item name."); return; }
     if (!cond) { sm_showItemError("Please select the condition."); return; }
     if (!loc) { sm_showItemError("Please select Mainland or Island."); return; }
+    var sm_x = sm_readExtras();
+    if (!sm_x.category) { sm_showItemError("Please choose a category."); return; }
+    if (!sm_x.area) { sm_showItemError("Please select the area."); return; }
     if (desc.length < 30) { sm_showItemError("Please add a description (minimum 30 characters)."); return; }
     if (!pickup) { sm_showItemError("Please select a preferred pickup time."); return; }
     if (price < 500) { sm_showItemError("Please enter a price of at least ₦500."); return; }
@@ -1496,6 +1618,7 @@ body.sell-modal-locked { overflow: hidden; }
       sm_showItemError("Please add at least one photo.");
       return;
     }
+    sm_itemState.extras = sm_x;
     sm_itemState.name = name; sm_itemState.condition = cond; sm_itemState.location = loc;
     sm_itemState.description = desc; sm_itemState.pickup = pickup; sm_itemState.price = price;
     document.getElementById("sm-item-summary-name").textContent = name;
@@ -1664,7 +1787,7 @@ body.sell-modal-locked { overflow: hidden; }
     if (!GAS) {
       setTimeout(function () {
         var fakeId = "DPS" + (10000 + Math.floor(Math.random() * 9000));
-        window.location.href = "/thank-you?seller=" + (sm_identity.mode === "returning" ? "returning" : "new") + "&name=" + encodeURIComponent(sm_identity.name) + "&itemId=" + fakeId;
+        window.location.href = "/thank-you?itemId=" + fakeId;
       }, 1200);
       return;
     }
@@ -1693,6 +1816,14 @@ body.sell-modal-locked { overflow: hidden; }
           bank: sm_identity.bank, acctName: sm_identity.acctName, acct: sm_identity.acct,
           itemName: sm_itemState.name, condition: sm_itemState.condition, description: sm_itemState.description,
           location: sm_itemState.location, pickupTime: sm_itemState.pickup,
+          area: (sm_itemState.extras || {}).area || "",
+          category: (sm_itemState.extras || {}).category || "",
+          brand: (sm_itemState.extras || {}).brand || "",
+          model: (sm_itemState.extras || {}).model || "",
+          variant: (sm_itemState.extras || {}).variant || "",
+          defects: (sm_itemState.extras || {}).defects || "",
+          negotiable: (sm_itemState.extras || {}).negotiable || "Yes",
+          pickupHours: (sm_itemState.extras || {}).pickupHours || "",
           amountToSell: sm_itemState.price, amountToBuyer: sm_itemState.price,
           amountToSeller: amountToSeller, dpsProfit: dpsProfit,
           photoUrls: photoUrls.join(", "),
@@ -1704,12 +1835,7 @@ body.sell-modal-locked { overflow: hidden; }
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.success) {
-        var params = new URLSearchParams({
-          seller: sm_identity.mode === "returning" ? (sm_identity.sellerType === "Partner" ? "partner" : "returning") : "new",
-          name: (sm_identity.sellerType === "Partner" ? sm_identity.businessName : sm_identity.name) || "",
-          itemId: data.itemId || ""
-        });
-        window.location.href = "/thank-you?" + params.toString();
+        window.location.href = "/thank-you?itemId=" + encodeURIComponent(data.itemId || "");
       } else {
         nextBtn.disabled = false; proceedBtn.disabled = false;
         nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
