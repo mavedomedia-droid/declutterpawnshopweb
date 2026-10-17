@@ -79,7 +79,9 @@ input, select, textarea { font-family: inherit; }
 .sell-hero {
   background: var(--ink);
   color: var(--off-white);
-  padding: 88px 0 26px;
+  /* 72px shared nav (dps-partials sets .nav-inner height with !important)
+     plus 24px of breathing room. Was 88px when this page ran its own 64px nav. */
+  padding: 96px 0 26px;
   position: relative;
   overflow: hidden;
 }
@@ -205,9 +207,64 @@ input, select, textarea { font-family: inherit; }
 .price-wrap { position: relative; }
 .price-sym { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--green-dark); pointer-events: none; }
 .field .price-wrap input { padding-left: 36px; font-family: var(--font-heading); font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; }
-.price-display-wrap { display: flex; justify-content: center; padding: 6px 0 0; }
-.price-display { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; padding: 8px 18px; border-radius: 10px; border: 1.5px solid var(--ink); background: var(--white); display: none; }
-.price-display.show { display: inline-block; }
+/* ── Price readout ──────────────────────────────────────────────────────
+   No box. A shadow lifts it off the form instead, and the figure is set in
+   tabular digits so the commas line up and it reads like a number, not a
+   sentence. */
+.price-readout { display: none; margin-top: 11px; padding: 13px 16px; border-radius: 12px;
+  background: var(--white); text-align: center;
+  box-shadow: 0 8px 22px rgba(14,19,32,.11), 0 1px 3px rgba(14,19,32,.07);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums; font-weight: 700; font-size: 23px;
+  letter-spacing: .01em; color: var(--ink); }
+.price-readout.show { display: block; }
+
+/* ── Tiny inline toggle ─────────────────────────────────────────────────
+   "Open to offers" is a footnote to the price, not a decision of its own,
+   so it sits under the field at a fraction of the size of a full switch. */
+.mini-sw { display: inline-flex; align-items: center; gap: 7px; margin-top: 10px;
+  cursor: pointer; -webkit-user-select: none; user-select: none; }
+.mini-sw input { position: absolute; opacity: 0; width: 0; height: 0; }
+.mini-sw-ui { position: relative; width: 26px; height: 15px; border-radius: 999px;
+  background: #CFD6D3; transition: background .15s; flex-shrink: 0; }
+.mini-sw-ui::after { content: ''; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px;
+  border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.22); transition: transform .15s; }
+.mini-sw input:checked + .mini-sw-ui { background: var(--green); }
+.mini-sw input:checked + .mini-sw-ui::after { transform: translateX(11px); }
+.mini-sw input:focus-visible + .mini-sw-ui { outline: 2px solid var(--ink); outline-offset: 2px; }
+.mini-sw-tx { font-size: 12px; font-weight: 600; color: var(--text-muted); transition: color .15s; }
+.mini-sw input:checked ~ .mini-sw-tx { color: var(--ink); }
+
+/* ── Immediate pickup ───────────────────────────────────────────────────
+   This one does earn its own block: it is the urgency signal, and turning
+   it on is the single thing a seller can do to move an item faster. */
+.urg { border: 1.5px solid var(--border); border-radius: 14px; padding: 13px 14px;
+  background: var(--off-white); transition: border-color .18s, background .18s; }
+.urg.on { border-color: var(--green); background: #F2FBF5; }
+.urg .swf { background: transparent; border: 0; padding: 0; }
+.urg-sub { font-size: 12px; line-height: 1.5; color: var(--text-muted); margin: 8px 0 0 48px; }
+.urg-more { display: none; margin-top: 13px; padding-top: 13px; border-top: 1px dashed var(--border); }
+.urg.on .urg-more { display: block; }
+.urg-nudge { display: none; margin-top: 11px; padding: 10px 12px; border-radius: 10px;
+  background: #FFF8E6; border: 1px solid #F0DFAE; font-size: 12px; line-height: 1.5; color: #7A5C14; }
+.urg-nudge.show { display: block; }
+.urg-nudge b { color: #5E460C; }
+/* ── What happens when the pickup window closes ─────────────────────────
+   The real purpose of this question is to stop dead stock sitting on the
+   site. A seller who knows the item will be gone picks "take it down", and
+   we never send a buyer after something that no longer exists. */
+.urg-after { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 7px; }
+.urg-after-opt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 10px 11px; background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 10px; text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
+.urg-after-opt:hover { border-color: var(--text-muted); }
+.urg-after-opt.sel { border-color: var(--green-dark); background: #F0FBF4; }
+.urg-after-ttl { font-size: 12.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.urg-after-opt.sel .urg-after-ttl { color: var(--green-dark); }
+.urg-after-sub { font-size: 10.5px; font-weight: 500; color: var(--text-muted); line-height: 1.35; }
+.urg-nudge button { display: inline-block; margin-top: 8px; padding: 5px 11px; cursor: pointer;
+  font-size: 11.5px; font-weight: 700; color: var(--ink); background: var(--white);
+  border: 1.5px solid var(--ink); border-radius: 8px; }
 
 .char-count { font-size: 11.5px; color: var(--text-muted); text-align: right; margin-top: 3px; }
 .char-count.warn { color: #B45309; }
@@ -343,31 +400,30 @@ input, select, textarea { font-family: inherit; }
 @media (prefers-reduced-motion: reduce) { .swf-ui, .swf-ui::after, .more-btn .chev { transition: none; } }
 
 /* ─── Footer ─── */
-.sell-footer { background: var(--off-white); border-top: 1px solid var(--border); padding: 24px 0 32px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
-.sell-footer p { margin-bottom: 4px; }
-.sell-footer a { color: var(--text-secondary); }
-.sell-footer a:hover { color: var(--green-dark); }
+/* Shared footer, injected by dps-partials.js. Same rules as index.html so
+   the two pages render identically. */
+footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32px; border-top: 1px solid var(--border-dark); }
+.foot-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 48px; }
+@media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; } }
+.foot-brand img { height: 38px; width: auto; margin-bottom: 16px; opacity: .95; }
+.foot-brand p { font-size: 14px; line-height: 1.65; max-width: 32ch; color: var(--stone-light); }
+.foot-col h4 { font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 18px; }
+.foot-col a { display: block; font-size: 14px; color: var(--stone-light); padding: 6px 0; transition: color .15s; }
+.foot-col a:hover { color: var(--green); }
+.foot-bottom { padding-top: 32px; border-top: 1px solid var(--border-dark); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); }
+.foot-social { display: flex; gap: 12px; }
+.foot-social a { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.05); transition: background .15s; }
+.foot-social a:hover { background: rgba(0,200,83,.15); }
+.foot-social svg { width: 16px; height: 16px; color: var(--stone-light); }
 </style>
 <script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<!-- ═══════════════════ NAV ═══════════════════ -->
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a href="/" class="nav-logo"><img src="/assets/dps-logo-light.png" alt="Declutter Pawn Shop"></a>
-    <ul class="nav-links">
-      <li><a href="/items">Live items</a></li>
-      <li><a href="/sell" class="active">Sell</a></li>
-      <li><a href="/auction">Auction</a></li>
-      <li><a href="/partners">Partners</a></li>
-      <li><a href="/faq">FAQ</a></li>
-    </ul>
-    <a href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Open Telegram</a>
-    <a href="https://t.me/declutterpawnshop2_bot" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Telegram</a>
-  </div>
-</nav>
+<!-- ═══════════════════ NAV (injected by dps-partials.js) ═══════════════════ -->
+<div data-dps-nav data-active="sell"></div>
 
 <!-- ═══════════════════ COMPACT HERO ═══════════════════ -->
 <section class="sell-hero">
@@ -467,24 +523,50 @@ input, select, textarea { font-family: inherit; }
               <span class="price-sym">₦</span>
               <input type="text" id="li-price" placeholder="0" inputmode="numeric" autocomplete="off">
             </div>
-            <div class="price-display-wrap"><div class="price-display" id="li-price-display"></div></div>
-            <div class="field-hint">Set a fair price. The lower it is, the faster it sells.</div>
+            <div class="price-readout" id="li-price-display"></div>
+                <div class="field-hint">Set a fair price. The lower it is, the faster it sells.</div>
+            <label class="mini-sw">
+              <input type="checkbox" id="li-negotiable" checked>
+              <span class="mini-sw-ui"></span>
+              <span class="mini-sw-tx">Open to offers</span>
+            </label>
           </div>
-          <div class="field-row">
-            <label class="swf"><input type="checkbox" id="li-negotiable" checked><span class="swf-ui"></span><span class="swf-tx">Open to offers</span></label>
-            <label class="swf"><input type="checkbox" id="li-pickupnow"><span class="swf-ui"></span><span class="swf-tx">Ready for collection now</span></label>
-          </div>
-          <div class="field" id="pickup-dur-field" style="display:none;">
-            <label>How long will it stay ready?</label>
-            <select id="li-pickupdur">
-              <option value="2">The next 2 hours</option>
-              <option value="6" selected>The next 6 hours</option>
-              <option value="today">The rest of today</option>
-              <option value="24">The next 24 hours</option>
-              <option value="48">The next 2 days</option>
-              <option value="72">The next 3 days</option>
-            </select>
-            <div class="field-hint">The badge counts down and disappears on its own. Your listing stays up either way.</div>
+          <div class="field">
+            <div class="urg" id="urg">
+            <label class="swf">
+              <input type="checkbox" id="li-pickupnow">
+              <span class="swf-ui"></span>
+              <span class="swf-tx">Immediate pickup</span>
+            </label>
+            <p class="urg-sub">Tells buyers you want this gone fast. These listings get shown first.</p>
+
+            <div class="urg-more" id="pickup-dur-field">
+              <label>Ready for how long?</label>
+              <select id="li-pickupdur">                <option value="12">The next 12 hours</option>                <option value="24" selected>The next 24 hours</option>                <option value="48">The next 2 days</option>                <option value="72">The next 3 days</option>
+              </select>
+              <div class="field-hint">Buyers watch this count down. Pick a window you can actually keep.</div>
+              <label style="margin-top:14px;">And when that runs out?</label>
+              <div class="urg-after">
+                <button type="button" class="urg-after-opt sel" data-after="Keep listed">
+                  <span class="urg-after-ttl">Keep it listed</span>
+                  <span class="urg-after-sub">Buyers can ask if it&rsquo;s still available</span>
+                </button>
+                <button type="button" class="urg-after-opt" data-after="Take down">
+                  <span class="urg-after-ttl">Take it down</span>
+                  <span class="urg-after-sub">We delist it for you, no message needed</span>
+                </button>
+              </div>
+              <input type="hidden" id="li-pickupafter" value="Keep listed">
+              <div class="field-hint">Choose &ldquo;take it down&rdquo; if the item genuinely will not
+                be around. It keeps your name off a listing you cannot honour.</div>
+
+              <div class="urg-nudge" id="urg-nudge">
+                <b>Leave offers on.</b> Buyers in a hurry almost always send an offer before they pay,
+                and every offer is someone ready to move today.
+                <button type="button" id="urg-nudge-fix">Turn offers back on</button>
+              </div>
+            </div>
+              </div>
           </div>
           <div class="field">
             <label>Preferred pickup time <em>*</em></label>
@@ -632,13 +714,8 @@ input, select, textarea { font-family: inherit; }
   </div>
 </section>
 
-<!-- ═══════════════════ FOOTER ═══════════════════ -->
-<footer class="sell-footer">
-  <div class="wrap">
-    <p>© 2026 Declutter Pawn Shop · Lagos, Nigeria</p>
-    <p><a href="/items">Browse items</a> · <a href="/partners">Partner program</a> · <a href="/faq">FAQ</a></p>
-  </div>
-</footer>
+<!-- ═══════════════════ FOOTER (injected by dps-partials.js) ═══════════════════ -->
+<div data-dps-footer></div>
 
 <script>
 (function () {
@@ -647,7 +724,13 @@ input, select, textarea { font-family: inherit; }
   var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
 
   var itemState = { name:"", condition:"", location:"", description:"", pickup:"", price:0, photos:[] };
-  var identity  = { email:"", mode:"", name:"", phone:"", whatsapp:"", bank:"", acct:"", acctName:"", sellerType:"Individual", partnerId:"", businessName:"" };
+  var identity  = {
+    // acct/phone stay EMPTY for a returning seller: lookupEmail masks them,
+    // and anything left in here is posted back on submit. hasAcct/hasBank
+    // carry what the server holds, which is what the UI should branch on.
+    email:"", mode:"", name:"", phone:"", whatsapp:"", bank:"", acct:"", acctName:"",
+    hasAcct:false, hasBank:false, sellerType:"Individual", partnerId:"", businessName:""
+  };
   var searchToken = 0;
 
   function goTo(viewId, step) {
@@ -729,7 +812,7 @@ input, select, textarea { font-family: inherit; }
     var raw = this.value.replace(/[^0-9]/g, "");
     this.value = raw;
     var el = document.getElementById("li-price-display");
-    if (raw) { el.textContent = "₦" + parseInt(raw, 10).toLocaleString("en-NG"); el.classList.add("show"); }
+    if (raw) { el.textContent = "\u20A6" + parseInt(raw, 10).toLocaleString("en-NG"); el.classList.add("show"); }
     else { el.classList.remove("show"); }
   });
   document.getElementById("li-desc").addEventListener("input", function () {
@@ -757,9 +840,43 @@ input, select, textarea { font-family: inherit; }
     wrap.style.display = list.length ? "flex" : "none";
   });
 
-  document.getElementById("li-pickupnow").addEventListener("change", function () {
-    document.getElementById("pickup-dur-field").style.display = this.checked ? "flex" : "none";
-  });
+/* ─── What happens when the pickup window closes ─────────────────── */
+  (function () {
+    var hidden = document.getElementById("li-pickupafter");
+    var card   = document.getElementById("urg");
+    if (!hidden || !card) return;
+    var opts = card.querySelectorAll(".urg-after-opt");
+    Array.prototype.forEach.call(opts, function (b) {
+      b.addEventListener("click", function () {
+        Array.prototype.forEach.call(opts, function (o) { o.classList.remove("sel"); });
+        b.classList.add("sel");
+        hidden.value = b.getAttribute("data-after");
+      });
+    });
+  })();
+
+/* ─── Immediate pickup: urgency, and the offers nudge ───────────────
+     Turning on immediate pickup says "I want this gone". Offers are how a
+     buyer in a hurry opens the conversation, so switching them off at the
+     same moment works against the seller. The nudge only appears when both
+     are true, and it offers the fix rather than just complaining. */
+  (function () {
+    var pick = document.getElementById("li-pickupnow");
+    var neg  = document.getElementById("li-negotiable");
+    var card = document.getElementById("urg");
+    var nudge = document.getElementById("urg-nudge");
+    var fix  = document.getElementById("urg-nudge-fix");
+    if (!pick || !neg || !card) return;
+
+    function sync() {
+      card.classList.toggle("on", pick.checked);
+      if (nudge) nudge.classList.toggle("show", pick.checked && !neg.checked);
+    }
+    pick.addEventListener("change", sync);
+    neg.addEventListener("change", sync);
+    if (fix) fix.addEventListener("click", function () { neg.checked = true; sync(); });
+    sync();
+  })();
 
   (function () {
     var b = document.getElementById("more-btn");
@@ -783,7 +900,10 @@ input, select, textarea { font-family: inherit; }
       negotiable: document.getElementById("li-negotiable").checked ? "Yes" : "No",
       // The hours go to the server, which stamps the expiry in Lagos time.
       // Computing it here would trust the visitor's clock.
-      pickupHours: pickOn ? document.getElementById("li-pickupdur").value : ""
+      pickupHours: pickOn ? document.getElementById("li-pickupdur").value : "",
+      // What happens when that window closes: stay up for availability
+      // questions, or come down automatically.
+      pickupAfter: pickOn ? document.getElementById("li-pickupafter").value : ""
     };
   }
 
@@ -897,16 +1017,24 @@ input, select, textarea { font-family: inherit; }
     document.getElementById("locked-mask-phone").textContent = maskPhone(user.phone);
     document.getElementById("locked-mask-bank").textContent = user.bank || "— no bank on file —";
     document.getElementById("locked-mask-bank").style.color = user.bank ? "var(--white)" : "var(--stone)";
-    document.getElementById("locked-mask-acct").textContent = user.acct ? maskAcct(user.acct) : "—";
+    // user.acct arrives already masked. Masking it again mangles it.
+    document.getElementById("locked-mask-acct").textContent = user.acct || "—";
 
     identity.email = email;
     identity.mode = "returning";
     identity.name = user.name || "";
-    identity.phone = user.phone || "";
-    identity.whatsapp = user.whatsapp || user.phone || "";
+    identity.phone = "";                       // masked by lookupEmail, see above
+    identity.whatsapp = user.whatsapp || "";   // never masked: it is the public number
     identity.bank = user.bank || "";
-    identity.acct = user.acct || "";
+    // NEVER store user.acct or user.phone: lookupEmail masks both, and
+    // whatever lands in identity is posted back on submit. Storing the mask is
+    // how "****9999" ended up overwriting real account numbers. Blank here
+    // means "we already have it", which the server reads as leave it alone.
+    identity.acct = "";
     identity.acctName = user.acctName || user.name || "";
+    // What the server actually holds, so nothing has to infer it from a mask.
+    identity.hasAcct = !!user.hasAcct;
+    identity.hasBank = user.hasBank !== undefined ? !!user.hasBank : !!user.bank;
     identity.sellerType = user.sellerType || "Individual";
     identity.partnerId = user.partnerId || "";
     identity.businessName = user.businessName || "";
@@ -915,7 +1043,12 @@ input, select, textarea { font-family: inherit; }
     panel.classList.remove("is-found");
     void panel.offsetWidth;
     panel.classList.add("is-found");
-    document.getElementById("add-bank-block").style.display = (user.bank && user.acct) ? "none" : "flex";
+    // Ask for bank details unless the server says it really has them.
+    // This used to test `user.acct`, which is a string of asterisks and so
+    // always truthy - a seller whose number had been overwritten by a mask
+    // was shown "we have your details" with no way to re-enter them.
+    var _hasPayout = !!identity.hasBank && !!identity.hasAcct;
+    document.getElementById("add-bank-block").style.display = _hasPayout ? "none" : "flex";
   }
   function renderNotFound(email) {
     var panel = document.getElementById("search-panel");
@@ -923,6 +1056,7 @@ input, select, textarea { font-family: inherit; }
     identity.mode = "new";
     identity.name = ""; identity.phone = ""; identity.whatsapp = "";
     identity.bank = ""; identity.acct = ""; identity.acctName = "";
+    identity.hasAcct = false; identity.hasBank = false;
     identity.sellerType = "Individual"; identity.partnerId = ""; identity.businessName = "";
     panel.classList.remove("is-searching");
     panel.classList.remove("is-notfound");
@@ -974,7 +1108,7 @@ input, select, textarea { font-family: inherit; }
   });
   document.getElementById("locked-proceed").addEventListener("click", function () {
     clearDetailsError();
-    if (!identity.bank || !identity.acct) {
+    if (!identity.hasAcct && (!identity.bank || !identity.acct)) {
       var bBank = document.getElementById("ab-bank").value.trim();
       var bAcct = document.getElementById("ab-acct").value.trim();
       var bName = document.getElementById("ab-acct-name").value.trim();
