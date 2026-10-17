@@ -189,6 +189,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .cf-row { display: flex; gap: 8px; }
 .cf-row .act { flex: 1; padding: 13px 16px; font-size: 14.5px; }
 
+/* ─── AVAILABILITY CHECK ─── */
+.now { display: flex; align-items: center; gap: 11px; padding: 14px 16px; border-radius: 14px;
+  background: rgba(0,200,83,.07); border: 1px solid rgba(0,200,83,.28); }
+.now-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex: 0 0 auto;
+  box-shadow: 0 0 0 4px rgba(0,200,83,.16); }
+.now-txt { font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); }
+.now-txt b { color: var(--ink); font-weight: 700; }
+.deadline { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px;
+  background: var(--amber-soft); border: 1px solid var(--amber-edge); color: var(--amber);
+  font-size: 12.5px; line-height: 1.5; }
+.deadline svg { flex: 0 0 auto; margin-top: 1px; }
+
 /* confirm panel */
 .confirm { display: none; padding: 16px; border-radius: 14px; background: var(--danger-soft); border: 1px solid var(--danger-edge); }
 .confirm.open { display: block; animation: pop .18s ease; }
@@ -227,10 +239,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
 <header class="page-hero">
   <div class="wrap page-hero-inner">
-    <span class="eyebrow">Offer inbox</span>
-    <h1>Someone wants your item.</h1>
-    <p class="page-hero-sub">Review the offer, then accept, counter, or decline. Once you respond, the buyer has 24 hours to make their move.</p>
-    <div class="trust-row">
+    <span class="eyebrow" id="heroEyebrow">Offer inbox</span>
+    <h1 id="heroTitle">Someone wants your item.</h1>
+    <p class="page-hero-sub" id="heroSub">Review the offer, then accept, counter, or decline. Once you respond, the buyer has 24 hours to make their move.</p>
+    <div class="trust-row" id="heroChips">
       <span class="trust-chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Only you see this page
@@ -669,6 +681,209 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       }
     }, 30000);
   }
+
+  /* ═══ AVAILABILITY CHECK ══════════════════════════════════════════════
+     A buyer asked whether this item is still here. The item is already
+     listed, so the honest default is "still listed" and silence resolves
+     to exactly that, never to "the vendor confirmed it". The vendor gets
+     30 minutes to say otherwise. */
+  var checkId = (params.get("check") || "").trim();
+
+  function heroCheck() {
+    var set = function (id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
+    set("heroEyebrow", "Availability check");
+    set("heroTitle", "Is this still available?");
+    set("heroSub", "A buyer is asking before they pay. Answer in one tap. " +
+                   "If we hear nothing we will tell them it is still listed and nothing has changed.");
+    var chips = document.getElementById("heroChips");
+    if (chips) chips.innerHTML =
+      '<span class="trust-chip">' + icon("clock", 13, 2.6) + ' 30 minutes to answer</span>' +
+      '<span class="trust-chip">' + icon("check", 13, 2.6) + ' One tap, nothing to fill in</span>' +
+      '<span class="trust-chip">' + icon("box", 13, 2.6) + ' Taken down instantly if it is gone</span>';
+  }
+
+  function renderCheck(data) {
+    S.data = data;
+    var c = data.check || {}, it = data.item || {};
+
+    var metaBits = [];
+    if (it.itemId)    metaBits.push(it.itemId);
+    if (it.condition) metaBits.push(it.condition);
+    if (it.location)  metaBits.push(it.location);
+
+    var left = c.minutesLeft;
+    var deadlineLine = (left === null || left === undefined)
+      ? "We will tell the buyer it is still listed if we hear nothing."
+      : (left > 0
+          ? "If you do not answer in the next " + left + " minute" + (left === 1 ? "" : "s") +
+            ", we will tell the buyer it is still listed and nothing has changed."
+          : "The window has passed, so the buyer has been told it is still listed. " +
+            "You can still correct that here.");
+
+    card.innerHTML =
+      '<div class="item-head">' +
+        '<div class="item-thumb"><div class="ph">📦</div>' +
+          (it.photo ? '<img class="item-img" src="' + esc(it.photo) + '" alt="" onerror="this.remove()">' : '') +
+        '</div>' +
+        '<div class="item-info">' +
+          '<div class="item-name">' + esc(it.itemName || "Item") + '</div>' +
+          '<div class="item-meta">' + esc(metaBits.join(" · ")) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="pad">' +
+        '<div>' +
+          '<span class="lbl">Right now on DPS</span>' +
+          '<div class="now" style="margin-top:10px">' +
+            '<span class="now-dot"></span>' +
+            '<span class="now-txt">This is listed as <b>available</b> at <b>₦' +
+              naira(it.askingPrice) + '</b>. Buyers can pay for it today.</span>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="deadline">' + icon("clock", 15, 2.4) + '<span>' + esc(deadlineLine) + '</span></div>' +
+
+        '<div class="err" id="err"></div>' +
+
+        '<div class="stack" id="actions">' +
+          '<button class="act act-green" id="bYes" type="button">' +
+            icon("check", 16, 2.8) + 'Yes, still available' +
+          '</button>' +
+          '<button class="act act-danger" id="bGone" type="button">' +
+            icon("x", 16, 2.4) + 'No, it has gone' +
+          '</button>' +
+        '</div>' +
+
+        '<div class="confirm" id="confirm"></div>' +
+      '</div>' +
+
+      '<div class="card-foot">Check <code>' + esc(c.checkId || checkId) + '</code> · ' +
+        'Answering keeps your listing showing as confirmed, which puts it in front of buyers first.</div>';
+
+    document.getElementById("bYes").onclick = function () { respondCheck("available"); };
+    document.getElementById("bGone").onclick = function () {
+      ask({
+        title: "Take this listing down?",
+        text: "It comes off the marketplace straight away and the buyer is told it has gone. " +
+              "You can relist it whenever you want.",
+        cta: "Yes, it has gone",
+        tone: "danger",
+        onYes: function () { respondCheck("gone"); }
+      });
+    };
+  }
+
+  function respondCheck(answer) {
+    if (S.busy) return;
+    S.busy = true;
+    clearErr();
+
+    var btn = document.getElementById(answer === "available" ? "bYes" : "bGone");
+    var originalHTML = btn ? btn.innerHTML : "";
+    if (btn) btn.innerHTML = answer === "available" ? "Confirming…" : "Taking it down…";
+    setBusy(true);
+
+    function done() {
+      S.busy = false;
+      if (answer === "available") {
+        showDone("accept", "Confirmed",
+          "The buyer has been told it is still available, and your listing now shows as confirmed. " +
+          "Confirmed items get shown first.",
+          "Check " + (checkId || ""));
+      } else {
+        showDone("unavailable", "Taken down",
+          "It is off the marketplace and the buyer has been told. Nobody can pay for it now.",
+          "Check " + (checkId || ""));
+      }
+    }
+    function fail(msg) {
+      S.busy = false;
+      setBusy(false);
+      if (btn) btn.innerHTML = originalHTML;
+      showErr(msg);
+    }
+
+    if (DEMO) { setTimeout(done, 650); return; }
+
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "respondToCheck",
+        checkId: checkId,
+        token: token,
+        answer: answer
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) { done(); return; }
+        var reason = String((res && (res.error || res.reason)) || "").toLowerCase();
+        if (reason.indexOf("already_answered") !== -1) {
+          showDone("accept", "Already answered",
+            "Someone already responded to this one. Nothing else to do here.");
+          return;
+        }
+        fail((res && res.error) ? res.error : "Something went wrong. Please try again.");
+      })
+      .catch(function () { fail("We couldn't reach the server. Check your connection and try again."); });
+  }
+
+  function bootCheck() {
+    heroCheck();
+    if (DEMO) {
+      if (banner) banner.classList.add("show");
+      showLoading();
+      setTimeout(function () {
+        renderCheck({
+          check: { checkId: "CHK10231", outcome: "pending", minutesLeft: 26, expired: false },
+          item: SAMPLE.item
+        });
+      }, 350);
+      return;
+    }
+    if (!token) {
+      showError("This link is incomplete", "Open the button in the message we sent you.");
+      return;
+    }
+    if (!GAS) {
+      showError("Configuration error",
+        "The DPS server URL isn't set. Email info@declutterpawnshop.com and we'll sort it out.");
+      return;
+    }
+
+    showLoading();
+    fetch(GAS + "?action=checkDetails&check=" + encodeURIComponent(checkId) +
+          "&token=" + encodeURIComponent(token))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || !data.success) {
+          showError("Check not found",
+            (data && data.error === "invalid_token")
+              ? "This link is not valid. Open the one in the message we sent you."
+              : "We couldn't find this request. It may already have been answered.");
+          return;
+        }
+        var out = String((data.check || {}).outcome || "pending").toLowerCase();
+        if (out === "available") {
+          showDone("accept", "Already confirmed", "You already told us this is still available."); return;
+        }
+        if (out === "gone") {
+          showDone("unavailable", "Already taken down", "You already told us this one has gone."); return;
+        }
+        var st = String((data.item || {}).status || "").toLowerCase();
+        if (st && st !== "active") {
+          showDone("unavailable", "Not listed any more",
+            "This item is no longer on the marketplace, so there is nothing to confirm.");
+          return;
+        }
+        renderCheck(data);
+      })
+      .catch(function () {
+        showError("Couldn't load this", "Check your internet connection and refresh the page.");
+      });
+  }
+
+  if (checkId) { bootCheck(); return; }
 
   /* ─── boot ─── */
   if (DEMO) {
