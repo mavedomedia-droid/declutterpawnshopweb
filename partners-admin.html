@@ -33,6 +33,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --stone:      #A7B0AA;
   --stone-light:#C6CFC9;
   --stone-dark: #5B635D;
+  --text-secondary: #4F5860;
+  --text-muted:     #8A928C;
   --mint:       #C8F0D8;
   --mint-soft:  #E9F5EE;
   --tint-soft:  #F2F7F4;
@@ -91,11 +93,45 @@ input, select, textarea { font-family: inherit; }
 .btn-danger-ghost:hover { background: var(--red-bg); }
 .btn-sm { padding: 9px 16px; font-size: 13px; }
 
+/* ── NAV (dps-partials.js injects the markup, these style it) ─────────
+   Without these rules the injected nav renders as an unstyled list of
+   links, which is what "bad nav" looks like. */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92);
+  backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.nav-logo img { height: 34px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--white); }
+.nav-cta { display: none; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 10px 20px; font-size: 13.5px; } }
+.nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
+@media (min-width: 900px) { .nav-mobile-cta { display: none; } }
+
+/* ── FOOTER (also injected) ──────────────────────────────────────── */
+footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28px; border-top: 1px solid var(--border-dark); }
+.foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+@media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; } }
+.foot-brand img { height: 34px; width: auto; margin-bottom: 14px; opacity: .95; }
+.foot-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; color: var(--stone-light); }
+.foot-col h4 { font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+.foot-col a { display: block; font-size: 13.5px; color: var(--stone-light); padding: 5px 0; transition: color .15s; }
+.foot-col a:hover { color: var(--green); }
+.foot-bottom { padding-top: 28px; border-top: 1px solid var(--border-dark); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+.foot-social { display: flex; gap: 10px; }
+.foot-social a { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.05); transition: background .15s; }
+.foot-social a:hover { background: rgba(0,200,83,.15); }
+.foot-social svg { width: 15px; height: 15px; color: var(--stone-light); }
+
 /* ── AUTH ──────────────────────────────────────────────── */
 .auth-screen {
+  /* 72px of that padding clears the fixed nav. Without it the card slides
+     underneath the bar on a short screen. */
   min-height: calc(100vh - 72px);
   display: flex; align-items: center; justify-content: center;
-  padding: 64px 20px;
+  padding: 136px 20px 64px;
 }
 .auth-card {
   background: var(--white); border: 1px solid var(--border);
@@ -162,8 +198,8 @@ input, select, textarea { font-family: inherit; }
 .auth-back:hover { color: var(--ink); }
 
 /* ── DASHBOARD ─────────────────────────────────────────── */
-.dash { padding: 40px 0 80px; }
-@media (max-width: 767px) { .dash { padding: 24px 0 56px; } }
+.dash { padding: 112px 0 80px; }          /* 72px nav + 40px breathing room */
+@media (max-width: 767px) { .dash { padding: 96px 0 56px; } }
 
 .dash-head {
   display: flex; align-items: center; gap: 20px;
@@ -522,7 +558,7 @@ input, select, textarea { font-family: inherit; }
 /* Loading page */
 .load-screen {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 60vh; gap: 16px; color: var(--stone-dark); font-size: 14px;
+  min-height: 60vh; padding-top: 72px; gap: 16px; color: var(--stone-dark); font-size: 14px;
 }
 .load-screen .spin { width: 24px; height: 24px; color: var(--green); border-width: 3px; }
 </style>
@@ -541,7 +577,7 @@ input, select, textarea { font-family: inherit; }
     <div class="auth-card">
       <div class="auth-eyebrow">Partner Portal</div>
       <h1 class="auth-title">Sign in.</h1>
-      <p class="auth-sub">Manage your listings, confirm stock, and see what Dina couldn't list. It's your account — nothing is editable without you.</p>
+      <p class="auth-sub">Manage your listings, confirm stock, and see what Dina couldn't list. It's your account, and nothing changes without you.</p>
 
       <div class="auth-err" id="authErr"></div>
 
@@ -647,6 +683,17 @@ input, select, textarea { font-family: inherit; }
         <button class="btn btn-outline btn-sm" id="refreshBtn" type="button">Refresh from Instagram</button>
       </div>
       <div class="skipped-list" id="skippedList"></div>
+    </div>
+
+    <!-- Awaiting approval -->
+    <div class="section" id="pendingSection" hidden>
+      <div class="section-head">
+        <div>
+          <div class="section-title">Waiting on us <span class="count" id="pendingCount">0</span></div>
+          <div class="section-sub">You pushed these. We check them before they go live, usually within a few hours.</div>
+        </div>
+      </div>
+      <div class="items-grid" id="pendingGrid"></div>
     </div>
 
     <!-- Sold -->
@@ -991,6 +1038,7 @@ input, select, textarea { font-family: inherit; }
     renderConfirmBar();
     renderNeeds();
     renderItems();
+    renderPending();
     renderSold();
     renderDetails();
     renderRefreshBar();
@@ -1077,7 +1125,7 @@ input, select, textarea { font-family: inherit; }
         type: 'check',
         itemId: c.itemId,
         label: 'A buyer is waiting',
-        desc: '"' + (c.itemName || c.itemId || '') + '" — answer within 30 minutes.',
+        desc: '"' + (c.itemName || c.itemId || '') + '". Answer within 30 minutes.',
         actionLabel: 'Answer now',
         action: function () { openAnswerCheck(c); }
       });
@@ -1134,7 +1182,9 @@ input, select, textarea { font-family: inherit; }
 
   function renderItems() {
     var grid = document.getElementById('itemsGrid');
-    var live = state.items.slice().sort(function (a, b) {
+    var live = state.items.filter(function (i) {
+      return !/pending/i.test(String(i.status || ''));   // those have their own section
+    }).sort(function (a, b) {
       var sa = (a.status || '').toLowerCase();
       var sb = (b.status || '').toLowerCase();
       if (sa === 'active' && sb !== 'active') return -1;
@@ -1215,15 +1265,43 @@ input, select, textarea { font-family: inherit; }
     });
   }
 
+  function renderPending() {
+    var pend = state.items.filter(function (i) {
+      return /pending/i.test(String(i.status || ''));
+    });
+    var sec = document.getElementById('pendingSection');
+    if (!pend.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    document.getElementById('pendingCount').textContent = pend.length;
+    document.getElementById('pendingGrid').innerHTML = pend.map(function (it) {
+      return ''
+        + '<div class="item-row">'
+        +   '<div class="item-thumb">'
+        +     (it.photo ? '<img src="' + escapeHTML(it.photo) + '" alt="" loading="lazy">'
+                        : '<div class="item-thumb-ph">\u23f3</div>')
+        +   '</div>'
+        +   '<div class="item-body">'
+        +     '<div class="item-name">' + escapeHTML(it.name || 'Untitled') + '</div>'
+        +     '<div class="item-prices"><span class="dps">DPS <b>\u20a6' + formatPrice(it.dpsPrice) + '</b></span></div>'
+        +     '<div class="item-status"><span class="pill warn">Waiting on DPS</span></div>'
+        +     '<div class="item-meta"><span>' + escapeHTML(it.itemId || '') + '</span></div>'
+        +   '</div>'
+        + '</div>';
+    }).join('');
+  }
+
   function renderSold() {
     var wrap = document.getElementById('soldWrap');
     if (!state.sold.length) {
-      wrap.innerHTML = '<div class="empty"><div class="empty-icon">💰</div><div class="empty-title">No sales yet</div><p>When a buyer collects an item you listed through DPS, it'll show up here with the payout and their contact.</p></div>';
+      wrap.innerHTML = '<div class="empty"><div class="empty-icon">💰</div><div class="empty-title">No sales yet</div><p>When a buyer collects an item you listed through DPS, it&rsquo;ll show up here with the payout and their contact.</p></div>';
       return;
     }
     var rows = state.sold.map(function (s) {
       var isSettled = (s.status || '').toLowerCase() === 'settled';
-      var buyerVisible = isSettled && (s.buyerEmail || s.buyerPhone);
+      // The server decides this: contact is returned once the money has
+      // cleared, because that is when the partner has to arrange handover.
+      // Waiting for "Settled" would be after the meeting they need it for.
+      var buyerVisible = !!(s.buyerEmail || s.buyerPhone);
       return ''
         + '<tr>'
         +   '<td data-label="Item"><div class="item-name">' + escapeHTML(s.itemName || s.name || '—') + '</div><div style="font-size:11px;color:var(--stone-dark);margin-top:2px;">' + escapeHTML(s.itemId || '') + '</div></td>'
@@ -1339,21 +1417,21 @@ input, select, textarea { font-family: inherit; }
         +     '<div class="skipped-caption">' + escapeHTML(p.caption || '(No caption)') + '</div>'
         +     '<div class="skipped-fields">'
         +       (reqName
-              ? '<div class="pf-field"><label>Product name <span class="req">*</span></label><input type="text" data-field="name" placeholder="e.g. Nike Air Max 90 White — UK9"></div>'
-              : '<div class="pf-field"><label>Product name <span class="opt">— from Dina</span></label><input type="text" data-field="name" placeholder="Leave blank to use the caption" value="' + escapeHTML(p.name || '') + '"></div>')
+              ? '<div class="pf-field"><label>Product name <span class="req">*</span></label><input type="text" data-field="name" placeholder="e.g. Nike Air Max 90 White, UK9"></div>'
+              : '<div class="pf-field"><label>Product name <span class="opt">from Dina</span></label><input type="text" data-field="name" placeholder="Leave blank to use the caption" value="' + escapeHTML(p.name || '') + '"></div>')
         +       (reqPrice
               ? '<div class="pf-field"><label>Price (₦) <span class="req">*</span></label><input type="text" inputmode="numeric" data-field="price" placeholder="e.g. 185000"></div>'
-              : '<div class="pf-field"><label>Price (₦) <span class="opt">— from Dina</span></label><input type="text" inputmode="numeric" data-field="price" value="' + escapeHTML(p.price || '') + '"></div>')
+              : '<div class="pf-field"><label>Price (₦) <span class="opt">from Dina</span></label><input type="text" inputmode="numeric" data-field="price" value="' + escapeHTML(p.price || '') + '"></div>')
         +       (reqCategory
               ? '<div class="pf-field full"><label>Category <span class="req">*</span></label><select data-field="category"><option value="">Select category</option><option>Fashion</option><option>Electronics</option><option>Furniture</option><option>Fitness</option><option>Appliances</option><option>Other</option></select></div>'
               : '')
-        +       '<div class="pf-field full"><label>Condition <span class="opt">— optional</span></label><select data-field="condition"><option value="">Not sure</option><option>Brand New</option><option>Like New</option><option>Good Condition</option><option>Fairly Used</option><option>Used</option></select></div>'
+        +       '<div class="pf-field full"><label>Condition <span class="opt">optional</span></label><select data-field="condition"><option value="">Not sure</option><option>Brand New</option><option>Like New</option><option>Good Condition</option><option>Fairly Used</option><option>Used</option></select></div>'
         +     '</div>'
         +     '<button class="skipped-more" type="button" data-toggle-more="' + idx + '">+ Add more details</button>'
         +     '<div class="skipped-fields" id="skippedMore' + idx + '" style="display:none;">'
-        +       '<div class="pf-field full"><label>Description <span class="opt">— optional</span></label><textarea data-field="description" placeholder="Anything a buyer should know"></textarea></div>'
+        +       '<div class="pf-field full"><label>Description <span class="opt">optional</span></label><textarea data-field="description" placeholder="Anything a buyer should know"></textarea></div>'
         +       '<div class="pf-field"><label>Location</label><select data-field="location"><option value="">Not sure</option><option>Island</option><option>Mainland</option></select></div>'
-        +       '<div class="pf-field"><label>Brand / model <span class="opt">— optional</span></label><input type="text" data-field="brandModel" placeholder="e.g. Nike Air Max 90"></div>'
+        +       '<div class="pf-field"><label>Brand / model <span class="opt">optional</span></label><input type="text" data-field="brandModel" placeholder="e.g. Nike Air Max 90"></div>'
         +     '</div>'
         +     '<div class="skipped-actions">'
         +       '<button class="btn btn-primary btn-sm" data-push="' + idx + '" type="button">Push and list</button>'
@@ -1474,7 +1552,7 @@ input, select, textarea { font-family: inherit; }
         }
         state.refreshAvailableAt = Date.now() + 60 * 60 * 1000;
         renderRefreshBar();
-        showToast('Refreshing — new posts will appear here in a minute.');
+        showToast('Refreshing. New posts will appear here in a minute.');
         setTimeout(loadSkipped, 3000);
       })
       .catch(function (err) {
@@ -1517,6 +1595,8 @@ input, select, textarea { font-family: inherit; }
     var btn = document.activeElement;
     if (btn) { btn.disabled = true; }
 
+    // Same endpoint, but an itemId scopes it to one row. Sending no itemId
+    // is what confirms everything.
     api({ action: 'partnerConfirmAll', itemId: id })
       .then(function (d) {
         if (d && d.success) {
@@ -1564,6 +1644,10 @@ input, select, textarea { font-family: inherit; }
   function openModal(title, bodyHTML, onConfirm) {
     modalTitle.textContent = title;
     modalBody.innerHTML = bodyHTML;
+    document.getElementById('modalFoot').style.display = 'flex';
+    modalCancel.style.display = '';
+    modalConfirm.disabled = false;
+    modalConfirm.textContent = 'Save';
     modalBg.classList.add('open');
     modalBg.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -1576,6 +1660,13 @@ input, select, textarea { font-family: inherit; }
     modalBg.classList.remove('open');
     modalBg.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // Always put the modal back how it was found. Without this, one trip
+    // through the availability modal leaves every later modal with no
+    // Save or Cancel button.
+    document.getElementById('modalFoot').style.display = 'flex';
+    modalCancel.style.display = '';
+    modalConfirm.disabled = false;
+    modalConfirm.textContent = 'Save';
   }
   modalCancel.addEventListener('click', closeModal);
   modalClose.addEventListener('click', closeModal);
@@ -1588,7 +1679,7 @@ input, select, textarea { font-family: inherit; }
     openModal(
       'Fix product name',
       '<div class="pf-field"><label>Name</label><input type="text" id="fixNameInput" value="' + escapeHTML(item.name || item.itemName || '') + '"></div>'
-        + '<p style="font-size:12.5px;color:var(--stone-dark);margin-top:8px;line-height:1.5;">Write it as a buyer would search for it: brand, model, key detail. E.g. "Nike Air Max 90 White — UK9"</p>',
+        + '<p style="font-size:12.5px;color:var(--stone-dark);margin-top:8px;line-height:1.5;">Write it as a buyer would search for it: brand, model, key detail. E.g. "Nike Air Max 90 White, UK9"</p>',
       function () {
         var v = document.getElementById('fixNameInput').value.trim();
         if (!v) { showToast('Name can\'t be empty.', true); return; }
@@ -1679,17 +1770,28 @@ input, select, textarea { font-family: inherit; }
   }
 
   function answerCheck(check, answer) {
-    modalConfirm.disabled = true;
-    api({ action: 'partnerAnswerCheck', checkId: check.checkId, answer: answer, itemId: check.itemId })
+    // respondToCheck already exists and is what the vendor's emailed link
+    // calls. It stamps Last Confirmed At, takes the item down on a no,
+    // refunds the buyer's check and sends them the right one of three
+    // emails. A second implementation here would drift from all of that.
+    var yes = /^y/i.test(String(answer));
+    api({ action: 'respondToCheck', checkId: check.checkId,
+          token: check.token, answer: yes ? 'available' : 'gone' })
       .then(function (d) {
         if (d && d.success) {
           closeModal();
-          document.getElementById('modalFoot').style.display = 'flex';
-          showToast('Answered. The buyer has been notified.');
+          showToast(yes ? 'Confirmed. The buyer has been told.'
+                        : 'Taken down. The buyer has been told.');
           loadSummary();
-        } else {
-          showToast((d && d.error) || 'Could not answer.', true);
+          return;
         }
+        if (d && /already_answered/i.test(String(d.error || ''))) {
+          closeModal();
+          showToast('That one was already answered.');
+          loadSummary();
+          return;
+        }
+        showToast((d && d.error) || 'Could not answer.', true);
       })
       .catch(function (err) { showToast(err.message || 'Could not answer.', true); });
   }
@@ -1708,7 +1810,6 @@ input, select, textarea { font-family: inherit; }
     );
     modalCancel.style.display = 'none';
     modalConfirm.textContent = 'Got it';
-    setTimeout(function () { modalCancel.style.display = ''; modalConfirm.textContent = 'Save'; }, 100);
   }
 
   /* ── Boot ────────────────────────────────────────── */
