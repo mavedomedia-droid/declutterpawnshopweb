@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Portal | Declutter Pawn Shop</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0E1320">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green:      #00C853;
+  --green-dark: #00A843;
+  --green-deep: #009933;
+  --ink:        #0E1320;
+  --ink-2:      #161C2B;
+  --ink-3:      #1E2536;
+  --ink-4:      #2A3248;
+  --off-white:  #F5F7F8;
+  --white:      #FFFFFF;
+  --stone:      #A7B0AA;
+  --stone-light:#C6CFC9;
+  --stone-dark: #5B635D;
+  --mint:       #C8F0D8;
+  --mint-soft:  #E9F5EE;
+  --tint-soft:  #F2F7F4;
+  --tint-edge:  #DCE7E0;
+  --border:     #E1E5E4;
+  --border-ink: #D6DCE0;
+  --border-dark:#242C3E;
+  --amber:      #F59E0B;
+  --amber-bg:   #FEF3C7;
+  --amber-ink:  #92400E;
+  --red:        #DC2626;
+  --red-bg:     #FEE2E2;
+  --red-ink:    #991B1B;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', ui-monospace, monospace;
+  --r-card:   16px;
+  --r-button: 12px;
+  --r-pill:   999px;
+  --shadow-sm: 0 1px 2px rgba(14,19,32,.04), 0 1px 1px rgba(14,19,32,.03);
+  --shadow-md: 0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
+  --shadow-lg: 0 24px 70px rgba(14,19,32,.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body); background: var(--off-white); color: var(--ink);
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; min-height: 100vh;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 700; font-size: 14.5px;
+  padding: 13px 22px; border-radius: var(--r-button);
+  transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s;
+  cursor: pointer; white-space: nowrap; letter-spacing: -0.005em;
+}
+.btn-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-primary:hover:not(:disabled) { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
+.btn-primary:active:not(:disabled) { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
+.btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--text-secondary); padding: 8px 14px; font-size: 13px; font-weight: 600; border-radius: 8px; }
+.btn-ghost:hover { background: rgba(0,0,0,.04); color: var(--ink); }
+.btn-danger-ghost { background: transparent; color: var(--red); padding: 8px 14px; font-size: 13px; font-weight: 600; border-radius: 8px; }
+.btn-danger-ghost:hover { background: var(--red-bg); }
+.btn-sm { padding: 9px 16px; font-size: 13px; }
+
+/* ── AUTH ──────────────────────────────────────────────── */
+.auth-screen {
+  min-height: calc(100vh - 72px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 64px 20px;
+}
+.auth-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-card); padding: 40px;
+  max-width: 440px; width: 100%; box-shadow: var(--shadow-md);
+}
+@media (max-width: 520px) { .auth-card { padding: 28px 22px; } }
+.auth-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green-dark); margin-bottom: 16px;
+}
+.auth-eyebrow::before { content: ''; width: 22px; height: 1.5px; background: var(--green); }
+.auth-title { font-size: 32px; letter-spacing: -0.03em; margin-bottom: 8px; }
+.auth-sub { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 28px; }
+
+.auth-step { display: none; }
+.auth-step.on { display: block; }
+
+.auth-field { margin-bottom: 16px; }
+.auth-field label {
+  display: block; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--stone-dark); margin-bottom: 8px;
+}
+.auth-field input {
+  width: 100%; padding: 13px 15px; background: var(--off-white);
+  border: 1.5px solid var(--border); border-radius: 10px;
+  font-size: 16px; color: var(--ink); outline: none;
+  transition: border-color .15s, background .15s;
+}
+.auth-field input:focus { border-color: var(--ink); background: var(--white); }
+.auth-field .hint { font-size: 12px; color: var(--stone-dark); margin-top: 6px; line-height: 1.5; }
+
+.auth-biz-confirm {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; background: var(--tint-soft);
+  border: 1px solid var(--tint-edge); border-radius: 10px;
+  margin-bottom: 16px;
+}
+.auth-biz-confirm .biz-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone-dark); }
+.auth-biz-confirm .biz-name { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); margin-top: 2px; }
+.auth-biz-confirm .biz-check {
+  margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--green); color: var(--white); display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.auth-err {
+  display: none; font-size: 13px; color: var(--red);
+  padding: 11px 14px; background: var(--red-bg);
+  border: 1px solid rgba(220,38,38,.2); border-radius: 8px;
+  margin-bottom: 16px; line-height: 1.5;
+}
+.auth-err.show { display: block; }
+
+.auth-submit { width: 100%; margin-top: 6px; }
+
+.auth-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--text-secondary);
+  padding: 8px 0; margin-bottom: 4px;
+}
+.auth-back:hover { color: var(--ink); }
+
+/* ── DASHBOARD ─────────────────────────────────────────── */
+.dash { padding: 40px 0 80px; }
+@media (max-width: 767px) { .dash { padding: 24px 0 56px; } }
+
+.dash-head {
+  display: flex; align-items: center; gap: 20px;
+  padding: 24px 28px; background: var(--white);
+  border: 1px solid var(--border); border-radius: var(--r-card);
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+.dash-logo {
+  width: 56px; height: 56px; border-radius: 12px; flex-shrink: 0;
+  background: var(--mint-soft); color: var(--green-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading); font-weight: 800; font-size: 22px;
+  overflow: hidden;
+}
+.dash-logo img { width: 100%; height: 100%; object-fit: cover; }
+.dash-name-wrap { flex: 1; min-width: 0; }
+.dash-name { font-size: clamp(20px, 3vw, 26px); letter-spacing: -0.03em; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.dash-verified {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-body); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--green-dark); background: var(--mint-soft);
+  border: 1px solid rgba(0,200,83,.24); padding: 3px 8px; border-radius: var(--r-pill);
+}
+.dash-dina {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 500; color: var(--stone-dark);
+  margin-top: 6px; line-height: 1.4;
+}
+.dash-dina .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.dash-dina.warn { color: var(--amber-ink); }
+.dash-dina.warn .dot { background: var(--amber); }
+.dash-dina.err { color: var(--red-ink); }
+.dash-dina.err .dot { background: var(--red); }
+.dash-logout { font-size: 12.5px; font-weight: 600; color: var(--stone-dark); padding: 8px 14px; border-radius: 8px; }
+.dash-logout:hover { background: rgba(0,0,0,.04); color: var(--ink); }
+
+.dash-action {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  padding: 18px 24px;
+  background: var(--ink); color: var(--white);
+  border-radius: var(--r-card); margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.dash-action::before {
+  content: ''; position: absolute; top: -50%; right: -15%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none;
+}
+.dash-action-text { position: relative; z-index: 1; }
+.dash-action-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--white); letter-spacing: -0.015em; }
+.dash-action-sub { font-size: 12.5px; color: var(--stone-light); margin-top: 3px; }
+.dash-action .btn { position: relative; z-index: 1; }
+
+.section {
+  margin-top: 24px;
+}
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 20px; letter-spacing: -0.025em; color: var(--ink);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .count {
+  font-family: var(--font-body); font-weight: 700; font-size: 12px;
+  background: var(--off-white); color: var(--stone-dark);
+  padding: 3px 9px; border-radius: var(--r-pill); letter-spacing: 0.02em;
+}
+.section-sub {
+  font-size: 13.5px; color: var(--text-secondary);
+  line-height: 1.55; margin-top: 4px; max-width: 62ch;
+}
+
+/* Needs you */
+.needs-panel {
+  background: var(--white); border: 1px solid var(--border);
+  border-left: 4px solid var(--amber); border-radius: var(--r-card);
+  overflow: hidden;
+}
+.needs-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 22px; border-bottom: 1px solid var(--border);
+}
+.needs-item:last-child { border-bottom: none; }
+.needs-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--amber-bg); color: var(--amber-ink);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.needs-icon.err { background: var(--red-bg); color: var(--red-ink); }
+.needs-body { flex: 1; min-width: 0; }
+.needs-label { font-family: var(--font-heading); font-weight: 700; font-size: 14px; color: var(--ink); letter-spacing: -0.01em; }
+.needs-desc { font-size: 12.5px; color: var(--stone-dark); margin-top: 2px; line-height: 1.5; }
+.needs-action { flex-shrink: 0; }
+
+/* Live items */
+.items-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 640px) { .items-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+
+.item-row {
+  display: flex; gap: 14px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-card); padding: 14px;
+  transition: border-color .2s;
+  position: relative;
+}
+.item-row:hover { border-color: var(--border-ink); }
+.item-row.inactive { opacity: .6; }
+.item-thumb {
+  width: 80px; height: 80px; border-radius: 10px; flex-shrink: 0;
+  background: var(--off-white); overflow: hidden;
+  position: relative;
+}
+.item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.item-thumb-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--stone); }
+
+.item-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.item-name {
+  font-family: var(--font-heading); font-weight: 700; font-size: 14.5px;
+  color: var(--ink); letter-spacing: -0.015em; line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.item-prices { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--stone-dark); }
+.item-prices .ig { color: var(--stone-dark); }
+.item-prices .ig b { color: var(--ink); font-family: var(--font-heading); font-weight: 700; font-size: 13px; }
+.item-prices .dps b { color: var(--green-dark); font-family: var(--font-heading); font-weight: 800; font-size: 15px; }
+.item-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: var(--stone-dark); }
+.item-status .pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill);
+  background: var(--mint-soft); color: var(--green-dark);
+}
+.item-status .pill.warn { background: var(--amber-bg); color: var(--amber-ink); }
+.item-status .pill.off { background: var(--off-white); color: var(--stone-dark); }
+.item-meta { display: flex; gap: 12px; font-size: 11px; color: var(--stone); font-family: var(--font-mono); flex-wrap: wrap; }
+.item-meta b { color: var(--stone-dark); font-weight: 500; }
+
+.item-actions { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.item-actions button { padding: 6px 10px; font-size: 12px; font-weight: 600; color: var(--text-secondary); border-radius: 6px; transition: background .15s, color .15s; }
+.item-actions button:hover { background: var(--off-white); color: var(--ink); }
+.item-actions button.danger:hover { background: var(--red-bg); color: var(--red-ink); }
+
+/* Empty states */
+.empty {
+  padding: 40px 24px; text-align: center;
+  background: var(--white); border: 1px dashed var(--border);
+  border-radius: var(--r-card); color: var(--stone-dark);
+  font-size: 14px; line-height: 1.6;
+}
+.empty-icon { font-size: 32px; margin-bottom: 12px; opacity: .8; }
+.empty-title { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+
+/* Skipped posts */
+.skipped-list { display: flex; flex-direction: column; gap: 16px; }
+.skipped-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-card); overflow: hidden;
+}
+.skipped-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; background: var(--tint-soft);
+  border-bottom: 1px solid var(--tint-edge);
+}
+.skipped-thumb { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; background: var(--border); flex-shrink: 0; }
+.skipped-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.skipped-reason {
+  flex: 1; min-width: 0;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 700; color: var(--amber-ink);
+  background: var(--amber-bg); padding: 6px 11px; border-radius: var(--r-pill);
+  align-self: flex-start;
+}
+.skipped-date { font-size: 11px; color: var(--stone-dark); font-family: var(--font-mono); flex-shrink: 0; }
+
+.skipped-body { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+.skipped-caption {
+  font-size: 13px; line-height: 1.6; color: var(--text-secondary);
+  background: var(--off-white); border-radius: 10px; padding: 12px 14px;
+  white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow-y: auto;
+}
+.skipped-fields { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 640px) { .skipped-fields { grid-template-columns: repeat(2, 1fr); } }
+.skipped-fields .full { grid-column: 1 / -1; }
+
+.pf-field { display: flex; flex-direction: column; gap: 6px; }
+.pf-field label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--stone-dark);
+  display: flex; align-items: center; gap: 6px;
+}
+.pf-field label .req { color: var(--amber); }
+.pf-field label .opt { color: var(--stone); font-weight: 500; text-transform: none; letter-spacing: 0; }
+.pf-field input,
+.pf-field textarea,
+.pf-field select {
+  padding: 10px 12px; background: var(--off-white);
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 15px; color: var(--ink); outline: none;
+  transition: border-color .15s, background .15s; width: 100%;
+}
+.pf-field input:focus,
+.pf-field textarea:focus,
+.pf-field select:focus { border-color: var(--ink); background: var(--white); }
+.pf-field textarea { resize: vertical; min-height: 68px; }
+.pf-field input.err,
+.pf-field select.err { border-color: var(--red); }
+
+.skipped-more {
+  font-size: 12.5px; font-weight: 600; color: var(--text-secondary);
+  padding: 8px 0; text-align: left;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.skipped-more:hover { color: var(--ink); }
+
+.skipped-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+/* Refresh IG */
+.refresh-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: var(--off-white);
+  border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 14px; flex-wrap: wrap;
+}
+.refresh-bar-text { flex: 1; min-width: 0; font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+
+/* Sold table */
+.sold-table-wrap {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-card); overflow: hidden;
+}
+.sold-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sold-table thead { background: var(--off-white); border-bottom: 1px solid var(--border); }
+.sold-table th {
+  text-align: left; padding: 12px 16px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--stone-dark);
+}
+.sold-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.sold-table tr:last-child td { border-bottom: none; }
+.sold-table .item-name { font-weight: 700; font-size: 13.5px; }
+.sold-table .payout { font-family: var(--font-heading); font-weight: 800; color: var(--green-dark); }
+.sold-status { display: inline-flex; padding: 2px 8px; border-radius: var(--r-pill); font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; }
+.sold-status.settled { background: var(--mint-soft); color: var(--green-dark); }
+.sold-status.pending { background: var(--amber-bg); color: var(--amber-ink); }
+.buyer-contact { font-family: var(--font-mono); font-size: 11.5px; color: var(--stone-dark); line-height: 1.5; }
+.buyer-contact a { color: var(--green-dark); }
+.buyer-locked { font-size: 11px; color: var(--stone); font-style: italic; }
+
+@media (max-width: 767px) {
+  .sold-table thead { display: none; }
+  .sold-table, .sold-table tbody, .sold-table tr, .sold-table td { display: block; width: 100%; }
+  .sold-table tr { padding: 14px; border-bottom: 1px solid var(--border); }
+  .sold-table tr:last-child { border-bottom: none; }
+  .sold-table td { padding: 4px 0; border: none; }
+  .sold-table td[data-label]::before {
+    content: attr(data-label) '  ';
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--stone-dark);
+  }
+}
+
+/* Details grid */
+.details-grid {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-card); overflow: hidden;
+  display: grid; grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .details-grid { grid-template-columns: 1fr 1fr; } }
+.detail-cell { padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.detail-cell:nth-last-child(-n+2) { border-bottom: none; }
+@media (max-width: 639px) { .detail-cell:last-child { border-bottom: none; } .detail-cell:nth-last-child(2) { border-bottom: 1px solid var(--border); } }
+.detail-key {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--stone-dark); margin-bottom: 5px;
+}
+.detail-val { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--ink); letter-spacing: -0.01em; }
+.detail-val.mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.02em; }
+
+/* New listing CTA */
+.new-list-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap; padding: 22px 26px;
+  background: var(--ink); color: var(--white);
+  border-radius: var(--r-card); position: relative; overflow: hidden;
+}
+.new-list-cta::before {
+  content: ''; position: absolute; top: -50%; right: -15%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.12) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none;
+}
+.new-list-cta-text { position: relative; z-index: 1; flex: 1; min-width: 240px; }
+.new-list-cta-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--white); letter-spacing: -0.015em; }
+.new-list-cta-sub { font-size: 12.5px; color: var(--stone-light); margin-top: 3px; }
+.new-list-cta .btn { position: relative; z-index: 1; }
+
+/* Modal */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(14,19,32,.78);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s ease;
+  padding: 0;
+}
+.modal-bg.open { opacity: 1; pointer-events: all; }
+@media (min-width: 640px) { .modal-bg { align-items: center; padding: 32px; } }
+.modal-card {
+  background: var(--white); width: 100%; max-width: 520px;
+  border-radius: 20px 20px 0 0;
+  transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1);
+  box-shadow: var(--shadow-lg); overflow: hidden;
+  display: flex; flex-direction: column; max-height: 92vh;
+}
+.modal-bg.open .modal-card { transform: translateY(0); }
+@media (min-width: 640px) { .modal-card { border-radius: 20px; } }
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 18px 22px;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.modal-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
+.modal-close { width: 34px; height: 34px; border-radius: 50%; color: var(--stone-dark); font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: var(--off-white); color: var(--ink); }
+.modal-body { padding: 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+.modal-foot {
+  display: flex; gap: 10px; padding: 16px 22px;
+  border-top: 1px solid var(--border); flex-shrink: 0;
+  background: var(--off-white);
+}
+.modal-foot .btn { flex: 1; }
+
+/* Toast */
+.pa-toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  z-index: 800; max-width: 440px; width: calc(100% - 32px);
+  background: var(--ink); color: #fff; border-radius: 12px;
+  padding: 14px 16px; font-size: 13.5px; line-height: 1.5;
+  box-shadow: var(--shadow-lg);
+  opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none;
+}
+.pa-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.pa-toast.err { background: var(--red-ink); }
+
+/* Spinner */
+.spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Loading page */
+.load-screen {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 60vh; gap: 16px; color: var(--stone-dark); font-size: 14px;
+}
+.load-screen .spin { width: 24px; height: 24px; color: var(--green); border-width: 3px; }
+</style>
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div data-dps-nav data-active="partners"></div>
+
+<div class="wrap">
+
+  <!-- ── AUTH ─────────────────────────────────────────── -->
+  <section class="auth-screen" id="authScreen" hidden>
+    <div class="auth-card">
+      <div class="auth-eyebrow">Partner Portal</div>
+      <h1 class="auth-title">Sign in.</h1>
+      <p class="auth-sub">Manage your listings, confirm stock, and see what Dina couldn't list. It's your account — nothing is editable without you.</p>
+
+      <div class="auth-err" id="authErr"></div>
+
+      <div class="auth-step on" id="authStep1">
+        <div class="auth-field">
+          <label for="authEmail">Your business email</label>
+          <input type="email" id="authEmail" placeholder="you@yourbusiness.com" autocomplete="email" autofocus>
+          <div class="hint">The one you registered with DPS.</div>
+        </div>
+        <button class="btn btn-primary auth-submit" id="authContinue" type="button">Continue →</button>
+      </div>
+
+      <div class="auth-step" id="authStep2">
+        <button class="auth-back" id="authBack" type="button">← Back</button>
+        <div class="auth-biz-confirm">
+          <div>
+            <div class="biz-lbl">You're signing in as</div>
+            <div class="biz-name" id="authBizName">—</div>
+          </div>
+          <div class="biz-check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label for="authAcct">Account number on file</label>
+          <input type="text" id="authAcct" placeholder="10-digit account number" maxlength="10" inputmode="numeric" autocomplete="off">
+          <div class="hint">We only ever show the last 4 digits. Type the full number to prove it's you.</div>
+        </div>
+        <button class="btn btn-primary auth-submit" id="authVerify" type="button">Sign in →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LOADING ──────────────────────────────────────── -->
+  <section class="load-screen" id="loadScreen" hidden>
+    <span class="spin"></span>
+    <span>Loading your portal…</span>
+  </section>
+
+  <!-- ── DASHBOARD ────────────────────────────────────── -->
+  <section class="dash" id="dashScreen" hidden>
+
+    <!-- Header -->
+    <div class="dash-head">
+      <div class="dash-logo" id="dashLogo">—</div>
+      <div class="dash-name-wrap">
+        <h1 class="dash-name" id="dashName">
+          <span id="dashNameText">—</span>
+          <span class="dash-verified">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Verified
+          </span>
+        </h1>
+        <div class="dash-dina" id="dashDina">
+          <span class="dot"></span>
+          <span id="dashDinaText">Checking Dina status…</span>
+        </div>
+      </div>
+      <button class="dash-logout" id="dashLogout" type="button">Sign out</button>
+    </div>
+
+    <!-- Confirm all -->
+    <div class="dash-action">
+      <div class="dash-action-text">
+        <div class="dash-action-title" id="confirmTitle">Confirm your live items are still available</div>
+        <div class="dash-action-sub" id="confirmSub">Last confirmed —</div>
+      </div>
+      <button class="btn btn-primary btn-sm" id="confirmAllBtn" type="button">Confirm all still available</button>
+    </div>
+
+    <!-- Needs you -->
+    <div class="section" id="needsSection" hidden>
+      <div class="section-head">
+        <div>
+          <div class="section-title">Needs you</div>
+          <div class="section-sub">Things only you can fix. Everything else runs itself.</div>
+        </div>
+      </div>
+      <div class="needs-panel" id="needsPanel"></div>
+    </div>
+
+    <!-- Live items -->
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Live items <span class="count" id="liveCount">0</span></div>
+          <div class="section-sub">What buyers can see right now. Fix a name, confirm it's still here, or take it down.</div>
+        </div>
+      </div>
+      <div class="items-grid" id="itemsGrid"></div>
+    </div>
+
+    <!-- Skipped posts -->
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Posts Dina couldn't list</div>
+          <div class="section-sub">When Dina can't read something on your Instagram, it lands here. Fill in the gap and we'll push it to the marketplace.</div>
+        </div>
+      </div>
+      <div class="refresh-bar">
+        <div class="refresh-bar-text" id="refreshText">Just posted something? Pull it in.</div>
+        <button class="btn btn-outline btn-sm" id="refreshBtn" type="button">Refresh from Instagram</button>
+      </div>
+      <div class="skipped-list" id="skippedList"></div>
+    </div>
+
+    <!-- Sold -->
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Sold</div>
+          <div class="section-sub">Buyer contact is only visible after payment has cleared.</div>
+        </div>
+      </div>
+      <div id="soldWrap"></div>
+    </div>
+
+    <!-- Your details -->
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Your details</div>
+          <div class="section-sub">Read-only. Contact us to change anything here.</div>
+        </div>
+      </div>
+      <div class="details-grid" id="detailsGrid"></div>
+    </div>
+
+    <!-- New listing -->
+    <div class="section">
+      <div class="new-list-cta">
+        <div class="new-list-cta-text">
+          <div class="new-list-cta-title">List something new</div>
+          <div class="new-list-cta-sub">Everything Dina can't pull from Instagram, you can list manually.</div>
+        </div>
+        <a href="/sell" class="btn btn-primary btn-sm">Go to listing →</a>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <span class="modal-title" id="modalTitle">—</span>
+      <button class="modal-close" id="modalClose" aria-label="Close" type="button">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot">
+      <button class="btn btn-outline" id="modalCancel" type="button">Cancel</button>
+      <button class="btn btn-primary" id="modalConfirm" type="button">Save</button>
+    </div>
+  </div>
+</div>
+
+<div data-dps-footer></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var GAS = (typeof DPS_MAIN_GAS_URL !== 'undefined') ? DPS_MAIN_GAS_URL : '';
+  var TOKEN_KEY = 'dps_partner_token';
+  var TOKEN_EXP_KEY = 'dps_partner_token_exp';
+  var PARTNER_CACHE_KEY = 'dps_partner_summary';
+
+  var state = {
+    token: null,
+    partner: null,
+    items: [],
+    sold: [],
+    skipped: [],
+    needs: null,
+    refreshAvailableAt: 0,
+    lastSummary: null
+  };
+
+  /* ── DOM refs ────────────────────────────────────── */
+  var authScreen = document.getElementById('authScreen');
+  var loadScreen = document.getElementById('loadScreen');
+  var dashScreen = document.getElementById('dashScreen');
+  var authErr = document.getElementById('authErr');
+
+  var authEmail = document.getElementById('authEmail');
+  var authStep1 = document.getElementById('authStep1');
+  var authStep2 = document.getElementById('authStep2');
+  var authBizName = document.getElementById('authBizName');
+  var authAcct = document.getElementById('authAcct');
+
+  /* ── Helpers ─────────────────────────────────────── */
+  function log() {
+    var args = Array.prototype.slice.call(arguments);
+    args.unshift('[partner]');
+    console.log.apply(console, args);
+  }
+  function escapeHTML(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  function formatPrice(raw) {
+    var n = parseInt(String(raw || '0').replace(/[^0-9]/g, ''));
+    return (n && !isNaN(n)) ? n.toLocaleString('en-NG') : '—';
+  }
+  function priceNum(raw) { return parseInt(String(raw || '0').replace(/[^0-9]/g, '')) || 0; }
+  function formatRelative(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso);
+    var mins = Math.max(0, Math.round((Date.now() - d.getTime()) / 60000));
+    if (mins < 60) return mins <= 1 ? 'just now' : mins + ' min ago';
+    var hrs = Math.round(mins / 60);
+    if (hrs < 24) return hrs + (hrs === 1 ? ' hour ago' : ' hours ago');
+    var days = Math.floor(hrs / 24);
+    if (days === 1) return 'yesterday';
+    if (days < 30) return days + ' days ago';
+    var months = Math.floor(days / 30);
+    return months + (months === 1 ? ' month ago' : ' months ago');
+  }
+  function showToast(msg, isErr) {
+    var t = document.getElementById('paToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'paToast';
+      t.className = 'pa-toast';
+      t.setAttribute('role', 'status');
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.toggle('err', !!isErr);
+    t.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { t.classList.remove('show'); }, 5000);
+  }
+  function showAuthError(msg) {
+    authErr.textContent = msg;
+    authErr.classList.add('show');
+  }
+  function clearAuthError() {
+    authErr.textContent = '';
+    authErr.classList.remove('show');
+  }
+
+  function getToken() {
+    try {
+      var tok = localStorage.getItem(TOKEN_KEY);
+      var exp = parseInt(localStorage.getItem(TOKEN_EXP_KEY) || '0', 10);
+      if (!tok) return null;
+      if (exp && Date.now() > exp) {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(TOKEN_EXP_KEY);
+        return null;
+      }
+      return tok;
+    } catch (e) { return null; }
+  }
+  function setToken(tok, expiresAt) {
+    try {
+      localStorage.setItem(TOKEN_KEY, tok);
+      if (expiresAt) localStorage.setItem(TOKEN_EXP_KEY, String(new Date(expiresAt).getTime()));
+    } catch (e) {}
+  }
+  function clearToken() {
+    try {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(TOKEN_EXP_KEY);
+      sessionStorage.removeItem(PARTNER_CACHE_KEY);
+    } catch (e) {}
+  }
+
+  /* ── API ─────────────────────────────────────────── */
+  function api(payload) {
+    if (!GAS) return Promise.reject(new Error('No GAS endpoint configured'));
+    payload = payload || {};
+    if (state.token && !payload.token) payload.token = state.token;
+    return fetch(GAS, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) {
+        if (r.status === 401) { clearToken(); throw new Error('Session expired. Please sign in again.'); }
+        return r.json();
+      })
+      .catch(function (err) {
+        if (err && err.message && /session expired|unauthorized/i.test(err.message)) throw err;
+        throw err;
+      });
+  }
+
+  /* ── Auth flow ───────────────────────────────────── */
+  function showAuthScreen() {
+    authScreen.hidden = false;
+    loadScreen.hidden = true;
+    dashScreen.hidden = true;
+    authStep1.classList.add('on');
+    authStep2.classList.remove('on');
+    clearAuthError();
+  }
+  function showDashScreen() {
+    authScreen.hidden = true;
+    loadScreen.hidden = true;
+    dashScreen.hidden = false;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  function showLoading() {
+    authScreen.hidden = true;
+    loadScreen.hidden = false;
+    dashScreen.hidden = true;
+  }
+
+  document.getElementById('authContinue').addEventListener('click', function () {
+    var email = authEmail.value.trim().toLowerCase();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showAuthError('Please enter a valid email address.');
+      authEmail.focus();
+      return;
+    }
+    clearAuthError();
+    var btn = this;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Checking…';
+
+    api({ action: 'partnerLookup', email: email })
+      .then(function (d) {
+        if (!d || !d.success) {
+          if (d && d.masked) {
+            showAuthError('This account has a masked payout record. Please contact us at info@declutterpawnshop.com to reset your access.');
+          } else {
+            showAuthError((d && d.error) || 'No account found for that email. Try the one you registered with.');
+          }
+          return;
+        }
+        authBizName.textContent = d.businessName || '—';
+        authStep1.classList.remove('on');
+        authStep2.classList.add('on');
+        setTimeout(function () { authAcct.focus(); }, 100);
+      })
+      .catch(function (err) {
+        showAuthError(err.message || 'Connection error. Please try again.');
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = 'Continue →';
+      });
+  });
+
+  document.getElementById('authBack').addEventListener('click', function () {
+    clearAuthError();
+    authStep2.classList.remove('on');
+    authStep1.classList.add('on');
+    setTimeout(function () { authEmail.focus(); }, 100);
+  });
+
+  document.getElementById('authAcct').addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+  });
+
+  document.getElementById('authVerify').addEventListener('click', function () {
+    var email = authEmail.value.trim().toLowerCase();
+    var acct = authAcct.value.trim();
+    if (!/^\d{10}$/.test(acct)) {
+      showAuthError('Please enter your full 10-digit account number.');
+      authAcct.focus();
+      return;
+    }
+    clearAuthError();
+    var btn = this;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Signing in…';
+
+    api({ action: 'partnerAuth', email: email, accountNumber: acct })
+      .then(function (d) {
+        if (!d || !d.success || !d.token) {
+          showAuthError((d && d.error) || 'Those details don\'t match our records. Check the account number and try again.');
+          return;
+        }
+        setToken(d.token, d.expiresAt || null);
+        state.token = d.token;
+        return loadSummary();
+      })
+      .catch(function (err) {
+        showAuthError(err.message || 'Connection error. Please try again.');
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = 'Sign in →';
+      });
+  });
+
+  document.getElementById('dashLogout').addEventListener('click', function () {
+    clearToken();
+    state.token = null;
+    state.partner = null;
+    state.items = [];
+    state.sold = [];
+    state.skipped = [];
+    showAuthScreen();
+    authEmail.value = '';
+    authAcct.value = '';
+  });
+
+  /* ── Load summary ────────────────────────────────── */
+  function loadSummary() {
+    showLoading();
+    return api({ action: 'partnerSummary' })
+      .then(function (d) {
+        if (!d || !d.success) {
+          if (d && d.error && /token/i.test(d.error)) {
+            clearToken();
+            state.token = null;
+            showAuthScreen();
+            showAuthError('Your session expired. Please sign in again.');
+            return;
+          }
+          throw new Error((d && d.error) || 'Could not load your portal.');
+        }
+        state.partner = d.partner || {};
+        state.items = Array.isArray(d.items) ? d.items : [];
+        state.sold = Array.isArray(d.sold) ? d.sold : [];
+        state.needs = d.needsYou || null;
+        state.refreshAvailableAt = d.refreshAvailableAt ? new Date(d.refreshAvailableAt).getTime() : 0;
+        state.lastSummary = d;
+        showDashScreen();
+        renderDashboard();
+        loadSkipped();
+      })
+      .catch(function (err) {
+        console.error('[partner] loadSummary failed:', err);
+        if (/session expired/i.test(err.message || '')) {
+          showAuthScreen();
+          showAuthError('Your session expired. Please sign in again.');
+          return;
+        }
+        showAuthScreen();
+        showAuthError(err.message || 'Could not load your portal. Try again.');
+      });
+  }
+
+  /* ── Render dashboard ────────────────────────────── */
+  function renderDashboard() {
+    renderHeader();
+    renderConfirmBar();
+    renderNeeds();
+    renderItems();
+    renderSold();
+    renderDetails();
+    renderRefreshBar();
+  }
+
+  function renderHeader() {
+    var p = state.partner || {};
+    var name = p.name || p.businessName || 'Partner';
+    document.getElementById('dashNameText').textContent = name;
+
+    var logoEl = document.getElementById('dashLogo');
+    if (p.logoUrl) {
+      logoEl.innerHTML = '<img src="' + escapeHTML(p.logoUrl) + '" alt="" onerror="this.parentNode.textContent=\'' + escapeHTML((name[0] || '?').toUpperCase()) + '\'">';
+    } else {
+      logoEl.textContent = (name[0] || '?').toUpperCase();
+    }
+
+    var dinaEl = document.getElementById('dashDina');
+    var dinaTxt = document.getElementById('dashDinaText');
+    dinaEl.className = 'dash-dina';
+
+    var failures = parseInt(p.dinaConsecutiveFailures || 0, 10);
+    if (failures >= 3) {
+      dinaEl.classList.add('err');
+      dinaTxt.textContent = 'Dina cannot read your Instagram.' + (p.dinaLastError ? ' Last error: "' + p.dinaLastError + '"' : '');
+    } else if (!p.dinaLastSync) {
+      dinaEl.classList.add('warn');
+      dinaTxt.textContent = 'Dina has not synced your Instagram yet.';
+    } else {
+      var ageMs = Date.now() - new Date(p.dinaLastSync).getTime();
+      var hours = ageMs / 3600000;
+      dinaTxt.textContent = 'Dina synced ' + formatRelative(p.dinaLastSync);
+      if (hours > 48) dinaEl.classList.add('warn');
+    }
+  }
+
+  function renderConfirmBar() {
+    var liveCount = state.items.filter(function (i) { return (i.status || '').toLowerCase() === 'active'; }).length;
+    var mostRecent = null;
+    state.items.forEach(function (i) {
+      if (i.lastConfirmedAt) {
+        var t = new Date(i.lastConfirmedAt).getTime();
+        if (!mostRecent || t > mostRecent) mostRecent = t;
+      }
+    });
+
+    document.getElementById('confirmTitle').textContent = 'Confirm your ' + liveCount + ' live item' + (liveCount === 1 ? ' is' : 's are') + ' still available';
+    document.getElementById('confirmSub').textContent = mostRecent ? 'Last confirmed ' + formatRelative(new Date(mostRecent).toISOString()) : 'Not confirmed yet';
+    var btn = document.getElementById('confirmAllBtn');
+    btn.textContent = 'Confirm all ' + liveCount + ' still available';
+    btn.disabled = liveCount === 0;
+  }
+
+  function renderNeeds() {
+    var needs = state.needs || {};
+    var items = [];
+    var liveById = {};
+    state.items.forEach(function (i) { liveById[i.itemId] = i; });
+
+    (needs.weakNames || []).forEach(function (it) {
+      items.push({
+        type: 'name',
+        itemId: it.itemId,
+        label: 'Fix a name',
+        desc: '"' + (it.name || 'Untitled') + '" doesn\'t read as a product name.',
+        actionLabel: 'Fix',
+        action: function () { openFixName(it.itemId); }
+      });
+    });
+
+    (needs.priceFlagged || []).forEach(function (it) {
+      items.push({
+        type: 'price',
+        itemId: it.itemId,
+        label: 'Confirm a price',
+        desc: '"' + (it.name || 'Untitled') + '" has a price Dina flagged.',
+        actionLabel: 'Confirm',
+        action: function () { openFixPrice(it.itemId); }
+      });
+    });
+
+    (needs.pendingChecks || []).forEach(function (c) {
+      items.push({
+        type: 'check',
+        itemId: c.itemId,
+        label: 'A buyer is waiting',
+        desc: '"' + (c.itemName || c.itemId || '') + '" — answer within 30 minutes.',
+        actionLabel: 'Answer now',
+        action: function () { openAnswerCheck(c); }
+      });
+    });
+
+    (needs.stale || []).forEach(function (it) {
+      items.push({
+        type: 'stale',
+        itemId: it.itemId,
+        label: 'Still here?',
+        desc: '"' + (it.name || 'Untitled') + '" hasn\'t been confirmed in over a week.',
+        actionLabel: 'Confirm',
+        action: function () { confirmItem(it.itemId); }
+      });
+    });
+
+    if (needs.dinaError) {
+      items.push({
+        type: 'dina',
+        label: 'Dina is broken',
+        desc: needs.dinaError,
+        actionLabel: 'See details',
+        action: function () { showDinaErrorDetails(needs.dinaError); }
+      });
+    }
+
+    if (!items.length) {
+      document.getElementById('needsSection').hidden = true;
+      return;
+    }
+    document.getElementById('needsSection').hidden = false;
+
+    var panel = document.getElementById('needsPanel');
+    panel.innerHTML = items.map(function (it) {
+      return ''
+        + '<div class="needs-item">'
+        +   '<div class="needs-icon ' + (it.type === 'dina' ? 'err' : '') + '">'
+        +     (it.type === 'dina'
+              ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>'
+              : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>')
+        +   '</div>'
+        +   '<div class="needs-body">'
+        +     '<div class="needs-label">' + escapeHTML(it.label) + '</div>'
+        +     '<div class="needs-desc">' + escapeHTML(it.desc) + '</div>'
+        +   '</div>'
+        +   '<div class="needs-action"><button class="btn btn-outline btn-sm" data-needs-action="' + escapeHTML(it.type) + '" data-item-id="' + escapeHTML(it.itemId || '') + '">' + escapeHTML(it.actionLabel) + '</button></div>'
+        + '</div>';
+    }).join('');
+
+    panel.querySelectorAll('[data-needs-action]').forEach(function (btn, idx) {
+      btn.addEventListener('click', function () { items[idx].action(); });
+    });
+  }
+
+  function renderItems() {
+    var grid = document.getElementById('itemsGrid');
+    var live = state.items.slice().sort(function (a, b) {
+      var sa = (a.status || '').toLowerCase();
+      var sb = (b.status || '').toLowerCase();
+      if (sa === 'active' && sb !== 'active') return -1;
+      if (sb === 'active' && sa !== 'active') return 1;
+      return 0;
+    });
+
+    document.getElementById('liveCount').textContent = live.filter(function (i) { return (i.status || '').toLowerCase() === 'active'; }).length;
+
+    if (!live.length) {
+      grid.innerHTML = ''
+        + '<div class="empty" style="grid-column:1/-1;">'
+        +   '<div class="empty-icon">📦</div>'
+        +   '<div class="empty-title">Nothing live right now</div>'
+        +   '<p>When Dina finds a post with a price, it lands here. You can also list something manually.</p>'
+        + '</div>';
+      return;
+    }
+
+    grid.innerHTML = live.map(function (it) {
+      var isActive = (it.status || '').toLowerCase() === 'active';
+      var statusReason = it.statusReason || '';
+      var thumb = it.photo || it.photoUrl || '';
+      var priceDps = priceNum(it.dpsPrice || it.price);
+      var priceIg = priceNum(it.instagramPrice);
+      var daysSince = '';
+      if (it.lastConfirmedAt) {
+        var days = Math.round((Date.now() - new Date(it.lastConfirmedAt).getTime()) / 86400000);
+        daysSince = days === 0 ? 'confirmed today' : days + 'd since confirmed';
+      }
+
+      var statusPill = '';
+      if (!isActive) statusPill = '<span class="pill off">' + escapeHTML(it.status || 'Inactive') + '</span>';
+      else if (statusReason === 'PRICE_FLAGGED') statusPill = '<span class="pill warn">Price flagged</span>';
+      else statusPill = '<span class="pill">Live</span>';
+
+      return ''
+        + '<div class="item-row ' + (isActive ? '' : 'inactive') + '">'
+        +   '<div class="item-thumb">'
+        +     (thumb
+              ? '<img src="' + escapeHTML(thumb) + '" alt="" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=&quot;item-thumb-ph&quot;>📦</div>\'">'
+              : '<div class="item-thumb-ph">📦</div>')
+        +   '</div>'
+        +   '<div class="item-body">'
+        +     '<div class="item-name">' + escapeHTML(it.name || it.itemName || 'Untitled') + '</div>'
+        +     '<div class="item-prices">'
+        +       (priceIg ? '<span class="ig">IG <b>₦' + formatPrice(priceIg) + '</b></span>' : '')
+        +       (priceDps ? '<span class="dps">DPS <b>₦' + formatPrice(priceDps) + '</b></span>' : '')
+        +     '</div>'
+        +     '<div class="item-status">' + statusPill + (daysSince ? '<span>' + escapeHTML(daysSince) + '</span>' : '') + '</div>'
+        +     '<div class="item-meta">'
+        +       '<span>👁 <b>' + (it.views || 0) + '</b></span>'
+        +       '<span>❤️ <b>' + (it.interested || 0) + '</b></span>'
+        +       '<span>' + escapeHTML(it.itemId || '') + '</span>'
+        +     '</div>'
+        +     '<div class="item-actions">'
+        +       '<button data-item-action="fix" data-item-id="' + escapeHTML(it.itemId) + '">Fix</button>'
+        +       (isActive
+              ? '<button data-item-action="still" data-item-id="' + escapeHTML(it.itemId) + '">Still here</button>'
+                + '<button data-item-action="unavail" data-item-id="' + escapeHTML(it.itemId) + '">Mark unavailable</button>'
+              : '<button data-item-action="reactivate" data-item-id="' + escapeHTML(it.itemId) + '">Reactivate</button>')
+        +       '<button class="danger" data-item-action="remove" data-item-id="' + escapeHTML(it.itemId) + '">Remove</button>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    }).join('');
+
+    grid.querySelectorAll('[data-item-action]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var action = btn.getAttribute('data-item-action');
+        var id = btn.getAttribute('data-item-id');
+        if (action === 'fix') openFixItem(id);
+        else if (action === 'still') confirmItem(id);
+        else if (action === 'unavail') setStatus(id, 'Unavailable');
+        else if (action === 'reactivate') setStatus(id, 'Active');
+        else if (action === 'remove') setStatus(id, 'Removed');
+      });
+    });
+  }
+
+  function renderSold() {
+    var wrap = document.getElementById('soldWrap');
+    if (!state.sold.length) {
+      wrap.innerHTML = '<div class="empty"><div class="empty-icon">💰</div><div class="empty-title">No sales yet</div><p>When a buyer collects an item you listed through DPS, it'll show up here with the payout and their contact.</p></div>';
+      return;
+    }
+    var rows = state.sold.map(function (s) {
+      var isSettled = (s.status || '').toLowerCase() === 'settled';
+      var buyerVisible = isSettled && (s.buyerEmail || s.buyerPhone);
+      return ''
+        + '<tr>'
+        +   '<td data-label="Item"><div class="item-name">' + escapeHTML(s.itemName || s.name || '—') + '</div><div style="font-size:11px;color:var(--stone-dark);margin-top:2px;">' + escapeHTML(s.itemId || '') + '</div></td>'
+        +   '<td data-label="Payout"><span class="payout">₦' + formatPrice(s.payout || s.amountPaid) + '</span></td>'
+        +   '<td data-label="Status"><span class="sold-status ' + (isSettled ? 'settled' : 'pending') + '">' + escapeHTML(s.status || 'Pending') + '</span></td>'
+        +   '<td data-label="Date"><span style="font-size:12px;color:var(--stone-dark);">' + escapeHTML(s.date || formatRelative(s.paidAt || s.createdAt)) + '</span></td>'
+        +   '<td data-label="Buyer">' + (buyerVisible
+              ? '<div class="buyer-contact">' + (s.buyerEmail ? '<a href="mailto:' + escapeHTML(s.buyerEmail) + '">' + escapeHTML(s.buyerEmail) + '</a><br>' : '') + (s.buyerPhone ? escapeHTML(s.buyerPhone) : '') + '</div>'
+              : '<span class="buyer-locked">Available after payment</span>')
+        +   '</td>'
+        + '</tr>';
+    }).join('');
+
+    wrap.innerHTML = ''
+      + '<div class="sold-table-wrap">'
+      +   '<table class="sold-table">'
+      +     '<thead><tr>'
+      +       '<th>Item</th><th>Payout</th><th>Status</th><th>Date</th><th>Buyer</th>'
+      +     '</tr></thead>'
+      +     '<tbody>' + rows + '</tbody>'
+      +   '</table>'
+      + '</div>';
+  }
+
+  function renderDetails() {
+    var p = state.partner || {};
+    var grid = document.getElementById('detailsGrid');
+    var rows = [
+      ['Bank on file', p.bankMasked || '•••• —', 'mono'],
+      ['Commission rate', p.commissionRate ? (p.commissionRate + '%') : '—'],
+      ['Instagram', p.instagramHandle || '—', 'mono'],
+      ['Dina status', p.dinaEnabled === false ? 'Off' : 'On'],
+      ['Daily listing limit', p.dailyLimit ? (p.dailyLimit + ' items/day') : '—'],
+      ['Partner ID', p.partnerId || '—', 'mono']
+    ];
+    grid.innerHTML = rows.map(function (r) {
+      return ''
+        + '<div class="detail-cell">'
+        +   '<div class="detail-key">' + escapeHTML(r[0]) + '</div>'
+        +   '<div class="detail-val' + (r[2] === 'mono' ? ' mono' : '') + '">' + escapeHTML(r[1]) + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  function renderRefreshBar() {
+    var btn = document.getElementById('refreshBtn');
+    var txt = document.getElementById('refreshText');
+    var now = Date.now();
+    var waitMs = state.refreshAvailableAt - now;
+
+    if (waitMs > 0) {
+      var mins = Math.ceil(waitMs / 60000);
+      btn.disabled = true;
+      btn.textContent = 'Refresh in ' + mins + 'm';
+      txt.textContent = 'You can refresh once per hour. Available again in ' + mins + ' minute' + (mins === 1 ? '' : 's') + '.';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Refresh from Instagram';
+      txt.textContent = 'Just posted something? Pull it in.';
+    }
+  }
+
+  /* ── Skipped posts ───────────────────────────────── */
+  function loadSkipped() {
+    var list = document.getElementById('skippedList');
+    list.innerHTML = '<div class="empty"><span class="spin" style="color:var(--green);"></span><div style="margin-top:10px;">Loading skipped posts…</div></div>';
+
+    api({ action: 'partnerSkippedPosts' })
+      .then(function (d) {
+        if (!d || !d.success) {
+          list.innerHTML = '<div class="empty"><p>Could not load posts right now. ' + escapeHTML((d && d.error) || '') + '</p></div>';
+          return;
+        }
+        state.skipped = Array.isArray(d.posts) ? d.posts : [];
+        renderSkipped();
+      })
+      .catch(function (err) {
+        list.innerHTML = '<div class="empty"><p>Could not load posts. ' + escapeHTML(err.message || '') + '</p></div>';
+      });
+  }
+
+  function renderSkipped() {
+    var list = document.getElementById('skippedList');
+    if (!state.skipped.length) {
+      list.innerHTML = ''
+        + '<div class="empty">'
+        +   '<div class="empty-icon">✓</div>'
+        +   '<div class="empty-title">All clear</div>'
+        +   '<p>Nothing on your Instagram slipped past Dina. When something does, it will appear here.</p>'
+        + '</div>';
+      return;
+    }
+
+    list.innerHTML = state.skipped.map(function (p, idx) {
+      var missing = Array.isArray(p.missingFields) ? p.missingFields : guessMissing(p.reason);
+      var reqName = missing.indexOf('name') >= 0;
+      var reqPrice = missing.indexOf('price') >= 0;
+      var reqCategory = missing.indexOf('category') >= 0;
+
+      return ''
+        + '<div class="skipped-card" data-skipped-idx="' + idx + '">'
+        +   '<div class="skipped-head">'
+        +     (p.photoUrl
+              ? '<div class="skipped-thumb"><img src="' + escapeHTML(p.photoUrl) + '" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></div>'
+              : '')
+        +     '<span class="skipped-reason">'
+        +       '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+        +       escapeHTML(p.reason || 'Could not read this post')
+        +     '</span>'
+        +     (p.postedAt ? '<span class="skipped-date">' + escapeHTML(formatRelative(p.postedAt)) + '</span>' : '')
+        +   '</div>'
+        +   '<div class="skipped-body">'
+        +     '<div class="skipped-caption">' + escapeHTML(p.caption || '(No caption)') + '</div>'
+        +     '<div class="skipped-fields">'
+        +       (reqName
+              ? '<div class="pf-field"><label>Product name <span class="req">*</span></label><input type="text" data-field="name" placeholder="e.g. Nike Air Max 90 White — UK9"></div>'
+              : '<div class="pf-field"><label>Product name <span class="opt">— from Dina</span></label><input type="text" data-field="name" placeholder="Leave blank to use the caption" value="' + escapeHTML(p.name || '') + '"></div>')
+        +       (reqPrice
+              ? '<div class="pf-field"><label>Price (₦) <span class="req">*</span></label><input type="text" inputmode="numeric" data-field="price" placeholder="e.g. 185000"></div>'
+              : '<div class="pf-field"><label>Price (₦) <span class="opt">— from Dina</span></label><input type="text" inputmode="numeric" data-field="price" value="' + escapeHTML(p.price || '') + '"></div>')
+        +       (reqCategory
+              ? '<div class="pf-field full"><label>Category <span class="req">*</span></label><select data-field="category"><option value="">Select category</option><option>Fashion</option><option>Electronics</option><option>Furniture</option><option>Fitness</option><option>Appliances</option><option>Other</option></select></div>'
+              : '')
+        +       '<div class="pf-field full"><label>Condition <span class="opt">— optional</span></label><select data-field="condition"><option value="">Not sure</option><option>Brand New</option><option>Like New</option><option>Good Condition</option><option>Fairly Used</option><option>Used</option></select></div>'
+        +     '</div>'
+        +     '<button class="skipped-more" type="button" data-toggle-more="' + idx + '">+ Add more details</button>'
+        +     '<div class="skipped-fields" id="skippedMore' + idx + '" style="display:none;">'
+        +       '<div class="pf-field full"><label>Description <span class="opt">— optional</span></label><textarea data-field="description" placeholder="Anything a buyer should know"></textarea></div>'
+        +       '<div class="pf-field"><label>Location</label><select data-field="location"><option value="">Not sure</option><option>Island</option><option>Mainland</option></select></div>'
+        +       '<div class="pf-field"><label>Brand / model <span class="opt">— optional</span></label><input type="text" data-field="brandModel" placeholder="e.g. Nike Air Max 90"></div>'
+        +     '</div>'
+        +     '<div class="skipped-actions">'
+        +       '<button class="btn btn-primary btn-sm" data-push="' + idx + '" type="button">Push and list</button>'
+        +       '<span style="font-size:12px;color:var(--stone-dark);">Goes to DPS for approval before it goes live.</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    }).join('');
+
+    list.querySelectorAll('[data-toggle-more]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = btn.getAttribute('data-toggle-more');
+        var panel = document.getElementById('skippedMore' + idx);
+        if (!panel) return;
+        var open = panel.style.display !== 'none';
+        panel.style.display = open ? 'none' : 'grid';
+        btn.textContent = open ? '+ Add more details' : '− Hide additional details';
+      });
+    });
+
+    list.querySelectorAll('[data-push]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        pushSkipped(parseInt(btn.getAttribute('data-push'), 10));
+      });
+    });
+  }
+
+  function guessMissing(reason) {
+    var r = String(reason || '').toLowerCase();
+    if (r.indexOf('price') >= 0) return ['price'];
+    if (r.indexOf('name') >= 0 || r.indexOf('product') >= 0) return ['name'];
+    return ['name', 'price'];
+  }
+
+  function pushSkipped(idx) {
+    var card = document.querySelector('[data-skipped-idx="' + idx + '"]');
+    if (!card) return;
+    var post = state.skipped[idx];
+
+    var nameEl = card.querySelector('[data-field="name"]');
+    var priceEl = card.querySelector('[data-field="price"]');
+    var catEl = card.querySelector('[data-field="category"]');
+    var condEl = card.querySelector('[data-field="condition"]');
+    var descEl = card.querySelector('[data-field="description"]');
+    var locEl = card.querySelector('[data-field="location"]');
+    var brandEl = card.querySelector('[data-field="brandModel"]');
+
+    var missing = Array.isArray(post.missingFields) ? post.missingFields : guessMissing(post.reason);
+
+    var name = (nameEl && nameEl.value.trim()) || post.name || '';
+    var price = priceNum((priceEl && priceEl.value) || post.price || 0);
+    var category = (catEl && catEl.value) || 'Other';
+
+    var errors = [];
+    [nameEl, priceEl, catEl].forEach(function (el) { if (el) el.classList.remove('err'); });
+
+    if (missing.indexOf('name') >= 0 && !name) { errors.push('name'); if (nameEl) nameEl.classList.add('err'); }
+    if (missing.indexOf('price') >= 0 && !price) { errors.push('price'); if (priceEl) priceEl.classList.add('err'); }
+    if (missing.indexOf('category') >= 0 && !category) { errors.push('category'); if (catEl) catEl.classList.add('err'); }
+
+    if (errors.length) {
+      showToast('Fill in: ' + errors.join(', '), true);
+      return;
+    }
+
+    var payload = {
+      action: 'partnerPushItem',
+      sourceRef: post.sourceRef || '',
+      logId: post.logId || '',
+      name: name,
+      price: price,
+      category: category,
+      condition: (condEl && condEl.value) || '',
+      description: (descEl && descEl.value.trim()) || '',
+      location: (locEl && locEl.value) || '',
+      brandModel: (brandEl && brandEl.value.trim()) || '',
+      photoUrl: post.photoUrl || ''
+    };
+
+    var btn = card.querySelector('[data-push="' + idx + '"]');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Pushing…';
+
+    api(payload)
+      .then(function (d) {
+        if (!d || !d.success) {
+          btn.disabled = false;
+          btn.textContent = 'Push and list';
+          showToast((d && d.error) || 'Could not push that item. Try again.', true);
+          return;
+        }
+        card.style.transition = 'opacity .3s';
+        card.style.opacity = '0.4';
+        setTimeout(function () {
+          state.skipped.splice(idx, 1);
+          renderSkipped();
+          showToast('Pushed to DPS. We\'ll review it before it goes live.');
+        }, 350);
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = 'Push and list';
+        showToast(err.message || 'Could not push that item.', true);
+      });
+  }
+
+  /* ── Refresh from Instagram ──────────────────────── */
+  document.getElementById('refreshBtn').addEventListener('click', function () {
+    var btn = this;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Refreshing…';
+
+    api({ action: 'partnerRefreshIG' })
+      .then(function (d) {
+        if (!d || !d.success) {
+          showToast((d && d.error) || 'Could not refresh. Try again.', true);
+          return;
+        }
+        state.refreshAvailableAt = Date.now() + 60 * 60 * 1000;
+        renderRefreshBar();
+        showToast('Refreshing — new posts will appear here in a minute.');
+        setTimeout(loadSkipped, 3000);
+      })
+      .catch(function (err) {
+        showToast(err.message || 'Could not refresh. Try again.', true);
+      })
+      .finally(function () {
+        renderRefreshBar();
+      });
+  });
+
+  /* ── Confirm all ─────────────────────────────────── */
+  document.getElementById('confirmAllBtn').addEventListener('click', function () {
+    var btn = this;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Confirming…';
+
+    api({ action: 'partnerConfirmAll' })
+      .then(function (d) {
+        if (!d || !d.success) {
+          showToast((d && d.error) || 'Could not confirm right now.', true);
+          return;
+        }
+        showToast('Confirmed. Your ' + (d.confirmed || state.items.length) + ' items are marked available.');
+        loadSummary();
+      })
+      .catch(function (err) {
+        showToast(err.message || 'Could not confirm right now.', true);
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      });
+  });
+
+  /* ── Item actions ────────────────────────────────── */
+  function confirmItem(id) {
+    var item = state.items.filter(function (i) { return i.itemId === id; })[0];
+    if (!item) return;
+    var btn = document.activeElement;
+    if (btn) { btn.disabled = true; }
+
+    api({ action: 'partnerConfirmAll', itemId: id })
+      .then(function (d) {
+        if (d && d.success) {
+          showToast('Confirmed. "' + (item.name || item.itemName) + '" is still here.');
+          loadSummary();
+        } else {
+          showToast((d && d.error) || 'Could not confirm.', true);
+        }
+      })
+      .catch(function (err) { showToast(err.message || 'Could not confirm.', true); });
+  }
+
+  function setStatus(id, status) {
+    var item = state.items.filter(function (i) { return i.itemId === id; })[0];
+    if (!item) return;
+
+    var confirmMsg = '';
+    if (status === 'Removed') {
+      confirmMsg = 'Remove "' + (item.name || item.itemName) + '" permanently? It will disappear from the marketplace.';
+    } else if (status === 'Unavailable') {
+      confirmMsg = 'Mark "' + (item.name || item.itemName) + '" unavailable? Buyers won\'t see it until you reactivate.';
+    }
+    if (confirmMsg && !window.confirm(confirmMsg)) return;
+
+    api({ action: 'partnerSetStatus', itemId: id, status: status })
+      .then(function (d) {
+        if (d && d.success) {
+          showToast('"' + (item.name || item.itemName) + '" marked ' + status.toLowerCase() + '.');
+          loadSummary();
+        } else {
+          showToast((d && d.error) || 'Could not update status.', true);
+        }
+      })
+      .catch(function (err) { showToast(err.message || 'Could not update status.', true); });
+  }
+
+  /* ── Fix modals ──────────────────────────────────── */
+  var modalBg = document.getElementById('modalBg');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalBody = document.getElementById('modalBody');
+  var modalConfirm = document.getElementById('modalConfirm');
+  var modalCancel = document.getElementById('modalCancel');
+  var modalClose = document.getElementById('modalClose');
+
+  function openModal(title, bodyHTML, onConfirm) {
+    modalTitle.textContent = title;
+    modalBody.innerHTML = bodyHTML;
+    modalBg.classList.add('open');
+    modalBg.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    modalConfirm.onclick = function () {
+      if (typeof onConfirm === 'function') onConfirm();
+    };
+  }
+  function closeModal() {
+    modalBg.classList.remove('open');
+    modalBg.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  modalCancel.addEventListener('click', closeModal);
+  modalClose.addEventListener('click', closeModal);
+  modalBg.addEventListener('click', function (e) { if (e.target === modalBg) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modalBg.classList.contains('open')) closeModal(); });
+
+  function openFixName(id) {
+    var item = state.items.filter(function (i) { return i.itemId === id; })[0];
+    if (!item) return;
+    openModal(
+      'Fix product name',
+      '<div class="pf-field"><label>Name</label><input type="text" id="fixNameInput" value="' + escapeHTML(item.name || item.itemName || '') + '"></div>'
+        + '<p style="font-size:12.5px;color:var(--stone-dark);margin-top:8px;line-height:1.5;">Write it as a buyer would search for it: brand, model, key detail. E.g. "Nike Air Max 90 White — UK9"</p>',
+      function () {
+        var v = document.getElementById('fixNameInput').value.trim();
+        if (!v) { showToast('Name can\'t be empty.', true); return; }
+        updateItem(id, { name: v }, 'Name updated.');
+      }
+    );
+    setTimeout(function () { document.getElementById('fixNameInput').focus(); }, 100);
+  }
+
+  function openFixPrice(id) {
+    var item = state.items.filter(function (i) { return i.itemId === id; })[0];
+    if (!item) return;
+    var currentPrice = priceNum(item.dpsPrice || item.price);
+    openModal(
+      'Confirm price',
+      '<div class="pf-field"><label>Price (₦)</label><input type="text" inputmode="numeric" id="fixPriceInput" value="' + formatPrice(currentPrice) + '"></div>'
+        + '<p style="font-size:12.5px;color:var(--stone-dark);margin-top:8px;line-height:1.5;">Dina flagged this price. Confirm it\'s correct, or update it here.</p>',
+      function () {
+        var raw = document.getElementById('fixPriceInput').value.replace(/[^0-9]/g, '');
+        var v = parseInt(raw, 10);
+        if (!v || v <= 0) { showToast('Please enter a valid price.', true); return; }
+        updateItem(id, { price: v }, 'Price confirmed.');
+      }
+    );
+    setTimeout(function () { document.getElementById('fixPriceInput').focus(); }, 100);
+  }
+
+  function openFixItem(id) {
+    var item = state.items.filter(function (i) { return i.itemId === id; })[0];
+    if (!item) return;
+    openModal(
+      'Edit item',
+      '<div class="pf-field"><label>Name</label><input type="text" id="fixNameInput" value="' + escapeHTML(item.name || item.itemName || '') + '"></div>'
+        + '<div class="pf-field" style="margin-top:12px;"><label>Price (₦)</label><input type="text" inputmode="numeric" id="fixPriceInput" value="' + formatPrice(priceNum(item.dpsPrice || item.price)) + '"></div>'
+        + '<div class="pf-field" style="margin-top:12px;"><label>Description</label><textarea id="fixDescInput" rows="3">' + escapeHTML(item.description || '') + '</textarea></div>',
+      function () {
+        var name = document.getElementById('fixNameInput').value.trim();
+        var priceRaw = document.getElementById('fixPriceInput').value.replace(/[^0-9]/g, '');
+        var price = parseInt(priceRaw, 10);
+        var desc = document.getElementById('fixDescInput').value.trim();
+        if (!name) { showToast('Name can\'t be empty.', true); return; }
+        if (!price || price <= 0) { showToast('Please enter a valid price.', true); return; }
+        updateItem(id, { name: name, price: price, description: desc }, 'Item updated.');
+      }
+    );
+  }
+
+  function updateItem(id, updates, successMsg) {
+    var payload = Object.assign({ action: 'partnerUpdateItem', itemId: id }, updates);
+    modalConfirm.disabled = true;
+    modalConfirm.innerHTML = '<span class="spin"></span> Saving…';
+
+    api(payload)
+      .then(function (d) {
+        if (!d || !d.success) {
+          showToast((d && d.error) || 'Could not save.', true);
+          return;
+        }
+        closeModal();
+        showToast(successMsg || 'Saved.');
+        loadSummary();
+      })
+      .catch(function (err) { showToast(err.message || 'Could not save.', true); })
+      .finally(function () {
+        modalConfirm.disabled = false;
+        modalConfirm.textContent = 'Save';
+      });
+  }
+
+  function openAnswerCheck(check) {
+    openModal(
+      'Answer availability check',
+      '<p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;line-height:1.55;">A buyer asked whether <b>' + escapeHTML(check.itemName || check.itemId || '') + '</b> is still available. Answer within 30 minutes to keep your response rate up.</p>'
+        + '<div style="display:flex;gap:8px;flex-direction:column;">'
+        +   '<button class="btn btn-primary" id="answerYesBtn" style="width:100%;">Yes, still available</button>'
+        +   '<button class="btn btn-outline" id="answerNoBtn" style="width:100%;">No, sold or gone</button>'
+        + '</div>',
+      function () { /* handled by individual buttons */ }
+    );
+    document.getElementById('modalFoot').style.display = 'none';
+
+    document.getElementById('answerYesBtn').addEventListener('click', function () {
+      answerCheck(check, 'Yes');
+    });
+    document.getElementById('answerNoBtn').addEventListener('click', function () {
+      answerCheck(check, 'No');
+    });
+  }
+
+  function answerCheck(check, answer) {
+    modalConfirm.disabled = true;
+    api({ action: 'partnerAnswerCheck', checkId: check.checkId, answer: answer, itemId: check.itemId })
+      .then(function (d) {
+        if (d && d.success) {
+          closeModal();
+          document.getElementById('modalFoot').style.display = 'flex';
+          showToast('Answered. The buyer has been notified.');
+          loadSummary();
+        } else {
+          showToast((d && d.error) || 'Could not answer.', true);
+        }
+      })
+      .catch(function (err) { showToast(err.message || 'Could not answer.', true); });
+  }
+
+  function showDinaErrorDetails(err) {
+    openModal(
+      'Dina can\'t read your Instagram',
+      '<p style="font-size:14px;line-height:1.6;color:var(--text-secondary);">' + escapeHTML(err) + '</p>'
+        + '<p style="font-size:13px;line-height:1.6;color:var(--stone-dark);margin-top:14px;">Most common causes:</p>'
+        + '<ul style="font-size:13px;line-height:1.7;color:var(--text-secondary);margin-left:18px;margin-top:6px;">'
+        +   '<li>Your Instagram is set to private</li>'
+        +   '<li>Your handle has changed and hasn\'t been updated here</li>'
+        +   '<li>Instagram is temporarily blocking automated reads</li>'
+        + '</ul>',
+      function () { closeModal(); }
+    );
+    modalCancel.style.display = 'none';
+    modalConfirm.textContent = 'Got it';
+    setTimeout(function () { modalCancel.style.display = ''; modalConfirm.textContent = 'Save'; }, 100);
+  }
+
+  /* ── Boot ────────────────────────────────────────── */
+  function boot() {
+    // Door A: URL token
+    var params = new URLSearchParams(window.location.search);
+    var urlToken = params.get('token') || params.get('pt');
+    if (urlToken) {
+      history.replaceState({}, '', window.location.pathname);
+      setToken(urlToken);
+      state.token = urlToken;
+      loadSummary();
+      return;
+    }
+
+    // Door B: saved token
+    var saved = getToken();
+    if (saved) {
+      state.token = saved;
+      loadSummary();
+      return;
+    }
+
+    showAuthScreen();
+  }
+
+  boot();
+
+  /* Update refresh button every minute */
+  setInterval(function () {
+    if (!dashScreen.hidden) renderRefreshBar();
+  }, 60000);
+})();
+</script>
+</body>
+</html>
