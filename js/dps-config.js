@@ -4,7 +4,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 /* Google Apps Script Web App URL (the /exec endpoint) */
-var DPS_MAIN_GAS_URL = "https://script.google.com/macros/s/AKfycbytVuCVBfH0J9ftAbxRaObcwK3_rSAW4BsI8UdShdzSgc-75KASC8P2PvPVTPWsL5cV/exec";
+var DPS_MAIN_GAS_URL = "https://script.google.com/macros/s/AKfycbzjqL8BExgVP0NYLBO0fBoDhiJfPK3d6BNm6vI3kqCw22O2J2-UynuEr6y0yutFfhvB/exec";
 
 /* Public site URL, no trailing slash */
 var DPS_SITE_URL = "https://declutterpawnshop.com";
