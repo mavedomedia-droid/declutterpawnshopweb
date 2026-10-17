@@ -453,9 +453,64 @@ body.sell-modal-locked { overflow: hidden; }
 .sell-modal-bg .price-wrap { position: relative; }
 .sell-modal-bg .price-sym { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--green-dark); pointer-events: none; }
 .sell-modal-bg .field .price-wrap input { padding-left: 36px; font-family: var(--font-heading); font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; }
-.sell-modal-bg .price-display-wrap { display: flex; justify-content: center; padding: 6px 0 0; }
-.sell-modal-bg .price-display { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; padding: 8px 18px; border-radius: 10px; border: 1.5px solid var(--ink); background: var(--white); display: none; }
-.sell-modal-bg .price-display.show { display: inline-block; }
+/* ── Price readout ──────────────────────────────────────────────────────
+   No box. A shadow lifts it off the form instead, and the figure is set in
+   tabular digits so the commas line up and it reads like a number, not a
+   sentence. */
+.sell-modal-bg .price-readout { display: none; margin-top: 11px; padding: 13px 16px; border-radius: 12px;
+  background: var(--white); text-align: center;
+  box-shadow: 0 8px 22px rgba(14,19,32,.11), 0 1px 3px rgba(14,19,32,.07);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums; font-weight: 700; font-size: 23px;
+  letter-spacing: .01em; color: var(--ink); }
+.sell-modal-bg .price-readout.show { display: block; }
+
+/* ── Tiny inline toggle ─────────────────────────────────────────────────
+   "Open to offers" is a footnote to the price, not a decision of its own,
+   so it sits under the field at a fraction of the size of a full switch. */
+.sell-modal-bg .mini-sw { display: inline-flex; align-items: center; gap: 7px; margin-top: 10px;
+  cursor: pointer; -webkit-user-select: none; user-select: none; }
+.sell-modal-bg .mini-sw input { position: absolute; opacity: 0; width: 0; height: 0; }
+.sell-modal-bg .mini-sw-ui { position: relative; width: 26px; height: 15px; border-radius: 999px;
+  background: #CFD6D3; transition: background .15s; flex-shrink: 0; }
+.sell-modal-bg .mini-sw-ui::after { content: ''; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px;
+  border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.22); transition: transform .15s; }
+.sell-modal-bg .mini-sw input:checked + .mini-sw-ui { background: var(--green); }
+.sell-modal-bg .mini-sw input:checked + .mini-sw-ui::after { transform: translateX(11px); }
+.sell-modal-bg .mini-sw input:focus-visible + .mini-sw-ui { outline: 2px solid var(--ink); outline-offset: 2px; }
+.sell-modal-bg .mini-sw-tx { font-size: 12px; font-weight: 600; color: var(--text-muted); transition: color .15s; }
+.sell-modal-bg .mini-sw input:checked ~ .mini-sw-tx { color: var(--ink); }
+
+/* ── Immediate pickup ───────────────────────────────────────────────────
+   This one does earn its own block: it is the urgency signal, and turning
+   it on is the single thing a seller can do to move an item faster. */
+.sell-modal-bg .urg { border: 1.5px solid var(--border); border-radius: 14px; padding: 13px 14px;
+  background: var(--off-white); transition: border-color .18s, background .18s; }
+.sell-modal-bg .urg.on { border-color: var(--green); background: #F2FBF5; }
+.sell-modal-bg .urg .swf { background: transparent; border: 0; padding: 0; }
+.sell-modal-bg .urg-sub { font-size: 12px; line-height: 1.5; color: var(--text-muted); margin: 8px 0 0 48px; }
+.sell-modal-bg .urg-more { display: none; margin-top: 13px; padding-top: 13px; border-top: 1px dashed var(--border); }
+.sell-modal-bg .urg.on .urg-more { display: block; }
+.sell-modal-bg .urg-nudge { display: none; margin-top: 11px; padding: 10px 12px; border-radius: 10px;
+  background: #FFF8E6; border: 1px solid #F0DFAE; font-size: 12px; line-height: 1.5; color: #7A5C14; }
+.sell-modal-bg .urg-nudge.show { display: block; }
+.sell-modal-bg .urg-nudge b { color: #5E460C; }
+/* ── What happens when the pickup window closes ─────────────────────────
+   The real purpose of this question is to stop dead stock sitting on the
+   site. A seller who knows the item will be gone picks "take it down", and
+   we never send a buyer after something that no longer exists. */
+.sell-modal-bg .urg-after { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 7px; }
+.sell-modal-bg .urg-after-opt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 10px 11px; background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 10px; text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
+.sell-modal-bg .urg-after-opt:hover { border-color: var(--text-muted); }
+.sell-modal-bg .urg-after-opt.sel { border-color: var(--green-dark); background: #F0FBF4; }
+.sell-modal-bg .urg-after-ttl { font-size: 12.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.sell-modal-bg .urg-after-opt.sel .urg-after-ttl { color: var(--green-dark); }
+.sell-modal-bg .urg-after-sub { font-size: 10.5px; font-weight: 500; color: var(--text-muted); line-height: 1.35; }
+.sell-modal-bg .urg-nudge button { display: inline-block; margin-top: 8px; padding: 5px 11px; cursor: pointer;
+  font-size: 11.5px; font-weight: 700; color: var(--ink); background: var(--white);
+  border: 1.5px solid var(--ink); border-radius: 8px; }
 .sell-modal-bg .divider { display: flex; align-items: center; gap: 12px; font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-top: 6px; }
 .sell-modal-bg .divider::before, .sell-modal-bg .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .sell-modal-bg .photo-drop-zone { border: 1.5px dashed var(--border-ink); border-radius: 12px; padding: 20px 16px; text-align: center; cursor: pointer; background: var(--off-white); transition: border-color .15s, background .15s; display: flex; flex-direction: column; align-items: center; gap: 6px; user-select: none; -webkit-user-select: none; }
@@ -1120,23 +1175,49 @@ body.sell-modal-locked { overflow: hidden; }
               <div class="field">
                 <label>Asking price (₦) <em>*</em></label>
                 <div class="price-wrap"><span class="price-sym">₦</span><input type="text" id="sm-li-price" placeholder="0" inputmode="numeric" autocomplete="off"></div>
-                <div class="price-display-wrap"><div class="price-display" id="sm-li-price-display"></div></div>
+                <div class="price-readout" id="sm-li-price-display"></div>
+                <label class="mini-sw">
+                  <input type="checkbox" id="sm-li-negotiable" checked>
+                  <span class="mini-sw-ui"></span>
+                  <span class="mini-sw-tx">Open to offers</span>
+                </label>
               </div>
-              <div class="field-row">
-                <label class="swf"><input type="checkbox" id="sm-li-negotiable" checked><span class="swf-ui"></span><span class="swf-tx">Open to offers</span></label>
-                <label class="swf"><input type="checkbox" id="sm-li-pickupnow"><span class="swf-ui"></span><span class="swf-tx">Ready for collection now</span></label>
+              <div class="field">
+                <div class="urg" id="sm-urg">
+                <label class="swf">
+                  <input type="checkbox" id="sm-li-pickupnow">
+                  <span class="swf-ui"></span>
+                  <span class="swf-tx">Immediate pickup</span>
+                </label>
+                <p class="urg-sub">Tells buyers you want this gone fast. These listings get shown first.</p>
+
+                <div class="urg-more" id="sm-pickup-dur-field">
+                  <label>Ready for how long?</label>
+                  <select id="sm-li-pickupdur">                    <option value="12">The next 12 hours</option>                    <option value="24" selected>The next 24 hours</option>                    <option value="48">The next 2 days</option>                    <option value="72">The next 3 days</option>
+                  </select>
+                  <div class="field-hint">Buyers watch this count down. Pick a window you can actually keep.</div>
+                  <label style="margin-top:14px;">And when that runs out?</label>
+                  <div class="urg-after">
+                    <button type="button" class="urg-after-opt sel" data-after="Keep listed">
+                      <span class="urg-after-ttl">Keep it listed</span>
+                      <span class="urg-after-sub">Buyers can ask if it&rsquo;s still available</span>
+                    </button>
+                    <button type="button" class="urg-after-opt" data-after="Take down">
+                      <span class="urg-after-ttl">Take it down</span>
+                      <span class="urg-after-sub">We delist it for you, no message needed</span>
+                    </button>
+                  </div>
+                  <input type="hidden" id="sm-li-pickupafter" value="Keep listed">
+                  <div class="field-hint">Choose &ldquo;take it down&rdquo; if the item genuinely will not
+                    be around. It keeps your name off a listing you cannot honour.</div>
+
+                  <div class="urg-nudge" id="sm-urg-nudge">
+                    <b>Leave offers on.</b> Buyers in a hurry almost always send an offer before they pay,
+                    and every offer is someone ready to move today.
+                    <button type="button" id="sm-urg-nudge-fix">Turn offers back on</button>
+                  </div>
+                </div>
               </div>
-              <div class="field" id="sm-pickup-dur-field" style="display:none;">
-                <label>How long will it stay ready?</label>
-                <select id="sm-li-pickupdur">
-                  <option value="2">The next 2 hours</option>
-                  <option value="6" selected>The next 6 hours</option>
-                  <option value="today">The rest of today</option>
-                  <option value="24">The next 24 hours</option>
-                  <option value="48">The next 2 days</option>
-                  <option value="72">The next 3 days</option>
-                </select>
-                <div class="field-hint">The badge counts down and disappears on its own. Your listing stays up either way.</div>
               </div>
               <div class="field">
                 <label>Preferred pickup time <em>*</em></label>
@@ -1446,7 +1527,13 @@ body.sell-modal-locked { overflow: hidden; }
      ═══════════════════════════════════════════════════════════ */
   var sellModalBg = document.getElementById("sellModalBg");
   var sm_itemState = { name:"", condition:"", location:"", description:"", pickup:"", price:0, photos:[] };
-  var sm_identity = { email:"", mode:"", name:"", phone:"", whatsapp:"", bank:"", acct:"", acctName:"", sellerType:"Individual", partnerId:"", businessName:"" };
+  var sm_identity = {
+    // acct/phone stay EMPTY for a returning seller: lookupEmail masks them,
+    // and anything left in here is posted back on submit. hasAcct/hasBank
+    // carry what the server holds, which is what the UI should branch on.
+    email:"", mode:"", name:"", phone:"", whatsapp:"", bank:"", acct:"", acctName:"",
+    hasAcct:false, hasBank:false, sellerType:"Individual", partnerId:"", businessName:""
+  };
   var sm_searchToken = 0;
 
   function openSellModal() {
@@ -1544,7 +1631,7 @@ body.sell-modal-locked { overflow: hidden; }
     var raw = this.value.replace(/[^0-9]/g, "");
     this.value = raw;
     var el = document.getElementById("sm-li-price-display");
-    if (raw) { el.textContent = "₦" + parseInt(raw, 10).toLocaleString("en-NG"); el.classList.add("show"); }
+    if (raw) { el.textContent = "\u20A6" + parseInt(raw, 10).toLocaleString("en-NG"); el.classList.add("show"); }
     else { el.classList.remove("show"); }
   });
 
@@ -1566,9 +1653,43 @@ body.sell-modal-locked { overflow: hidden; }
     wrap.style.display = list.length ? "flex" : "none";
   });
 
-  document.getElementById("sm-li-pickupnow").addEventListener("change", function () {
-    document.getElementById("sm-pickup-dur-field").style.display = this.checked ? "flex" : "none";
-  });
+/* ─── What happens when the pickup window closes ─────────────────── */
+  (function () {
+    var hidden = document.getElementById("sm-li-pickupafter");
+    var card   = document.getElementById("sm-urg");
+    if (!hidden || !card) return;
+    var opts = card.querySelectorAll(".urg-after-opt");
+    Array.prototype.forEach.call(opts, function (b) {
+      b.addEventListener("click", function () {
+        Array.prototype.forEach.call(opts, function (o) { o.classList.remove("sel"); });
+        b.classList.add("sel");
+        hidden.value = b.getAttribute("data-after");
+      });
+    });
+  })();
+
+/* ─── Immediate pickup: urgency, and the offers nudge ───────────────
+     Turning on immediate pickup says "I want this gone". Offers are how a
+     buyer in a hurry opens the conversation, so switching them off at the
+     same moment works against the seller. The nudge only appears when both
+     are true, and it offers the fix rather than just complaining. */
+  (function () {
+    var pick = document.getElementById("sm-li-pickupnow");
+    var neg  = document.getElementById("sm-li-negotiable");
+    var card = document.getElementById("sm-urg");
+    var nudge = document.getElementById("sm-urg-nudge");
+    var fix  = document.getElementById("sm-urg-nudge-fix");
+    if (!pick || !neg || !card) return;
+
+    function sync() {
+      card.classList.toggle("on", pick.checked);
+      if (nudge) nudge.classList.toggle("show", pick.checked && !neg.checked);
+    }
+    pick.addEventListener("change", sync);
+    neg.addEventListener("change", sync);
+    if (fix) fix.addEventListener("click", function () { neg.checked = true; sync(); });
+    sync();
+  })();
 
   (function () {
     var b = document.getElementById("sm-more-btn");
@@ -1592,7 +1713,10 @@ body.sell-modal-locked { overflow: hidden; }
       negotiable: document.getElementById("sm-li-negotiable").checked ? "Yes" : "No",
       // The hours go to the server, which stamps the expiry in Lagos time.
       // Computing it here would trust the visitor's clock.
-      pickupHours: pickOn ? document.getElementById("sm-li-pickupdur").value : ""
+      pickupHours: pickOn ? document.getElementById("sm-li-pickupdur").value : "",
+      // What happens when that window closes: stay up for availability
+      // questions, or come down automatically.
+      pickupAfter: pickOn ? document.getElementById("sm-li-pickupafter").value : ""
     };
   }
 
@@ -1695,15 +1819,23 @@ body.sell-modal-locked { overflow: hidden; }
     document.getElementById("sm-locked-mask-phone").textContent = sm_maskPhone(user.phone);
     document.getElementById("sm-locked-mask-bank").textContent = user.bank || "— no bank on file —";
     document.getElementById("sm-locked-mask-bank").style.color = user.bank ? "var(--white)" : "var(--stone)";
-    document.getElementById("sm-locked-mask-acct").textContent = user.acct ? sm_maskAcct(user.acct) : "—";
+    // user.acct arrives already masked. Masking it again mangles it.
+    document.getElementById("sm-locked-mask-acct").textContent = user.acct || "—";
     sm_identity.email = email;
     sm_identity.mode = "returning";
     sm_identity.name = user.name || "";
-    sm_identity.phone = user.phone || "";
-    sm_identity.whatsapp = user.whatsapp || user.phone || "";
+    sm_identity.phone = "";                       // masked by lookupEmail, see above
+    sm_identity.whatsapp = user.whatsapp || "";   // never masked: it is the public number
     sm_identity.bank = user.bank || "";
-    sm_identity.acct = user.acct || "";
+    // NEVER store user.acct or user.phone: lookupEmail masks both, and
+    // whatever lands in sm_identity is posted back on submit. Storing the mask is
+    // how "****9999" ended up overwriting real account numbers. Blank here
+    // means "we already have it", which the server reads as leave it alone.
+    sm_identity.acct = "";
     sm_identity.acctName = user.acctName || user.name || "";
+    // What the server actually holds, so nothing has to infer it from a mask.
+    sm_identity.hasAcct = !!user.hasAcct;
+    sm_identity.hasBank = user.hasBank !== undefined ? !!user.hasBank : !!user.bank;
     sm_identity.sellerType = user.sellerType || "Individual";
     sm_identity.partnerId = user.partnerId || "";
     sm_identity.businessName = user.businessName || "";
@@ -1711,7 +1843,12 @@ body.sell-modal-locked { overflow: hidden; }
     panel.classList.remove("is-found");
     void panel.offsetWidth;
     panel.classList.add("is-found");
-    document.getElementById("sm-add-bank-block").style.display = (user.bank && user.acct) ? "none" : "flex";
+    // Ask for bank details unless the server says it really has them.
+    // This used to test `user.acct`, which is a string of asterisks and so
+    // always truthy - a seller whose number had been overwritten by a mask
+    // was shown "we have your details" with no way to re-enter them.
+    var _hasPayout = !!sm_identity.hasBank && !!sm_identity.hasAcct;
+    document.getElementById("sm-add-bank-block").style.display = _hasPayout ? "none" : "flex";
   }
   function sm_renderNotFound(email) {
     var panel = document.getElementById("sm-search-panel");
@@ -1719,6 +1856,7 @@ body.sell-modal-locked { overflow: hidden; }
     sm_identity.mode = "new";
     sm_identity.name = ""; sm_identity.phone = ""; sm_identity.whatsapp = "";
     sm_identity.bank = ""; sm_identity.acct = ""; sm_identity.acctName = "";
+    sm_identity.hasAcct = false; sm_identity.hasBank = false;
     sm_identity.sellerType = "Individual"; sm_identity.partnerId = ""; sm_identity.businessName = "";
     panel.classList.remove("is-searching");
     panel.classList.remove("is-notfound");
@@ -1766,7 +1904,7 @@ body.sell-modal-locked { overflow: hidden; }
   });
   document.getElementById("sm-locked-proceed").addEventListener("click", function () {
     sm_clearDetailsError();
-    if (!sm_identity.bank || !sm_identity.acct) {
+    if (!sm_identity.hasAcct && (!sm_identity.bank || !sm_identity.acct)) {
       var bBank = document.getElementById("sm-ab-bank").value.trim();
       var bAcct = document.getElementById("sm-ab-acct").value.trim();
       var bName = document.getElementById("sm-ab-acct-name").value.trim();
