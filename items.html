@@ -435,13 +435,48 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-defects-text { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
 
 /* ═══ Availability (parked) ═══ */
-.mc-avail { width: 100%; margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+/* Offer and availability sit side by side: they are the two things to do
+   when you are not ready to pay yet, and stacking them buried the second. */
+.mc-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
+  position: relative; z-index: 1; }
+.mc-secondary .mc-negotiate-btn { margin-top: 0; }
+
+.mc-avail { width: 100%; padding: 11px 10px; border-radius: 10px;
   background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.16); color: var(--white);
   font-family: var(--font-body); font-weight: 700; font-size: 12.5px; display: flex;
-  align-items: center; justify-content: center; gap: 7px; position: relative; z-index: 1; line-height: 1; }
-.mc-avail:hover { border-color: rgba(0,200,83,.5); }
-.mc-avail .soon { font-size: 8.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
-  background: var(--green); color: var(--ink); padding: 3px 6px; border-radius: 4px; }
+  flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  line-height: 1.15; transition: border-color .15s, background .15s; }
+.mc-avail:hover { border-color: rgba(0,200,83,.5); background: rgba(0,200,83,.08); }
+.mc-avail-sub { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  opacity: .6; }
+
+/* The ask panel. Same shape as the Paystack one so it reads as the same
+   kind of step, not a different product. */
+.mc-ask { display: none; flex-direction: column; gap: 9px; margin-top: 12px; padding: 13px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px; position: relative; z-index: 1; }
+.mc-ask.open { display: flex; }
+.mc-ask-lbl { font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); }
+.mc-ask input { height: 44px; padding: 0 13px; background: rgba(255,255,255,.08);
+  border: 1.5px solid rgba(255,255,255,.18); border-radius: 10px; font-size: 16px;
+  color: var(--white); outline: none; width: 100%; }
+.mc-ask input:focus { border-color: var(--green); }
+.mc-ask input::placeholder { color: rgba(255,255,255,.35); }
+.mc-ask-hint { font-size: 11px; line-height: 1.5; color: rgba(255,255,255,.5); }
+.mc-ask-hint b { color: var(--green); font-weight: 700; }
+.mc-ask-err { font-size: 12px; font-weight: 600; color: #FF6B6B; display: none; }
+.mc-ask-err.show { display: block; }
+.mc-ask-go { width: 100%; height: 44px; border-radius: 10px; background: var(--green);
+  color: var(--ink); font-weight: 700; font-size: 13.5px; }
+.mc-ask-go:disabled { opacity: .55; }
+.mc-ask-cancel { font-size: 12px; color: rgba(255,255,255,.45); padding: 4px; text-align: center; }
+
+/* The freshness line. "Listed 9 days ago" told a buyer the item was stale
+   without telling them whether it was gone; this answers the real question. */
+.mc-confirmed { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px;
+  font-weight: 700; color: var(--green); }
+.mc-confirmed.stale { color: rgba(255,255,255,.45); font-weight: 600; }
 
 /* ═══ Interested: a tap on the photo, email offered after ═══ */
 .gal-like { position: absolute; bottom: 12px; left: 18px; z-index: 5;
@@ -505,6 +540,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-panel input:focus { border-color: var(--ink); }
 .mc-panel input:disabled { background: #EFF2F1; color: var(--text-secondary); cursor: not-allowed; }
 .mc-panel-hint { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: -4px; }
+/* How the buyer wants to receive it. Asked here because checkout is the
+   only moment we know they are serious, and the answer decides whether we
+   need to arrange a rider. Two taps max: this is the worst possible place
+   to add friction, so it never blocks payment. */
+.mc-logi { display: flex; flex-direction: column; gap: 7px; }
+.mc-logi-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.mc-logi-opt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 10px 11px; background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 10px; text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
+.mc-logi-opt:hover { border-color: var(--text-muted); }
+.mc-logi-opt.sel { border-color: var(--green-dark); background: #F0FBF4; }
+.mc-logi-ttl { font-size: 12.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.mc-logi-sub { font-size: 10.5px; font-weight: 500; color: var(--text-muted); line-height: 1.35; }
+.mc-logi-opt.sel .mc-logi-ttl { color: var(--green-dark); }
 .mc-panel-err { font-size: 12px; color: #DC2626; display: none; font-weight: 600; }
 .mc-panel-err.show { display: block; }
 .mc-panel-cancel { font-size: 12px; color: var(--text-muted); padding: 6px; text-align: center; transition: color .15s; }
@@ -791,6 +840,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
               <div class="mc-quick-hint">Tap + or − to set your offer</div>
             </div>
 
+            <div class="mc-secondary">
             <button class="mc-negotiate-btn" id="mcNegotiate" type="button">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
               Negotiate
@@ -798,8 +848,23 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
             </button>
 
             <button class="mc-avail" id="mcAvail" type="button">
-              Check it&#39;s still available <span class="soon">Soon</span>
+              Still here?
+              <span class="mc-avail-sub">Free</span>
             </button>
+
+            </div>
+
+            <div class="mc-ask" id="mcAsk">
+              <span class="mc-ask-lbl">Where should we send the answer?</span>
+              <input id="mcAskEmail" type="email" placeholder="you@example.com" autocomplete="email">
+              <div class="mc-ask-err" id="mcAskErr"></div>
+              <div class="mc-ask-hint" id="mcAskHint">
+                We ask the vendor now and email you the moment they reply.
+                <b><span id="mcAskLeft">5</span> checks left</b> this week.
+              </div>
+              <button class="mc-ask-go" id="mcAskGo" type="button">Ask the vendor</button>
+              <div class="mc-ask-cancel" id="mcAskCancel">Cancel</div>
+            </div>
           </div>
         </div>
 
@@ -884,6 +949,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </button>
 
       <div class="mc-panel" id="mcPanel">
+        <div class="mc-logi">
+          <span class="mc-panel-lbl">How do you want to get it?</span>
+          <div class="mc-logi-opts">
+            <button class="mc-logi-opt" id="mcLogiSelf" type="button" data-logi="Self pickup">
+              <span class="mc-logi-ttl">I&rsquo;ll collect it</span>
+              <span class="mc-logi-sub">Meet the seller</span>
+            </button>
+            <button class="mc-logi-opt" id="mcLogiDeliver" type="button" data-logi="Wants delivery">
+              <span class="mc-logi-ttl">Deliver to me</span>
+              <span class="mc-logi-sub">We quote the rider</span>
+            </button>
+          </div>
+        </div>
+
         <span class="mc-panel-lbl">Enter your email to continue</span>
         <input id="mcEmail" type="email" placeholder="you@example.com" autocomplete="email">
         <div class="mc-panel-hint" id="mcEmailHint" style="display:none;">This is the email on your offer — your exclusive price will apply.</div>
@@ -1218,6 +1297,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   function restoreBuyerDefaults() {
     // "Default" means this item's default. A fixed-price item must not get
     // its Negotiate button back just because there is no accepted offer.
+    closeAsk();
     var neg = !currentItem || isNegotiable(currentItem);
     var negotiateBtn = document.getElementById("mcNegotiate");
     if (negotiateBtn) negotiateBtn.style.display = neg ? "" : "none";
@@ -1301,7 +1381,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (ms <= 0) return null;
     var mins = Math.round(ms / 60000);
     if (mins < 60) return mins <= 1 ? "Pickup now" : "Pickup within " + mins + "m";
-    return "Pickup within " + Math.floor(mins / 60) + "h";
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return "Pickup within " + hrs + "h";
+    // A 3-day window reads as "72h" otherwise.
+    var days = Math.round(hrs / 24);
+    return "Pickup within " + days + (days === 1 ? " day" : " days");
   }
 
   function isNegotiable(it) {
@@ -1338,6 +1422,32 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var days = Math.round(hrs / 24);
     return days === 1 ? "yesterday" : days + " days ago";
   }
+  /**
+   * What the modal says about how current this listing is.
+   * A vendor confirmation answers the question a buyer is actually asking;
+   * a listing date only tells them the item is old. Falls back to the
+   * listing date when nobody has confirmed it yet.
+   */
+  function confirmedText(it) {
+    var t = submittedMs(it && it["Last Confirmed At"]);
+    if (isNaN(t)) return { text: listedText(it), stale: true };
+    var mins = Math.max(0, Math.round((Date.now() - t) / 60000));
+    var when;
+    if (mins < 60) when = mins <= 1 ? "just now" : mins + " minutes ago";
+    else {
+      var hrs = Math.round(mins / 60);
+      if (hrs < 24) when = hrs + (hrs === 1 ? " hour ago" : " hours ago");
+      else {
+        var days = Math.floor(hrs / 24);
+        when = days === 1 ? "yesterday" : days + " days ago";
+      }
+    }
+    // Past a week a confirmation is no longer reassuring, so it stops
+    // being presented as one.
+    var old = (Date.now() - t) > 7 * 24 * 3600 * 1000;
+    return { text: (old ? "Last confirmed " : "Vendor confirmed available ") + when, stale: old };
+  }
+
   function listedText(it) {
     var t = submittedMs(it["Submission Time"]);
     if (isNaN(t)) return "";
@@ -1799,7 +1909,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("mcTitle").textContent = it["Item Name"] || "";
     document.getElementById("mcId").textContent = it["Item ID"] || "";
     document.getElementById("mcIdChip").classList.remove("copied");
-    document.getElementById("mcListed").textContent = listedText(it);
+    var conf = confirmedText(it);
+    var listedEl = document.getElementById("mcListed");
+    listedEl.textContent = conf.text;
+    listedEl.classList.toggle("mc-confirmed", !conf.stale);
+    listedEl.classList.toggle("stale", conf.stale);
     renderTags(it);
 
     // Declared defects get their own block. Burying a known flaw in the
@@ -1996,7 +2110,30 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   /* PAYSTACK PANEL */
+  // "" until the buyer picks. Never defaulted: a pre-selected answer would
+  // read back as real demand data and send riders to people who never asked.
+  var LOGISTICS = "";
+
+  function setLogistics(val) {
+    LOGISTICS = val;
+    ["mcLogiSelf", "mcLogiDeliver"].forEach(function (id) {
+      var b = document.getElementById(id);
+      if (b) b.classList.toggle("sel", b.getAttribute("data-logi") === val);
+    });
+    log("logistics:", val || "(none)");
+  }
+
+  ["mcLogiSelf", "mcLogiDeliver"].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (!b) return;
+    b.addEventListener("click", function () {
+      // Tapping the chosen one again clears it, so a mis-tap is undoable.
+      setLogistics(LOGISTICS === this.getAttribute("data-logi") ? "" : this.getAttribute("data-logi"));
+    });
+  });
+
   function openPaystackPanel() {
+    setLogistics("");
     var panel = document.getElementById("mcPanel");
     var emailEl = document.getElementById("mcEmail");
     var hintEl = document.getElementById("mcEmailHint");
@@ -2046,7 +2183,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     btn.textContent = "Connecting to Paystack…";
 
     var itemId = currentItem ? currentItem["Item ID"] : "";
-    dlPush("begin_checkout", { item_id: itemId });
+    dlPush("begin_checkout", { item_id: itemId, logistics: LOGISTICS || "not specified" });
 
     if (!GAS || IS_DEMO) {
       btn.disabled = false;
@@ -2064,6 +2201,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         itemId: itemId,
         itemName: currentItem ? currentItem["Item Name"] : "",
         buyerEmail: email,
+        logistics: LOGISTICS,
         callbackUrl: SITE_URL + "/payment-success"
       })
     })
@@ -2375,12 +2513,107 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   })();
 
-  // ── Availability, parked ──
+  /* ── "Still here?" ────────────────────────────────────────────────────
+     Free, because charging to ask a question is a hard sell and the volume
+     is the point: every ask is a prompt that keeps a vendor's inventory
+     honest. Capped at a few a week so it stays a signal rather than a way
+     to pester vendors, and the cap is what earns us the email. */
+  var ASK_EMAIL_KEY = "dps_ask_email";
+  var asking = false;
+
+  function askEmailStored() {
+    try { return localStorage.getItem(ASK_EMAIL_KEY) || ""; } catch (e) { return ""; }
+  }
+
+  function refreshChecksLeft(email) {
+    var el = document.getElementById("mcAskLeft");
+    if (!el || !GAS || IS_DEMO) return;
+    fetch(GAS + "?action=checksLeft&email=" + encodeURIComponent(email || ""))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && typeof d.left === "number") el.textContent = d.left; })
+      .catch(function () {});
+  }
+
+  function openAsk() {
+    var panel = document.getElementById("mcAsk");
+    var input = document.getElementById("mcAskEmail");
+    if (!panel || !input) return;
+    document.getElementById("mcAskErr").classList.remove("show");
+    input.value = askEmailStored();
+    panel.classList.add("open");
+    refreshChecksLeft(input.value);
+    setTimeout(function () { if (!input.value) input.focus(); }, 90);
+  }
+
+  function closeAsk() {
+    var p = document.getElementById("mcAsk");
+    if (p) p.classList.remove("open");
+  }
+
   (function wireAvail() {
     var b = document.getElementById("mcAvail");
-    if (!b) return;
-    b.addEventListener("click", function () {
-      showToast("<b>Check it&#39;s still available</b> is coming soon. You will pay 10% to ask the vendor whether the item is still there, and only balance the rest if they say yes.");
+    if (b) b.addEventListener("click", openAsk);
+
+    var c = document.getElementById("mcAskCancel");
+    if (c) c.addEventListener("click", closeAsk);
+
+    var go = document.getElementById("mcAskGo");
+    if (!go) return;
+
+    go.addEventListener("click", function () {
+      if (asking) return;
+      var input = document.getElementById("mcAskEmail");
+      var err = document.getElementById("mcAskErr");
+      var email = (input.value || "").trim().toLowerCase();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.textContent = "Please enter a valid email address.";
+        err.classList.add("show");
+        return;
+      }
+      err.classList.remove("show");
+      try { localStorage.setItem(ASK_EMAIL_KEY, email); } catch (e) {}
+
+      var itemId = currentItem ? currentItem["Item ID"] : "";
+      if (!itemId) return;
+
+      if (!GAS || IS_DEMO) {
+        err.textContent = "Demo mode: no live endpoint.";
+        err.classList.add("show");
+        return;
+      }
+
+      asking = true;
+      go.disabled = true;
+      go.textContent = "Asking the vendor…";
+      dlPush("check_availability", { item_id: itemId });
+
+      fetch(GAS, { method: "POST", body: JSON.stringify({
+        action: "checkAvailability", itemId: itemId, email: email
+      }) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          asking = false;
+          go.disabled = false;
+          go.textContent = "Ask the vendor";
+          if (d && d.success) {
+            closeAsk();
+            var el = document.getElementById("mcAskLeft");
+            if (el && typeof d.left === "number") el.textContent = d.left;
+            showToast("<b>Asked.</b> We will email you the moment the vendor replies." +
+                      (typeof d.left === "number" ? " You have " + d.left + " left this week." : ""));
+            return;
+          }
+          err.textContent = (d && d.error) ? d.error : "Could not send that. Please try again.";
+          err.classList.add("show");
+        })
+        .catch(function () {
+          asking = false;
+          go.disabled = false;
+          go.textContent = "Ask the vendor";
+          err.textContent = "Connection error. Please try again.";
+          err.classList.add("show");
+        });
     });
   })();
 
