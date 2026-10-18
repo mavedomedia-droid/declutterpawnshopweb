@@ -604,7 +604,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <div class="auth-field">
           <label for="authAcct">Account number on file</label>
           <input type="text" id="authAcct" placeholder="10-digit account number" maxlength="10" inputmode="numeric" autocomplete="off">
-          <div class="hint">We only ever show the last 4 digits. Type the full number to prove it's you.</div>
+          <div class="hint">We never show your account number back to you. Type it in full to prove it&rsquo;s you.</div>
         </div>
         <button class="btn btn-primary auth-submit" id="authVerify" type="button">Sign in →</button>
       </div>
@@ -640,7 +640,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     </div>
 
     <!-- Confirm all -->
-    <div class="dash-action">
+    <div class="dash-action" id="confirmBar">
       <div class="dash-action-text">
         <div class="dash-action-title" id="confirmTitle">Confirm your live items are still available</div>
         <div class="dash-action-sub" id="confirmSub">Last confirmed —</div>
@@ -1090,6 +1090,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var btn = document.getElementById('confirmAllBtn');
     btn.textContent = 'Confirm all ' + liveCount + ' still available';
     btn.disabled = liveCount === 0;
+    // With nothing live there is nothing to confirm, and "Confirm your 0
+    // live items" next to a dead button is just noise on the page.
+    document.getElementById('confirmBar').hidden = liveCount === 0;
   }
 
   function renderNeeds() {
