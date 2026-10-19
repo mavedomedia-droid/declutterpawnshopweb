@@ -1,276 +1,596 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Payout Confirmed — DPS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payout confirmed, Declutter Pawn Shop</title>
+<meta name="description" content="Your payout has been released from escrow and is on its way to your bank.">
 <meta name="robots" content="noindex">
-<link rel="icon" href="/images/dps-logo.png">
+<meta name="theme-color" content="#0E1320">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --green:#00C853;--green2:#00A843;
-  --green-bg:rgba(0,200,83,0.07);--green-border:rgba(0,200,83,0.18);
-  --dark:#0D0D0D;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
-  --grey:#777;--muted:#444;--white:#F9F8F5;
+:root {
+  --green: #00C853; --green-dark: #00A843; --green-deep: #009933;
+  --ink: #0E1320; --ink-2: #161C2B; --ink-3: #1E2536; --ink-4: #2A3248;
+  --off-white: #F5F7F8; --white: #FFFFFF;
+  --stone: #A7B0AA; --stone-light: #C6CFC9; --stone-dark: #5B635D;
+  --mint: #C8F0D8; --mint-soft: #E9F5EE;
+  --border: #E1E5E4; --border-ink: #D6DCE0; --border-dark: #242C3E;
+  --text-primary: var(--ink);
+  --text-secondary: #4F5860;
+  --text-muted: #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --r-card: 16px; --r-button: 12px; --r-pill: 999px;
 }
-html,body{height:100%}
-body{
-  background:var(--dark);
-  color:var(--white);
-  font-family:'DM Sans',sans-serif;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:80px 20px 40px;
-  overflow-x:hidden;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body); background: var(--off-white); color: var(--text-primary);
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; min-height: 100vh;
+}
+h1,h2,h3,h4,h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { display: block; max-width: 100%; height: auto; }
+.wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+/* ─── Nav CSS (shared partials script injects the markup) ─── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.nav-logo img { height: 34px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--white); }
+.nav-cta { display: none; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 10px 20px; font-size: 13.5px; } }
+.nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
+@media (min-width: 900px) { .nav-mobile-cta { display: none; } }
+
+/* ─── Footer CSS (shared partials script injects the markup) ─── */
+footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28px; border-top: 1px solid var(--border-dark); }
+.foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+@media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; } }
+.foot-brand img { height: 34px; width: auto; margin-bottom: 14px; opacity: .95; }
+.foot-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; color: var(--stone-light); }
+.foot-col h4 { font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+.foot-col a { display: block; font-size: 13.5px; color: var(--stone-light); padding: 5px 0; transition: color .15s; }
+.foot-col a:hover { color: var(--green); }
+.foot-bottom { padding-top: 28px; border-top: 1px solid var(--border-dark); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+.foot-social { display: flex; gap: 10px; }
+.foot-social a { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.05); transition: background .15s; }
+.foot-social a:hover { background: rgba(0,200,83,.15); }
+.foot-social svg { width: 15px; height: 15px; color: var(--stone-light); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: var(--r-button); transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s; cursor: pointer; white-space: nowrap; letter-spacing: -0.005em; }
+.btn-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
+.btn-outline-light { background: transparent; color: var(--off-white); border: 1.5px solid rgba(245,247,248,.22); }
+.btn-outline-light:hover { border-color: var(--off-white); background: rgba(255,255,255,.05); }
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════════ */
+.ty-hero {
+  background: var(--ink);
+  color: var(--off-white);
+  padding: 104px 0 56px;
+  position: relative; overflow: hidden;
+}
+.ty-hero::before {
+  content: '';
+  position: absolute; top: -40%; right: -15%;
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 65%);
+  pointer-events: none;
+}
+.ty-hero-wrap { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+@media (min-width: 768px) { .ty-hero-wrap { max-width: 720px; } }
+
+.ty-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green);
+  padding: 6px 14px 6px 6px;
+  background: rgba(0,200,83,.08);
+  border: 1px solid rgba(0,200,83,.28);
+  border-radius: var(--r-pill);
+}
+.ty-check-inline {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(0,200,83,.16);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green);
+}
+.ty-check-inline svg { width: 12px; height: 12px; }
+
+.ty-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 5.6vw, 48px);
+  color: var(--white);
+  letter-spacing: -0.038em;
+  line-height: 1.02;
+  font-weight: 800;
+  margin-top: 18px;
+}
+.ty-title .accent { color: var(--green); }
+.ty-sub {
+  color: var(--stone-light);
+  font-size: 15.5px; line-height: 1.55;
+  margin-top: 12px;
+  max-width: 46ch;
 }
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,13,13,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);height:56px;padding:0 20px;display:flex;align-items:center;}
-
-/* BACKGROUND GLOW */
-.bg-glow{
-  position:fixed;top:0;left:50%;transform:translateX(-50%);
-  width:600px;height:400px;
-  background:radial-gradient(ellipse at 50% 0%, rgba(0,200,83,0.12) 0%, transparent 70%);
-  pointer-events:none;
-  animation:glowPulse 4s ease-in-out infinite;
+/* ─── Item showcase card ─── */
+.showcase {
+  margin-top: 28px;
+  background: var(--ink-2);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
 }
-@keyframes glowPulse{0%,100%{opacity:.7}50%{opacity:1}}
-
-/* WRAP */
-.wrap{
-  width:100%;
-  max-width:400px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:0;
-  opacity:0;
-  animation:pageIn .5s .1s ease forwards;
-}
-@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-/* AMOUNT HERO */
-.amount-hero{
-  text-align:center;
-  margin-bottom:32px;
-}
-.amount-label{
-  font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--green);margin-bottom:10px;
-  opacity:0;animation:fadeUp .4s .3s ease forwards;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-.amount-val{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(56px,14vw,80px);
-  letter-spacing:2px;
-  color:var(--white);
-  line-height:1;
-  opacity:0;
-  animation:fadeUp .4s .4s ease forwards;
-}
-.amount-val .sym{color:var(--green);font-size:.65em;}
-.amount-sub{
-  font-size:12px;color:var(--muted);margin-top:6px;
-  opacity:0;animation:fadeUp .4s .5s ease forwards;
+.showcase::before {
+  content: '';
+  position: absolute; top: -40%; right: -30%;
+  width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 70%);
+  pointer-events: none;
 }
 
-/* DIVIDER */
-.divider{
-  width:100%;height:1px;
-  background:linear-gradient(90deg, transparent, var(--dark4), transparent);
-  margin:4px 0 28px;
-  opacity:0;animation:fadeUp .4s .55s ease forwards;
+.showcase-top {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  position: relative; z-index: 1;
+}
+@media (min-width: 520px) {
+  .showcase-top {
+    grid-template-columns: 148px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+  }
 }
 
-/* DETAIL BLOCK */
-.detail-block{
-  width:100%;
-  background:var(--dark2);
-  border:1px solid var(--dark4);
-  border-radius:12px;
-  overflow:hidden;
-  margin-bottom:28px;
-  opacity:0;animation:fadeUp .4s .6s ease forwards;
+.showcase-img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ink-3);
+  border: 1px solid var(--border-dark);
+  position: relative;
 }
-.detail-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:13px 18px;
+@media (min-width: 520px) {
+  .showcase-img { aspect-ratio: 4/3; }
 }
-.detail-row:not(:last-child){border-bottom:1px solid var(--dark4);}
-.dl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
-.dv{font-size:13px;font-weight:600;color:var(--white);text-align:right;max-width:60%;}
-.dv.mono{font-family:'DM Mono',monospace;font-size:12px;color:var(--grey);}
+.showcase-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.showcase-img-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone);
+}
+.showcase-img-placeholder svg { width: 32px; height: 32px; }
 
-/* TIMELINE */
-.timeline{
-  width:100%;
-  margin-bottom:28px;
-  opacity:0;animation:fadeUp .4s .65s ease forwards;
+.showcase-info { min-width: 0; }
+.showcase-meta {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
-.tl-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-.tl-steps{display:flex;flex-direction:column;gap:0;}
-.tl-step{display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative;}
-.tl-step:not(:last-child)::after{
-  content:'';position:absolute;left:10px;top:32px;
-  width:1px;height:calc(100% - 12px);
-  background:var(--dark4);
+.showcase-id {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--green);
+  padding: 4px 9px;
+  background: rgba(0,200,83,.10);
+  border: 1px solid rgba(0,200,83,.3);
+  border-radius: 6px;
+  letter-spacing: 0.06em;
 }
-.tl-dot{
-  width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:1px;
-  display:flex;align-items:center;justify-content:center;font-size:10px;
-  position:relative;z-index:1;
+.showcase-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600;
+  color: var(--stone-light);
+  padding: 4px 10px 4px 8px;
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  letter-spacing: 0.02em;
 }
-.tl-dot.done{background:var(--green);color:var(--dark);}
-.tl-dot.pending{background:var(--dark3);border:1px solid var(--dark5);color:var(--muted);}
-.tl-text{}
-.tl-title{font-size:12px;font-weight:600;color:var(--white);}
-.tl-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.showcase-status .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+@keyframes pulseSoft { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
 
-/* ACTIONS */
-.actions{
-  width:100%;display:flex;flex-direction:column;gap:8px;
-  opacity:0;animation:fadeUp .4s .7s ease forwards;
+.showcase-name {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 18px; line-height: 1.25;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.btn{
-  width:100%;background:var(--green);color:var(--dark);
-  font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;
-  padding:14px;border-radius:8px;text-decoration:none;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:background .2s;
+.showcase-price {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 24px; color: var(--white);
+  letter-spacing: -0.03em;
+  margin-top: 8px;
+  display: flex; align-items: baseline; gap: 2px;
 }
-.btn:hover{background:var(--green2);}
-.btn-ghost{
-  width:100%;background:none;border:1px solid var(--dark4);color:var(--grey);
-  font-family:'DM Sans',sans-serif;font-size:13px;padding:12px;border-radius:8px;
-  text-decoration:none;display:flex;align-items:center;justify-content:center;
-  transition:border-color .2s,color .2s;
+.showcase-price .sym { color: var(--green); font-size: 0.66em; }
+.showcase-seller {
+  font-size: 12.5px; color: var(--stone-light);
+  margin-top: 6px;
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
 }
-.btn-ghost:hover{border-color:var(--grey);color:var(--white);}
+.showcase-seller .sep { color: var(--border-dark); }
+.showcase-seller strong { color: var(--white); font-weight: 600; }
 
-/* FOOTER NOTE */
-.foot-note{
-  font-size:10px;color:var(--muted);text-align:center;margin-top:24px;line-height:1.6;
-  opacity:0;animation:fadeUp .4s .75s ease forwards;
+/* PIN / receipt row */
+.showcase-pin {
+  padding: 16px 18px 18px;
+  border-top: 1px solid var(--border-dark);
+  background: rgba(255,255,255,.015);
+  position: relative; z-index: 1;
+}
+@media (min-width: 520px) { .showcase-pin { padding: 16px 20px 20px; } }
+.showcase-pin-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.showcase-pin-head svg { width: 13px; height: 13px; flex-shrink: 0; }
+.showcase-pin-text {
+  font-size: 13.5px; line-height: 1.55;
+  color: var(--stone-light);
+}
+.showcase-pin-text strong { color: var(--white); font-weight: 600; }
+.showcase-ref {
+  margin-top: 12px;
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 11.5px;
+  color: var(--stone);
+}
+.showcase-ref .ref-val {
+  color: var(--stone-light);
+  padding: 3px 8px;
+  background: var(--ink);
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  letter-spacing: 0.02em;
 }
 
-@media(max-width:420px){
-  .detail-row{padding:11px 14px;}
+/* ═══════════════════════════════════════════════════════════════
+   HOW IT WORKS
+   ═══════════════════════════════════════════════════════════════ */
+.ty-flow {
+  padding: 72px 0 88px;
+  background: var(--off-white);
 }
+.flow-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+.flow-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green-dark);
+  margin-bottom: 14px;
+}
+.flow-eyebrow::before, .flow-eyebrow::after {
+  content: ''; width: 22px; height: 1.5px; background: var(--green);
+}
+.flow-title {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(26px, 3.4vw, 36px);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.flow-sub {
+  font-size: 15.5px; color: var(--text-secondary);
+  margin-top: 12px; line-height: 1.6;
+}
+
+.flow-list {
+  max-width: 640px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.flow-item {
+  display: flex; gap: 16px;
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  transition: border-color .2s;
+}
+.flow-item:hover { border-color: var(--ink); }
+.flow-num {
+  width: 34px; height: 34px; border-radius: 10px;
+  flex-shrink: 0;
+  background: var(--ink); color: var(--white);
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: -0.01em;
+}
+.flow-item.highlight .flow-num { background: var(--green); color: var(--ink); }
+.flow-body { min-width: 0; flex: 1; }
+.flow-step-title {
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: 16px; color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.flow-step-desc {
+  font-size: 14.5px; color: var(--text-secondary);
+  line-height: 1.6;
+}
+.flow-step-desc strong { color: var(--ink); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SAFETY NOTE
+   ═══════════════════════════════════════════════════════════════ */
+.ty-safety {
+  max-width: 640px; margin: 28px auto 0;
+  display: flex; gap: 12px;
+  padding: 16px 18px;
+  background: var(--mint-soft);
+  border: 1px solid rgba(0,200,83,.28);
+  border-radius: 14px;
+}
+.ty-safety svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--green-dark); margin-top: 1px; }
+.ty-safety p { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+.ty-safety strong { color: var(--ink); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA
+   ═══════════════════════════════════════════════════════════════ */
+.ty-cta {
+  padding: 0 0 88px;
+  background: var(--off-white);
+}
+.ty-cta-inner {
+  max-width: 640px; margin: 0 auto;
+  background: var(--ink);
+  border-radius: 20px;
+  padding: 44px 36px;
+  text-align: center;
+  position: relative; overflow: hidden;
+  border: 1.5px solid var(--ink);
+}
+@media (max-width: 520px) { .ty-cta-inner { padding: 36px 24px; } }
+.ty-cta-inner::before {
+  content: '';
+  position: absolute; top: -50%; right: -20%;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,83,.14) 0%, rgba(0,200,83,0) 70%);
+  pointer-events: none;
+}
+.ty-cta-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: rgba(34,158,217,.16);
+  border: 1.5px solid rgba(34,158,217,.35);
+  color: #5BC0F0;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  position: relative; z-index: 1;
+}
+.ty-cta-icon svg { width: 26px; height: 26px; }
+.ty-cta-inner h3 {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--white); letter-spacing: -0.028em;
+  position: relative; z-index: 1;
+}
+.ty-cta-inner p {
+  color: var(--stone-light);
+  font-size: 15px; line-height: 1.6;
+  margin-top: 12px;
+  position: relative; z-index: 1;
+  max-width: 44ch; margin-left: auto; margin-right: auto;
+}
+.ty-cta-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+  margin-top: 26px;
+  position: relative; z-index: 1;
+}
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<div class="bg-glow"></div>
+<div data-dps-nav></div>
 
-<nav>
-  <a href="/"><img src="/images/dps-logo.png" alt="DPS" style="height:26px;display:block;"></a>
-</nav>
-
-<div class="wrap">
-
-  <div class="amount-hero">
-    <div class="amount-label">Payout confirmed</div>
-    <div class="amount-val"><span class="sym">₦</span><span id="sv-amount">—</span></div>
-    <div class="amount-sub" id="sv-bank">on its way to your account</div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="detail-block" id="sv-details" style="display:none;">
-    <div class="detail-row">
-      <span class="dl">Item</span>
-      <span class="dv" id="sv-item">—</span>
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="ty-hero">
+  <div class="wrap ty-hero-wrap">
+    <div class="ty-eyebrow">
+      <span class="ty-check-inline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      Payout released
     </div>
-    <div class="detail-row">
-      <span class="dl">Item ID</span>
-      <span class="dv mono" id="sv-itemid">—</span>
-    </div>
-    <div class="detail-row">
-      <span class="dl">Bank</span>
-      <span class="dv" id="sv-bankname">—</span>
-    </div>
-    <div class="detail-row">
-      <span class="dl">Account</span>
-      <span class="dv mono" id="sv-acct">—</span>
-    </div>
-  </div>
 
-  <div class="timeline">
-    <div class="tl-label">What happens next</div>
-    <div class="tl-steps">
-      <div class="tl-step">
-        <div class="tl-dot done">✓</div>
-        <div class="tl-text">
-          <div class="tl-title">PIN verified</div>
-          <div class="tl-sub">Buyer confirmed pickup</div>
+    <h1 class="ty-title">That's done. <span class="accent">Your money is moving.</span></h1>
+    <p class="ty-sub">The buyer entered their PIN, so escrow released. Bank transfers in Nigeria usually land within a few hours, sometimes sooner.</p>
+
+    <div class="showcase" id="showcase">
+      <div class="showcase-top">
+        <div class="showcase-img" id="showcaseImg">
+          <img id="showcaseImgEl" src="" alt="" style="display:none" onerror="this.style.display='none'">
+          <div class="showcase-img-placeholder" id="showcaseImgPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="showcase-info">
+          <div class="showcase-meta">
+            <span class="showcase-id" id="showcaseId">DPS&mdash;</span>
+            <span class="showcase-status"><span class="dot"></span>Released</span>
+          </div>
+          <h2 class="showcase-name" id="showcaseName">Your sale</h2>
+          <div class="showcase-price" id="showcasePrice"><span class="sym">&#8358;</span>&mdash;</div>
+          <div class="showcase-seller" id="showcaseSeller">
+            <span id="payoutBank">On its way to your account</span>
+          </div>
         </div>
       </div>
-      <div class="tl-step">
-        <div class="tl-dot done">✓</div>
-        <div class="tl-text">
-          <div class="tl-title">Payout released from escrow</div>
-          <div class="tl-sub">Funds are on the move</div>
+
+      <div class="showcase-pin">
+        <div class="showcase-pin-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Paid into
         </div>
-      </div>
-      <div class="tl-step">
-        <div class="tl-dot pending">◷</div>
-        <div class="tl-text">
-          <div class="tl-title">Bank transfer</div>
-          <div class="tl-sub">Reflects within a few hours</div>
+        <p class="showcase-pin-text">We send to the account on your DPS record. If the name or number there is wrong, the transfer can bounce back to us, so tell us before you list again.</p>
+        <div class="showcase-ref" id="showcaseRefWrap" style="display:none;">
+          Account <span class="ref-val" id="showcaseRef">&mdash;</span>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="actions">
-    <a href="/sell" class="btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      List another item
-    </a>
-    <a href="/items" class="btn-ghost">Browse live items</a>
+<!-- ═══════════════════ WHAT HAPPENED ═══════════════════ -->
+<section class="ty-flow">
+  <div class="wrap">
+    <div class="flow-head reveal">
+      <div class="flow-eyebrow">What just happened</div>
+      <h2 class="flow-title">From handover to bank.</h2>
+      <p class="flow-sub">Three steps, and the first two are already behind you.</p>
+    </div>
+
+    <div class="flow-list">
+      <div class="flow-item reveal">
+        <div class="flow-num">01</div>
+        <div class="flow-body">
+          <div class="flow-step-title">The buyer confirmed with their PIN</div>
+          <p class="flow-step-desc">They saw the item, they were happy, and they gave you the 4-digit PIN. That is what tells us the handover actually happened.</p>
+        </div>
+      </div>
+
+      <div class="flow-item reveal">
+        <div class="flow-num">02</div>
+        <div class="flow-body">
+          <div class="flow-step-title">Escrow released</div>
+          <p class="flow-step-desc">Your share left escrow the moment the PIN was accepted. DPS keeps its commission and nothing else.</p>
+        </div>
+      </div>
+
+      <div class="flow-item highlight reveal">
+        <div class="flow-num">03</div>
+        <div class="flow-body">
+          <div class="flow-step-title">Bank transfer</div>
+          <p class="flow-step-desc">Usually within a few hours. If it has not shown up by the next working day, message Dayo with your item ID and we will trace it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ty-safety reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <p><strong>DPS will never ask you for a PIN, a password or a card number.</strong> We already have your payout account, and that is all we need to pay you.</p>
+    </div>
   </div>
+</section>
 
-  <div class="foot-note">
-    Questions? Message us on <a href="https://t.me/declutterpawnshop" style="color:var(--green);text-decoration:none;">Telegram</a> or email info@declutterpawnshop.com
+<!-- ═══════════════════ CTA ═══════════════════ -->
+<section class="ty-cta">
+  <div class="wrap">
+    <div class="ty-cta-inner reveal">
+      <div class="ty-cta-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+      </div>
+      <h3>Got something else to sell?</h3>
+      <p>You already have an account with us, so listing the next one takes about two minutes. Items with immediate pickup move fastest.</p>
+      <div class="ty-cta-actions">
+        <a href="/sell" class="btn btn-primary">
+          List another item
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <a href="/items" class="btn btn-outline-light">Browse live items</a>
+      </div>
+    </div>
   </div>
+</section>
 
-</div>
+<div data-dps-footer></div>
 
 <script>
-var data = {};
-try { data = JSON.parse(sessionStorage.getItem('dps_payout_success') || '{}'); } catch(e){}
+(function () {
+  "use strict";
 
-function fmt(n){
-  var num = parseInt(String(n||0).replace(/[^0-9]/g,''))||0;
-  return num.toLocaleString('en-NG');
-}
-function maskAcct(n){
-  var s = String(n||'');
-  return s.length > 4 ? '****' + s.slice(-4) : s;
-}
+  function fmt(n) {
+    var v = parseInt(String(n == null ? "" : n).replace(/[^0-9]/g, ""), 10);
+    return isNaN(v) ? "" : v.toLocaleString("en-NG");
+  }
+  function maskAcct(a) {
+    a = String(a || "").replace(/[^0-9]/g, "");
+    return a.length > 4 ? "******" + a.slice(-4) : (a || "");
+  }
+  function set(id, text) { var e = document.getElementById(id); if (e) e.textContent = text; }
 
-if (data.payoutAmount) document.getElementById('sv-amount').textContent = fmt(data.payoutAmount);
-if (data.bankName)     document.getElementById('sv-bank').textContent   = 'on its way to ' + data.bankName;
+  // Written by the payout flow. Falls back to the query string, and if
+  // neither is there the page still reads as a clean confirmation rather
+  // than a row of dashes.
+  var data = {};
+  try { data = JSON.parse(sessionStorage.getItem("dps_payout_success") || "{}") || {}; }
+  catch (e) { data = {}; }
 
-if (data.itemName || data.itemId) {
-  document.getElementById('sv-details').style.display = 'block';
-  document.getElementById('sv-item').textContent     = data.itemName  || '—';
-  document.getElementById('sv-itemid').textContent   = data.itemId    || '—';
-  document.getElementById('sv-bankname').textContent = data.bankName  || '—';
-  document.getElementById('sv-acct').textContent     = maskAcct(data.accountNumber);
-}
+  var q = new URLSearchParams(window.location.search);
+  ["payoutAmount", "bankName", "itemName", "itemId", "accountNumber"].forEach(function (k) {
+    if (!data[k] && q.get(k)) data[k] = q.get(k);
+  });
 
-sessionStorage.removeItem('dps_payout_success');
+  if (data.itemId)   set("showcaseId", data.itemId);
+  if (data.itemName) set("showcaseName", data.itemName);
+  if (data.payoutAmount) {
+    var el = document.getElementById("showcasePrice");
+    if (el) el.innerHTML = '<span class="sym">&#8358;</span>' + fmt(data.payoutAmount);
+  }
+  if (data.bankName) set("payoutBank", "On its way to your " + data.bankName + " account");
+  if (data.accountNumber) {
+    set("showcaseRef", maskAcct(data.accountNumber));
+    var w = document.getElementById("showcaseRefWrap");
+    if (w) w.style.display = "";
+  }
+
+  try { sessionStorage.removeItem("dps_payout_success"); } catch (e) {}
+})();
 </script>
 </body>
 </html>
