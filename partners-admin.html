@@ -20,6 +20,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+/* The hidden attribute carries display:none from the UA sheet, which any
+   author rule with a display of its own outranks. .auth-screen and
+   .load-screen are display:flex, so hiding them did nothing: the sign-in
+   stayed on the page and the dashboard rendered underneath it. This one
+   rule makes the attribute mean what the JS assumes it means. */
+[hidden] { display: none !important; }
+
 :root {
   --green:      #00C853;
   --green-dark: #00A843;
@@ -725,7 +732,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           <div class="new-list-cta-title">List something new</div>
           <div class="new-list-cta-sub">Everything Dina can't pull from Instagram, you can list manually.</div>
         </div>
-        <a href="/sell" class="btn btn-primary btn-sm">Go to listing →</a>
+        <a href="/sell" class="btn btn-primary btn-sm" id="listNewLink">Go to listing →</a>
       </div>
     </div>
 
@@ -1042,6 +1049,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     renderSold();
     renderDetails();
     renderRefreshBar();
+    setListingLink();
+  }
+
+  function setListingLink() {
+    // Prefill the listing form with the address on their Partner row.
+    // Without it a partner who types a different email is filed as an
+    // ordinary seller at the standard rate, with no way to tell.
+    var a = document.getElementById('listNewLink');
+    var em = (state.partner || {}).email || '';
+    if (a) a.href = em ? '/sell?email=' + encodeURIComponent(em) : '/sell';
   }
 
   function renderHeader() {
