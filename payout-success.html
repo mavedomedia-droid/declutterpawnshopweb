@@ -592,5 +592,29 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   try { sessionStorage.removeItem("dps_payout_success"); } catch (e) {}
 })();
 </script>
+
+<script>
+(function () {
+  "use strict";
+  // .reveal starts at opacity:0 and only becomes visible when this runs.
+  // Without it every element carrying the class is permanently invisible,
+  // which is exactly what shipped before this was added.
+  var els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(function (el) { el.classList.add("visible"); });
+    return;
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry, i) {
+      if (entry.isIntersecting) {
+        setTimeout(function () { entry.target.classList.add("visible"); }, i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { observer.observe(el); });
+})();
+</script>
 </body>
 </html>
