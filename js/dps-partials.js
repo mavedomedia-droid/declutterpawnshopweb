@@ -80,7 +80,7 @@
       +       '<div class="foot-col">'
       +         '<h4>Program</h4>'
       +         '<a href="/partners">Partner program</a>'
-      +         '<a href="/partner-register">Register as partner</a>'
+      +         '<a href="/partners-register">Register as partner</a>'
       +         '<a href="/faq">FAQ</a>'
       +       '</div>'
       +       '<div class="foot-col">'
@@ -114,6 +114,18 @@
       + '.hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
       + '.items-hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
       + '.page-head{padding-top:' + (NAV_HEIGHT + 24) + 'px !important;}'
+      // Nav CTA visibility. This lives here rather than in each page
+      // because .btn{display:inline-flex} and .nav-mobile-cta{display:none}
+      // have the same specificity, so whichever is written later wins. On
+      // nine pages .btn came later and BOTH CTAs showed at every width.
+      // Injected into <head> at runtime, so it lands after every page's
+      // own CSS and the result is the same everywhere.
+      + '.nav-cta{display:none !important;}'
+      + '.nav-mobile-cta{display:inline-flex !important;}'
+      + '@media (min-width:900px){'
+      +   '.nav-cta{display:inline-flex !important;}'
+      +   '.nav-mobile-cta{display:none !important;}'
+      + '}'
       // Mobile
       + '@media (max-width:900px){'
       +   '.nav-inner{height:72px !important;}'
