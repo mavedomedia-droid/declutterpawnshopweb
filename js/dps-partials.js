@@ -80,7 +80,7 @@
       +       '<div class="foot-col">'
       +         '<h4>Program</h4>'
       +         '<a href="/partners">Partner program</a>'
-      +         '<a href="/partners-register">Register as partner</a>'
+      +         '<a href="/partner-register">Register as partner</a>'
       +         '<a href="/faq">FAQ</a>'
       +       '</div>'
       +       '<div class="foot-col">'
