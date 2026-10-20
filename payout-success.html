@@ -8,8 +8,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payout confirmed, Declutter Pawn Shop</title>
-<meta name="description" content="Your payout has been released from escrow and is on its way to your bank.">
+<title>Payout released, Declutter Pawn Shop</title>
+<meta name="description" content="Your payout has been released from escrow and your full cut is on its way to your bank.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0E1320">
 <link rel="icon" href="/assets/favicon.ico" sizes="48x48">
@@ -432,13 +432,37 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
+<style>
+  /* The money is the point of this page, so it gets hero sizing rather
+     than .showcase-price, which is 24px for use inside a card. Sits on
+     .ty-hero, which is var(--ink), so --white and --green both read. */
+  .cash-wrap   { margin-top: 30px; }
+  .cash-label  { font-size: 11.5px; font-weight: 700; letter-spacing: .18em;
+                 text-transform: uppercase; color: var(--stone); }
+  .cash        { font-family: var(--font-heading); font-weight: 800; color: var(--white);
+                 letter-spacing: -.045em; line-height: .94; margin-top: 8px;
+                 font-size: clamp(46px, 12vw, 92px);
+                 display: flex; align-items: baseline; gap: 4px; }
+  .cash .sym   { color: var(--green); font-size: .52em; }
+  .cash-dest   { margin-top: 16px; font-size: 15px; line-height: 1.65;
+                 color: var(--stone-light); max-width: 48ch; }
+  .cash-dest strong { color: var(--off-white); font-weight: 700; }
+  .cash-soon   { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+                 padding: 9px 15px; border-radius: var(--r-pill);
+                 background: rgba(0,200,83,.10); border: 1px solid rgba(0,200,83,.3);
+                 color: var(--green); font-size: 13.5px; font-weight: 700; }
+  .cash-soon svg { width: 15px; height: 15px; flex: 0 0 auto; }
+  /* The item sits under the figure, not beside it: at hero sizing there is
+     no room for two columns on a phone. */
+  .showcase-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div data-dps-nav></div>
 
-<!-- ═══════════════════ HERO ═══════════════════ -->
+<!-- ═══════════════════ HERO: the money ═══════════════════ -->
 <section class="ty-hero">
   <div class="wrap ty-hero-wrap">
     <div class="ty-eyebrow">
@@ -448,59 +472,54 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       Payout released
     </div>
 
-    <h1 class="ty-title">That's done. <span class="accent">Your money is moving.</span></h1>
-    <p class="ty-sub">The buyer entered their PIN, so escrow released. Bank transfers in Nigeria usually land within a few hours, sometimes sooner.</p>
+    <h1 class="ty-title">The PIN checked out. <span class="accent">Your money is moving.</span></h1>
 
+    <div class="cash-wrap">
+      <div class="cash-label">Your full cut</div>
+      <div class="cash" id="cash"><span class="sym">&#8358;</span><span id="cashNum">0</span></div>
+      <p class="cash-dest" id="cashDest">Being wired to the payout account on your DPS record.</p>
+      <div class="cash-soon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
+        Your full cut will be wired to you soon
+      </div>
+    </div>
+
+    <!-- the item it came from -->
     <div class="showcase" id="showcase">
       <div class="showcase-top">
         <div class="showcase-img" id="showcaseImg">
-          <img id="showcaseImgEl" src="" alt="" style="display:none" onerror="this.style.display='none'">
+          <img id="showcaseImgEl" src="" alt="" style="display:none">
           <div class="showcase-img-placeholder" id="showcaseImgPlaceholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           </div>
         </div>
         <div class="showcase-info">
           <div class="showcase-meta">
-            <span class="showcase-id" id="showcaseId">DPS&mdash;</span>
-            <span class="showcase-status"><span class="dot"></span>Released</span>
+            <span class="showcase-id" id="showcaseId">DPS</span>
+            <span class="showcase-status"><span class="dot"></span>Sold and released</span>
           </div>
-          <h2 class="showcase-name" id="showcaseName">Your sale</h2>
-          <div class="showcase-price" id="showcasePrice"><span class="sym">&#8358;</span>&mdash;</div>
-          <div class="showcase-seller" id="showcaseSeller">
-            <span id="payoutBank">On its way to your account</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase-pin">
-        <div class="showcase-pin-head">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          Paid into
-        </div>
-        <p class="showcase-pin-text">We send to the account on your DPS record. If the name or number there is wrong, the transfer can bounce back to us, so tell us before you list again.</p>
-        <div class="showcase-ref" id="showcaseRefWrap" style="display:none;">
-          Account <span class="ref-val" id="showcaseRef">&mdash;</span>
+          <h2 class="showcase-name" id="showcaseName">Your item</h2>
+          <div class="showcase-seller" id="showcaseSeller">Handed over and confirmed by the buyer</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════ WHAT HAPPENED ═══════════════════ -->
+<!-- ═══════════════════ WHAT HAPPENS NOW ═══════════════════ -->
 <section class="ty-flow">
   <div class="wrap">
     <div class="flow-head reveal">
-      <div class="flow-eyebrow">What just happened</div>
-      <h2 class="flow-title">From handover to bank.</h2>
-      <p class="flow-sub">Three steps, and the first two are already behind you.</p>
+      <div class="flow-eyebrow">What happens now</div>
+      <h2 class="flow-title">Two of three are already done.</h2>
     </div>
 
     <div class="flow-list">
       <div class="flow-item reveal">
         <div class="flow-num">01</div>
         <div class="flow-body">
-          <div class="flow-step-title">The buyer confirmed with their PIN</div>
-          <p class="flow-step-desc">They saw the item, they were happy, and they gave you the 4-digit PIN. That is what tells us the handover actually happened.</p>
+          <div class="flow-step-title">The buyer gave you their PIN</div>
+          <p class="flow-step-desc">That 4-digit PIN is how we know the handover actually happened. You entered it, so it is on the record.</p>
         </div>
       </div>
 
@@ -508,15 +527,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <div class="flow-num">02</div>
         <div class="flow-body">
           <div class="flow-step-title">Escrow released</div>
-          <p class="flow-step-desc">Your share left escrow the moment the PIN was accepted. DPS keeps its commission and nothing else.</p>
+          <p class="flow-step-desc">The buyer's money stopped being held the moment the PIN was accepted.</p>
         </div>
       </div>
 
       <div class="flow-item highlight reveal">
         <div class="flow-num">03</div>
         <div class="flow-body">
-          <div class="flow-step-title">Bank transfer</div>
-          <p class="flow-step-desc">Usually within a few hours. If it has not shown up by the next working day, message Dayo with your item ID and we will trace it.</p>
+          <div class="flow-step-title">Bank transfer, usually within a few hours</div>
+          <p class="flow-step-desc">It goes to the account on your DPS record. If nothing has landed by the next working day, message Dayo with your item ID and we will trace it.</p>
         </div>
       </div>
     </div>
@@ -533,10 +552,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   <div class="wrap">
     <div class="ty-cta-inner reveal">
       <div class="ty-cta-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       </div>
       <h3>Got something else to sell?</h3>
-      <p>You already have an account with us, so listing the next one takes about two minutes. Items with immediate pickup move fastest.</p>
+      <p>You already have an account with us, so the next listing takes about two minutes. Items with immediate pickup move fastest.</p>
       <div class="ty-cta-actions">
         <a href="/sell" class="btn btn-primary">
           List another item
@@ -554,42 +573,74 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 (function () {
   "use strict";
 
+  function set(id, text) { var e = document.getElementById(id); if (e) e.textContent = text; }
+  function digits(n) { return String(n == null ? "" : n).replace(/[^0-9]/g, ""); }
   function fmt(n) {
-    var v = parseInt(String(n == null ? "" : n).replace(/[^0-9]/g, ""), 10);
+    var v = parseInt(digits(n), 10);
     return isNaN(v) ? "" : v.toLocaleString("en-NG");
   }
   function maskAcct(a) {
-    a = String(a || "").replace(/[^0-9]/g, "");
-    return a.length > 4 ? "******" + a.slice(-4) : (a || "");
+    a = digits(a);
+    return a.length > 4 ? "****" + a.slice(-4) : a;
   }
-  function set(id, text) { var e = document.getElementById(id); if (e) e.textContent = text; }
 
-  // Written by the payout flow. Falls back to the query string, and if
-  // neither is there the page still reads as a clean confirmation rather
-  // than a row of dashes.
+  // payout.html writes this before redirecting. The key is left in place
+  // on purpose: clearing it means a refresh shows an empty page, and
+  // sessionStorage dies with the tab anyway.
   var data = {};
   try { data = JSON.parse(sessionStorage.getItem("dps_payout_success") || "{}") || {}; }
   catch (e) { data = {}; }
 
+  // The query string carries the same fields minus the photo, so a browser
+  // that blocks storage still gets a page with the money on it.
   var q = new URLSearchParams(window.location.search);
-  ["payoutAmount", "bankName", "itemName", "itemId", "accountNumber"].forEach(function (k) {
+  if (!data.itemId && q.get("item")) data.itemId = q.get("item");
+  ["payoutAmount", "bankName", "itemName", "photo"].forEach(function (k) {
     if (!data[k] && q.get(k)) data[k] = q.get(k);
   });
 
-  if (data.itemId)   set("showcaseId", data.itemId);
-  if (data.itemName) set("showcaseName", data.itemName);
-  if (data.payoutAmount) {
-    var el = document.getElementById("showcasePrice");
-    if (el) el.innerHTML = '<span class="sym">&#8358;</span>' + fmt(data.payoutAmount);
-  }
-  if (data.bankName) set("payoutBank", "On its way to your " + data.bankName + " account");
-  if (data.accountNumber) {
-    set("showcaseRef", maskAcct(data.accountNumber));
-    var w = document.getElementById("showcaseRefWrap");
-    if (w) w.style.display = "";
+  // ── the figure ──
+  var amount = digits(data.payoutAmount);
+  if (amount) {
+    set("cashNum", fmt(amount));
+  } else {
+    // No figure to show. Say so rather than printing a confident zero.
+    var cash = document.getElementById("cash");
+    if (cash) cash.style.display = "none";
+    set("cashDest", "Your payout has been released. Check the confirmation email for the exact amount, or message Dayo with your item ID.");
   }
 
-  try { sessionStorage.removeItem("dps_payout_success"); } catch (e) {}
+  // ── where it is going ──
+  if (amount) {
+    var bank = String(data.bankName || "").trim();
+    var acct = maskAcct(data.accountNumber);
+    var dest = "Being wired to ";
+    dest += bank ? ("your " + bank + " account") : "the payout account on your DPS record";
+    if (acct) dest += " " + acct;
+    dest += ". Transfers in Nigeria usually land within a few hours.";
+    set("cashDest", dest);
+  }
+
+  // ── the item ──
+  if (data.itemId)   set("showcaseId", data.itemId);
+  if (data.itemName) set("showcaseName", data.itemName);
+
+  var photo = String(data.photo || "").trim();
+  if (photo.indexOf("http") === 0) {
+    var img = document.getElementById("showcaseImgEl");
+    var ph  = document.getElementById("showcaseImgPlaceholder");
+    if (img) {
+      // Only swap once it has actually loaded, so a dead URL leaves the
+      // placeholder rather than a broken-image icon.
+      img.onload = function () {
+        img.style.display = "block";
+        if (ph) ph.style.display = "none";
+      };
+      img.onerror = function () { img.style.display = "none"; };
+      img.alt = String(data.itemName || "Your item");
+      img.src = photo;
+    }
+  }
 })();
 </script>
 
@@ -598,7 +649,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   "use strict";
   // .reveal starts at opacity:0 and only becomes visible when this runs.
   // Without it every element carrying the class is permanently invisible,
-  // which is exactly what shipped before this was added.
+  // which is exactly what shipped the first time this page was built.
   var els = document.querySelectorAll(".reveal");
   if (!els.length) return;
   if (!("IntersectionObserver" in window)) {
