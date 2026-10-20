@@ -301,6 +301,10 @@ footer{background:var(--ink-2);color:var(--stone-light);padding:56px 0 28px;bord
   var MAX_ATTEMPTS = 3;
   var detailsLoaded = false;
 
+  // Kept from getPayoutDetails so the success page can show the item.
+  // verifyPin only returns the money fields, not the item.
+  var payoutInfo = {};
+
   // ─── Helpers ─────────────────────────────────────────────────────────────
   function maskAccount(n) {
     var s = String(n || '');
@@ -371,6 +375,14 @@ footer{background:var(--ink-2);color:var(--stone-light);padding:56px 0 28px;bord
           'This payout has already been released. Check your bank statement, or message Dayo if nothing arrived.');
         return;
       }
+
+      payoutInfo = {
+        itemId:        d.itemId || itemId,
+        itemName:      d.itemName || '',
+        photo:         d.photo || '',
+        bankName:      d.bankName || '',
+        accountNumber: d.accountNumber || ''
+      };
 
       setVal('d-name',   d.sellerName   || '—');
       setVal('d-item',   d.itemName     || '—');
@@ -464,12 +476,30 @@ footer{background:var(--ink-2);color:var(--stone-light);padding:56px 0 28px;bord
       btnText.textContent      = 'Claim payout';
 
       if (d && d.success) {
-        // Inline success view — no redirect
-        setVal('sv-amount', formatAmount(d.payoutAmount));
-        setVal('sv-note', 'To ' + (d.bankName || 'your bank') + ' · ' + maskAccount(d.accountNumber));
-        formView.style.display = 'none';
-        successView.classList.add('show');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Redirects to /payout-success. The inline successView markup below
+        // is no longer reached and is kept only so this can be reverted in
+        // one line if the redirect is ever dropped.
+        //
+        // The photo URL is too long for a query string, so it travels in
+        // sessionStorage. The query string carries the rest, which means a
+        // browser that blocks storage still lands on a page showing the
+        // money instead of a row of dashes. The masked account stays out of
+        // the URL deliberately, so it never reaches history or a referrer.
+        var done = {
+          itemId:        payoutInfo.itemId   || itemId,
+          itemName:      payoutInfo.itemName || '',
+          photo:         payoutInfo.photo    || '',
+          payoutAmount:  d.payoutAmount,
+          bankName:      d.bankName      || payoutInfo.bankName      || '',
+          accountNumber: d.accountNumber || payoutInfo.accountNumber || ''
+        };
+        try { sessionStorage.setItem('dps_payout_success', JSON.stringify(done)); } catch (e) {}
+
+        window.location.href = '/payout-success'
+          + '?item='         + encodeURIComponent(done.itemId)
+          + '&payoutAmount=' + encodeURIComponent(done.payoutAmount)
+          + '&bankName='     + encodeURIComponent(done.bankName)
+          + '&itemName='     + encodeURIComponent(done.itemName);
         return;
       }
 
