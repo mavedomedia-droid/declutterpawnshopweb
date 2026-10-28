@@ -1267,9 +1267,9 @@ body.partner-modal-locked { overflow: hidden; }
         var name = payload.businessName;
         var pid = data.partnerID || "";
         setTimeout(function(){
-          window.location.href = "/thank-you?type=partner" +
-            "&name=" + encodeURIComponent(name) +
-            "&partnerId=" + encodeURIComponent(pid);
+          window.location.href = "/thank-you/partner?name=" + encodeURIComponent(name) +
+            "&partnerId=" + encodeURIComponent(pid) +
+            "&email=" + encodeURIComponent(payload.email || "");
         }, 1100);
       } else {
         btn.disabled = false;

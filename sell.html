@@ -1130,7 +1130,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
     if (!GAS) {
       setTimeout(function () {
         var fakeId = "DPS" + (10000 + Math.floor(Math.random() * 9000));
-        window.location.href = "/thank-you?itemId=" + fakeId;
+        window.location.href = "/thank-you/item-listed?itemId=" + fakeId;
       }, 1200);
       return;
     }
@@ -1178,7 +1178,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.success) {
-        window.location.href = "/thank-you?itemId=" + encodeURIComponent(data.itemId || "");
+        window.location.href = "/thank-you/item-listed?itemId=" + encodeURIComponent(data.itemId || "");
       } else {
         nextBtn.disabled = false; proceedBtn.disabled = false;
         nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";

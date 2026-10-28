@@ -707,9 +707,9 @@ input, select { font-family: inherit; }
           + esc(payload.email) + "</b> and your account number.";
         $("success").classList.add("show");
         setTimeout(function () {
-          window.location.href = "/thank-you?type=partner" +
-            "&name=" + encodeURIComponent(res.payload.businessName) +
-            "&partnerId=" + encodeURIComponent(data.partnerID || "");
+          window.location.href = "/thank-you/partner?name=" + encodeURIComponent(res.payload.businessName) +
+            "&partnerId=" + encodeURIComponent(data.partnerID || "") +
+            "&email=" + encodeURIComponent(res.payload.email || "");
         }, 1400);
         return;
       }
