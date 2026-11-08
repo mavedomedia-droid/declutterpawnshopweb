@@ -338,19 +338,17 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-price-val { font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px, 5.4vw, 26px); letter-spacing: -0.032em; color: var(--white); line-height: 1.1; margin-top: 6px; display: flex; align-items: baseline; gap: 1px; flex-wrap: wrap; word-break: keep-all; overflow-wrap: break-word; position: relative; z-index: 1; font-variant-numeric: tabular-nums; }
 .mc-price-val .sym { color: var(--green); font-size: 0.62em; margin-right: 1px; }
 .mc-price-note { font-size: 10.5px; color: var(--stone-light); margin-top: 8px; line-height: 1.45; position: relative; z-index: 1; }
-.mc-quick { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.10); position: relative; z-index: 1; }
-.mc-quick-lbl { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
-.mc-quick-row { display: flex; align-items: center; gap: 5px; }
-.mc-quick-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,.08); color: var(--white); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background .15s; flex-shrink: 0; line-height: 1; }
-.mc-quick-btn:hover { background: rgba(0,200,83,.35); }
-.mc-quick-btn:active { background: rgba(0,200,83,.55); }
-.mc-quick-val { flex: 1; min-width: 0; text-align: center; font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: var(--white); background: rgba(255,255,255,.06); border-radius: 8px; padding: 8px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.02em; }
-.mc-quick-hint { font-size: 10px; color: var(--stone-light); margin-top: 8px; line-height: 1.4; }
-.mc-negotiate-btn { width: 100%; margin-top: 12px; padding: 11px 12px; border-radius: 10px; background: var(--green); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 0 var(--green-dark); transition: background .15s, box-shadow .15s, transform .1s; position: relative; z-index: 1; line-height: 1; }
-.mc-negotiate-btn:hover { background: var(--green-dark); box-shadow: 0 4px 0 var(--green-deep); }
-.mc-negotiate-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--green-dark); }
-.mc-negotiate-btn svg { flex-shrink: 0; }
-.mc-negotiate-fee { font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.65; margin-left: 2px; }
+/* One door to the seller, not three. The Quick-offer stepper, the
+   Negotiate button and the Still-here button all led to the same room,
+   and the stepper pushed haggling before anyone had asked whether the
+   item still exists. */
+/* Quiet on purpose. Buy now is the green button on this screen; asking
+   first is the alternative, and two solid greens stacked made the buyer
+   choose between two things that looked equally like the main action. */
+.mc-request { width: 100%; margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.20); color: var(--white); font-family: var(--font-body); font-weight: 700; font-size: 13.5px; display: flex; align-items: center; justify-content: center; gap: 7px; transition: background .15s, border-color .15s; position: relative; z-index: 1; line-height: 1; }
+.mc-request:hover { border-color: rgba(0,200,83,.55); background: rgba(0,200,83,.10); }
+.mc-request svg { flex-shrink: 0; color: var(--green); }
+.mc-request-note { font-size: 10.5px; color: var(--stone-light); margin-top: 8px; line-height: 1.45; position: relative; z-index: 1; }
 
 .mc-trustline { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 11px 14px; background: var(--ink); border-radius: 12px; }
 .mc-trustline-item { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; color: var(--stone-light); letter-spacing: -0.005em; }
@@ -434,43 +432,65 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   letter-spacing: .14em; text-transform: uppercase; color: #92400E; margin-bottom: 3px; }
 .mc-defects-text { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
 
-/* ═══ Availability (parked) ═══ */
-/* Offer and availability sit side by side: they are the two things to do
-   when you are not ready to pay yet, and stacking them buried the second. */
-.mc-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
-  position: relative; z-index: 1; }
-.mc-secondary .mc-negotiate-btn { margin-top: 0; }
+/* ═══ Request if available: the sheet internals ═══ */
+/* Three sections, in this order and no other: what to confirm, the price,
+   how committed the buyer is. Chips carry shorthand on screen; the seller
+   receives the full sentence. There is no free-text field anywhere in
+   here, because typing is how a buyer hands over a phone number and
+   walks the deal off DPS, which also walks it out of escrow. */
+.req-qs { display: flex; flex-wrap: wrap; gap: 6px; }
+.req-q { padding: 8px 12px; border-radius: 999px; border: 1.5px solid var(--border);
+  background: var(--white); font-family: var(--font-body); font-size: 12.5px; font-weight: 500;
+  line-height: 1.2; color: var(--text-secondary);
+  transition: border-color .14s, background .14s, color .14s; }
+.req-q:hover { border-color: var(--stone); }
+.req-q[aria-pressed="true"] { border-color: var(--ink); background: var(--ink);
+  color: var(--white); font-weight: 600; }
 
-.mc-avail { width: 100%; padding: 11px 10px; border-radius: 10px;
-  background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.16); color: var(--white);
-  font-family: var(--font-body); font-weight: 700; font-size: 12.5px; display: flex;
-  flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-  line-height: 1.15; transition: border-color .15s, background .15s; }
-.mc-avail:hover { border-color: rgba(0,200,83,.5); background: rgba(0,200,83,.08); }
-.mc-avail-sub { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-  opacity: .6; }
+/* The price stays on screen whether or not they touch it. The switch is
+   the only invitation to move it, and it says nothing persuasive. */
+.req-neg { border: 1.5px solid var(--border); border-radius: 12px; background: var(--white); }
+.req-neg-head { display: flex; align-items: center; gap: 10px; padding: 11px 13px; }
+.req-neg-price { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.req-neg-k { font-size: 9.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--text-muted); }
+.req-neg-v { font-family: var(--font-heading); font-weight: 800; font-size: 19px;
+  letter-spacing: -0.025em; line-height: 1.15; color: var(--ink); font-variant-numeric: tabular-nums; }
+.req-neg-v .sym { color: var(--green-dark); font-size: 0.68em; }
+.req-sw { margin-left: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+.req-sw-lbl { font-size: 11.5px; font-weight: 600; color: var(--text-muted);
+  white-space: nowrap; transition: color .16s; }
+.req-sw-track { flex: 0 0 auto; width: 38px; height: 22px; border-radius: 999px;
+  background: var(--stone-light); position: relative; transition: background .16s; }
+.req-sw-knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px;
+  border-radius: 50%; background: var(--white); box-shadow: 0 1px 3px rgba(14,19,32,.28);
+  transition: transform .16s; }
+.req-sw[aria-checked="true"] .req-sw-track { background: var(--green); }
+.req-sw[aria-checked="true"] .req-sw-knob { transform: translateX(16px); }
+.req-sw[aria-checked="true"] .req-sw-lbl { color: var(--ink); }
+.req-neg-inner { display: none; padding: 0 13px 13px; flex-direction: column; gap: 10px; }
+.req-neg.open .req-neg-inner { display: flex; }
+.req-neg.open .req-neg-head { border-bottom: 1px solid var(--border); margin-bottom: 13px; }
 
-/* The ask panel. Same shape as the Paystack one so it reads as the same
-   kind of step, not a different product. */
-.mc-ask { display: none; flex-direction: column; gap: 9px; margin-top: 12px; padding: 13px;
-  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
-  border-radius: 12px; position: relative; z-index: 1; }
-.mc-ask.open { display: flex; }
-.mc-ask-lbl { font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
-  color: rgba(255,255,255,.55); }
-.mc-ask input { height: 44px; padding: 0 13px; background: rgba(255,255,255,.08);
-  border: 1.5px solid rgba(255,255,255,.18); border-radius: 10px; font-size: 16px;
-  color: var(--white); outline: none; width: 100%; }
-.mc-ask input:focus { border-color: var(--green); }
-.mc-ask input::placeholder { color: rgba(255,255,255,.35); }
-.mc-ask-hint { font-size: 11px; line-height: 1.5; color: rgba(255,255,255,.5); }
-.mc-ask-hint b { color: var(--green); font-weight: 700; }
-.mc-ask-err { font-size: 12px; font-weight: 600; color: #FF6B6B; display: none; }
-.mc-ask-err.show { display: block; }
-.mc-ask-go { width: 100%; height: 44px; border-radius: 10px; background: var(--green);
-  color: var(--ink); font-weight: 700; font-size: 13.5px; }
-.mc-ask-go:disabled { opacity: .55; }
-.mc-ask-cancel { font-size: 12px; color: rgba(255,255,255,.45); padding: 4px; text-align: center; }
+.req-commits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.req-commit { padding: 10px 7px; border-radius: 11px; border: 1.5px solid var(--border);
+  background: var(--white); font-family: var(--font-body); font-size: 11.5px; font-weight: 600;
+  line-height: 1.3; color: var(--text-secondary); text-align: center;
+  transition: border-color .14s, background .14s, color .14s; }
+.req-commit:hover { border-color: var(--stone); }
+.req-commit[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--white); }
+
+/* An archived item cannot be bought, only asked about. Say so with the
+   date it was last seen, so "is it still there" reads as a real question
+   rather than a formality. */
+.req-arch { display: flex; gap: 8px; padding: 10px 12px; border-radius: 10px;
+  background: rgba(245,158,11,.10); border: 1px solid rgba(245,158,11,.35);
+  font-size: 12.5px; line-height: 1.5; color: #92400E; }
+.req-arch svg { flex-shrink: 0; margin-top: 2px; }
+/* display:flex beats the browser's own [hidden] rule, so without this the
+   empty amber box shows on every live item. */
+.req-arch[hidden] { display: none; }
+@media (max-width: 420px) { .req-commit { font-size: 11px; padding: 9px 5px; } }
 
 /* The freshness line. "Listed 9 days ago" told a buyer the item was stale
    without telling them whether it was gone; this answers the real question. */
@@ -830,41 +850,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
             <div class="mc-price-val" id="mcPrice"><span class="sym">₦</span>—</div>
             <div class="mc-price-note">Escrow-held. Released only on PIN confirmation.</div>
 
-            <div class="mc-quick">
-              <span class="mc-quick-lbl">Quick offer</span>
-              <div class="mc-quick-row" id="mcQuickRow">
-                <button class="mc-quick-btn" data-delta="-1000" aria-label="Lower by ₦1,000" type="button">−</button>
-                <span class="mc-quick-val" id="mcQuickVal">₦—</span>
-                <button class="mc-quick-btn" data-delta="1000" aria-label="Raise by ₦1,000" type="button">+</button>
-              </div>
-              <div class="mc-quick-hint">Tap + or − to set your offer</div>
-            </div>
-
-            <div class="mc-secondary">
-            <button class="mc-negotiate-btn" id="mcNegotiate" type="button">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-              Negotiate
-              <span class="mc-negotiate-fee">₦300</span>
+            <button class="mc-request" id="mcRequest" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              Request if available
             </button>
-
-            <button class="mc-avail" id="mcAvail" type="button">
-              Still here?
-              <span class="mc-avail-sub">Free</span>
-            </button>
-
-            </div>
-
-            <div class="mc-ask" id="mcAsk">
-              <span class="mc-ask-lbl">Where should we send the answer?</span>
-              <input id="mcAskEmail" type="email" placeholder="you@example.com" autocomplete="email">
-              <div class="mc-ask-err" id="mcAskErr"></div>
-              <div class="mc-ask-hint" id="mcAskHint">
-                We ask the vendor now and email you the moment they reply.
-                <b><span id="mcAskLeft">5</span> checks left</b> this week.
-              </div>
-              <button class="mc-ask-go" id="mcAskGo" type="button">Ask the vendor</button>
-              <div class="mc-ask-cancel" id="mcAskCancel">Cancel</div>
-            </div>
+            <div class="mc-request-note" id="mcRequestNote">Get the seller to confirm before you pay. Your first question to a seller is free.</div>
           </div>
         </div>
 
@@ -975,14 +965,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
-<!-- OFFER SHEET -->
+<!-- REQUEST SHEET -->
+<!-- Questions, then the price, then how committed they are. The order is
+     deliberate: the price sits in the middle so it is visible without
+     being the first thing asked, and the commitment goes last so it
+     reads as a summary of intent rather than a gate. -->
 <div class="offer-bg" id="offerBg" aria-hidden="true">
   <div class="offer-sheet" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
     <div class="offer-head">
       <button class="offer-back" id="offerBack" aria-label="Back" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
       </button>
-      <span class="offer-title" id="offerTitle">Make an offer</span>
+      <span class="offer-title" id="offerTitle">Request if available</span>
       <button class="offer-close" id="offerClose" aria-label="Close" type="button">✕</button>
     </div>
 
@@ -995,53 +989,70 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         </div>
       </div>
 
-      <div class="offer-asking">
-        <span class="offer-asking-lbl">Asking</span>
-        <span class="offer-asking-val" id="offerAsking"><span class="sym">₦</span>—</span>
+      <div class="req-arch" id="reqArch" hidden>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
+        <span id="reqArchText"></span>
       </div>
 
       <div class="offer-field">
-        <label class="offer-lbl" for="offerInput">Your offer</label>
-        <div class="offer-step-row">
-          <button class="offer-step-btn" id="offerMinus" type="button" aria-label="Decrease by ₦1,000">−</button>
-          <div class="offer-input-wrap">
-            <input id="offerInput" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Offer amount in naira">
+        <span class="offer-lbl">What do you want confirmed?</span>
+        <div class="req-qs" id="reqQs"></div>
+      </div>
+
+      <div class="req-neg" id="reqNeg">
+        <div class="req-neg-head">
+          <div class="req-neg-price">
+            <span class="req-neg-k">Asking</span>
+            <span class="req-neg-v" id="reqAsking"><span class="sym">₦</span>—</span>
           </div>
-          <button class="offer-step-btn" id="offerPlus" type="button" aria-label="Increase by ₦1,000">+</button>
+          <button class="req-sw" id="reqNegSw" type="button" role="switch" aria-checked="false">
+            <span class="req-sw-lbl">Name your price</span>
+            <span class="req-sw-track"><span class="req-sw-knob"></span></span>
+          </button>
         </div>
-        <div class="offer-hint">± buttons move by ₦1,000. Any amount goes. The ₦300 fee applies regardless.</div>
-        <div class="offer-err" id="offerErr"></div>
+        <div class="req-neg-inner">
+          <div class="offer-step-row">
+            <button class="offer-step-btn" id="offerMinus" type="button" aria-label="Decrease by ₦1,000">−</button>
+            <div class="offer-input-wrap">
+              <input id="offerInput" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Your price in naira">
+            </div>
+            <button class="offer-step-btn" id="offerPlus" type="button" aria-label="Increase by ₦1,000">+</button>
+          </div>
+          <div class="offer-hint" style="margin-top:0;">The seller can take it, come back with another number, or leave it. Your questions get answered either way.</div>
+        </div>
       </div>
 
       <div class="offer-field">
         <label class="offer-lbl" for="offerEmail">Your email</label>
         <input id="offerEmail" type="email" placeholder="you@example.com" autocomplete="email">
-        <div class="offer-hint">The seller will reply to this address.</div>
+        <div class="offer-hint">The seller's answer comes to this address.</div>
       </div>
 
       <div class="offer-field">
-        <label class="offer-lbl" for="offerNote">Note to seller <span class="offer-opt">optional</span></label>
-        <textarea id="offerNote" maxlength="140" placeholder="e.g. Can pick up today if we agree."></textarea>
+        <span class="offer-lbl">Where are you with this?</span>
+        <div class="req-commits" id="reqCommits"></div>
       </div>
+
+      <div class="offer-err" id="offerErr"></div>
     </div>
 
     <div class="offer-actions" id="offerActions">
       <div class="offer-fee-box">
         <div class="offer-fee-row">
-          <span>Negotiation fee</span>
-          <span class="fee-amt">₦300</span>
+          <span id="reqFeeLabel">Your question</span>
+          <span class="fee-amt" id="reqFeeAmt">Free</span>
         </div>
-        <p class="offer-fee-note">Charged when you submit. Covers verification and keeps offers serious.</p>
+        <p class="offer-fee-note" id="reqFeeNote">The seller has 24 hours to answer.</p>
       </div>
-      <button class="offer-submit" id="offerSubmit" type="button">Pay ₦300 &amp; send offer</button>
+      <button class="offer-submit" id="offerSubmit" type="button">Send to the seller</button>
     </div>
 
     <div class="offer-success" id="offerSuccess">
       <div class="offer-success-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <h3 id="offerSuccessTitle">Offer sent</h3>
-      <p id="offerSuccessText">The seller has 24 hours to respond. You'll get an email the moment they accept, counter, or decline.</p>
+      <h3 id="offerSuccessTitle">Question sent</h3>
+      <p id="offerSuccessText">The seller has 24 hours to answer. You'll get an email the moment they do, with a Pay button if they confirm.</p>
       <button class="btn btn-outline" id="offerDone" style="width:100%;margin-top:8px;" type="button">Done</button>
     </div>
   </div>
@@ -1167,8 +1178,29 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var INTEREST_SHOW_AT = 5;   // hide the interest count below this
   var NOTIFY_KEY    = "dps_notify_";
 
-  var NEGOTIATION_FEE = 300;
+  /* One flat fee for a question, charged only on the second one onward to
+     the same seller. The page never works out which it is: requestFee on
+     the backend derives it from what this buyer has asked and bought, so
+     there is no counter here to drift out of step with the sheet. */
+  var REQUEST_FEE = 350;
   var STEP_NAIRA = 1000;
+
+  var REQ_QUESTIONS = [
+    { key: "available", label: "Still available", on: true },
+    { key: "condition", label: "Condition as listed" },
+    { key: "faults",    label: "Hidden faults" },
+    { key: "included",  label: "All included" },
+    { key: "collect",   label: "Collect today" },
+    { key: "test",      label: "Test first" }
+  ];
+  /* Warmest first. This is how committed the buyer is, and nothing else;
+     the price is a separate control, so "not ready" with a number on it
+     is a legitimate combination and still sends. */
+  var REQ_COMMITMENTS = [
+    { key: "ready_now",   label: "Ready to pay if available" },
+    { key: "considering", label: "Considering buying" },
+    { key: "just_asking", label: "Just asking, not ready" }
+  ];
   var QUICK_OFFER_RATIO = 0.92;
 
   /* ═══════════ BUYER OFFER CONTEXT (accepted / countered) ═══════════ */
@@ -1280,10 +1312,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var payBtn = document.getElementById("mcOfferPay");
     if (payBtn) payBtn.addEventListener("click", openPaystackPanel);
 
-    var negotiateBtn = document.getElementById("mcNegotiate");
-    if (negotiateBtn) negotiateBtn.style.display = "none";
-    var quick = document.querySelector(".mc-quick");
-    if (quick) quick.style.display = "none";
+    // They already have a price. Asking again is noise, so the request
+    // button goes away while an accepted or countered price is on screen.
+    var reqBtn = document.getElementById("mcRequest");
+    if (reqBtn) reqBtn.style.display = "none";
+    var reqNote = document.getElementById("mcRequestNote");
+    if (reqNote) reqNote.style.display = "none";
 
     var buyBtn = document.getElementById("mcBuy");
     if (buyBtn) {
@@ -1295,14 +1329,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function restoreBuyerDefaults() {
-    // "Default" means this item's default. A fixed-price item must not get
-    // its Negotiate button back just because there is no accepted offer.
-    closeAsk();
-    var neg = !currentItem || isNegotiable(currentItem);
-    var negotiateBtn = document.getElementById("mcNegotiate");
-    if (negotiateBtn) negotiateBtn.style.display = neg ? "" : "none";
-    var quick = document.querySelector(".mc-quick");
-    if (quick) quick.style.display = neg ? "" : "none";
+    // The request button comes back for every item, negotiable or not:
+    // "is this still available" is a fair question on a fixed-price item
+    // too. Negotiable only decides whether the price switch is offered.
+    var reqBtn = document.getElementById("mcRequest");
+    if (reqBtn) reqBtn.style.display = "";
+    var reqNote = document.getElementById("mcRequestNote");
+    if (reqNote) reqNote.style.display = "";
+    var swWrap = document.getElementById("reqNegSw");
+    if (swWrap) swWrap.style.display = (!currentItem || isNegotiable(currentItem)) ? "" : "none";
     var buyBtn = document.getElementById("mcBuy");
     if (buyBtn) {
       buyBtn.innerHTML =
@@ -1738,7 +1773,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var galIdx = 0;
   var galTotal = 0;
   var currentItem = null;
-  var currentQuickOffer = 0;
 
   function initials(name) {
     if (!name) return "?";
@@ -1943,9 +1977,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("mcDesc").textContent = it["Description"] || "No description provided.";
     var asking = priceNum(it["Amount to sell"] || it["Amount to Buyer"]);
     document.getElementById("mcPrice").innerHTML = '<span class="sym">₦</span>' + formatPrice(asking);
-
-    currentQuickOffer = computeQuickOffer(asking);
-    document.getElementById("mcQuickVal").textContent = "₦" + currentQuickOffer.toLocaleString("en-NG");
 
     var isPartner = isVendorItem(it);
     renderDina(it);
@@ -2227,29 +2258,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
   });
 
-  document.getElementById("mcQuickRow").addEventListener("click", function (e) {
-    var btn = e.target.closest("[data-delta]");
-    if (!btn) return;
-    var delta = parseInt(btn.getAttribute("data-delta"), 10) || 0;
-    var val = currentQuickOffer + delta;
-    if (val < STEP_NAIRA) val = STEP_NAIRA;
-    currentQuickOffer = val;
-    document.getElementById("mcQuickVal").textContent = "₦" + val.toLocaleString("en-NG");
-    openOfferSheet(val);
-  });
+  document.getElementById("mcRequest").addEventListener("click", openRequestSheet);
 
-  document.getElementById("mcNegotiate").addEventListener("click", function () {
-    openOfferSheet(currentQuickOffer);
-  });
-
-  /* OFFER SHEET */
+  /* ═══════════ REQUEST SHEET ═══════════ */
   var offerBg = document.getElementById("offerBg");
   var offerBody = document.getElementById("offerBody");
   var offerActions = document.getElementById("offerActions");
   var offerSuccess = document.getElementById("offerSuccess");
   var offerInputEl = document.getElementById("offerInput");
   var offerSubmitBtn = document.getElementById("offerSubmit");
-  var offerAskingNaira = 0;
+  var reqNeg = document.getElementById("reqNeg");
+  var reqAskingNaira = 0;
+  var REQ_FEE_STATE = { free: true, fee: 0, reason: "" };
 
   function setOfferValue(v) {
     if (isNaN(v) || v < 0) v = 0;
@@ -2259,38 +2279,110 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
   function getOfferValue() { return priceNum(offerInputEl.value); }
 
-  function openOfferSheet(initialValue) {
+  function reqPicked() {
+    return Array.prototype.filter.call(
+      document.querySelectorAll("#reqQs .req-q"),
+      function (b) { return b.getAttribute("aria-pressed") === "true"; }
+    ).map(function (b) { return b.getAttribute("data-k"); });
+  }
+  function reqCommitKey() {
+    var b = document.querySelector('#reqCommits .req-commit[aria-pressed="true"]');
+    return b ? b.getAttribute("data-k") : "just_asking";
+  }
+  /* A price only counts when the switch is on. Leaving a stale number in a
+     closed input and sending it anyway is how a buyer accidentally offers
+     less than the asking price without meaning to. */
+  function reqPrice() { return reqNeg.classList.contains("open") ? getOfferValue() : 0; }
+
+  function reqShortDate(raw) {
+    var d = new Date(raw);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-NG", { day: "numeric", month: "short" });
+  }
+
+  function paintReqControls() {
+    document.getElementById("reqQs").innerHTML = REQ_QUESTIONS.map(function (q) {
+      return '<button class="req-q" type="button" data-k="' + escapeAttr(q.key) +
+             '" aria-pressed="' + (q.on ? "true" : "false") + '">' + escapeHTML(q.label) + '</button>';
+    }).join("");
+    document.getElementById("reqCommits").innerHTML = REQ_COMMITMENTS.map(function (c, i) {
+      return '<button class="req-commit" type="button" data-k="' + escapeAttr(c.key) +
+             '" aria-pressed="' + (i === 0 ? "true" : "false") + '">' + escapeHTML(c.label) + '</button>';
+    }).join("");
+  }
+
+  function paintReqFee() {
+    var n = reqPicked().length;
+    var free = REQ_FEE_STATE.free;
+    document.getElementById("reqFeeLabel").textContent = free ? "Your question" : "Question fee";
+    document.getElementById("reqFeeAmt").textContent = free ? "Free" : "₦" + formatPrice(REQUEST_FEE);
+    document.getElementById("reqFeeNote").textContent =
+      (REQ_FEE_STATE.reason ? REQ_FEE_STATE.reason + ". " : "") + "The seller has 24 hours to answer.";
+    offerSubmitBtn.disabled = n === 0;
+    offerSubmitBtn.textContent = n === 0
+      ? "Pick at least one question"
+      : (free ? "Send to the seller" : "Pay ₦" + formatPrice(REQUEST_FEE) + " and send");
+  }
+
+  /* Who pays is the backend's call, not the page's. We ask on open and
+     again when the email changes, because the answer depends on the email. */
+  function refreshReqFee() {
+    if (!currentItem || !GAS || IS_DEMO) { paintReqFee(); return; }
+    var em = (document.getElementById("offerEmail").value || "").trim().toLowerCase();
+    fetch(GAS + "?action=requestFee&item=" + encodeURIComponent(currentItem["Item ID"]) +
+          "&email=" + encodeURIComponent(em))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.success) REQ_FEE_STATE = { free: !!d.free, fee: d.fee || 0, reason: d.reason || "" };
+        paintReqFee();
+      })
+      .catch(function () { paintReqFee(); });
+  }
+
+  function openRequestSheet() {
     if (!currentItem) return;
     var asking = priceNum(currentItem["Amount to sell"] || currentItem["Amount to Buyer"]);
-    offerAskingNaira = asking;
+    reqAskingNaira = asking;
 
     var img = firstImage(currentItem["Product Photos"]);
     var imgEl = document.getElementById("offerItemImg");
     if (img) { imgEl.src = img; imgEl.style.display = "block"; }
     else { imgEl.style.display = "none"; }
     document.getElementById("offerItemName").textContent = currentItem["Item Name"] || "";
-    document.getElementById("offerItemMeta").textContent = (currentItem["Condition"] || "") + " · " + (currentItem["Location"] || "");
-    document.getElementById("offerAsking").innerHTML = '<span class="sym">₦</span>' + formatPrice(asking);
+    document.getElementById("offerItemMeta").textContent =
+      (currentItem["Condition"] || "") + " · " + (currentItem["Location"] || "");
+    document.getElementById("reqAsking").innerHTML = '<span class="sym">₦</span>' + formatPrice(asking);
 
-    var init = (typeof initialValue === "number" && initialValue > 0)
-      ? initialValue
-      : computeQuickOffer(asking);
-    setOfferValue(init);
+    // An archived item can only be asked about. Say so with the date, so
+    // "is it still there" reads as a real question, not a formality.
+    var arch = String(currentItem["Status"] || "").trim().toLowerCase() === "archived";
+    var archEl = document.getElementById("reqArch");
+    archEl.hidden = !arch;
+    if (arch) {
+      var seen = reqShortDate(currentItem["Last Live At"] || currentItem["Archived At"] || "");
+      document.getElementById("reqArchText").textContent =
+        "This one is in the archive" + (seen ? ", last seen " + seen : "") +
+        ". DPS cannot confirm it is still there, so asking is the only thing you can do with it.";
+    }
 
-    document.getElementById("offerEmail").value = "";
-    document.getElementById("offerNote").value = "";
+    paintReqControls();
+    reqNeg.classList.remove("open");
+    document.getElementById("reqNegSw").setAttribute("aria-checked", "false");
+    setOfferValue(computeQuickOffer(asking));
+
+    document.getElementById("offerEmail").value = askEmailStored();
     document.getElementById("offerErr").classList.remove("show");
-    offerSubmitBtn.disabled = false;
-    offerSubmitBtn.textContent = "Pay ₦300 & send offer";
 
     offerBody.style.display = "flex";
     offerActions.style.display = "flex";
     offerSuccess.classList.remove("show");
+    REQ_FEE_STATE = { free: true, fee: 0, reason: "" };
+    paintReqFee();
+    refreshReqFee();
 
     offerBg.classList.add("open");
     offerBg.setAttribute("aria-hidden", "false");
     document.body.classList.add("locked");
-    setTimeout(function () { try { offerInputEl.focus(); offerInputEl.select(); } catch (e) {} }, 60);
   }
 
   function closeOfferSheet() {
@@ -2304,6 +2396,27 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   document.getElementById("offerDone").addEventListener("click", closeOfferSheet);
   offerBg.addEventListener("click", function (e) { if (e.target === offerBg) closeOfferSheet(); });
 
+  document.getElementById("reqQs").addEventListener("click", function (e) {
+    var b = e.target.closest(".req-q");
+    if (!b) return;
+    b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true");
+    paintReqFee();
+  });
+
+  document.getElementById("reqCommits").addEventListener("click", function (e) {
+    var b = e.target.closest(".req-commit");
+    if (!b) return;
+    Array.prototype.forEach.call(document.querySelectorAll("#reqCommits .req-commit"), function (x) {
+      x.setAttribute("aria-pressed", x === b ? "true" : "false");
+    });
+  });
+
+  document.getElementById("reqNegSw").addEventListener("click", function () {
+    var open = reqNeg.classList.toggle("open");
+    this.setAttribute("aria-checked", open ? "true" : "false");
+    if (open) setTimeout(function () { try { offerInputEl.focus(); offerInputEl.select(); } catch (e) {} }, 60);
+  });
+
   document.getElementById("offerPlus").addEventListener("click", function () {
     setOfferValue(getOfferValue() + STEP_NAIRA);
   });
@@ -2316,22 +2429,21 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("offerErr").classList.remove("show");
     e.target.classList.remove("err");
   });
+  document.getElementById("offerEmail").addEventListener("change", refreshReqFee);
 
   offerSubmitBtn.addEventListener("click", function () {
-    var offerNum = getOfferValue();
     var emailInput = document.getElementById("offerEmail");
-    var noteInput = document.getElementById("offerNote");
     var errEl = document.getElementById("offerErr");
     var email = emailInput.value.trim().toLowerCase();
+    var questions = reqPicked();
+    var price = reqPrice();
 
     errEl.classList.remove("show");
     offerInputEl.classList.remove("err");
 
-    if (!offerNum || offerNum <= 0) {
-      offerInputEl.classList.add("err");
-      errEl.textContent = "Enter an amount to offer.";
+    if (!questions.length) {
+      errEl.textContent = "Pick at least one thing for the seller to confirm.";
       errEl.classList.add("show");
-      offerInputEl.focus();
       return;
     }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -2340,19 +2452,22 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       emailInput.focus();
       return;
     }
+    try { localStorage.setItem(ASK_EMAIL_KEY, email); } catch (e) {}
 
     var payload = {
-      action: "submitOffer",
+      action: "submitRequest",
       itemId: currentItem["Item ID"],
-      itemName: currentItem["Item Name"],
-      askingPrice: offerAskingNaira,
-      offeredPrice: offerNum,
       buyerEmail: email,
-      note: (noteInput.value || "").trim().slice(0, 140),
-      feeAmount: NEGOTIATION_FEE * 100
+      questions: questions,
+      commitment: reqCommitKey(),
+      offeredPrice: price
     };
-    dlPush("submit_offer", { item_id: currentItem["Item ID"], offer: offerNum });
+    dlPush("submit_request", {
+      item_id: currentItem["Item ID"], questions: questions.length,
+      commitment: payload.commitment, offer: price
+    });
 
+    var resting = offerSubmitBtn.textContent;
     if (!GAS || IS_DEMO) {
       offerSubmitBtn.disabled = true;
       offerSubmitBtn.textContent = "Sending…";
@@ -2361,7 +2476,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     }
 
     offerSubmitBtn.disabled = true;
-    offerSubmitBtn.textContent = "Connecting to Paystack…";
+    offerSubmitBtn.textContent = REQ_FEE_STATE.free ? "Sending…" : "Connecting to Paystack…";
 
     fetch(GAS, { method: "POST", body: JSON.stringify(payload) })
       .then(function (r) { return r.json(); })
@@ -2371,37 +2486,36 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           window.location.href = data.authorization_url;
           return;
         }
-        if (data.success && (data.offerId || data.devMode)) {
-          showOfferSuccess();
-          return;
-        }
+        if (data.success) { showOfferSuccess(); return; }
         offerSubmitBtn.disabled = false;
-        offerSubmitBtn.textContent = "Pay ₦300 & send offer";
-        errEl.textContent = data.error || "Could not start payment. Please try again.";
+        offerSubmitBtn.textContent = resting;
+        errEl.textContent = data.error || "Could not send that. Please try again.";
         errEl.classList.add("show");
       })
       .catch(function () {
         offerSubmitBtn.disabled = false;
-        offerSubmitBtn.textContent = "Pay ₦300 & send offer";
+        offerSubmitBtn.textContent = resting;
         errEl.textContent = "Connection error. Please try again.";
         errEl.classList.add("show");
       });
   });
 
-  var OFFER_SENT_TEXT = "The seller has 24 hours to respond. You'll get an email the moment they accept, counter, or decline.";
+  var OFFER_SENT_TEXT = "The seller has 24 hours to answer. You'll get an email the moment they do, with a Pay button if they confirm.";
 
   function showOfferSuccess(title, text) {
-    document.getElementById("offerSuccessTitle").textContent = title || "Offer sent";
+    document.getElementById("offerSuccessTitle").textContent = title || "Question sent";
     document.getElementById("offerSuccessText").textContent = text || OFFER_SENT_TEXT;
     offerBody.style.display = "none";
     offerActions.style.display = "none";
     offerSuccess.classList.add("show");
   }
 
-  /* Return from ₦300-fee Paystack redirect (?item=…&offer=sent) */
+  /* Return from the Paystack redirect. Requests come back as
+     ?item=…&request=sent; the older ?offer=sent is still handled so a
+     link already sitting in someone's inbox does not land on nothing. */
   function handleOfferReturn() {
     var href = window.location.href;
-    if (!/[?&]offer=sent/.test(href)) return;
+    if (!/[?&](request|offer)=sent/.test(href)) return;
 
     var refMatch = href.match(/[?&]reference=([^&#]+)/) || href.match(/[?&]trxref=([^&#]+)/);
     var reference = refMatch ? decodeURIComponent(refMatch[1]) : "";
@@ -2425,16 +2539,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
       showOfferSuccess("Confirming your payment…", "This takes a few seconds. Please keep this page open.");
 
+      // "Not confirmed yet" is not "it failed". The charge went through and
+      // pollPaystackPayments will pick it up, so the one thing never to say
+      // here is anything that makes them pay twice.
+      var pendingText = "If you were charged, your question will reach the seller within 5 minutes. " +
+                        "Do not pay again.";
+
       fetch(GAS, { method: "POST", body: JSON.stringify({ action: "confirmOfferPayment", reference: reference }) })
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (data && data.success) { showOfferSuccess(); return; }
-          showOfferSuccess("Payment not confirmed yet",
-            "If you were charged ₦300, your offer will reach the seller within 5 minutes. No need to pay again.");
+          showOfferSuccess("Payment not confirmed yet", pendingText);
         })
         .catch(function () {
-          showOfferSuccess("Payment not confirmed yet",
-            "If you were charged ₦300, your offer will reach the seller within 5 minutes. No need to pay again.");
+          showOfferSuccess("Payment not confirmed yet", pendingText);
         });
     }, 150);
   }
@@ -2513,109 +2631,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     });
   })();
 
-  /* ── "Still here?" ────────────────────────────────────────────────────
-     Free, because charging to ask a question is a hard sell and the volume
-     is the point: every ask is a prompt that keeps a vendor's inventory
-     honest. Capped at a few a week so it stays a signal rather than a way
-     to pester vendors, and the cap is what earns us the email. */
+  /* The old free "Still here?" ask and its weekly cap are gone: the
+     request sheet is now the only way to reach a seller, and the free
+     slot it grants is per seller rather than per week. The remembered
+     email stays, under the same key, so a returning buyer does not retype
+     it and their free-question history keeps matching. */
   var ASK_EMAIL_KEY = "dps_ask_email";
-  var asking = false;
 
   function askEmailStored() {
     try { return localStorage.getItem(ASK_EMAIL_KEY) || ""; } catch (e) { return ""; }
   }
-
-  function refreshChecksLeft(email) {
-    var el = document.getElementById("mcAskLeft");
-    if (!el || !GAS || IS_DEMO) return;
-    fetch(GAS + "?action=checksLeft&email=" + encodeURIComponent(email || ""))
-      .then(function (r) { return r.json(); })
-      .then(function (d) { if (d && typeof d.left === "number") el.textContent = d.left; })
-      .catch(function () {});
-  }
-
-  function openAsk() {
-    var panel = document.getElementById("mcAsk");
-    var input = document.getElementById("mcAskEmail");
-    if (!panel || !input) return;
-    document.getElementById("mcAskErr").classList.remove("show");
-    input.value = askEmailStored();
-    panel.classList.add("open");
-    refreshChecksLeft(input.value);
-    setTimeout(function () { if (!input.value) input.focus(); }, 90);
-  }
-
-  function closeAsk() {
-    var p = document.getElementById("mcAsk");
-    if (p) p.classList.remove("open");
-  }
-
-  (function wireAvail() {
-    var b = document.getElementById("mcAvail");
-    if (b) b.addEventListener("click", openAsk);
-
-    var c = document.getElementById("mcAskCancel");
-    if (c) c.addEventListener("click", closeAsk);
-
-    var go = document.getElementById("mcAskGo");
-    if (!go) return;
-
-    go.addEventListener("click", function () {
-      if (asking) return;
-      var input = document.getElementById("mcAskEmail");
-      var err = document.getElementById("mcAskErr");
-      var email = (input.value || "").trim().toLowerCase();
-
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        err.textContent = "Please enter a valid email address.";
-        err.classList.add("show");
-        return;
-      }
-      err.classList.remove("show");
-      try { localStorage.setItem(ASK_EMAIL_KEY, email); } catch (e) {}
-
-      var itemId = currentItem ? currentItem["Item ID"] : "";
-      if (!itemId) return;
-
-      if (!GAS || IS_DEMO) {
-        err.textContent = "Demo mode: no live endpoint.";
-        err.classList.add("show");
-        return;
-      }
-
-      asking = true;
-      go.disabled = true;
-      go.textContent = "Asking the vendor…";
-      dlPush("check_availability", { item_id: itemId });
-
-      fetch(GAS, { method: "POST", body: JSON.stringify({
-        action: "checkAvailability", itemId: itemId, email: email
-      }) })
-        .then(function (r) { return r.json(); })
-        .then(function (d) {
-          asking = false;
-          go.disabled = false;
-          go.textContent = "Ask the vendor";
-          if (d && d.success) {
-            closeAsk();
-            var el = document.getElementById("mcAskLeft");
-            if (el && typeof d.left === "number") el.textContent = d.left;
-            showToast("<b>Asked.</b> We will email you the moment the vendor replies." +
-                      (typeof d.left === "number" ? " You have " + d.left + " left this week." : ""));
-            return;
-          }
-          err.textContent = (d && d.error) ? d.error : "Could not send that. Please try again.";
-          err.classList.add("show");
-        })
-        .catch(function () {
-          asking = false;
-          go.disabled = false;
-          go.textContent = "Ask the vendor";
-          err.textContent = "Connection error. Please try again.";
-          err.classList.add("show");
-        });
-    });
-  })();
 
   function normalise(raw) {
     return raw.map(function (it) {
