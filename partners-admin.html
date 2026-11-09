@@ -367,7 +367,27 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .empty-title { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
 
 /* Skipped posts */
+/* Pull one post by link */
+.linkpull { background: var(--card, #fff); border: 1px solid var(--border); border-radius: 14px;
+  padding: 16px 18px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px; }
+.linkpull-title { font-weight: 700; font-size: 14.5px; color: var(--ink); letter-spacing: -0.01em; }
+.linkpull-sub { font-size: 12.5px; line-height: 1.5; color: var(--stone-dark); margin-top: 3px; }
+.linkpull-row { display: flex; gap: 8px; align-items: stretch; }
+.linkpull-row input { flex: 1; min-width: 0; height: 42px; padding: 0 13px; border: 1.5px solid var(--border);
+  border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--ink); background: #fff; outline: none; }
+.linkpull-row input:focus { border-color: var(--ink); }
+.linkpull-row .btn { flex: 0 0 auto; white-space: nowrap; }
+.linkpull-note { font-size: 12px; line-height: 1.5; color: var(--stone-dark); }
+.linkpull-note.err { color: #B91C1C; }
+.linkpull-note.ok { color: var(--green-dark, #00A843); }
+@media (max-width: 520px) {
+  .linkpull-row { flex-direction: column; }
+  .linkpull-row .btn { width: 100%; }
+}
+
 .skipped-list { display: flex; flex-direction: column; gap: 16px; }
+/* The header is sticky, so a scrolled-to card lands underneath it without this. */
+.skipped-card { scroll-margin-top: 88px; }
 .skipped-card {
   background: var(--white); border: 1px solid var(--border);
   border-radius: var(--r-card); overflow: hidden;
@@ -689,6 +709,23 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <div class="refresh-bar-text" id="refreshText">Just posted something? Pull it in.</div>
         <button class="btn btn-outline btn-sm" id="refreshBtn" type="button">Refresh from Instagram</button>
       </div>
+
+      <!-- One exact post, by link. The refresh above only looks at the last
+           48 hours, so older stock is invisible to it. This is how a partner
+           says "that one", and it costs a single result instead of twelve. -->
+      <div class="linkpull" id="linkPull">
+        <div class="linkpull-head">
+          <div class="linkpull-title">Got an older post you want listed?</div>
+          <div class="linkpull-sub">Paste the link to any post on your page, even an old one, and we'll pull just that one.</div>
+        </div>
+        <div class="linkpull-row">
+          <input id="linkPullInput" type="url" inputmode="url" autocomplete="off"
+                 placeholder="instagram.com/p/..." aria-label="Instagram post link">
+          <button class="btn btn-outline btn-sm" id="linkPullBtn" type="button">Pull it in</button>
+        </div>
+        <div class="linkpull-note" id="linkPullNote"></div>
+      </div>
+
       <div class="skipped-list" id="skippedList"></div>
     </div>
 
@@ -774,6 +811,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     skipped: [],
     needs: null,
     refreshAvailableAt: 0,
+    refreshUsedToday: false,
+    postPullsLeft: null,
     lastSummary: null
   };
 
@@ -1021,7 +1060,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         state.items = Array.isArray(d.items) ? d.items : [];
         state.sold = Array.isArray(d.sold) ? d.sold : [];
         state.needs = d.needsYou || null;
-        state.refreshAvailableAt = d.refreshAvailableAt ? new Date(d.refreshAvailableAt).getTime() : 0;
+        state.refreshAvailableAt = 0;
+        state.refreshUsedToday = !!d.refreshUsedToday;
+        state.postPullsLeft  = (typeof d.postPullsLeft === 'number') ? d.postPullsLeft : null;
         state.lastSummary = d;
         showDashScreen();
         renderDashboard();
@@ -1366,22 +1407,74 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     }).join('');
   }
 
+  /* One refresh a day. A countdown in minutes was noise: a partner cannot
+     act on "37 minutes", but they understand "tomorrow". */
   function renderRefreshBar() {
     var btn = document.getElementById('refreshBtn');
     var txt = document.getElementById('refreshText');
-    var now = Date.now();
-    var waitMs = state.refreshAvailableAt - now;
 
-    if (waitMs > 0) {
-      var mins = Math.ceil(waitMs / 60000);
+    if (state.refreshUsedToday) {
       btn.disabled = true;
-      btn.textContent = 'Refresh in ' + mins + 'm';
-      txt.textContent = 'You can refresh once per hour. Available again in ' + mins + ' minute' + (mins === 1 ? '' : 's') + '.';
+      btn.textContent = 'Back tomorrow';
+      txt.textContent = "You've used today's refresh. Dina still reads your page twice a day on her own, so nothing is missed.";
     } else {
       btn.disabled = false;
       btn.textContent = 'Refresh from Instagram';
-      txt.textContent = 'Just posted something? Pull it in.';
+      txt.textContent = 'Just posted something? Pull it in. One refresh a day.';
     }
+    renderLinkPullNote();
+  }
+
+  /* ── Pull one post by link ───────────────────────── */
+  function renderLinkPullNote(msg, kind) {
+    var el = document.getElementById('linkPullNote');
+    if (!el) return;
+    el.className = 'linkpull-note' + (kind ? ' ' + kind : '');
+    if (msg) { el.textContent = msg; return; }
+    var left = state.postPullsLeft;
+    el.textContent = (typeof left === 'number')
+      ? (left > 0 ? left + ' post pull' + (left === 1 ? '' : 's') + ' left today.' : 'No post pulls left today. More tomorrow.')
+      : '';
+  }
+
+  function doLinkPull() {
+    var input = document.getElementById('linkPullInput');
+    var btn = document.getElementById('linkPullBtn');
+    var url = (input.value || '').trim();
+    if (!url) { renderLinkPullNote('Paste the link to the post first.', 'err'); input.focus(); return; }
+
+    btn.disabled = true;
+    var resting = btn.textContent;
+    btn.textContent = 'Pulling…';
+    renderLinkPullNote('Reading that post. This can take a few seconds.');
+
+    api({ action: 'partnerPostLink', url: url })
+      .then(function (d) {
+        btn.disabled = false;
+        btn.textContent = resting;
+        if (!d || !d.success) { renderLinkPullNote((d && d.error) || 'Could not pull that post.', 'err'); return; }
+
+        if (typeof d.pullsLeft === 'number') state.postPullsLeft = d.pullsLeft;
+        input.value = '';
+
+        // Drop it at the top of the same list the skipped posts use, so the
+        // partner fills it in with the form that already exists.
+        var p = d.post || {};
+        state.skipped.unshift({
+          sourceRef: p.sourceRef, reason: 'You pulled this one in', caption: p.caption || '',
+          postedAt: p.postedAt || '', postUrl: p.postUrl || '', photoUrl: p.photoUrl || '',
+          missingFields: ['name', 'price']
+        });
+        renderSkipped();
+        renderLinkPullNote('Pulled it in. Fill in the name and price below and we will push it.', 'ok');
+        var first = document.querySelector('.skipped-card');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = resting;
+        renderLinkPullNote(err.message || 'Could not reach the server.', 'err');
+      });
   }
 
   /* ── Skipped posts ───────────────────────────────── */
@@ -1558,6 +1651,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
   }
 
+  document.getElementById('linkPullBtn').addEventListener('click', doLinkPull);
+  document.getElementById('linkPullInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); doLinkPull(); }
+  });
+
   /* ── Refresh from Instagram ──────────────────────── */
   document.getElementById('refreshBtn').addEventListener('click', function () {
     var btn = this;
@@ -1570,7 +1668,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           showToast((d && d.error) || 'Could not refresh. Try again.', true);
           return;
         }
-        state.refreshAvailableAt = Date.now() + 60 * 60 * 1000;
+        state.refreshUsedToday = true;
         renderRefreshBar();
         showToast('Refreshing. New posts will appear here in a minute.');
         setTimeout(loadSkipped, 3000);
