@@ -390,6 +390,33 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:14px;color:var(--text-muted);}
 .spinner{width:28px;height:28px;border-radius:50%;border:2.5px solid var(--border);border-top-color:var(--green);animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
+/* New partner requests */
+.np-card{margin-bottom:22px;border-color:rgba(0,200,83,.38);box-shadow:0 1px 0 rgba(0,200,83,.10);}
+.np-count{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:var(--green);color:var(--ink);white-space:nowrap;}
+.np-sub{font-size:12.5px;line-height:1.5;color:var(--text-muted);margin:2px 0 14px;max-width:62ch;}
+.np-list{display:flex;flex-direction:column;gap:8px;}
+.np-row{display:flex;align-items:center;gap:14px;padding:13px 14px;border:1px solid var(--border);border-radius:12px;background:var(--white);transition:border-color .15s,opacity .2s;}
+.np-row:hover{border-color:var(--stone,#A7B0AA);}
+.np-row.done{opacity:.5;}
+.np-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.np-name{font-family:var(--font-heading);font-weight:800;font-size:14px;letter-spacing:-.015em;color:var(--ink);}
+.np-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;font-size:12px;color:var(--text-muted);}
+.np-ig{font-family:var(--font-mono);font-size:11.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--border);}
+.np-ig:hover{border-bottom-color:var(--ink);}
+/* Dina has nothing to read without a handle, so approving is pointless
+   until it is filled in. Worth shouting about before the click. */
+.np-warn{font-family:var(--font-mono);font-size:11px;color:#B91C1C;background:rgba(220,38,38,.10);padding:2px 7px;border-radius:999px;}
+.np-wait{font-family:var(--font-mono);font-size:11px;}
+.np-contact{font-size:11.5px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.np-act{display:flex;gap:7px;flex:0 0 auto;}
+.np-working,.np-done{font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);padding:7px 10px;white-space:nowrap;}
+.np-done{color:var(--green-dark,#00A843);font-weight:500;}
+@media (max-width:640px){
+  .np-row{flex-direction:column;align-items:stretch;gap:11px;}
+  .np-act{justify-content:flex-end;}
+  .np-act .btn{flex:1;}
+}
+
 .empty{text-align:center;padding:60px 24px;color:var(--text-muted);}
 .empty svg{color:var(--stone);margin-bottom:16px;}
 .empty h3{font-family:var(--font-heading);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px;}
@@ -712,7 +739,7 @@ function renderTabs(){
     var na = state.today.needsAttention;
     var badges = {
       badgeItems: na.pendingApproval || 0,
-      badgePartners: na.partnerIssues || 0,
+      badgePartners: (na.partnerIssues || 0) + (na.newPartners || 0),
       badgeOffers: na.offersPending || 0,
       badgePayouts: na.pickupFollowUps || 0
     };
@@ -760,7 +787,10 @@ var ICON = {
 // ═══════════════════════════════════════════════════════════════
 function renderToday(main){
   main.appendChild(loading());
-  apiGet("adminDashboard").then(function(r){
+  // adminToday, not adminDashboard: the backend has never routed
+  // adminDashboard, so that call always returned "Unknown action" and this
+  // screen only worked by falling through to the copy cached at sign-in.
+  apiGet("adminToday").then(function(r){
     if(!r || !r.success){ r = state.today; }
     if(!r || !r.success){
       main.innerHTML = "";
@@ -803,6 +833,11 @@ function buildTodayScreen(r){
 
   // Hero — Next action
   wrap.appendChild(buildActionHero(r));
+
+  // People waiting to be let in. Above the KPIs on purpose: a human who
+  // signed up and heard nothing is more urgent than any number below.
+  var np = buildNewPartners(r);
+  if(np) wrap.appendChild(np);
 
   // KPIs
   var mk = r.marketplace || {}, sl = r.sales || {}, pt = r.partners || {};
@@ -958,12 +993,117 @@ function buildTodayScreen(r){
   return wrap;
 }
 
+// ═══════════════════════════════════════════════════════════════
+// NEW PARTNER REQUESTS
+// Signups sitting at Status "pending". adminVerifyPartner has existed in
+// the backend the whole time with nothing calling it, so until now there
+// was no way to approve a partner from this dashboard at all.
+// ═══════════════════════════════════════════════════════════════
+function waitedFor(raw){
+  var t = raw ? new Date(raw).getTime() : NaN;
+  if(isNaN(t)) return "waiting";
+  var mins = Math.floor((Date.now() - t) / 60000);
+  if(mins < 60) return "waiting " + Math.max(1, mins) + "m";
+  var hrs = Math.floor(mins / 60);
+  if(hrs < 24) return "waiting " + hrs + "h";
+  var days = Math.floor(hrs / 24);
+  return "waiting " + days + " day" + (days === 1 ? "" : "s");
+}
+
+function buildNewPartners(r){
+  var list = (r && r.newPartnerList instanceof Array) ? r.newPartnerList : [];
+  if(!list.length) return null;
+
+  var card = el("section", { class:"card np-card" });
+  card.innerHTML =
+    '<div class="card-head">'+
+      '<div class="card-title">New partner requests</div>'+
+      '<span class="np-count">'+list.length+' waiting</span>'+
+    '</div>'+
+    '<div class="np-sub">Approving sets them Active, sends the activation email, and Dina starts reading their Instagram on her next run. Check the handle is a real shop before you do.</div>'+
+    '<div class="np-list">'+
+      list.map(function(p){
+        var ig = String(p.instagram || "").replace(/^@+/, "");
+        var bits = [];
+        if(p.category) bits.push('<span>'+esc(p.category)+'</span>');
+        if(p.location) bits.push('<span>'+esc(p.location)+'</span>');
+        bits.push('<span class="np-wait">'+esc(waitedFor(p.registeredAt))+'</span>');
+        return '<div class="np-row" data-pid="'+esc(p.partnerId)+'">'+
+          '<div class="np-main">'+
+            '<div class="np-name">'+esc(p.businessName || p.partnerId || "Unnamed")+'</div>'+
+            '<div class="np-meta">'+
+              (ig
+                ? '<a class="np-ig" href="https://instagram.com/'+esc(ig)+'" target="_blank" rel="noopener">@'+esc(ig)+'</a>'
+                : '<span class="np-warn">no Instagram handle</span>')+
+              bits.join("")+
+            '</div>'+
+            '<div class="np-contact">'+esc(p.email || "no email")+(p.whatsapp ? ' · '+esc(p.whatsapp) : '')+'</div>'+
+          '</div>'+
+          '<div class="np-act">'+
+            '<button class="btn btn-ghost btn-sm" data-np="view">Open</button>'+
+            '<button class="btn btn-primary btn-sm" data-np="approve">Approve</button>'+
+          '</div>'+
+        '</div>';
+      }).join("")+
+    '</div>';
+
+  card.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-np]");
+    if(!btn) return;
+    var row = btn.closest(".np-row");
+    if(!row) return;
+    var pid = row.getAttribute("data-pid");
+
+    if(btn.getAttribute("data-np") === "view"){
+      setRoute("partner", { partnerId: pid });
+      return;
+    }
+
+    // Approving emails a real person, so it asks once and then disables
+    // the row rather than leaving a live button that could fire twice.
+    if(!window.confirm("Approve " + (row.querySelector(".np-name").textContent || pid) +
+                       "?\n\nThey go Active straight away and the activation email sends.")) return;
+
+    var actions = row.querySelector(".np-act");
+    actions.innerHTML = '<span class="np-working">Approving…</span>';
+
+    apiPost("adminVerifyPartner", { partnerId: pid }).then(function(res){
+      if(res && res.success){
+        row.classList.add("done");
+        actions.innerHTML = '<span class="np-done">Approved</span>';
+        toast("Partner approved. Activation email sent.", "green");
+        setTimeout(softRefresh, 1200);
+        return;
+      }
+      actions.innerHTML = '<button class="btn btn-primary btn-sm" data-np="approve">Retry</button>';
+      toast((res && res.error) || "Could not approve that one.", "red");
+    }).catch(function(err){
+      actions.innerHTML = '<button class="btn btn-primary btn-sm" data-np="approve">Retry</button>';
+      toast("Network error: " + (err.message || "unknown"), "red");
+    });
+  });
+
+  return card;
+}
+
+/* "Sync errors, stale, or unverified" told you a number but never which.
+   Now the backend splits them, so the tile can say what is actually wrong. */
+function partnerIssueDesc(na){
+  var bits = [];
+  if(na.dinaErrors  > 0) bits.push(na.dinaErrors + " sync error" + (na.dinaErrors === 1 ? "" : "s"));
+  if(na.awaitingBio > 0) bits.push(na.awaitingBio + " awaiting bio code");
+  if(na.staleSync   > 0) bits.push(na.staleSync + " stale over 8h");
+  return bits.length ? bits.join(" · ") : "Sync errors, stale, or unverified";
+}
+
 function buildActionHero(r){
   var na = r.needsAttention || {};
   // Normalise into a list of action tiles
   var tiles = [];
+  // A person waiting to be let in comes before anything else on the page.
+  if(na.newPartners > 0)     tiles.push({ kind:"green", icon:"user", title:"New partner requests", desc:"Signed up, waiting on you to approve", count:na.newPartners, cta:"Approve them", route:"today" });
   if(na.pendingApproval > 0) tiles.push({ kind:"amber", title:"Pending approvals", desc:"Listings waiting for review", count:na.pendingApproval, cta:"Review listings", route:"items" });
-  if(na.partnerIssues > 0)   tiles.push({ kind:"red",   title:"Partner issues",     desc:"Sync errors, stale, or unverified", count:na.partnerIssues, cta:"Check partners", route:"partners" });
+  if(na.partnerIssues > 0)   tiles.push({ kind:"red",   title:"Partner issues",     desc:partnerIssueDesc(na), count:na.partnerIssues, cta:"Check partners", route:"partners" });
   if(na.offersPending > 0)   tiles.push({ kind:"amber", title:"Offers pending",     desc:"Waiting on sellers to respond", count:na.offersPending, cta:"Open offers", route:"offers" });
   if(na.pickupFollowUps > 0) tiles.push({ kind:"blue",  title:"Pickup follow-ups",  desc:"Buyers who haven't collected", count:na.pickupFollowUps, cta:"See payouts", route:"payouts" });
 
@@ -982,7 +1122,7 @@ function buildActionHero(r){
   var iconMap = { amber:"clock", red:"alert", blue:"flag", green:"check" };
   var tilesHTML = tiles.map(function(t){
     return '<button class="action-tile '+t.kind+'" data-route="'+esc(t.route)+'">'+
-      '<div class="tile-top"><div class="tile-icon '+t.kind+'">'+ICON[iconMap[t.kind]||"check"]+'</div><div class="tile-num">'+t.count+'</div></div>'+
+      '<div class="tile-top"><div class="tile-icon '+t.kind+'">'+(ICON[t.icon] || ICON[iconMap[t.kind]||"check"])+'</div><div class="tile-num">'+t.count+'</div></div>'+
       '<div class="tile-body"><div class="tile-title">'+esc(t.title)+'</div><div class="tile-desc">'+esc(t.desc)+'</div></div>'+
       '<span class="tile-cta">'+esc(t.cta)+'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>'+
     '</button>';
@@ -2124,7 +2264,10 @@ function softRefresh(){
   if(state.refreshing) return;
   state.refreshing = true;
   state.today = state.partners = state.partnerDetail = state.items = state.sales = state.offers = state.payouts = state.dinaLog = null;
-  apiGet("adminDashboard").then(function(r){
+  // This cleared state.today and then refilled it from adminDashboard,
+  // which does not exist. So Refresh reliably emptied the dashboard and
+  // left "Could not load today" behind.
+  apiGet("adminToday").then(function(r){
     if(r && r.success) state.today = r;
     state.refreshing = false;
     route_();
