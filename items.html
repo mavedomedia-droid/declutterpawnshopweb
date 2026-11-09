@@ -584,6 +584,17 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 /* ACCEPTED / COUNTERED OFFER PANEL */
 .mc-offer-banner { display: none; flex-direction: column; gap: 10px; padding: 16px; background: linear-gradient(135deg, var(--mint-soft) 0%, #E0F3E8 100%); border: 1.5px solid var(--green); border-radius: 14px; }
 .mc-offer-banner.show { display: flex; }
+/* The seller's answers, which are the thing the buyer paid for. */
+.mc-ans { display: flex; flex-direction: column; background: rgba(255,255,255,.55);
+  border: 1px solid rgba(0,200,83,.28); border-radius: 11px; padding: 2px 12px; }
+.mc-ans-row { display: flex; align-items: center; gap: 12px; padding: 9px 0;
+  border-bottom: 1px solid rgba(0,0,0,.06); font-size: 13px; line-height: 1.35; color: var(--text-secondary); }
+.mc-ans-row:last-child { border-bottom: none; }
+.mc-ans-row span { flex: 1; min-width: 0; }
+.mc-ans-row b { flex: 0 0 auto; font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
+  letter-spacing: .04em; padding: 3px 9px; border-radius: 999px; }
+.mc-ans-row b.y { background: var(--green); color: var(--ink); }
+.mc-ans-row b.n { background: rgba(220,38,38,.12); color: #B91C1C; }
 .mc-offer-head { display: flex; align-items: center; gap: 9px; font-family: var(--font-heading); font-weight: 800; font-size: 14px; letter-spacing: -0.01em; color: var(--green-dark); }
 .mc-offer-head svg { flex-shrink: 0; }
 .mc-offer-line { font-size: 13px; line-height: 1.5; color: var(--text-secondary); }
@@ -1218,6 +1229,23 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     OFFER.token = tok;
   }
 
+  function applyRequestDetails(d) {
+    var rq = d.request || {};
+    var st = String(rq.status || "").trim().toLowerCase();
+    // Confirmed = questions answered, no price moved. Still a reason to
+    // show the panel: the answers are what the buyer paid for.
+    if (["confirmed", "accepted", "countered"].indexOf(st) < 0) {
+      warn("loadOfferDetails: request status is '" + rq.status + "' — nothing to show");
+      return;
+    }
+    OFFER.data = d;
+    OFFER.request = rq;
+    OFFER.status = rq.status;
+    OFFER.price = priceNum(rq.yourPrice);
+    OFFER.itemId = String(d.item && d.item.itemId || "").toUpperCase();
+    log("loadOfferDetails: request applied →", OFFER.status, "₦" + OFFER.price, "item:", OFFER.itemId);
+  }
+
   function loadOfferDetails() {
     if (!OFFER.id || !OFFER.token) { log("loadOfferDetails: no offer params, skipping"); return Promise.resolve(); }
 
@@ -1241,10 +1269,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (!GAS) { warn("loadOfferDetails: no GAS url configured"); return Promise.resolve(); }
 
     log("loadOfferDetails: fetching", OFFER.id);
-    return fetch(GAS + "?action=getOfferDetails&id=" + encodeURIComponent(OFFER.id) +
-                        "&token=" + encodeURIComponent(OFFER.token))
+    var q = "&id=" + encodeURIComponent(OFFER.id) + "&token=" + encodeURIComponent(OFFER.token);
+
+    // Requests and legacy offers share the Offers sheet, the OFF… id shape
+    // and the buyer's email template, so the link alone cannot say which
+    // one this is. requestDetails answers that with isRequest; anything
+    // else falls through so offers already in flight keep working.
+    return fetch(GAS + "?action=requestDetails" + q)
       .then(function (r) { return r.json(); })
       .then(function (d) {
+        if (d && d.success && d.request && d.request.isRequest) { applyRequestDetails(d); return null; }
+        return fetch(GAS + "?action=getOfferDetails" + q).then(function (r) { return r.json(); });
+      })
+      .then(function (d) {
+        if (!d) return;
         log("loadOfferDetails response:", d);
         if (!d || !d.success) { warn("loadOfferDetails: backend error:", d && d.error); return; }
         var st = String(d.offer && d.offer.status || "").trim();
@@ -1278,6 +1316,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       warn("renderOfferBanner: item mismatch — offer is for", OFFER.itemId, "but modal opened", currentId);
       el.classList.remove("show"); el.innerHTML = ""; restoreBuyerDefaults(); return;
     }
+
+    if (OFFER.request) { renderRequestBanner(el); return; }
 
     var normalPrice = priceNum(currentItem["Amount to sell"] || currentItem["Amount to Buyer"]);
     var isCounter   = OFFER.status === "Countered";
@@ -1326,6 +1366,74 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         'Pay ₦' + formatPrice(OFFER.price) + ' (your accepted price)';
     }
     log("renderOfferBanner: rendered for ₦" + OFFER.price);
+  }
+
+  /* What the seller said, in the modal, under the item they said it about.
+     The answers come first: they are what the buyer spent a question on,
+     and a price with no answers beside it is just another offer banner. */
+  function renderRequestBanner(el) {
+    var rq = OFFER.request || {};
+    var normalPrice = priceNum(currentItem["Amount to sell"] || currentItem["Amount to Buyer"]);
+    var answers = (rq.answers instanceof Array) ? rq.answers : [];
+    var countered = String(rq.status || "").trim().toLowerCase() === "countered";
+    var moved = OFFER.price > 0 && OFFER.price !== normalPrice;
+
+    el.innerHTML =
+      '<div class="mc-offer-head">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+        'The seller answered' +
+      '</div>' +
+
+      (answers.length
+        ? '<div class="mc-ans">' + answers.map(function (a) {
+            var yes = String(a.answer).toLowerCase() === "yes";
+            return '<div class="mc-ans-row"><span>' + escapeHTML(a.question) + '</span>' +
+                   '<b class="' + (yes ? "y" : "n") + '">' + escapeHTML(a.answer) + '</b></div>';
+          }).join("") + '</div>'
+        : '') +
+
+      (rq.sellerNote
+        ? '<div class="mc-offer-line">“' + escapeHTML(rq.sellerNote) + '”</div>'
+        : '') +
+
+      (moved
+        ? '<div class="mc-offer-line">' +
+            (countered ? "They came back with a price:" : "Your price:") +
+          '</div>' +
+          '<div class="mc-offer-price"><span class="sym">₦</span>' + formatPrice(OFFER.price) + '</div>'
+        : '<div class="mc-offer-line">Confirmed at the listed price, ₦' + formatPrice(normalPrice) + '.</div>') +
+
+      '<div class="mc-offer-escrow">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+        '<span>Your payment is held in escrow. You get a 4-digit PIN, and the seller is only paid after you collect the item and inspect it.</span>' +
+      '</div>' +
+
+      (rq.canPay
+        ? '<button class="mc-offer-cta" id="mcOfferPay" type="button">' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+            'Pay ₦' + formatPrice(OFFER.price) +
+          '</button>' +
+          '<div class="mc-offer-hint">Pay with the same email you asked from, so your price applies automatically.</div>'
+        : '<div class="mc-offer-hint">This one is no longer payable here. If you were charged for the question and did not get an answer, email info@declutterpawnshop.com.</div>');
+
+    el.classList.add("show");
+
+    var payBtn = document.getElementById("mcOfferPay");
+    if (payBtn) payBtn.addEventListener("click", openPaystackPanel);
+
+    // They have their answer. Asking again is noise.
+    var reqBtn = document.getElementById("mcRequest");
+    if (reqBtn) reqBtn.style.display = "none";
+    var reqNote = document.getElementById("mcRequestNote");
+    if (reqNote) reqNote.style.display = "none";
+
+    var buyBtn = document.getElementById("mcBuy");
+    if (buyBtn && rq.canPay) {
+      buyBtn.innerHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+        'Pay ₦' + formatPrice(OFFER.price) + (moved ? ' (your price)' : '');
+    }
+    log("renderRequestBanner: rendered", answers.length, "answers, ₦" + OFFER.price);
   }
 
   function restoreBuyerDefaults() {
