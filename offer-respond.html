@@ -253,6 +253,58 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .state .act { width: auto; display: inline-flex; margin-top: 24px; padding: 14px 26px; }
 .spin { width: 34px; height: 34px; border: 3px solid var(--border); border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 20px; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Skeleton, not a spinner. A spinner says "wait" and nothing else, and
+   the old one said "Loading offer…" on a page that is just as often a
+   question with no offer anywhere in it. This shows the shape of the
+   answer card that is about to arrive, so nothing jumps when it does. */
+.sk { padding: 20px; }
+.sk-row { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.sk-thumb { width: 64px; height: 64px; border-radius: 10px; flex: none; }
+.sk-lines { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+.sk-l { display: block; height: 12px; border-radius: 6px; }
+.sk-l.w70 { width: 70%; } .sk-l.w45 { width: 45%; }
+.sk-q { height: 52px; border-radius: 12px; margin-top: 12px; }
+.sk-q.first { margin-top: 18px; }
+.sk-btn { height: 52px; border-radius: 12px; margin-top: 20px; }
+.sk-thumb, .sk-l, .sk-q, .sk-btn {
+  background: linear-gradient(100deg, #EDEFF1 30%, #F7F9FA 50%, #EDEFF1 70%);
+  background-size: 220% 100%; animation: skm 1.3s ease-in-out infinite;
+}
+@keyframes skm { from { background-position: 180% 0; } to { background-position: -40% 0; } }
+@media (prefers-reduced-motion: reduce) { .sk-thumb, .sk-l, .sk-q, .sk-btn, .spin { animation: none; } }
+
+/* Phone. The hero was 100px of top padding, a 4-line description and
+   three chips wrapping onto two lines, which pushed the card almost
+   entirely below the fold on a 390px screen. */
+@media (max-width: 600px) {
+  /* 92px, not 56. The nav is fixed and 73px tall, so anything less
+     slides the eyebrow underneath it. */
+  .page-hero { padding: 92px 0 44px; }
+  .page-hero-inner { text-align: center; }
+  .page-hero .eyebrow { justify-content: center; }
+  .page-hero h1 { font-size: clamp(25px, 7.2vw, 31px); margin-top: 8px; margin-left: auto; margin-right: auto; max-width: 16ch; text-wrap: balance; }
+  .page-hero-sub { font-size: 13.5px; line-height: 1.5; margin-top: 9px; margin-left: auto; margin-right: auto; max-width: 34ch; text-wrap: balance; }
+
+  /* Equal thirds, no ovals. Three bordered pills could not fit on one
+     row at this width and wrapped 2 + 1, which read as a mistake. */
+  .trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 18px; }
+  .trust-chip {
+    flex-direction: column; justify-content: flex-start; gap: 6px;
+    padding: 0 7px; border: 0; background: none; border-radius: 0;
+    font-size: 10.5px; font-weight: 600; line-height: 1.3; text-align: center;
+  }
+  .trust-chip + .trust-chip { border-left: 1px solid rgba(255,255,255,.09); }
+  .trust-chip svg { width: 14px; height: 14px; }
+  .offer-section { padding-bottom: 56px; }
+  .offer-slot { margin-top: -22px; }
+  .state { padding: 38px 18px; }
+  .state h2 { font-size: 18.5px; }
+  .state p { font-size: 13.5px; }
+  .sk { padding: 16px; }
+  .sk-thumb { width: 54px; height: 54px; }
+  .sk-q, .sk-btn { height: 46px; }
+}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -269,15 +321,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     <div class="trust-row" id="heroChips">
       <span class="trust-chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Only you see this page
+        Private to you
       </span>
       <span class="trust-chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="20 6 9 17 4 12"/></svg>
-        Emails fire automatically
+        Buyer told instantly
       </span>
       <span class="trust-chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
-        24-hour window
+        24 hours to answer
       </span>
     </div>
   </div>
@@ -288,10 +340,15 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     <div class="offer-slot">
       <div class="banner" id="banner"><strong>Preview mode.</strong> This is sample data so you can see how the page looks. Real offers load when you open the link in your email.</div>
       <div class="card" id="card">
-        <div class="state">
-          <div class="spin"></div>
-          <h2>Loading offer…</h2>
-          <p>Fetching the latest details from DPS.</p>
+        <div class="sk" role="status" aria-label="Loading">
+          <div class="sk-row">
+            <div class="sk-thumb"></div>
+            <div class="sk-lines"><span class="sk-l w70"></span><span class="sk-l w45"></span></div>
+          </div>
+          <div class="sk-q first"></div>
+          <div class="sk-q"></div>
+          <div class="sk-q"></div>
+          <div class="sk-btn"></div>
         </div>
       </div>
     </div>
@@ -371,7 +428,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   function stateBox(html) { card.innerHTML = '<div class="state">' + html + '</div>'; }
 
   function showLoading() {
-    stateBox('<div class="spin"></div><h2>Loading offer…</h2><p>Fetching the latest details from DPS.</p>');
+    // No words. The page serves offers, availability checks and buyer
+    // questions off one card, so any copy here is wrong two thirds of
+    // the time, and a skeleton needs none.
+    card.innerHTML =
+      '<div class="sk" role="status" aria-label="Loading">' +
+        '<div class="sk-row">' +
+          '<div class="sk-thumb"></div>' +
+          '<div class="sk-lines"><span class="sk-l w70"></span><span class="sk-l w45"></span></div>' +
+        '</div>' +
+        '<div class="sk-q first"></div><div class="sk-q"></div><div class="sk-q"></div>' +
+        '<div class="sk-btn"></div>' +
+      '</div>';
   }
   function showError(title, msg) {
     stateBox(
@@ -723,8 +791,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var chips = document.getElementById("heroChips");
     if (chips) chips.innerHTML =
       '<span class="trust-chip">' + icon("clock", 13, 2.6) + ' 30 minutes to answer</span>' +
-      '<span class="trust-chip">' + icon("check", 13, 2.6) + ' One tap, nothing to fill in</span>' +
-      '<span class="trust-chip">' + icon("box", 13, 2.6) + ' Taken down instantly if it is gone</span>';
+      '<span class="trust-chip">' + icon("check", 13, 2.6) + ' One tap, nothing to type</span>' +
+      '<span class="trust-chip">' + icon("box", 13, 2.6) + ' Taken down if it is gone</span>';
   }
 
   function renderCheck(data) {
@@ -922,8 +990,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var set = function (id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
     set("heroEyebrow", "Buyer question");
     set("heroTitle", "A buyer is asking about your item.");
-    set("heroSub", "Answer in a tap each. They see your answers straight away, and your listing " +
-                   "shows as confirmed to everyone else browsing.");
+    set("heroSub", "One tap each. They see it straight away, and your listing shows " +
+                   "as confirmed to everyone else browsing.");
   }
 
   function renderRequest(data) {
