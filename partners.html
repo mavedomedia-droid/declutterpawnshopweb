@@ -92,6 +92,20 @@ input, select, textarea { font-family: inherit; }
 .partners-hero-foot-item { display: inline-flex; align-items: center; gap: 8px; }
 .partners-hero-foot-item strong { color: var(--white); font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.01em; }
 
+/* Centred at every width, not just on phones. All of today's work sat
+   inside the phone breakpoint, so a wide desktop window still showed the
+   original left-aligned hero. Sizing stays in the breakpoint below; this
+   is alignment only. */
+.partners-hero-inner { text-align: center; }
+.partners-hero-inner .eyebrow { justify-content: center; }
+.partners-hero h1 { margin-left: auto; margin-right: auto; text-wrap: balance; }
+.partners-hero-sub { margin-left: auto; margin-right: auto; text-wrap: balance; }
+.partners-hero-pills { justify-content: center; }
+.partners-hero-actions { justify-content: center; }
+.partners-hero-foot { justify-content: center; }
+
+
+
 .section { padding: 96px 0; }
 .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 48px; }
 .section-title { font-size: clamp(30px, 4vw, 48px); letter-spacing: -0.03em; max-width: 22ch; margin-top: 14px; line-height: 1.06; }
@@ -393,6 +407,118 @@ body.partner-modal-locked { overflow: hidden; }
 .pm-ack.bad { border-color: #E5484D; background: rgba(229,72,77,.06); }
 
 .pm-login-note { font-size: 12.5px; line-height: 1.55; opacity: .8; margin-top: 14px; }
+
+/* ─── Phone ─────────────────────────────────────────────────────────────
+   The hero was 993px tall on an 844px screen with everything left aligned,
+   so a visitor met a wall of text and never saw the three numbers that
+   carry the whole pitch. Centred, tightened, and the stats rebuilt as a
+   real row with the figure stacked over its label instead of three long
+   lines spread down the page. */
+/* Desktop keeps the long form; only the phone needs the compact unit. */
+.partners-hero-foot-item .unit { font-weight: 700; }
+
+@media (max-width: 600px) {
+  /* The inline padding-top:161px on .partners-hero-inner left roughly a
+     fifth of the screen empty above the eyebrow. */
+  .partners-hero-inner { text-align: center; padding-top: 104px !important; padding-bottom: 48px !important; }
+  .partners-hero-inner .eyebrow { justify-content: center; }
+  .partners-hero h1 { font-size: clamp(32px, 9vw, 40px); margin-top: 12px; margin-left: auto; margin-right: auto; max-width: 13ch; }
+  .partners-hero-sub { margin-top: 14px; margin-left: auto; margin-right: auto; max-width: 36ch; font-size: 15px; line-height: 1.55; }
+
+  /* Split into thirds with hairline dividers, the same shape as the stats
+     row at the foot of the hero, so the two bands read as one system. No
+     green: as capsules they looked like decoration, and the words carry
+     the proof on their own. "Instagram" is dropped here only, so desktop
+     keeps the full phrase. */
+  .partners-hero-pills {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    margin-top: 18px;
+  }
+  .hero-pill {
+    display: block; padding: 0 6px; border: 0; background: none;
+    font-size: 11px; font-weight: 600; line-height: 1.35;
+    letter-spacing: -0.005em; color: var(--stone-light); text-align: center;
+  }
+  /* No dividers and no rule above. The stats row at the foot already uses
+     that treatment, and two divided three-column rows either side of the
+     button made the hero say the same thing twice in the same voice.
+     Same split, quieter: these are terms, the numbers are the claim. */
+  .hero-pill .lg { display: none; }
+
+  /* One real button. The second was a bordered twin of the first, which
+     made the page ask twice and look like a choice between equals. */
+  .partners-hero-actions { flex-direction: column; align-items: center; gap: 14px; margin-top: 26px; }
+  .partners-hero-actions .btn-primary { width: auto; min-width: 230px; border-radius: 10px; padding: 14px 28px; }
+  .partners-hero-actions .btn-outline-light {
+    width: auto; border: 0; background: none; padding: 0;
+    font-size: 14px; font-weight: 600; color: var(--stone-light);
+    text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
+  }
+
+  /* Three across, number over label. The old version stacked three
+     223px lines with 24px gaps, which ate 135px and read as a list. */
+  .partners-hero-foot {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    margin-top: 28px; padding-top: 20px; text-align: center;
+  }
+  .partners-hero-foot-item {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    gap: 3px; padding: 0 6px;
+  }
+  .partners-hero-foot-item + .partners-hero-foot-item { border-left: 1px solid rgba(255,255,255,.08); }
+  .partners-hero-foot-item strong { font-size: 15.5px; line-height: 1.15; }
+  .partners-hero-foot-item .fl { font-size: 9.5px; line-height: 1.35; color: var(--stone); }
+
+  /* 96px top AND bottom on nine sections put roughly two full screens of
+     empty dark between the content on a phone. The page was 15.4 screens
+     of scroll and most of a vendor's thumb work was getting past nothing. */
+  .section, section.dark, section.statement { padding-top: 56px !important; padding-bottom: 56px !important; }
+  .final-cta { padding-top: 64px !important; padding-bottom: 64px !important; }
+  .section-head { margin-bottom: 28px; gap: 16px; }
+
+
+  /* Six answers, all open, made 1745px of FAQ: two full screens where you
+     could see one question at a time. Collapsed, all six questions fit in
+     view and a vendor taps the one they actually came with. Desktop keeps
+     the two-column open layout, where the room exists. */
+  .objection { display: block; padding: 0; }
+  .objection-q {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 18px; cursor: pointer; user-select: none;
+  }
+  .objection-q-main { flex: 1; min-width: 0; }
+  .objection-q-label { margin-bottom: 5px; font-size: 9.5px; }
+  .objection-q-title { font-size: 15px; line-height: 1.3; }
+  .objection-chev {
+    flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+    color: var(--text-muted); transition: transform .2s ease;
+  }
+  .objection.open .objection-chev { transform: rotate(180deg); color: var(--ink); }
+  .objection-a {
+    display: none; padding: 0 18px 18px; font-size: 14px; line-height: 1.6;
+  }
+  .objection.open .objection-a { display: block; }
+
+  /* The four-step flow stacked into a 644px column: four icons and eight
+     words taking more than a whole screen. Each step becomes a row with
+     the icon beside its words, and the arrows shrink to connectors
+     rather than occupying a line each. About 240px instead of 644px. */
+  .dina-flow { gap: 0 !important; margin-top: 28px; padding: 16px 16px; }
+  .dina-flow-col {
+    display: grid; grid-template-columns: 42px 1fr;
+    align-items: center; column-gap: 14px; row-gap: 2px;
+    text-align: left; padding: 9px 0;
+  }
+  .dina-flow-icon { width: 42px; height: 42px; border-radius: 12px; grid-row: 1 / span 2; }
+  .dina-flow-icon svg { width: 19px; height: 19px; }
+  .dina-flow-title { grid-column: 2; align-self: end; }
+  .dina-flow-desc  { grid-column: 2; align-self: start; }
+  /* The arrows were for a horizontal flow. Stacked, each one stretched to
+     the full height of the grid and floated mid-column. Four icon rows in
+     sequence already read as a sequence, so they come out on the phone. */
+  .dina-flow-arrow { display: none; }
+  .dina-flow-col + .dina-flow-col { border-top: 1px solid rgba(255,255,255,.055); }
+}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -408,11 +534,11 @@ body.partner-modal-locked { overflow: hidden; }
     <div class="reveal">
       <div class="eyebrow">DPS Partner Program</div>
       <h1>Keep selling your way. <span class="accent">We'll find you more buyers.</span></h1>
-      <p class="partners-hero-sub">We plug your declutter business into our live buyer marketplace. List items yourself, or let <strong>Dina</strong>, our partner bot, pull your best Instagram posts onto DPS automatically. <strong>You keep 95% of every sale we bring you.</strong></p>
+      <p class="partners-hero-sub">Keep posting on Instagram. <strong>Dina</strong> does the listing, and <strong>you keep 95% of every sale we bring you.</strong></p>
       <div class="partners-hero-pills">
         <span class="hero-pill">✓ No listing fees</span>
         <span class="hero-pill">✓ No exclusivity</span>
-        <span class="hero-pill">✓ Instagram auto-listing</span>
+        <span class="hero-pill">✓ <span class="lg">Instagram </span>auto-listing</span>
       </div>
       <div class="partners-hero-actions">
         <button type="button" data-open-partner class="btn btn-primary">
@@ -422,9 +548,9 @@ body.partner-modal-locked { overflow: hidden; }
         <a href="#dina" class="btn btn-outline-light">Meet Dina ↓</a>
       </div>
       <div class="partners-hero-foot">
-        <span class="partners-hero-foot-item"><strong>95%</strong> payout on every sale we bring</span>
-        <span class="partners-hero-foot-item"><strong>5 items/day</strong> pulled automatically by Dina</span>
-        <span class="partners-hero-foot-item"><strong>₦0</strong> fees. Ever.</span>
+        <span class="partners-hero-foot-item"><strong>95%</strong> <span class="fl">payout on every sale we bring</span></span>
+        <span class="partners-hero-foot-item"><strong>5<span class="unit">/day</span></strong> <span class="fl">items pulled automatically</span></span>
+        <span class="partners-hero-foot-item"><strong>₦0</strong> <span class="fl">fees. Ever.</span></span>
       </div>
     </div>
   </div>
@@ -606,13 +732,13 @@ body.partner-modal-locked { overflow: hidden; }
       </div>
     </div>
     <div class="objections-list reveal">
-      <div class="objection"><div class="objection-q"><div class="objection-q-label">Question</div><div class="objection-q-title">"What if I sell it myself before you find a buyer?"</div></div><div class="objection-a">Nothing happens. Sell it, keep the full amount, move on. We only get paid when we're the ones who brought the buyer.</div></div>
-      <div class="objection"><div class="objection-q"><div class="objection-q-label">Question</div><div class="objection-q-title">"Do you take a cut of my Instagram sales?"</div></div><div class="objection-a">No. Sales that come from your own DMs, WhatsApp, walk-ins, or Instagram traffic are 100% yours. The 5% only applies when a buyer discovers your item inside the DPS marketplace.</div></div>
-      <div class="objection"><div class="objection-q"><div class="objection-q-label">Question</div><div class="objection-q-title">"Will I get flooded with people asking if it's still available?"</div></div><div class="objection-a">No, and this is the part we built on purpose. A buyer gets one free question with you. After that they pay ₦350 to ask another. So anything that reaches your inbox is from someone who put money behind it, and you answer yes or no in a tap. You will not be answering "is this still available" fifty times a day for nothing.</div></div>
+      <div class="objection"><div class="objection-q"><div class="objection-q-main"><div class="objection-q-label">Question</div><div class="objection-q-title">"What if I sell it myself before you find a buyer?"</div></div><svg class="objection-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="objection-a">Nothing happens. Sell it, keep the full amount, move on. We only get paid when we're the ones who brought the buyer.</div></div>
+      <div class="objection"><div class="objection-q"><div class="objection-q-main"><div class="objection-q-label">Question</div><div class="objection-q-title">"Do you take a cut of my Instagram sales?"</div></div><svg class="objection-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="objection-a">No. Sales that come from your own DMs, WhatsApp, walk-ins, or Instagram traffic are 100% yours. The 5% only applies when a buyer discovers your item inside the DPS marketplace.</div></div>
+      <div class="objection"><div class="objection-q"><div class="objection-q-main"><div class="objection-q-label">Question</div><div class="objection-q-title">"Will I get flooded with people asking if it's still available?"</div></div><svg class="objection-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="objection-a">No, and this is the part we built on purpose. A buyer gets one free question with you. After that they pay ₦350 to ask another. So anything that reaches your inbox is from someone who put money behind it, and you answer yes or no in a tap. You will not be answering "is this still available" fifty times a day for nothing.</div></div>
 
-      <div class="objection"><div class="objection-q"><div class="objection-q-label">Question</div><div class="objection-q-title">"Do I have to list items myself?"</div></div><div class="objection-a">No, that's the point of Dina. She pulls your best Instagram posts automatically. But if you'd rather control your own listings, the Partner Bot lets you submit up to 10 items directly.</div></div>
-      <div class="objection"><div class="objection-q"><div class="objection-q-label">Question</div><div class="objection-q-title">"How fast do I actually get paid?"</div></div><div class="objection-a">The buyer's money sits in escrow via Paystack. When they confirm the item at pickup, escrow releases and 95% is remitted to your bank account the same day.</div></div>
-      <div class="objection"><div class="objection-q"><div class="objection-q-label">Question</div><div class="objection-q-title">"What's the catch?"</div></div><div class="objection-a">There isn't one. We make money when you make money. If you sell nothing through us, we earn nothing.</div></div>
+      <div class="objection"><div class="objection-q"><div class="objection-q-main"><div class="objection-q-label">Question</div><div class="objection-q-title">"Do I have to list items myself?"</div></div><svg class="objection-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="objection-a">No, that's the point of Dina. She pulls your best Instagram posts automatically. But if you'd rather control your own listings, the Partner Bot lets you submit up to 10 items directly.</div></div>
+      <div class="objection"><div class="objection-q"><div class="objection-q-main"><div class="objection-q-label">Question</div><div class="objection-q-title">"How fast do I actually get paid?"</div></div><svg class="objection-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="objection-a">The buyer's money sits in escrow via Paystack. When they confirm the item at pickup, escrow releases and 95% is remitted to your bank account the same day.</div></div>
+      <div class="objection"><div class="objection-q"><div class="objection-q-main"><div class="objection-q-label">Question</div><div class="objection-q-title">"What's the catch?"</div></div><svg class="objection-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="objection-a">There isn't one. We make money when you make money. If you sell nothing through us, we earn nothing.</div></div>
     </div>
   </div>
 </section>
@@ -1322,6 +1448,30 @@ body.partner-modal-locked { overflow: hidden; }
         e.preventDefault();
         window.pmNext(pmCur);
       }
+    });
+  });
+})();
+</script>
+
+<script>
+/* Phone only. Above 600px the answers are always visible and these
+   listeners simply never fire, because the CSS does not hide anything. */
+(function () {
+  var mq = window.matchMedia('(max-width: 600px)');
+  document.querySelectorAll('.objection').forEach(function (row, i) {
+    var q = row.querySelector('.objection-q');
+    if (!q) return;
+    q.setAttribute('role', 'button');
+    q.setAttribute('tabindex', '0');
+    q.setAttribute('aria-expanded', 'false');
+    function toggle() {
+      if (!mq.matches) return;
+      var open = row.classList.toggle('open');
+      q.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    q.addEventListener('click', toggle);
+    q.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
   });
 })();
