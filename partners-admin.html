@@ -1181,6 +1181,39 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
     });
 
+    /* A buyer who paid to ask comes before anything else on this list.
+       The old check flow never showed up here once requests replaced it,
+       so a paid question sat unanswered until it timed out at 24 hours. */
+    var reqItems = [];
+    (needs.pendingRequests || []).slice().sort(function (a, b) {
+      // Someone who paid outranks someone who didn't; after that, whoever
+      // is closest to the 24 hour cliff.
+      if (!!a.wasFree !== !!b.wasFree) return a.wasFree ? 1 : -1;
+      var ah = (typeof a.hoursLeft === 'number') ? a.hoursLeft : 99;
+      var bh = (typeof b.hoursLeft === 'number') ? b.hoursLeft : 99;
+      return ah - bh;
+    }).forEach(function (q) {
+      var money = q.offeredPrice
+        ? ' They named ₦' + formatPrice(q.offeredPrice) + '.'
+        : '';
+      var clock = (typeof q.hoursLeft === 'number')
+        ? (q.hoursLeft > 0 ? ' ' + q.hoursLeft + 'h left to answer.' : ' Answer now, this is about to expire.')
+        : '';
+      reqItems.push({
+        type: 'request',
+        itemId: q.itemId,
+        label: q.wasFree ? 'A buyer is asking' : 'A buyer paid to ask',
+        desc: '"' + (q.itemName || q.itemId || '') + '". ' +
+              (q.commitment || 'They have questions') + '.' + money + clock,
+        actionLabel: 'Answer',
+        action: function () {
+          window.open('/offer-respond?request=' + encodeURIComponent(q.requestId) +
+                      '&token=' + encodeURIComponent(q.token || ''), '_blank');
+        }
+      });
+    });
+    items.unshift.apply(items, reqItems);
+
     (needs.pendingChecks || []).forEach(function (c) {
       items.push({
         type: 'check',
