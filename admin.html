@@ -407,6 +407,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
    until it is filled in. Worth shouting about before the click. */
 .np-warn{font-family:var(--font-mono);font-size:11px;color:#B91C1C;background:rgba(220,38,38,.10);padding:2px 7px;border-radius:999px;}
 .np-wait{font-family:var(--font-mono);font-size:11px;}
+.np-ig-ok,.np-ig-wait{font-family:var(--font-mono);font-size:11px;padding:2px 7px;border-radius:999px;}
+.np-ig-ok{color:#00A843;background:rgba(0,200,83,.12);}
+.np-ig-wait{color:#92400E;background:rgba(245,158,11,.14);}
 .np-contact{font-size:11.5px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .np-act{display:flex;gap:7px;flex:0 0 auto;}
 .np-working,.np-done{font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);padding:7px 10px;white-space:nowrap;}
@@ -1063,6 +1066,27 @@ function buildNewPartners(r){
 
     if(btn.getAttribute("data-np") === "view"){
       setRoute("partner", { partnerId: pid });
+      return;
+    }
+
+    // Bypass the bio code for someone you already trust. Dina then reads
+    // them on her next run. If they are already approved this also
+    // releases the activation email, since that waits on both.
+    if(btn.getAttribute("data-np") === "skip"){
+      btn.disabled = true;
+      btn.textContent = "Skipping…";
+      apiPost("adminSkipBioCheck", { partnerId: pid }).then(function(res){
+        if(res && res.success){
+          toast(res.note || "Bio check skipped. Dina reads them on her next run.", "green");
+          setTimeout(softRefresh, 900);
+          return;
+        }
+        btn.disabled = false; btn.textContent = "Skip check";
+        toast((res && res.error) || "Could not skip that one.", "red");
+      }).catch(function(err){
+        btn.disabled = false; btn.textContent = "Skip check";
+        toast("Network error: " + (err.message || "unknown"), "red");
+      });
       return;
     }
 
@@ -1763,15 +1787,29 @@ function buildOffersScreen(){
     var thumb = o.itemPhoto
       ? '<img class="cell-thumb" src="'+esc(o.itemPhoto)+'" onerror="imgFail(this)">'
       : '<div class="cell-thumb-fb">📦</div>';
-    var diff = o.askingPrice > 0 ? Math.round((o.offeredPrice - o.askingPrice) / o.askingPrice * 100) : 0;
+    var diff = (o.askingPrice > 0 && o.offeredPrice > 0) ? Math.round((o.offeredPrice - o.askingPrice) / o.askingPrice * 100) : 0;
     var diffStr = diff !== 0 ? ' <span class="muted" style="font-size:11px;">('+(diff>0?'+':'')+diff+'%)</span>' : '';
     var stClass = statusKind(o.status);
+
+    /* Requests live in the same sheet and land on this same screen. Without
+       this a paid buyer question is indistinguishable from an offer, and a
+       questions-only one renders as a bid of zero at minus a hundred
+       percent, which is nonsense. */
+    var qCount = o.isRequest ? String(o.questions||"").split(",").filter(Boolean).length : 0;
+    var reqTag = o.isRequest
+      ? ' <span class="badge" style="background:rgba(0,200,83,.12);color:#00A843;border:1px solid rgba(0,200,83,.3);font-size:9.5px;">'
+        + (o.wasFree ? 'ASKED' : 'PAID '+naira(o.feePaid||350)) + '</span>'
+      : '';
+    var priceCell = (o.isRequest && !o.offeredPrice)
+      ? '<span class="muted" style="font-weight:500;">'+qCount+' question'+(qCount===1?'':'s')+'</span>'
+      : esc(naira(o.offeredPrice))+diffStr;
     tr.innerHTML =
-      '<td><div class="cell-item">'+thumb+'<div class="cell-item-body"><div class="cell-item-name">'+esc(o.itemName||"—")+'</div><div class="cell-item-id">'+esc(o.itemId)+' · '+esc(o.offerId)+'</div></div></div></td>'+
+      '<td><div class="cell-item">'+thumb+'<div class="cell-item-body"><div class="cell-item-name">'+esc(o.itemName||"—")+'</div><div class="cell-item-id">'+esc(o.itemId)+' · '+esc(o.offerId)+reqTag+'</div></div></div></td>'+
       '<td><div class="cell-item-body"><div class="cell-item-name" style="font-weight:500;font-size:13px;">'+esc(o.buyerName||"—")+'</div><div class="cell-item-id">'+esc(o.buyerEmail)+'</div></div></td>'+
-      '<td class="num strong">'+esc(naira(o.offeredPrice))+diffStr+'</td>'+
+      '<td class="num strong">'+priceCell+'</td>'+
       '<td class="num muted">'+esc(naira(o.askingPrice))+'</td>'+
-      '<td><span class="badge '+stClass+'">'+esc(o.status||"—")+'</span></td>'+
+      '<td><span class="badge '+stClass+'">'+esc(o.status||"—")+'</span>'+
+        (o.isRequest && o.commitment ? '<div class="cell-item-id" style="margin-top:3px;">'+esc(o.commitment)+'</div>' : '')+'</td>'+
       '<td class="muted">'+esc(fmtDate(o.createdAt))+'</td>'+
       '<td class="muted">'+esc((String(o.status).toLowerCase()==="pending" || String(o.status).toLowerCase()==="countered") ? fmtDate(o.expiresAt) : "—")+'</td>';
     tr.addEventListener("click", function(){ openOfferModal(o); });
