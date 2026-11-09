@@ -609,6 +609,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ─── Phone: centre the hero stack ───────────────────────────────────────
+   Matches the partners page, where the eyebrow, title and description are
+   centred on mobile. The cards below stay left aligned on purpose: a code
+   to copy, credentials and a timeline all read better ranged left, and
+   centring them would hurt rather than help. */
+@media (max-width: 600px) {
+  .ty-hero-wrap { text-align: center; }
+  .ty-eyebrow { margin-left: auto; margin-right: auto; }
+  .ty-title { margin-left: auto; margin-right: auto; }
+  .ty-sub { margin-left: auto; margin-right: auto; max-width: 38ch; }
+  /* Everything below the hero keeps its own alignment. */
+  .showcase, .biostep, .ty-rail, .ty-steps, .ty-card { text-align: left; }
+}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
