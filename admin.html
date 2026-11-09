@@ -1028,6 +1028,12 @@ function buildNewPartners(r){
         if(p.category) bits.push('<span>'+esc(p.category)+'</span>');
         if(p.location) bits.push('<span>'+esc(p.location)+'</span>');
         bits.push('<span class="np-wait">'+esc(waitedFor(p.registeredAt))+'</span>');
+        // The bio check is the thing that actually starts Dina. Approving
+        // without it leaves the partner approved and silent, so the state
+        // is on the row and the bypass is one click away.
+        bits.push(p.igVerified
+          ? '<span class="np-ig-ok">IG checked</span>'
+          : '<span class="np-ig-wait">bio code not done</span>');
         return '<div class="np-row" data-pid="'+esc(p.partnerId)+'">'+
           '<div class="np-main">'+
             '<div class="np-name">'+esc(p.businessName || p.partnerId || "Unnamed")+'</div>'+
@@ -1040,6 +1046,7 @@ function buildNewPartners(r){
             '<div class="np-contact">'+esc(p.email || "no email")+(p.whatsapp ? ' · '+esc(p.whatsapp) : '')+'</div>'+
           '</div>'+
           '<div class="np-act">'+
+            (p.igVerified ? '' : '<button class="btn btn-ghost btn-sm" data-np="skip" title="Mark the Instagram bio check as done so Dina starts reading them">Skip check</button>')+
             '<button class="btn btn-ghost btn-sm" data-np="view">Open</button>'+
             '<button class="btn btn-primary btn-sm" data-np="approve">Approve</button>'+
           '</div>'+
