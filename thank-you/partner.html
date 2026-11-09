@@ -394,6 +394,44 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* The bio code step. Deliberately the loudest thing under the headline:
+   nothing else on this page matters until it is done. */
+.biostep { display: flex; gap: 14px; align-items: flex-start; margin: 28px 0 0;
+  padding: 18px 18px 20px; border-radius: 16px;
+  background: rgba(0,200,83,.07); border: 1px solid rgba(0,200,83,.3); }
+.biostep-num { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--green); color: var(--ink); font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.biostep-body { min-width: 0; flex: 1; }
+.biostep-title { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin: 0 0 6px; }
+.biostep-copy { font-size: 13.5px; line-height: 1.55; color: var(--stone-light, #C6CFC9); margin: 0 0 12px; }
+.biostep-code { display: flex; align-items: stretch; gap: 8px; }
+.biostep-code code { flex: 1; min-width: 0; padding: 11px 13px; border-radius: 10px;
+  background: rgba(0,0,0,.35); border: 1px solid rgba(0,200,83,.28);
+  font-family: ui-monospace, monospace; font-size: 15px; color: var(--green, #00C853);
+  letter-spacing: .06em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.biostep-copybtn { flex: 0 0 auto; padding: 0 16px; border: 0; border-radius: 10px;
+  background: var(--green, #00C853); color: #0E1320; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+.biostep-hint { font-size: 11.5px; line-height: 1.5; color: var(--stone, #A7B0AA); margin: 10px 0 0; }
+@media (max-width: 420px) {
+  .biostep { padding: 16px; gap: 12px; }
+  .biostep-title { font-size: 16px; }
+}
+
+/* ─── Phone: centre the hero stack ───────────────────────────────────────
+   Matches the partners page, where the eyebrow, title and description are
+   centred on mobile. The cards below stay left aligned on purpose: a code
+   to copy, credentials and a timeline all read better ranged left, and
+   centring them would hurt rather than help. */
+@media (max-width: 600px) {
+  .ty-hero-wrap { text-align: center; }
+  .ty-eyebrow { margin-left: auto; margin-right: auto; }
+  .ty-title { margin-left: auto; margin-right: auto; }
+  .ty-sub { margin-left: auto; margin-right: auto; max-width: 38ch; }
+  /* Everything below the hero keeps its own alignment. */
+  .showcase, .biostep, .ty-rail, .ty-steps, .ty-card { text-align: left; }
+}
 </style>
 <script src="/js/dps-config.js"></script>
 <script src="/js/dps-partials.js" defer></script>
@@ -414,7 +452,23 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     </div>
 
     <h1 class="ty-title" id="tyTitle">You're in<span id="tyName"></span>. <span class="accent">Welcome to the program.</span></h1>
-    <p class="ty-sub">Your partner account is created and under review. Sign in below to see your dashboard. We will email you the moment your account is approved and your first items start listing.</p>
+    <p class="ty-sub">Your partner account is created and under review. There is one thing to do now, below, and then we will email you the moment your account is approved and your first items start listing.</p>
+
+    <!-- The bio code. This page said "once approved, we connect your
+         Instagram page", which reads as though we do it. We cannot: Dina
+         proves the handle is theirs by finding their Partner ID in the
+         bio, and until she does she will not read a single post. A partner
+         who never does this sits waiting forever and nothing tells them
+         why, so it goes first, before the dashboard credentials. -->
+    <div class="biostep" id="bioStep">
+      <div class="biostep-num">1</div>
+      <div class="biostep-body">
+        <h2 class="biostep-title">Put this in your Instagram bio</h2>
+        <p class="biostep-copy">It proves the page is yours. Dina will not read your posts until she finds it, so do it now and you can take it out once your items are live.</p>
+        <div class="biostep-code"><code id="bioCode">your partner ID</code><button type="button" class="biostep-copybtn" id="bioCopy">Copy</button></div>
+        <p class="biostep-hint">Instagram app, your profile, Edit profile, Bio. Paste it anywhere in there.</p>
+      </div>
+    </div>
 
     <!-- Credentials card -->
     <div class="showcase">
@@ -580,8 +634,35 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
   if (partnerId) {
     document.getElementById('credId').textContent = partnerId;
+    document.getElementById('bioCode').textContent = partnerId;
     document.getElementById('dayoLink').href =
       'https://t.me/declutterpawnshop2_bot?start=' + encodeURIComponent(partnerId);
+  } else {
+    // No ID in the URL means we cannot tell them what to paste, and a step
+    // that says "paste your partner ID" without showing it is worse than
+    // no step at all. The email carries it, so point them there.
+    document.getElementById('bioCode').textContent = 'see your welcome email';
+    document.getElementById('bioCopy').style.display = 'none';
+  }
+
+  var bioCopyBtn = document.getElementById('bioCopy');
+  if (bioCopyBtn) {
+    bioCopyBtn.addEventListener('click', function () {
+      var code = document.getElementById('bioCode').textContent;
+      var done = function () { bioCopyBtn.textContent = 'Copied'; setTimeout(function(){ bioCopyBtn.textContent = 'Copy'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(done, function () { selectBioCode(); });
+      } else { selectBioCode(); }
+    });
+  }
+  function selectBioCode() {
+    // Clipboard is refused in some in-app browsers, so fall back to
+    // selecting it for them rather than leaving the button doing nothing.
+    try {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('bioCode'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      bioCopyBtn.textContent = 'Press copy';
+    } catch (e) {}
   }
 
   // partners.html and partner-register.html do not pass the email today.
