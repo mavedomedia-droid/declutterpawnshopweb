@@ -201,6 +201,30 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   font-size: 12.5px; line-height: 1.5; }
 .deadline svg { flex: 0 0 auto; margin-top: 1px; }
 
+/* ─── REQUEST: answering a buyer's questions ─── */
+.qrow { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+.qrow:last-child { border-bottom: none; }
+.qrow.dim { opacity: .4; pointer-events: none; }
+.qtext { flex: 1; min-width: 0; font-size: 14px; line-height: 1.4; color: var(--text-secondary); }
+.qrow.key .qtext { color: var(--ink); font-weight: 700; }
+.yn { display: flex; gap: 6px; flex: 0 0 auto; }
+.yn button { width: 54px; padding: 9px 0; border-radius: 10px; border: 1.5px solid var(--border);
+  background: #fff; font-family: inherit; font-size: 13px; font-weight: 700; color: var(--text-muted);
+  transition: border-color .14s, background .14s, color .14s; }
+.yn button:hover:not(:disabled) { border-color: var(--ink); }
+.yn button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
+.yn button.no[aria-pressed="true"] { border-color: #DC2626; background: #DC2626; }
+/* How serious this buyer is. A seller who cannot tell a paying buyer from
+   a browser answers neither, so this is the first thing on the card. */
+.intent { display: flex; align-items: flex-start; gap: 10px; padding: 13px 15px; border-radius: 13px;
+  background: var(--ink); color: #fff; font-size: 13.5px; line-height: 1.45; }
+.intent b { color: var(--green); font-weight: 700; }
+.intent svg { flex: 0 0 auto; margin-top: 2px; color: var(--green); }
+.snote { width: 100%; min-height: 64px; padding: 11px 13px; background: #fff;
+  border: 1.5px solid var(--border); border-radius: 12px; font-family: inherit; font-size: 15px;
+  color: var(--ink); outline: none; resize: vertical; }
+.snote:focus { border-color: var(--ink); }
+
 /* confirm panel */
 .confirm { display: none; padding: 16px; border-radius: 14px; background: var(--danger-soft); border: 1px solid var(--danger-edge); }
 .confirm.open { display: block; animation: pop .18s ease; }
@@ -284,10 +308,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var SITE = (typeof DPS_SITE_URL     !== "undefined") ? DPS_SITE_URL     : "https://declutterpawnshop.com";
   var STEP = 1000;
 
-  var params  = new URLSearchParams(location.search);
-  var offerId = (params.get("id")    || "").trim();
-  var token   = (params.get("token") || "").trim();
-  var DEMO    = params.has("demo");
+  var params    = new URLSearchParams(location.search);
+  var offerId   = (params.get("id")      || "").trim();
+  var requestId = (params.get("request") || "").trim();
+  var token     = (params.get("token")   || "").trim();
+  var DEMO      = params.has("demo");
 
   var card   = document.getElementById("card");
   var banner = document.getElementById("banner");
@@ -884,6 +909,323 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   if (checkId) { bootCheck(); return; }
+
+  /* ═══════════ REQUEST ═══════════════════════════════════════════════
+     A buyer paid, or spent their one free question, to ask this seller
+     something specific. Answering is taps, because a vendor on a phone
+     between customers will not type, and an unanswered request is worse
+     for them than a slow one: the listing goes on showing as
+     unconfirmed to every other buyer. */
+  var RQ = { answers: {}, available: null, counter: 0, offered: 0 };
+
+  function heroRequest() {
+    var set = function (id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
+    set("heroEyebrow", "Buyer question");
+    set("heroTitle", "A buyer is asking about your item.");
+    set("heroSub", "Answer in a tap each. They see your answers straight away, and your listing " +
+                   "shows as confirmed to everyone else browsing.");
+  }
+
+  function renderRequest(data) {
+    var r = data.request || {}, it = data.item || {};
+    RQ.answers = {}; RQ.available = null; RQ.counter = 0;
+    RQ.offered = num(r.offeredPrice);
+
+    var metaBits = [];
+    if (it.condition) metaBits.push(it.condition);
+    if (it.location) metaBits.push(it.location);
+    if (it.itemId) metaBits.push(it.itemId);
+
+    var qs = (r.questions instanceof Array) ? r.questions : [];
+    // The commitment is the part worth reading first, so it carries the
+    // emphasis on its own. A whole paragraph in green reads as a banner
+    // and gets skipped.
+    var intentHTML = '<b>' + esc(r.commitment || "Just asking, not ready") + '.</b>' +
+      (r.wasFree
+        ? " This was their one free question with you."
+        : " They paid ₦350 to ask, so they are not browsing.");
+
+    card.innerHTML =
+      '<div class="item-head">' +
+        '<div class="item-thumb"><div class="ph">📦</div>' +
+          (it.photo ? '<img class="item-img" src="' + esc(it.photo) + '" alt="" onerror="this.remove()">' : '') +
+        '</div>' +
+        '<div class="item-info">' +
+          '<div class="item-name">' + esc(it.itemName || "Item") + '</div>' +
+          '<div class="item-meta">' + esc(metaBits.join(" · ")) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="pad">' +
+        '<div class="intent">' + icon("check", 15, 2.8) + '<span>' + intentHTML + '</span></div>' +
+
+        '<div>' +
+          '<span class="lbl">Answer in one tap each</span>' +
+          '<div id="qlist" style="margin-top:8px">' +
+            qs.map(function (q, i) {
+              return '<div class="qrow' + (q.key === "available" ? " key" : "") + '" data-k="' + esc(q.key) + '">' +
+                       '<span class="qtext">' + esc(q.label) + '</span>' +
+                       '<span class="yn">' +
+                         '<button type="button" class="yes" data-v="yes" aria-pressed="false">Yes</button>' +
+                         '<button type="button" class="no"  data-v="no"  aria-pressed="false">No</button>' +
+                       '</span>' +
+                     '</div>';
+            }).join("") +
+          '</div>' +
+        '</div>' +
+
+        (RQ.offered > 0
+          ? '<div>' +
+              '<span class="lbl">They named a price</span>' +
+              '<div class="offer-box" style="margin-top:10px">' +
+                '<div class="offer-amt">₦' + naira(RQ.offered) + '</div>' +
+                '<div class="offer-sub">You are asking ₦' + naira(r.listedPrice) + '. ' +
+                  'Send your answers without touching this and their price stands.</div>' +
+              '</div>' +
+              '<div class="alt" style="margin-top:10px">' +
+                '<button class="linkbtn" id="bCounterR" type="button">Come back with a different price</button>' +
+              '</div>' +
+              '<div class="cf" id="cfR" style="margin-top:10px">' +
+                '<span class="lbl">Your price</span>' +
+                '<div class="step-row">' +
+                  '<button class="step-btn" id="cMinusR" type="button" aria-label="Decrease by 1,000 naira">−</button>' +
+                  '<input class="cf-input" id="cInputR" type="text" inputmode="numeric" autocomplete="off" aria-label="Your price in naira">' +
+                  '<button class="step-btn" id="cPlusR" type="button" aria-label="Increase by 1,000 naira">+</button>' +
+                '</div>' +
+                '<div class="cf-hint">They have 24 hours to pay it. Leave this closed to take their ₦' +
+                  naira(RQ.offered) + ' as it is.</div>' +
+                '<div class="cf-row">' +
+                  '<button class="act act-quiet" id="cCancelR" type="button">Cancel</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          : '') +
+
+        '<div>' +
+          '<span class="lbl">Anything to add <span style="font-weight:500;letter-spacing:0;text-transform:none;color:var(--text-muted)">optional</span></span>' +
+          '<textarea class="snote" id="sNote" maxlength="140" placeholder="e.g. I have it in black instead." style="margin-top:10px"></textarea>' +
+          '<div class="cf-hint" style="margin:8px 0 0">Goes straight to the buyer. Phone numbers are stripped out, ' +
+            'and a deal that leaves DPS leaves escrow with it, so you would be paid on trust.</div>' +
+        '</div>' +
+
+        '<div class="err" id="err"></div>' +
+
+        '<div class="stack" id="actions">' +
+          '<button class="act act-green" id="bSendR" type="button" disabled>' +
+            icon("check", 16, 2.8) + 'Answer the availability question first' +
+          '</button>' +
+        '</div>' +
+
+        '<div class="confirm" id="confirm"></div>' +
+      '</div>' +
+
+      '<div class="card-foot">Request <code>' + esc(r.id || requestId) + '</code> · ' +
+        'Answering stamps this listing as confirmed, and confirmed items get shown to buyers first.</div>';
+
+    document.getElementById("qlist").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]");
+      if (!b) return;
+      var row = b.closest(".qrow"), k = row.getAttribute("data-k"), v = b.getAttribute("data-v");
+      Array.prototype.forEach.call(row.querySelectorAll("button[data-v]"), function (x) {
+        x.setAttribute("aria-pressed", x === b ? "true" : "false");
+      });
+      if (k === "available") { RQ.available = (v === "yes"); } else { RQ.answers[k] = v; }
+      paintRequestCta();
+    });
+
+    if (RQ.offered > 0) {
+      var cfR = document.getElementById("cfR");
+      var inR = document.getElementById("cInputR");
+      var setR = function (n) { RQ.counter = Math.max(0, n); inR.value = RQ.counter ? naira(RQ.counter) : ""; paintRequestCta(); };
+      document.getElementById("bCounterR").onclick = function () {
+        cfR.classList.add("open");
+        this.parentNode.style.display = "none";
+        setR(num(r.listedPrice) || RQ.offered);
+        try { inR.focus(); inR.select(); } catch (e) {}
+      };
+      document.getElementById("cCancelR").onclick = function () {
+        cfR.classList.remove("open");
+        document.getElementById("bCounterR").parentNode.style.display = "";
+        setR(0);
+      };
+      document.getElementById("cPlusR").onclick  = function () { setR(num(inR.value) + STEP); };
+      document.getElementById("cMinusR").onclick = function () { setR(num(inR.value) - STEP); };
+      inR.addEventListener("input", function () { setR(num(this.value)); });
+    }
+
+    document.getElementById("bSendR").onclick = function () {
+      if (RQ.available === false) {
+        ask({
+          title: "Take this listing down?",
+          text: "It comes off the marketplace straight away and the buyer is told it has gone. " +
+                "Their free question is not used up. You can relist whenever you want.",
+          cta: "Yes, it has gone",
+          tone: "danger",
+          onYes: sendRequestAnswer
+        });
+        return;
+      }
+      sendRequestAnswer();
+    };
+
+    paintRequestCta();
+  }
+
+  /* The availability answer is the only required one, and it changes what
+     the button does: Yes sends answers, No takes the listing down. */
+  function paintRequestCta() {
+    var b = document.getElementById("bSendR");
+    if (!b) return;
+    Array.prototype.forEach.call(card.querySelectorAll('.qrow:not(.key)'), function (row) {
+      row.classList.toggle("dim", RQ.available === false);
+    });
+    if (RQ.available === null) {
+      b.disabled = true;
+      b.className = "act act-green";
+      b.innerHTML = icon("check", 16, 2.8) + "Answer the availability question first";
+      return;
+    }
+    b.disabled = false;
+    if (RQ.available === false) {
+      b.className = "act act-danger";
+      b.innerHTML = icon("x", 16, 2.4) + "It has gone — take it down";
+      return;
+    }
+    b.className = "act act-green";
+    b.innerHTML = icon("check", 16, 2.8) +
+      (RQ.counter > 0 ? "Send answers and ₦" + naira(RQ.counter) : "Send my answers");
+  }
+
+  function sendRequestAnswer() {
+    if (S.busy) return;
+    S.busy = true;
+    clearErr();
+    setBusy(true);
+
+    var gone = (RQ.available === false);
+    var btn = document.getElementById("bSendR");
+    var originalHTML = btn ? btn.innerHTML : "";
+    if (btn) btn.innerHTML = gone ? "Taking it down…" : "Sending…";
+
+    function done(res) {
+      S.busy = false;
+      if (gone) {
+        showDone("unavailable", "Taken down",
+          "It is off the marketplace and the buyer has been told. Their question was not used up.",
+          "Request " + (requestId || ""));
+        return;
+      }
+      var counter = num(res && res.counterPrice);
+      if (counter > 0) {
+        showDone("counter", "Answers and your price sent",
+          "The buyer has 24 hours to pay ₦" + naira(counter) + ". You will be emailed if they do.",
+          "Request " + (requestId || ""));
+        return;
+      }
+      showDone("accept", "Answers sent",
+        "The buyer has your answers and a Pay button. Your listing now shows as confirmed, " +
+        "which puts it in front of buyers first.",
+        "Request " + (requestId || ""));
+    }
+    function fail(msg) {
+      S.busy = false;
+      setBusy(false);
+      if (btn) btn.innerHTML = originalHTML;
+      showErr(msg);
+    }
+
+    if (DEMO) { setTimeout(function () { done({ counterPrice: RQ.counter }); }, 650); return; }
+
+    var noteEl = document.getElementById("sNote");
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "respondToRequest",
+        requestId: requestId,
+        token: token,
+        available: RQ.available !== false,
+        answers: RQ.answers,
+        counterPrice: RQ.counter,
+        sellerNote: noteEl ? (noteEl.value || "").trim().slice(0, 140) : "",
+        respondedBy: "seller"
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) { done(res); return; }
+        var reason = String((res && res.error) || "").toLowerCase();
+        if (reason.indexOf("already answered") !== -1) {
+          showDone("accept", "Already answered",
+            "Someone already responded to this one. Nothing else to do here.");
+          return;
+        }
+        fail((res && res.error) ? res.error : "Something went wrong. Please try again.");
+      })
+      .catch(function () { fail("We couldn't reach the server. Check your connection and try again."); });
+  }
+
+  function bootRequest() {
+    heroRequest();
+    if (DEMO) {
+      if (banner) banner.classList.add("show");
+      showLoading();
+      setTimeout(function () {
+        renderRequest({
+          request: {
+            id: "OFF10042", status: "Pending", wasFree: false,
+            commitment: "Ready to pay if available",
+            questions: [
+              { key: "available", label: "Is it still available?" },
+              { key: "condition", label: "Is it still in the condition listed?" },
+              { key: "faults",    label: "Any faults or damage not in the description?" },
+              { key: "collect",   label: "Can I collect today?" }
+            ],
+            offeredPrice: 19600, listedPrice: 21600
+          },
+          item: SAMPLE.item
+        });
+      }, 350);
+      return;
+    }
+    if (!token) {
+      showError("This link is incomplete", "Open the button in the email we sent you.");
+      return;
+    }
+    if (!GAS) {
+      showError("Configuration error",
+        "The DPS server URL isn't set. Email info@declutterpawnshop.com and we'll sort it out.");
+      return;
+    }
+
+    showLoading();
+    fetch(GAS + "?action=requestDetails&id=" + encodeURIComponent(requestId) +
+          "&token=" + encodeURIComponent(token))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || !data.success) {
+          showError("Question not found",
+            (data && data.error) ? data.error : "This link may have expired or already been used.");
+          return;
+        }
+        var st = String((data.request || {}).status || "").trim().toLowerCase();
+        if (st === "gone") { showDone("unavailable", "Already taken down", "You already told us this one has gone."); return; }
+        if (st === "timeout" || st === "expired") {
+          showError("This one timed out",
+            "The 24-hour window closed before you answered, so the buyer was told and their question was not used up.");
+          return;
+        }
+        if (st && st !== "pending") {
+          showDone("accept", "Already answered", "You already answered this one. Nothing else to do here.");
+          return;
+        }
+        renderRequest(data);
+      })
+      .catch(function () {
+        showError("Couldn't load this", "Check your internet connection and refresh the page.");
+      });
+  }
+
+  if (requestId) { bootRequest(); return; }
 
   /* ─── boot ─── */
   if (DEMO) {
