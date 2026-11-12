@@ -288,6 +288,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .gal-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 .gal-badge.hot { color: #B45309; } .gal-badge.hot .dot { background: #F59E0B; }
 .gal-badge.new { color: var(--green-dark); }
+.gal-badge.arch { color: #6B4A06; background: rgba(255,246,230,.96); } .gal-badge.arch .dot { background: #F59E0B; }
 .gal-counter { position: absolute; bottom: 12px; right: 14px; display: none; align-items: center; padding: 4px 9px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.03em; background: rgba(14,19,32,.68); color: var(--white); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 5; }
 .gal-counter.visible { display: inline-flex; }
 .gal-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; align-items: center; z-index: 5; }
@@ -306,6 +307,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.15; }
 .mc-listed { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.01em; }
 .mc-listed::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: inline-block; flex-shrink: 0; }
+/* Green is the confirmed signal. Nothing unconfirmed, archived included,
+   gets to borrow it. */
+.mc-listed.stale::before { background: var(--text-muted); }
 .mc-idtag { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 .mc-idtag-lbl { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 .mc-idtag-val { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; color: var(--ink); background: var(--off-white); border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; line-height: 1; white-space: nowrap; }
@@ -349,6 +353,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .mc-request:hover { border-color: rgba(0,200,83,.55); background: rgba(0,200,83,.10); }
 .mc-request svg { flex-shrink: 0; color: var(--green); }
 .mc-request-note { font-size: 10.5px; color: var(--stone-light); margin-top: 8px; line-height: 1.45; position: relative; z-index: 1; }
+/* On an archived item Buy is gone, so the ask is the only action left and
+   a ghost button next to nothing reads as disabled. */
+.mc-request-note-sm { text-align: center; font-size: 10px; opacity: .85; }
+.mc-request-solo { background: var(--green); border-color: var(--green); color: var(--ink); }
+.mc-request-solo svg { color: var(--ink); }
+.mc-request-solo:hover { background: var(--green); border-color: var(--green); filter: brightness(1.06); }
 
 .mc-trustline { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 11px 14px; background: var(--ink); border-radius: 12px; }
 .mc-trustline-item { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; color: var(--stone-light); letter-spacing: -0.005em; }
@@ -438,8 +448,17 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
    receives the full sentence. There is no free-text field anywhere in
    here, because typing is how a buyer hands over a phone number and
    walks the deal off DPS, which also walks it out of escrow. */
-.req-qs { display: flex; flex-wrap: wrap; gap: 6px; }
-.req-q { padding: 8px 12px; border-radius: 999px; border: 1.5px solid var(--border);
+/* One row that scrolls sideways, never two or three stacked. The sheet
+   opens on a phone and every line spent here pushes the price and the
+   send button under the fold. Edge padding + scroll-padding so the first
+   and last chip are never clipped flush against the sheet wall. */
+.req-qs { display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity; scroll-padding-left: 2px; padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.req-qs::-webkit-scrollbar { display: none; }
+.req-q { scroll-snap-align: start; }
+.req-q { flex: 0 0 auto; white-space: nowrap;
+  padding: 8px 12px; border-radius: 999px; border: 1.5px solid var(--border);
   background: var(--white); font-family: var(--font-body); font-size: 12.5px; font-weight: 500;
   line-height: 1.2; color: var(--text-secondary);
   transition: border-color .14s, background .14s, color .14s; }
@@ -472,7 +491,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .req-neg.open .req-neg-inner { display: flex; }
 .req-neg.open .req-neg-head { border-bottom: 1px solid var(--border); margin-bottom: 13px; }
 
-.req-commits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.req-commits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
 .req-commit { padding: 10px 7px; border-radius: 11px; border: 1.5px solid var(--border);
   background: var(--white); font-family: var(--font-body); font-size: 11.5px; font-weight: 600;
   line-height: 1.3; color: var(--text-secondary); text-align: center;
@@ -1006,18 +1025,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </div>
 
       <div class="offer-field">
-        <span class="offer-lbl">What do you want confirmed?</span>
+        <span class="offer-lbl">What do you want to confirm?</span>
         <div class="req-qs" id="reqQs"></div>
       </div>
 
       <div class="req-neg" id="reqNeg">
         <div class="req-neg-head">
           <div class="req-neg-price">
-            <span class="req-neg-k">Asking</span>
+            <span class="req-neg-k">Asking price</span>
             <span class="req-neg-v" id="reqAsking"><span class="sym">₦</span>—</span>
           </div>
           <button class="req-sw" id="reqNegSw" type="button" role="switch" aria-checked="false">
-            <span class="req-sw-lbl">Name your price</span>
+            <span class="req-sw-lbl">Negotiate</span>
             <span class="req-sw-track"><span class="req-sw-knob"></span></span>
           </button>
         </div>
@@ -1040,7 +1059,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </div>
 
       <div class="offer-field">
-        <span class="offer-lbl">Where are you with this?</span>
+        <span class="offer-lbl">Your current status</span>
         <div class="req-commits" id="reqCommits"></div>
       </div>
 
@@ -1173,6 +1192,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   ];
 
   var ALL_ITEMS     = [];
+  var ARCHIVED      = [];
   var RECENT_SOLD   = [];
   var ACTIVE_FILTER = "All";
   var ACTIVE_VENDOR = "";
@@ -1196,20 +1216,23 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var REQUEST_FEE = 350;
   var STEP_NAIRA = 1000;
 
+  /* Four, on one scrolling row. Every one is answerable with a single
+     tap and matters at the moment of buying. "Condition as listed" and
+     "All included" went: both are really "any faults or damage", asked
+     twice, and they pushed the row onto a third line. */
   var REQ_QUESTIONS = [
     { key: "available", label: "Still available", on: true },
-    { key: "condition", label: "Condition as listed" },
-    { key: "faults",    label: "Hidden faults" },
-    { key: "included",  label: "All included" },
-    { key: "collect",   label: "Collect today" },
-    { key: "test",      label: "Test first" }
+    { key: "faults",    label: "Any faults or damage" },
+    { key: "collect",   label: "Pickup today" },
+    { key: "test",      label: "Test first at pickup" }
   ];
-  /* Warmest first. This is how committed the buyer is, and nothing else;
-     the price is a separate control, so "not ready" with a number on it
-     is a legitimate combination and still sends. */
+  /* Two. Are you ready to buy, or not. "Considering buying" sat in the
+     middle meaning nothing, and its key did not exist on the backend at
+     all, so reqCommitment() fell through to "unknown reads as the
+     weakest": every buyer who picked it was filed as just asking.
+     Negotiating is a separate control now, not a third stance. */
   var REQ_COMMITMENTS = [
     { key: "ready_now",   label: "Ready to pay if available" },
-    { key: "considering", label: "Considering buying" },
     { key: "just_asking", label: "Just asking, not ready" }
   ];
   var QUICK_OFFER_RATIO = 0.92;
@@ -1436,6 +1459,58 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     log("renderRequestBanner: rendered", answers.length, "answers, ₦" + OFFER.price);
   }
 
+  /* Archived items can be asked about and nothing else.
+     Dina has not seen the post on the vendor's page recently, so DPS will
+     not take money for it. The ask is not a consolation prize: the answer
+     is what relists the item, and the price card has to stop talking about
+     escrow and a live asking price while that is the only thing on offer.
+     Runs last in openModal, after the offer and request banners have had
+     their say, so nothing downstream puts Buy back. */
+  var REQ_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>';
+
+  function paintArchiveMode(it) {
+    var arch = isArchivedItem(it);
+    var card = document.querySelector(".mc-price-card");
+    var lbl  = card ? card.querySelector(".mc-price-lbl")  : null;
+    var note = card ? card.querySelector(".mc-price-note") : null;
+    var buy  = document.getElementById("mcBuy");
+    var req  = document.getElementById("mcRequest");
+    var rnote = document.getElementById("mcRequestNote");
+    var sw   = document.getElementById("reqNegSw");
+
+    if (buy) buy.style.display = arch ? "none" : "";
+    if (lbl) lbl.textContent = arch ? "Last listed at" : "Asking price";
+    if (note) note.style.display = arch ? "none" : "";
+    if (arch && sw) sw.style.display = "none";
+
+    if (req) {
+      req.style.display = "";
+      req.classList.toggle("mc-request-solo", arch);
+      req.innerHTML = REQ_ICON + "Request if available";
+    }
+    // confirmedText() reads "Last Confirmed At", which an archived row
+    // does not carry, so the confirmation line renders as a green dot with
+    // no words next to it. What a buyer wants here is when Dina last saw
+    // the post, and that it has not been checked since.
+    var listed = document.getElementById("mcListed");
+    if (arch && listed) {
+      var seen = reqShortDate(it["Source Checked At"] || it["Last Live At"] || it["Archived At"] || "");
+      listed.textContent = seen ? "Last seen " + seen : "Not seen recently";
+      listed.classList.remove("mc-confirmed");
+      listed.classList.add("stale");
+    }
+
+    if (rnote) {
+      rnote.style.display = "";
+      // The archive sheet already spells out that DPS cannot confirm this
+      // one and when it was last seen, so the note here stays short.
+      rnote.textContent = arch
+        ? "(ask seller directly)"
+        : "Get the seller to confirm before you pay. Your first question to a seller is free.";
+      rnote.classList.toggle("mc-request-note-sm", arch);
+    }
+  }
+
   function restoreBuyerDefaults() {
     // The request button comes back for every item, negotiable or not:
     // "is this still available" is a fair question on a fixed-price item
@@ -1547,6 +1622,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function badgeFor(it) {
+    if (isArchivedItem(it)) return { cls: "arch", label: "In the archive" };
     var p = pickupLeft(it);
     if (p) return { cls: "pickup", label: p };
     if (heatOf(it) >= HOT_PER_HOUR && (it._views || 0) >= HOT_MIN_VIEWS) return { cls: "hot", label: "Hot" };
@@ -1557,6 +1633,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
   // "Partner" is the internal word. Buyers see "Vendor".
   function isVendorItem(it) { return it["Seller Type"] === "Partner" || !!it["Partner ID"]; }
+  function isArchivedItem(it) { return String(it && it["Status"] || "").trim().toLowerCase() === "archived"; }
   function agoText(ms) {
     var mins = Math.max(0, Math.round((Date.now() - ms) / 60000));
     if (mins < 60) return mins <= 1 ? "just now" : mins + " min ago";
@@ -2115,6 +2192,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     dlPush("item_view", { item_id: it["Item ID"], item_name: it["Item Name"], price: asking });
 
     renderOfferBanner();
+    paintArchiveMode(it);
 
     if (GAS && !IS_DEMO) {
       var trackId = it["Item ID"];
@@ -2393,9 +2471,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       function (b) { return b.getAttribute("aria-pressed") === "true"; }
     ).map(function (b) { return b.getAttribute("data-k"); });
   }
+  /* Two buttons on screen, three states on the wire. "Ready to pay" with
+     a price named is "ready if we agree a price", which is a different
+     thing to the seller than "ready to pay your asking price" and is
+     what the backend already calls if_agreed. Deriving it here keeps the
+     sheet simple without flattening what the seller is told. */
   function reqCommitKey() {
     var b = document.querySelector('#reqCommits .req-commit[aria-pressed="true"]');
-    return b ? b.getAttribute("data-k") : "just_asking";
+    var k = b ? b.getAttribute("data-k") : "just_asking";
+    if (k === "ready_now" && reqPrice() > 0) return "if_agreed";
+    return k;
   }
   /* A price only counts when the switch is on. Leaving a stale number in a
      closed input and sending it anyway is how a buyer accidentally offers
@@ -2770,12 +2855,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function hydrate(data) {
-    var items = (data && Array.isArray(data.items)) ? data.items : [];
-    ALL_ITEMS = normalise(items).filter(function (it) {
+    var items = normalise((data && Array.isArray(data.items)) ? data.items : []);
+    // The feed has shipped archived rows since v12, but they were dropped
+    // here, so an archive link could only ever reach the "isn't live right
+    // now" error. They stay out of the grid and out of the live count, and
+    // they are kept so a deep link can open one. A paid question on an
+    // archived item is the cheapest way one gets verified and relisted.
+    ALL_ITEMS = items.filter(function (it) {
       return String(it["Status"] || "").trim().toLowerCase() === "active";
     });
+    ARCHIVED = items.filter(isArchivedItem);
     RECENT_SOLD = (data && Array.isArray(data.recentSold)) ? data.recentSold : [];
-    log("hydrate:", ALL_ITEMS.length, "active items,", RECENT_SOLD.length, "recent sold");
+    log("hydrate:", ALL_ITEMS.length, "active,", ARCHIVED.length, "archived,", RECENT_SOLD.length, "recent sold");
     renderChips(); renderVendors(); render(); renderSoldStrip(); renderHot();
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
@@ -2864,9 +2955,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return;
     }
 
-    var match = ALL_ITEMS.filter(function (x) {
-      return String(x["Item ID"] || "").toUpperCase() === id;
-    })[0];
+    var byId = function (list) {
+      return list.filter(function (x) { return String(x["Item ID"] || "").toUpperCase() === id; })[0];
+    };
+    // Archive second, so a relisted item always opens as the live one.
+    var match = byId(ALL_ITEMS) || byId(ARCHIVED);
 
     if (match) {
       log("checkDeepLink: opening modal for", id);
