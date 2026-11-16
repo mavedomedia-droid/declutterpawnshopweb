@@ -264,6 +264,49 @@ main{max-width:1400px;margin:0 auto;padding:88px 24px 60px;}
 .chip{padding:8px 14px;border-radius:var(--r-pill);font-size:12.5px;font-weight:600;background:var(--white);border:1.5px solid var(--border);color:var(--text-secondary);transition:all .15s;white-space:nowrap;}
 .chip:hover{border-color:var(--stone);color:var(--ink);}
 .chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+/* ═══ Support queue ═══════════════════════════════
+   A queue is for scanning, so the list is one card of hairline rows and
+   only the ticket you clicked opens its message and reply box. The old
+   layout held a 90px textarea open on every ticket, which meant three
+   tickets filled a screen and the twentieth was 4000px down.           */
+.tk-list{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.ticket{border-top:1px solid var(--border);}
+.tk-list > .ticket:first-child{border-top:0;}
+.ticket-urgent{box-shadow:inset 3px 0 0 #F59E0B;}
+.tk-row{display:flex;align-items:center;gap:11px;width:100%;padding:10px 16px;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;}
+.tk-row:hover{background:var(--off-white);}
+.ticket.is-open > .tk-row{background:var(--off-white);}
+.ticket.is-going{opacity:.3;transition:opacity .25s;}
+.tk-dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--border-ink);}
+.tk-dot.is-urgent{background:#F59E0B;}
+.tk-dot.is-done{background:#00C853;}
+.ticket-id{font-family:var(--font-mono,monospace);font-size:11.5px;font-weight:600;color:var(--text-muted);flex:none;}
+.tk-row-main{flex:1;min-width:0;}
+.ticket-topic{font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tk-row-sub{font-size:11.5px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.ticket-wait{font-size:11.5px;color:var(--text-muted);white-space:nowrap;flex:none;}
+.tk-chev{width:14px;height:14px;flex:none;color:var(--text-muted);transition:transform .15s;}
+.ticket.is-open .tk-chev{transform:rotate(90deg);}
+.tk-tag{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;flex:none;}
+.tk-amber{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A;}
+.tk-green{background:#E9F5EE;color:#00A843;border:1px solid #C8F0D8;}
+.ticket-body{padding:2px 16px 16px 34px;}
+.ticket-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text-secondary);margin-bottom:9px;}
+.ticket-meta .mono{font-family:var(--font-mono,monospace);color:var(--ink);font-weight:600;}
+.ticket-msg{font-size:13.5px;line-height:1.55;color:var(--ink);background:var(--off-white,#F5F7F8);border-radius:10px;padding:11px 13px;white-space:pre-wrap;}
+.ticket-answer{margin-top:10px;font-size:13px;line-height:1.55;color:var(--text-secondary);border-left:3px solid #00C853;padding:3px 0 3px 13px;white-space:pre-wrap;}
+.ticket-reply{margin-top:11px;}
+/* 16px so Safari on iPhone does not zoom when you tap in to reply */
+.ticket-input{width:100%;font-family:inherit;font-size:16px;line-height:1.5;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;min-height:78px;resize:vertical;color:var(--ink);background:#fff;}
+.ticket-input:focus{outline:none;border-color:var(--ink);}
+.ticket-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;}
+.ticket-note{font-size:12.5px;color:#B4442E;margin-top:8px;}
+@media(max-width:600px){
+  .ticket-acts .btn{flex:1;}
+  .tk-row{gap:9px;padding:9px 12px;}
+  .ticket-id,.tk-chev{display:none;}
+  .ticket-body{padding:2px 12px 14px 12px;}
+}
 
 /* ═══ Tables ══════════════════════════════════════ */
 .table-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
@@ -479,6 +522,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
         <a class="tab" data-route="offers">Offers<span class="tab-badge" id="badgeOffers" style="display:none;"></span></a>
         <a class="tab" data-route="sales">Sales</a>
         <a class="tab" data-route="payouts">Payouts<span class="tab-badge" id="badgePayouts" style="display:none;"></span></a>
+        <a class="tab" data-route="support">Support<span class="tab-badge" id="badgeSupport" style="display:none;"></span></a>
         <a class="tab" data-route="dina">Dina</a>
       </nav>
       <div class="nav-right">
@@ -553,6 +597,10 @@ function el(tag, attrs, children){
   var e = document.createElement(tag);
   if(attrs) for(var k in attrs){
     if(k === "class") e.className = attrs[k];
+    // text sets textContent, so anything a user typed cannot become
+    // markup. Without this, text: fell through to setAttribute and
+    // rendered nothing at all, silently.
+    else if(k === "text") e.textContent = attrs[k] == null ? "" : attrs[k];
     else if(k === "html") e.innerHTML = attrs[k];
     else if(k === "style") e.setAttribute("style", attrs[k]);
     else if(k.indexOf("on") === 0) e.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
@@ -724,6 +772,7 @@ function route_(){
   else if(r === "sales"){ state.route = "sales"; }
   else if(r === "payouts"){ state.route = "payouts"; }
   else if(r === "dina"){ state.route = "dina"; state.dinaPartnerFilter = pid || ""; }
+  else if(r === "support"){ state.route = "support"; }
   else { state.route = "today"; }
   if(state.route !== "items") state.itemsSelection = {};
   updateBulkBar();
@@ -744,7 +793,8 @@ function renderTabs(){
       badgeItems: na.pendingApproval || 0,
       badgePartners: (na.partnerIssues || 0) + (na.newPartners || 0),
       badgeOffers: na.offersPending || 0,
-      badgePayouts: na.pickupFollowUps || 0
+      badgePayouts: na.pickupFollowUps || 0,
+      badgeSupport: na.supportMessages || 0
     };
     for(var id in badges){
       var b = $(id);
@@ -768,6 +818,7 @@ function render(){
   if(state.route === "sales")         return renderSales(main);
   if(state.route === "payouts")       return renderPayouts(main);
   if(state.route === "dina")          return renderDina(main);
+  if(state.route === "support")       return renderSupport(main);
 }
 
 function loading(){ return el("div", { class:"loading", html:'<div class="spinner"></div><div>Loading…</div>' }); }
@@ -2026,6 +2077,229 @@ function buildPayoutsScreen(){
 // ═══════════════════════════════════════════════════════════════
 // DINA
 // ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// SUPPORT
+// Urgent first, then longest waiting. What loses people is not a slow
+// answer, it is watching a newer problem get dealt with before theirs.
+// Replies go out as DPS mail and are written onto the ticket, so the
+// record is the ticket rather than somebody's sent folder.
+// ═══════════════════════════════════════════════════════════════
+
+function renderSupport(main){
+  main.appendChild(loading());
+  var want = state.supportFilter || "open";
+  apiGet("adminSupport", { status: want }).then(function(r){
+    main.innerHTML = "";
+    renderTabs();
+    if(!r || !r.success){
+      main.appendChild(el("div", { class:"empty", html:"<h3>Could not load support</h3><p>"+esc((r&&r.error)||"Unknown")+"</p>" }));
+      return;
+    }
+    state.support = r;
+    main.appendChild(buildSupportScreen(r));
+    tkRecount(); // the first count needs the list attached to the document
+  }).catch(function(e){
+    main.innerHTML = "";
+    main.appendChild(el("div", { class:"empty", html:"<h3>Network error</h3><p>"+esc(e.message)+"</p>" }));
+  });
+}
+
+function supportWait(h){
+  h = Number(h) || 0;
+  if(h < 1)  return "just now";
+  if(h < 24) return h + (h === 1 ? " hour" : " hours");
+  var d = Math.floor(h / 24);
+  return d + (d === 1 ? " day" : " days");
+}
+
+function buildSupportScreen(r){
+  var wrap = el("div", {});
+  var want = state.supportFilter || "open";
+
+  var bar = el("div", { class:"chips", style:"margin-bottom:16px;" });
+  [["open","Open"],["closed","Answered"],["all","All"]].forEach(function(f){
+    var b = el("button", { class:"chip"+(want===f[0]?" active":""), text:f[1] });
+    b.addEventListener("click", function(){ state.supportFilter = f[0]; render(); });
+    bar.appendChild(b);
+  });
+  wrap.appendChild(bar);
+
+  var list = r.tickets || [];
+  if(!list.length){
+    wrap.appendChild(el("div", { class:"empty",
+      html:"<h3>Nothing waiting</h3><p>"+(want==="open"?"No open tickets. ":"")+"Messages from the support page land here.</p>" }));
+    return wrap;
+  }
+
+  var count = el("div", { class:"card-sub", id:"tkCount", style:"margin-bottom:10px;" });
+  wrap.appendChild(count);
+
+  var box = el("div", { class:"tk-list", id:"tkList" });
+  list.forEach(function(t){ box.appendChild(buildTicketCard(t)); });
+  wrap.appendChild(box);
+  return wrap;
+}
+
+// Counted off the list that is actually on screen, so answering a ticket
+// updates the line without another round trip to Apps Script.
+function tkRecount(){
+  var line = $("tkCount"), box = $("tkList");
+  if(!line || !box) return;
+  var n = box.querySelectorAll(".ticket").length;
+  var urgent = box.querySelectorAll(".ticket-urgent:not(.is-handled)").length;
+  if(!n){
+    box.innerHTML = "";
+    box.appendChild(el("div", { class:"empty", style:"border:0;",
+      html:"<h3>Queue clear</h3><p>Nothing left waiting.</p>" }));
+  }
+  line.innerHTML = n
+    ? n + (n===1?" ticket":" tickets")
+      + (urgent ? ", <strong>"+urgent+" urgent</strong>" : "")
+      + " &middot; click one to read it and reply"
+    : "All caught up.";
+  // Keep the tab badge honest too, rather than waiting for the next load.
+  var b = $("badgeSupport");
+  if(b){
+    var open = box.querySelectorAll(".ticket:not(.is-handled)").length;
+    if(state.supportFilter && state.supportFilter !== "open"){ /* not an open-only view */ }
+    else if(open > 0){ b.textContent = open; b.style.display = "inline-flex"; }
+    else b.style.display = "none";
+  }
+}
+
+// One line each until you click it. Collapsed, the row still carries
+// everything you triage on: urgency, who, which record, how long they
+// have waited, and the opening of what they said.
+function buildTicketCard(t){
+  var card = el("div", { class:"ticket" + (t.urgent ? " ticket-urgent" : "") });
+  var answered = /answered|closed/i.test(t.status || "");
+
+  var row = el("button", { class:"tk-row", type:"button" });
+  row.appendChild(el("span", { class:"tk-dot" + (answered ? " is-done" : (t.urgent ? " is-urgent" : "")) }));
+  row.appendChild(el("span", { class:"ticket-id", text: t.ticketId }));
+
+  var mid = el("div", { class:"tk-row-main" });
+  mid.appendChild(el("div", { class:"ticket-topic", text: t.topicLabel || t.topic }));
+  var bits = [t.email];
+  if(t.side)  bits.push(t.side === "buyer" ? "Buying" : "Selling");
+  if(t.refId) bits.push(t.refId);
+  bits.push(String(t.message || "").replace(/\s+/g, " ").slice(0, 90));
+  mid.appendChild(el("div", { class:"tk-row-sub", text: bits.join(" · ") }));
+  row.appendChild(mid);
+
+  if(t.urgent && !answered) row.appendChild(el("span", { class:"tk-tag tk-amber", text:"Urgent" }));
+  if(answered)              row.appendChild(el("span", { class:"tk-tag tk-green", text:"Done" }));
+  row.appendChild(el("span", { class:"ticket-wait", text: supportWait(t.hoursWaiting) }));
+  row.insertAdjacentHTML("beforeend",
+    '<svg class="tk-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    + 'stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>');
+  card.appendChild(row);
+
+  var body = el("div", { class:"ticket-body" });
+  body.hidden = true;
+  card.appendChild(body);
+
+  row.addEventListener("click", function(){
+    var opening = body.hidden;
+    // Accordion: one ticket at a time, so the queue stays a queue.
+    var host = card.parentNode;
+    if(host) Array.prototype.forEach.call(host.querySelectorAll(".ticket.is-open"), function(o){
+      o.classList.remove("is-open");
+      var b = o.querySelector(".ticket-body"); if(b) b.hidden = true;
+    });
+    body.hidden = !opening;
+    card.classList.toggle("is-open", opening);
+    if(opening){
+      var ta = body.querySelector(".ticket-input");
+      if(ta) ta.focus();
+    }
+  });
+
+  // The record it is about, so nobody has to go looking for it.
+  var meta = el("div", { class:"ticket-meta" });
+  meta.appendChild(el("span", { text: t.email }));
+  if(t.side)  meta.appendChild(el("span", { text: t.side === "buyer" ? "Buying" : "Selling" }));
+  if(t.refId) meta.appendChild(el("span", { class:"mono", text: t.refId }));
+  if(t.channel && t.channel !== "web") meta.appendChild(el("span", { text: t.channel }));
+  body.appendChild(meta);
+
+  body.appendChild(el("div", { class:"ticket-msg", text: t.message }));
+
+  if(answered && t.answer){
+    body.appendChild(el("div", { class:"ticket-answer",
+      html:"<strong>"+esc(t.answeredBy||"Answered")+"</strong><br>"+esc(t.answer) }));
+    return card;
+  }
+
+  var box = el("div", { class:"ticket-reply" });
+  var ta  = el("textarea", { class:"ticket-input", placeholder:"Write the reply. It goes out as a DPS email and is saved on this ticket." });
+  box.appendChild(ta);
+
+  var acts = el("div", { class:"ticket-acts" });
+  var send = el("button", { class:"btn btn-primary", text:"Send reply" });
+  var shut = el("button", { class:"btn btn-ghost",   text:"Close without replying" });
+  var note = el("div", { class:"ticket-note" });
+
+  // Settle it on screen instead of re-rendering the whole queue. A full
+  // render means another Apps Script round trip and you lose your place,
+  // which is a long wait repeated once per ticket.
+  function settle(answer, by){
+    t.status = "Answered";
+    if(answer){ t.answer = answer; t.answeredBy = by; }
+    var want = state.supportFilter || "open";
+    card.classList.add("is-handled");
+    if(want === "open"){
+      card.classList.add("is-going");
+      setTimeout(function(){
+        var host = card.parentNode;
+        if(host){ host.removeChild(card); tkRecount(); }
+      }, 260);
+    } else {
+      var fresh = buildTicketCard(t);
+      fresh.classList.add("is-handled");
+      card.parentNode.replaceChild(fresh, card);
+      tkRecount();
+    }
+  }
+
+  send.addEventListener("click", function(){
+    var answer = ta.value.trim();
+    if(answer.length < 5){ note.textContent = "Write something first."; return; }
+    send.disabled = true; shut.disabled = true;
+    send.textContent = "Sending…";
+    note.textContent = "";
+    var by = state.staffName || "admin";
+    apiPost("adminAnswerSupport", { ticketId: t.ticketId, answer: answer, by: by })
+      .then(function(res){
+        if(res && res.success){ toast("Replied to " + t.ticketId); settle(answer, by); return; }
+        send.disabled = false; shut.disabled = false; send.textContent = "Send reply";
+        note.textContent = (res && res.error) || "That did not send.";
+      })
+      .catch(function(e){
+        send.disabled = false; shut.disabled = false; send.textContent = "Send reply";
+        note.textContent = e.message;
+      });
+  });
+
+  shut.addEventListener("click", function(){
+    shut.disabled = true; send.disabled = true;
+    apiPost("adminCloseSupport", { ticketId: t.ticketId, by: state.staffName || "admin" })
+      .then(function(res){
+        if(res && res.success === false){
+          shut.disabled = false; send.disabled = false;
+          note.textContent = res.error || "That did not close."; return;
+        }
+        toast("Closed " + t.ticketId); settle("", state.staffName || "admin");
+      })
+      .catch(function(e){ shut.disabled = false; send.disabled = false; note.textContent = e.message; });
+  });
+
+  acts.appendChild(send); acts.appendChild(shut);
+  box.appendChild(acts); box.appendChild(note);
+  body.appendChild(box);
+  return card;
+}
+
 function renderDina(main){
   main.appendChild(loading());
   Promise.all([
