@@ -122,6 +122,24 @@
          So the partial styles what the partial writes, below, and page
          content stays each page's own business. */
 
+      /* THE NAV'S OWN LAYOUT.
+         Same story as the footer: the partial writes this markup but
+         left its styling to each page, so a page without those rules
+         got an unstyled nav. On support.html that meant a static,
+         transparent bar with the links as a bullet list under a
+         stacked logo. Values copied from the pages that already work,
+         so nothing changes on them. */
+      + '.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(14,19,32,.92);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06);}'
+      + '.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px;}'
+      + '.nav-logo{display:inline-flex;align-items:center;}'
+      + '.nav-logo img{height:44px;width:auto;display:block;}'
+      + '.nav-links{display:none;align-items:center;gap:32px;list-style:none;}'
+      + '.nav-links a{font-size:14px;font-weight:500;color:var(--stone-light);transition:color .15s;}'
+      + '.nav-links a:hover,.nav-links a.active{color:var(--white);}'
+      + '.nav-cta{display:none;}'
+      + '.nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px;}'
+      + '@media(min-width:900px){.nav-links{display:flex;}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px;}.nav-mobile-cta{display:none;}}'
+
       /* THE FOOTER'S OWN LAYOUT.
          The partial writes this markup, so the partial should style it.
          Until now every page carried its own copy of these rules, which
@@ -136,7 +154,7 @@
          footer looks the same everywhere. */
       + 'footer{background:var(--ink-2);color:var(--stone-light);padding:64px 0 32px;border-top:1px solid var(--border-dark);}'
       + '.foot-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px;}'
-      + '@media(min-width:768px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;}}'
+      + '@media(min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;}}'
       + '.foot-brand p{font-size:14px;line-height:1.65;max-width:32ch;color:var(--stone-light);}'
       + '.foot-col h4{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--white);margin-bottom:18px;}'
       + '.foot-col a{display:block;font-size:14px;color:var(--stone-light);padding:6px 0;transition:color .15s;}'
