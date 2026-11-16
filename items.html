@@ -2904,10 +2904,26 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     function get(url) {
       return fetch(url).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
     }
+    // items.json is only trusted while it is FRESH. It used to be trusted
+    // whenever it parsed, and the copy in the repo was a hand-written
+    // snapshot from 8 November with 10 items and no archive, so the page
+    // served that for ever and never once called the live backend. Every
+    // partner import since was invisible. A feed with no generatedAt, or
+    // one older than FEED_MAX_AGE_MINS, is treated as missing.
+    var FEED_MAX_AGE_MINS = 30;
+    function fresh(data) {
+      var t = data && (data.generatedAt || data.generated_at);
+      var ms = t ? Date.parse(String(t).replace(" ", "T")) : NaN;
+      if (isNaN(ms)) return false;
+      return (Date.now() - ms) <= FEED_MAX_AGE_MINS * 60000;
+    }
     return get(FEED_URL + "?v=" + Math.floor(Date.now() / 60000))
-      .then(accept)
+      .then(function (data) {
+        if (!fresh(data)) throw new Error("feed is stale or undated");
+        return accept(data);
+      })
       .catch(function (e) {
-        warn("items.json unavailable, falling back to GAS:", e && e.message);
+        warn("items.json not usable (" + (e && e.message) + "), using the live feed");
         return get(GAS + "?action=getItems").then(accept);
       });
   }
