@@ -4,14 +4,28 @@
    ═══════════════════════════════════════════════════════════════ */
 
 /* Google Apps Script Web App URL (the /exec endpoint) */
-var DPS_MAIN_GAS_URL = "https://script.google.com/macros/s/AKfycbxpxgvKN7rQHxdJDakwaPxPuzv-1vGH5duZpgACxvCHAhr2bM6QnuHFG72XEVrhf-ht/exec";
+var DPS_MAIN_GAS_URL = "https://script.google.com/macros/s/AKfycbyHyg6ie96yMKbiw9TpRCr0uWU1CHNy1_POkvAy1l-CHaxuzhPc-LJWcG7hG8ueiGTy/exec";
 
 /* Public site URL, no trailing slash */
 var DPS_SITE_URL = "https://declutterpawnshop.com";
 
+/* ───────────────────────────────────────────────────────────────
+   SUPPORT ADDRESS — the one line to change on the front end.
+
+   Every page shows this address instead of hardcoding it, so
+   switching to support@ is this line plus the SUPPORT_EMAIL script
+   property in Apps Script. Two edits, nothing else.
+   Run dpsCheckSupportEmail() after changing: it compares the two
+   and tells you if one was missed.
+   ─────────────────────────────────────────────────────────────── */
+var DPS_SUPPORT_EMAIL = "info@declutterpawnshop.com";
+
 /* Commission rates — keep in sync with the sheet */
 var DPS_COMMISSION_STANDARD = 0.13;   // 13%
-var DPS_COMMISSION_FIRST    = 0.03;   // 3% welcome offer
+/* Was 0.03. That was the "97% on your first sale" figure, which never
+   matched the welcome offer: we take 10% instead of 13% on sale one,
+   so the seller keeps 90%. Code.gs FIRST_SALE_COMMISSION is 0.90. */
+var DPS_COMMISSION_FIRST    = 0.10;   // 10% on a seller's first sale
 var DPS_COMMISSION_PARTNER  = 0.05;   // 5%
 
 /* Negotiation fee in naira */
