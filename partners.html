@@ -222,6 +222,14 @@ input, select, textarea { font-family: inherit; }
 .objection-q-label { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .objection-q-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; }
 .objection-a { flex: 1.2; font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; padding-top: 20px; }
+/* Both of these are markup the phone accordion needs, and both were styled
+   only inside the 600px breakpoint. Above it they had no rules at all, so
+   the chevron, an SVG with a viewBox and no width, stretched to fill its
+   cell at 466px square. Desktop shows the question and the answer side by
+   side, already open, so there is nothing for a chevron to toggle: it is
+   hidden here and turned back on in the breakpoint. */
+.objection-chev { display: none; }
+.objection-q-main { min-width: 0; }
 @media (max-width: 720px) { .objection { flex-direction: column; gap: 12px; } .objection-a { padding-top: 0; } }
 
 .steps-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; background: var(--white); }
@@ -490,6 +498,7 @@ body.partner-modal-locked { overflow: hidden; }
   .objection-q-label { margin-bottom: 5px; font-size: 9.5px; }
   .objection-q-title { font-size: 15px; line-height: 1.3; }
   .objection-chev {
+    display: block;   /* the base rule above hides it for desktop */
     flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
     color: var(--text-muted); transition: transform .2s ease;
   }
