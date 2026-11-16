@@ -110,13 +110,42 @@
       + '.nav-logo img{height:' + LOGO_NAV_H + 'px !important;width:auto !important;}'
       // Footer logo sizing
       + '.foot-brand img{height:' + LOGO_FOOT_H + 'px !important;width:auto !important;margin-bottom:20px !important;}'
-      // Footer social icons. The partial writes this markup, so the partial
-      // sizes it. Every existing page happens to carry its own
-      // ".foot-social svg" rule, which hid the fact that the footer could not
-      // stand on its own: a new page without that line rendered three 680px
-      // icons down the middle of the screen. Shipping it here means no
-      // future page can inherit that bug.
-      + '.foot-social svg{width:16px !important;height:16px !important;flex:none;}'
+      /* A site-wide default for unsized <svg> was tried here and removed.
+         It fixed the enormous-icon failure, but "an SVG with no size of
+         its own, filling a wrapper that IS sized" is a legitimate and
+         common pattern: beta.html draws its callout icons exactly that
+         way, inside a 22px .callout-icon div, and the guard shrank them
+         to 16px. CSS cannot say "only when the parent is unsized", and a
+         max-width cap would flatten deliberately large art such as the
+         240px gavel on the auction success page.
+
+         So the partial styles what the partial writes, below, and page
+         content stays each page's own business. */
+
+      /* THE FOOTER'S OWN LAYOUT.
+         The partial writes this markup, so the partial should style it.
+         Until now every page carried its own copy of these rules, which
+         hid the fact that the footer could not stand on its own: a new
+         page without them rendered three 680px social icons down the
+         middle of the screen and ran every link together as
+         "Live itemsSell an itemAuction".
+
+         Values match what the existing pages already declare, so this
+         changes nothing on them. It is injected into <head> at runtime,
+         after each page's own <style>, so on a tie this wins and the
+         footer looks the same everywhere. */
+      + 'footer{background:var(--ink-2);color:var(--stone-light);padding:64px 0 32px;border-top:1px solid var(--border-dark);}'
+      + '.foot-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px;}'
+      + '@media(min-width:768px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;}}'
+      + '.foot-brand p{font-size:14px;line-height:1.65;max-width:32ch;color:var(--stone-light);}'
+      + '.foot-col h4{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--white);margin-bottom:18px;}'
+      + '.foot-col a{display:block;font-size:14px;color:var(--stone-light);padding:6px 0;transition:color .15s;}'
+      + '.foot-col a:hover{color:var(--green);}'
+      + '.foot-bottom{padding-top:32px;border-top:1px solid var(--border-dark);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--text-muted);}'
+      + '.foot-social{display:flex;gap:12px;}'
+      + '.foot-social a{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);transition:background .15s;}'
+      + '.foot-social a:hover{background:rgba(0,200,83,.15);}'
+      + '.foot-social svg{width:16px !important;height:16px !important;flex:none;color:var(--stone-light);}'
       // Push page content below the nav so nothing is covered
       + '.hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
       + '.items-hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
