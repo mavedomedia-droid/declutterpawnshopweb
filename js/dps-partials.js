@@ -140,6 +140,48 @@
     document.head.appendChild(s);
   }
 
+  /* ── THE SUPPORT ADDRESS ──────────────────────────────────────
+     Seventeen pages print info@declutterpawnshop.com in their own
+     markup. Rather than edit all seventeen every time the address
+     moves, this rewrites them from DPS_SUPPORT_EMAIL in
+     js/dps-config.js, which runs on every page anyway. Change that
+     one line and the whole site follows.
+
+     Only the old address is touched, so a page that already uses
+     the new one is left alone, and running twice changes nothing.
+     ─────────────────────────────────────────────────────────── */
+  var SUPPORT_OLD = "info@declutterpawnshop.com";
+
+  function supportAddress() {
+    return (typeof DPS_SUPPORT_EMAIL !== "undefined" && DPS_SUPPORT_EMAIL)
+      ? String(DPS_SUPPORT_EMAIL).trim()
+      : SUPPORT_OLD;
+  }
+
+  function rewriteSupportEmail() {
+    var to = supportAddress();
+    if (!to || to === SUPPORT_OLD) return;   // nothing to change
+
+    // mailto: links, including any ?subject= they carry
+    document.querySelectorAll('a[href*="' + SUPPORT_OLD + '"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split(SUPPORT_OLD).join(to));
+    });
+
+    // Visible text. Walks text nodes only, so markup and attributes
+    // are never touched and a half-matched tag cannot be produced.
+    var walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.nodeValue && n.nodeValue.indexOf(SUPPORT_OLD) >= 0
+          ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var hits = [], n;
+    while ((n = walk.nextNode())) hits.push(n);
+    hits.forEach(function (node) {
+      node.nodeValue = node.nodeValue.split(SUPPORT_OLD).join(to);
+    });
+  }
+
   function inject() {
     injectStyles();
     document.querySelectorAll("[data-dps-nav]").forEach(function (host) {
@@ -149,6 +191,7 @@
     document.querySelectorAll("[data-dps-footer]").forEach(function (host) {
       host.innerHTML = footerHTML();
     });
+    rewriteSupportEmail();   // after the partials, so the footer is covered too
   }
 
   if (document.readyState === "loading") {
