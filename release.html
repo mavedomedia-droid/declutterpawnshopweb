@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>End this pickup | Declutter Pawn Shop</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E1320">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #00C853; --green-dark: #00A843; --green-deep: #009933;
+  --ink: #0E1320; --ink-2: #161C2B; --ink-3: #1E2536;
+  --off-white: #F5F7F8; --white: #FFFFFF;
+  --stone: #A7B0AA; --stone-light: #C6CFC9; --stone-dark: #5B635D;
+  --mint-soft: #E9F5EE;
+  --border: #E1E5E4; --border-ink: #D6DCE0; --border-dark: #242C3E;
+  --danger: #DC2626; --danger-soft: #FEF2F2; --danger-edge: #FECACA;
+  --amber: #B45309; --amber-soft: #FFFBEB; --amber-edge: #FDE68A;
+  --text-secondary: #4F5860; --text-muted: #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --r-card: 16px; --r-button: 12px; --r-pill: 999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--off-white);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:var(--font-heading);font-weight:800;letter-spacing:-0.025em;line-height:1.05;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%;height:auto}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 20px}
+@media (min-width:768px){.wrap{padding:0 40px}}
+
+/* ─── Nav CSS (shared partials inject the markup) ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(14,19,32,.92);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.nav-logo img{height:34px;width:auto}
+.nav-links{display:none;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--stone-light);transition:color .15s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a.active{color:var(--white)}
+.nav-cta{display:none}
+@media (min-width:900px){.nav-links{display:flex}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px}}
+.nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px}
+@media (min-width:900px){.nav-mobile-cta{display:none}}
+
+/* ─── Footer CSS (shared partials inject the markup) ─── */
+footer{background:var(--ink-2);color:var(--stone-light);padding:56px 0 28px;border-top:1px solid var(--border-dark)}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:40px}
+@media (min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}}
+.foot-brand img{height:34px;width:auto;margin-bottom:14px;opacity:.95}
+.foot-brand p{font-size:13.5px;line-height:1.6;max-width:34ch;color:var(--stone-light)}
+.foot-col h4{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+.foot-col a{display:block;font-size:13.5px;color:var(--stone-light);padding:5px 0;transition:color .15s}
+.foot-col a:hover{color:var(--green)}
+.foot-bottom{padding-top:28px;border-top:1px solid var(--border-dark);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted)}
+.foot-social{display:flex;gap:10px}
+.foot-social a{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);transition:background .15s}
+.foot-social a:hover{background:rgba(0,200,83,.15)}
+.foot-social svg{width:15px;height:15px;color:var(--stone-light)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:700;font-size:15px;padding:13px 24px;border-radius:var(--r-button);transition:transform .15s,box-shadow .15s,background .15s,color .15s,border-color .15s;cursor:pointer;white-space:nowrap;letter-spacing:-.005em}
+.btn-primary{background:var(--green);color:var(--ink);box-shadow:0 2px 0 var(--green-dark)}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 0 var(--green-deep)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--ink)}
+
+/* ─── HERO band ─── */
+.head{background:var(--ink);padding:104px 0 96px;position:relative;overflow:hidden}
+.head::before{content:'';position:absolute;top:-40%;right:-15%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(180,83,9,.16) 0%,rgba(180,83,9,0) 65%);pointer-events:none}
+.head-in{position:relative;z-index:1;max-width:640px;margin:0 auto;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#F59E0B;padding:6px 14px 6px 6px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.28);border-radius:var(--r-pill)}
+.eyebrow-dot{width:22px;height:22px;border-radius:50%;background:rgba(245,158,11,.16);display:flex;align-items:center;justify-content:center;color:#F59E0B}
+.eyebrow-dot svg{width:12px;height:12px}
+.head h1{color:var(--white);font-size:clamp(28px,5vw,42px);letter-spacing:-.035em;margin-top:16px;line-height:1.04}
+.head h1 .accent{color:#F59E0B}
+.head p{color:var(--stone-light);font-size:15px;margin-top:10px;line-height:1.55;max-width:46ch;margin-left:auto;margin-right:auto}
+
+/* ─── Stage + card ─── */
+.stage{padding-bottom:80px}
+.slot{margin-top:-64px;position:relative;z-index:2}
+.card{background:var(--white);border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;max-width:480px;margin:0 auto;box-shadow:0 24px 60px rgba(14,19,32,.10)}
+.card-body{padding:28px}
+
+/* Details block */
+.details{background:var(--ink);border-radius:14px;padding:16px 18px;margin-bottom:20px;position:relative;overflow:hidden}
+.details::after{content:'';position:absolute;top:-50%;right:-30%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.16) 0%,rgba(245,158,11,0) 70%);pointer-events:none}
+.detail-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;position:relative;z-index:1}
+.detail-row + .detail-row{border-top:1px solid rgba(255,255,255,.08)}
+.detail-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);flex-shrink:0}
+.detail-value{font-size:13.5px;font-weight:600;color:var(--white);text-align:right;word-break:break-word}
+.detail-value.mono{font-family:var(--font-mono);font-size:12px;color:var(--stone-light);letter-spacing:.02em}
+.detail-value.amount{font-family:var(--font-heading);font-size:22px;font-weight:800;color:#F59E0B;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.detail-value.sk{color:transparent;background:rgba(255,255,255,.08);border-radius:4px;min-width:80px;animation:skPulse 1.2s ease-in-out infinite}
+.detail-value.amount.sk{min-width:120px}
+@keyframes skPulse{0%,100%{opacity:.6}50%{opacity:.25}}
+
+/* What happens */
+.lede{font-size:14.5px;line-height:1.6;color:var(--text-secondary);margin-bottom:16px}
+.lede strong{color:var(--ink);font-weight:700}
+.consequences{list-style:none;margin-bottom:20px}
+.consequences li{position:relative;padding-left:24px;font-size:13.5px;line-height:1.55;color:var(--text-secondary);padding-bottom:9px}
+.consequences li::before{content:'';position:absolute;left:6px;top:9px;width:6px;height:6px;border-radius:50%;background:#F59E0B}
+.consequences li strong{color:var(--ink);font-weight:700}
+
+.btn-act{width:100%;background:var(--ink);color:var(--white);font-family:var(--font-body);font-weight:700;font-size:15px;padding:15px 20px;border-radius:var(--r-button);border:none;cursor:pointer;transition:background .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:9px;letter-spacing:-.005em}
+.btn-act:hover:not(:disabled){background:var(--ink-3)}
+.btn-act:active:not(:disabled){transform:translateY(1px)}
+.btn-act:disabled{background:var(--border);color:var(--text-muted);cursor:not-allowed}
+.btn-act.danger{background:var(--danger)}
+.btn-act.danger:hover:not(:disabled){background:#B91C1C}
+.btn-back{width:100%;margin-top:10px;background:transparent;color:var(--text-secondary);font-size:14px;font-weight:600;padding:12px;border-radius:var(--r-button);border:1.5px solid var(--border);transition:border-color .15s,color .15s}
+.btn-back:hover{border-color:var(--ink);color:var(--ink)}
+
+/* Confirm step */
+.confirm-note{background:var(--danger-soft);border:1px solid var(--danger-edge);border-radius:12px;padding:14px 16px;font-size:13.5px;line-height:1.55;color:#B91C1C;margin-bottom:16px}
+.confirm-note strong{font-weight:700;display:block;margin-bottom:3px}
+
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.msg{display:none;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.55;margin-top:14px}
+.msg.show{display:block}
+.msg.error{background:var(--danger-soft);border:1px solid var(--danger-edge);color:#B91C1C}
+.msg.info{background:var(--amber-soft);border:1px solid var(--amber-edge);color:var(--amber)}
+
+/* Done + blocking views */
+.success,.blocking{display:none;padding:40px 28px 32px;text-align:center}
+.success.show,.blocking.show{display:block}
+.success-icon{width:64px;height:64px;border-radius:50%;background:var(--mint-soft);border:1px solid rgba(0,200,83,.28);display:flex;align-items:center;justify-content:center;color:var(--green-dark);margin:0 auto 18px}
+.success-icon svg{width:30px;height:30px}
+.success h2{font-size:26px;letter-spacing:-.025em;color:var(--ink)}
+.success-body{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-top:14px;max-width:34ch;margin-left:auto;margin-right:auto}
+.success .btn,.blocking .btn{margin-top:22px}
+.blocking{padding:36px 28px 28px}
+.blocking-icon{width:56px;height:56px;border-radius:50%;background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);margin:0 auto 18px}
+.blocking-icon svg{width:26px;height:26px}
+.blocking h2{font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
+.blocking p{font-size:14px;color:var(--text-secondary);line-height:1.6;max-width:36ch;margin:0 auto}
+.blocking a.btn{text-decoration:none}
+
+@media (max-width:460px){
+  .card-body{padding:22px 18px}
+  .success{padding:32px 20px 24px}
+  .blocking{padding:32px 20px 24px}
+}
+</style>
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
+</head>
+<body>
+
+<div data-dps-nav></div>
+
+<header class="head">
+  <div class="wrap head-in">
+    <span class="eyebrow">
+      <span class="eyebrow-dot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </span>
+      Shelved order
+    </span>
+    <h1 id="headTitle">End this <span class="accent">pickup</span>.</h1>
+    <p id="headText">Checking this order.</p>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="wrap">
+    <div class="slot">
+      <div class="card">
+
+        <!-- ACTION VIEW -->
+        <div class="card-body" id="actionView">
+
+          <div class="details">
+            <div class="detail-row">
+              <span class="detail-label">Item</span>
+              <span class="detail-value sk" id="d-item">loading</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Item ID</span>
+              <span class="detail-value mono sk" id="d-itemid">loading</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label" id="l-other">Other party</span>
+              <span class="detail-value sk" id="d-other">loading</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label" id="l-amount">Amount</span>
+              <span class="detail-value amount sk" id="d-amount">loading</span>
+            </div>
+          </div>
+
+          <!-- step 1 -->
+          <div id="step1" hidden>
+            <p class="lede" id="lede"></p>
+            <ul class="consequences" id="consequences"></ul>
+            <button class="btn-act" id="btnStart" type="button"><span id="btnStartText">Continue</span></button>
+            <button class="btn-back" id="btnLeave" type="button">Leave this as it is</button>
+          </div>
+
+          <!-- step 2: the point of no return -->
+          <div id="step2" hidden>
+            <div class="confirm-note">
+              <strong>This cannot be undone.</strong>
+              <span id="confirmText"></span>
+            </div>
+            <button class="btn-act danger" id="btnConfirm" type="button">
+              <span id="btnConfirmText">Yes, do it</span>
+              <div class="spinner" id="btnSpinner"></div>
+            </button>
+            <button class="btn-back" id="btnCancel" type="button">No, go back</button>
+          </div>
+
+          <div class="msg" id="msgArea"></div>
+        </div>
+
+        <!-- DONE VIEW -->
+        <div class="success" id="successView">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h2 id="sv-title">Done</h2>
+          <p class="success-body" id="sv-body"></p>
+          <a class="btn btn-outline" href="/items.html">Back to the shop</a>
+        </div>
+
+        <!-- BLOCKING VIEW -->
+        <div class="blocking" id="blockingView">
+          <div class="blocking-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+          </div>
+          <h2 id="bl-title">Cannot open this link</h2>
+          <p id="bl-text">Open it from the email we sent you about this order.</p>
+          <a class="btn btn-outline" id="bl-cta" href="/support.html">Get help</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<div data-dps-footer></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var GAS = (window.DPS_MAIN_GAS_URL || '');
+
+  var params = new URLSearchParams(window.location.search);
+  var itemId = (params.get('item')  || '').trim().toUpperCase();
+  var email  = (params.get('email') || '').trim().toLowerCase();
+
+  var actionView  = document.getElementById('actionView');
+  var successView = document.getElementById('successView');
+  var blockView   = document.getElementById('blockingView');
+  var step1 = document.getElementById('step1');
+  var step2 = document.getElementById('step2');
+  var msgArea = document.getElementById('msgArea');
+  var btnConfirm = document.getElementById('btnConfirm');
+  var btnSpinner = document.getElementById('btnSpinner');
+
+  function $(id) { return document.getElementById(id); }
+  function setVal(id, text) {
+    var e = $(id);
+    e.textContent = text || '—';
+    e.classList.remove('sk');
+  }
+  function showMsg(text, type) {
+    msgArea.className = 'msg show ' + (type || 'error');
+    msgArea.textContent = text;
+  }
+  function showBlocking(title, text, ctaText, ctaHref) {
+    actionView.style.display = 'none';
+    $('bl-title').textContent = title;
+    $('bl-text').textContent  = text;
+    if (ctaText) $('bl-cta').textContent = ctaText;
+    if (ctaHref) $('bl-cta').setAttribute('href', ctaHref);
+    blockView.classList.add('show');
+  }
+
+  // ─── Guard: a link with nothing in it ───────────────────────────────────
+  if (!itemId || !email) {
+    $('headText').textContent = 'This link is missing something.';
+    showBlocking('Cannot open this link',
+      'Open it from the email we sent you about this order, so we know which order you mean.');
+    return;
+  }
+
+  $('d-itemid').textContent = itemId;
+  $('d-itemid').classList.remove('sk');
+
+  // ─── Load the order ─────────────────────────────────────────────────────
+  fetch(GAS + '?action=orderStatus' +
+        '&item='  + encodeURIComponent(itemId) +
+        '&email=' + encodeURIComponent(email))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d || !d.found) {
+        $('headText').textContent = 'We could not match this link to an order.';
+        showBlocking('Order not found',
+          'We could not find an order for this link. If you think that is wrong, send us a message and we will look into it.',
+          'Message support', '/support.html?ref=' + encodeURIComponent(itemId));
+        return;
+      }
+      paint(d);
+    })
+    .catch(function () {
+      $('headText').textContent = 'We could not reach the server.';
+      showBlocking('Could not load this order',
+        'Something went wrong on our side. Try again in a minute, or send us a message.',
+        'Message support', '/support.html?ref=' + encodeURIComponent(itemId));
+    });
+
+  function paint(d) {
+    var seller = d.role === 'seller';
+
+    setVal('d-item',  d.itemName);
+    setVal('d-other', d.otherName + (d.otherPhone ? ' · ' + d.otherPhone : ''));
+    setVal('d-amount', '₦' + (d.amount || '0'));
+    $('l-other').textContent  = seller ? 'Buyer'  : 'Seller';
+    $('l-amount').textContent = seller ? 'Your payout' : 'You paid';
+
+    // Already settled or already cancelled: say so and stop.
+    if (!d.canRelease) {
+      $('headTitle').innerHTML = 'Nothing to <span class="accent">do</span>.';
+      $('headText').textContent = 'This order has already moved on.';
+      showBlocking('Nothing to do here', d.blocked || 'This order has already been dealt with.',
+        'Message support', '/support.html?ref=' + encodeURIComponent(d.itemId));
+      return;
+    }
+
+    var deadline = d.shelfExpires
+      ? ' If neither of you does anything, that happens on its own on ' + d.shelfExpires + '.'
+      : '';
+
+    if (seller) {
+      $('headTitle').innerHTML = 'Take your <span class="accent">item</span> back.';
+      $('headText').textContent = 'The buyer has not collected. You can end this and put the item back in front of someone else.';
+      $('lede').innerHTML = 'The buyer paid for <strong>' + esc(d.itemName) +
+        '</strong> but has not collected it. Ending this now is your call.' + esc(deadline);
+      list([
+        'The buyer is <strong>refunded in full</strong>, usually within 3 working days.',
+        'Your item goes <strong>back on sale</strong> straight away, at the same price.',
+        'You are <strong>not paid</strong> for this one, because the sale did not happen.',
+        'Neither of you is penalised. People miss pickups.'
+      ]);
+      $('btnStartText').textContent = 'Take my item back';
+      $('confirmText').textContent = 'We will refund ' + (d.otherName || 'the buyer') +
+        ' in full and put ' + d.itemName + ' back on sale. You will not be paid for this sale.';
+      $('sv-title').textContent = 'Item is back on sale';
+      $('sv-body').textContent  = d.itemName + ' is live again at the same price. ' +
+        (d.otherName || 'The buyer') + ' is being refunded, and we have told them what happened.';
+    } else {
+      $('headTitle').innerHTML = 'Cancel and get <span class="accent">refunded</span>.';
+      $('headText').textContent = 'If you no longer want this item, end it here and your money comes back.';
+      $('lede').innerHTML = 'You paid for <strong>' + esc(d.itemName) +
+        '</strong> and have not collected it yet. Only do this if you no longer want it.' + esc(deadline);
+      list([
+        'You get <strong>your full ₦' + esc(d.amount) + ' back</strong>, usually within 3 working days.',
+        'The item goes <strong>back on sale</strong>, so somebody else can buy it.',
+        'You <strong>cannot undo this</strong>. If it sells to someone else, it is gone.',
+        'Still want it? Close this page and arrange a pickup with the seller instead.'
+      ]);
+      $('btnStartText').textContent = 'Cancel and refund me';
+      $('confirmText').textContent = 'We will refund your ₦' + d.amount +
+        ' and put ' + d.itemName + ' back on sale for other buyers.';
+      $('sv-title').textContent = 'Your refund is on its way';
+      $('sv-body').textContent  = 'You will get ₦' + d.amount +
+        ' back to the account you paid from, usually within 3 working days. We have told the seller.';
+    }
+
+    step1.hidden = false;
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function list(items) {
+    var ul = $('consequences');
+    ul.innerHTML = '';
+    items.forEach(function (html) {
+      var li = document.createElement('li');
+      li.innerHTML = html;   // our own copy, with only esc'd values interpolated
+      ul.appendChild(li);
+    });
+  }
+
+  // ─── Two steps, because this refunds money and cannot be undone ─────────
+  $('btnStart').addEventListener('click', function () {
+    step1.hidden = true; step2.hidden = false;
+    msgArea.className = 'msg';
+  });
+  $('btnCancel').addEventListener('click', function () {
+    step2.hidden = true; step1.hidden = false;
+  });
+  $('btnLeave').addEventListener('click', function () {
+    window.location.href = '/items.html';
+  });
+
+  var sending = false;
+  btnConfirm.addEventListener('click', function () {
+    if (sending) return;
+    sending = true;
+    btnConfirm.disabled = true;
+    $('btnConfirmText').textContent = 'Working on it';
+    btnSpinner.style.display = 'block';
+    msgArea.className = 'msg';
+
+    fetch(GAS, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'releasePickup', itemId: itemId, email: email })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) {
+          actionView.style.display = 'none';
+          successView.classList.add('show');
+          return;
+        }
+        fail((res && res.error) || 'That did not go through.');
+      })
+      .catch(function () {
+        fail('We could not reach the server. Check your connection and try again.');
+      });
+  });
+
+  function fail(text) {
+    sending = false;
+    btnConfirm.disabled = false;
+    $('btnConfirmText').textContent = 'Yes, do it';
+    btnSpinner.style.display = 'none';
+    showMsg(text, 'error');
+  }
+})();
+</script>
+</body>
+</html>
