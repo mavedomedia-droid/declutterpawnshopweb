@@ -110,6 +110,13 @@
       + '.nav-logo img{height:' + LOGO_NAV_H + 'px !important;width:auto !important;}'
       // Footer logo sizing
       + '.foot-brand img{height:' + LOGO_FOOT_H + 'px !important;width:auto !important;margin-bottom:20px !important;}'
+      // Footer social icons. The partial writes this markup, so the partial
+      // sizes it. Every existing page happens to carry its own
+      // ".foot-social svg" rule, which hid the fact that the footer could not
+      // stand on its own: a new page without that line rendered three 680px
+      // icons down the middle of the screen. Shipping it here means no
+      // future page can inherit that bug.
+      + '.foot-social svg{width:16px !important;height:16px !important;flex:none;}'
       // Push page content below the nav so nothing is covered
       + '.hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
       + '.items-hero{padding-top:' + (NAV_HEIGHT + 56) + 'px !important;}'
