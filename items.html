@@ -191,6 +191,31 @@ input, select, textarea { font-family: inherit; }
    thirty; at partner volume the page is a market, and a market packs. */
 @media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
 
+/* ═══ Featured slider: the shop window ═══ */
+.feat-wrap { display: none; margin-top: 16px; }
+.feat-wrap.on { display: block; }
+.feat-slider { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none; border-radius: 16px; }
+.feat-slider::-webkit-scrollbar { display: none; }
+.feat-slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 21/9;
+  border-radius: 16px; overflow: hidden; background: var(--ink-3); cursor: pointer; }
+@media (max-width: 640px) { .feat-slide { aspect-ratio: 16/9; } }
+.feat-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.feat-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,19,32,0) 35%, rgba(14,19,32,.82) 100%); }
+.feat-copy { position: absolute; left: 16px; right: 16px; bottom: 13px; color: var(--white); }
+.feat-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: #FDE68A; margin-bottom: 5px; }
+.feat-tag svg { width: 10px; height: 10px; }
+.feat-name { font-family: var(--font-heading); font-size: clamp(16px, 3.4vw, 22px); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.feat-sub { display: flex; align-items: baseline; gap: 10px; margin-top: 4px; }
+.feat-price { font-family: var(--font-heading); font-size: clamp(14px, 3vw, 18px); font-weight: 800; }
+.feat-price .sym { color: var(--green); font-size: .72em; }
+.feat-cond { font-size: 11px; color: var(--stone-light); }
+.feat-dots { display: flex; justify-content: center; gap: 5px; margin-top: 8px; }
+.feat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border-ink); border: 0; padding: 0; cursor: pointer; transition: background .2s, width .2s; }
+.feat-dot.on { background: var(--green); width: 14px; border-radius: 999px; }
+
 /* ═══ Hot rail: packed, swiped, no scrollbar ═══ */
 .hot-rail-wrap { display: none; margin-top: 18px; }
 .hot-rail-wrap.on { display: block; }
@@ -216,6 +241,16 @@ input, select, textarea { font-family: inherit; }
 .hot-card-price .sym { color: var(--green); font-size: 0.72em; }
 .hot-card-name { font-size: 10.5px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
 @media (min-width: 900px) { .hot-card { flex-basis: 126px; } }
+.hot-rail-head .new-ic { color: var(--green-dark); }
+/* Archive cards are the past: a touch quieter than live stock. */
+.arch-wrap { margin: 34px auto 26px; }
+.hot-rail-head .arch-ic { color: var(--text-muted); }
+.arch-card .hot-card-img img { filter: grayscale(.35); opacity: .92; }
+.arch-card .hot-card-price { color: var(--text-secondary); }
+.arch-seen { position: absolute; top: 5px; left: 5px; display: inline-flex; align-items: center; gap: 2px;
+  font-size: 9px; font-weight: 700; color: var(--stone-dark); background: var(--off-white);
+  border: 1px solid var(--border); padding: 1px 5px; border-radius: 999px; }
+.arch-seen svg { width: 8px; height: 8px; }
 
 .item-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; }
 .item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
@@ -808,6 +843,13 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
+<!-- The shop window: one big item at a time, swiped or walked on its
+     own. Fed from the same in-memory ranking as everything else. -->
+<div class="wrap feat-wrap" id="featWrap">
+  <div class="feat-slider" id="featSlider"></div>
+  <div class="feat-dots" id="featDots"></div>
+</div>
+
 <!-- The hot list, walked left to right instead of one at a time.
      Same ranking the ticker uses, no extra request. -->
 <div class="wrap hot-rail-wrap" id="hotRailWrap">
@@ -817,6 +859,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     <span class="hot-rail-hint">swipe</span>
   </div>
   <div class="hot-rail" id="hotRail"></div>
+</div>
+
+<!-- Fresh stock, same shelf shape. -->
+<div class="wrap hot-rail-wrap" id="newRailWrap">
+  <div class="hot-rail-head">
+    <svg class="flame new-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <h2>Just in</h2>
+    <span class="hot-rail-hint">swipe</span>
+  </div>
+  <div class="hot-rail" id="newRail"></div>
 </div>
 
 <section class="grid-section">
@@ -834,6 +886,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     </div>
   </div>
 </section>
+
+<!-- The archive: everything a partner posted that has come down.
+     Not buyable, but every card is a Request if available waiting to
+     happen, and that request is the whole business model. -->
+<div class="wrap hot-rail-wrap arch-wrap" id="archRailWrap">
+  <div class="hot-rail-head">
+    <svg class="flame arch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"/><path d="M10 12h4"/></svg>
+    <h2>From the archive</h2>
+    <span class="hot-rail-hint">tap to ask</span>
+  </div>
+  <div class="hot-rail" id="archRail"></div>
+</div>
 
 <section class="sold-strip" id="soldStrip" style="display:none;">
   <div class="wrap">
@@ -1956,11 +2020,140 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
      hot items above their results is in the way. It comes back when
      the page returns to the open view. */
   function syncHotRail() {
-    var w = document.getElementById("hotRailWrap");
-    if (!w) return;
     var browsing = !SEARCH_QUERY && ACTIVE_FILTER === "All" && !ACTIVE_VENDOR;
-    w.classList.toggle("on", HOT_RAIL_OK && browsing);
+    var w = document.getElementById("hotRailWrap");
+    if (w) w.classList.toggle("on", HOT_RAIL_OK && browsing);
+    var n = document.getElementById("newRailWrap");
+    if (n) n.classList.toggle("on", NEW_RAIL_OK && browsing);
+    var f = document.getElementById("featWrap");
+    if (f) f.classList.toggle("on", FEAT_OK && browsing);
+    var a = document.getElementById("archRailWrap");
+    if (a) a.classList.toggle("on", ARCH_RAIL_OK && browsing);
   }
+  var NEW_RAIL_OK = false, FEAT_OK = false, featIdx = 0, featTimer = null, FEAT = [], ARCH_RAIL_OK = false;
+
+  /* How long since Dina last saw the post, in a word. */
+  function lastSeenLabel(it) {
+    var t = submittedMs(it["Source Checked At"] || it["Archived At"] || "");
+    if (isNaN(t) || !t) return "";
+    var d = Math.floor((Date.now() - t) / 86400000);
+    return d <= 0 ? "today" : d + "d ago";
+  }
+
+  function renderArchiveRail() {
+    var wrap = document.getElementById("archRailWrap");
+    if (!wrap) return;
+    var rows = ARCHIVED.slice()
+      .filter(function (it) { return firstImage(it["Product Photos"]); })
+      .sort(function (a, b) {
+        return (submittedMs(b["Archived At"] || "") || 0) - (submittedMs(a["Archived At"] || "") || 0);
+      })
+      .slice(0, 14);
+    ARCH_RAIL_OK = rows.length >= 4;
+    if (!ARCH_RAIL_OK) return;
+    var CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+    document.getElementById("archRail").innerHTML = rows.map(function (it) {
+      var seen = lastSeenLabel(it);
+      return '<div class="hot-card arch-card" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
+        + '<div class="hot-card-img">'
+        +   '<img src="' + escapeAttr(firstImage(it["Product Photos"])) + '" alt="" loading="lazy" decoding="async" onerror="imgFail(this)">'
+        +   (seen ? '<span class="arch-seen">' + CLOCK + seen + '</span>' : '')
+        + '</div>'
+        + '<div class="hot-card-body">'
+        +   '<div class="hot-card-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</div>'
+        +   '<div class="hot-card-name">' + escapeHTML(it["Item Name"] || "") + '</div>'
+        + '</div></div>';
+    }).join("");
+  }
+
+  function railCardHTML(it) {
+    var img = firstImage(it["Product Photos"]);
+    var FLAME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
+    return '<div class="hot-card" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
+      + '<div class="hot-card-img">'
+      +   (img ? '<img src="' + escapeAttr(img) + '" alt="" loading="lazy" decoding="async" onerror="imgFail(this)">' : '')
+      +   ((it._views || 0) > 0 ? '<span class="hot-heat">' + FLAME + (it._views || 0) + '</span>' : '')
+      + '</div>'
+      + '<div class="hot-card-body">'
+      +   '<div class="hot-card-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</div>'
+      +   '<div class="hot-card-name">' + escapeHTML(it["Item Name"] || "") + '</div>'
+      + '</div></div>';
+  }
+
+  /* The shop window: the top of the hot list, one big slide at a time,
+     walking on its own until a hand touches it. */
+  function renderFeatured() {
+    var wrap = document.getElementById("featWrap");
+    if (!wrap) return;
+    FEAT = HOT.filter(function (it) { return firstImage(it["Product Photos"]); }).slice(0, 5);
+    FEAT_OK = FEAT.length >= 3;
+    if (!FEAT_OK) { syncHotRail(); return; }
+    var FLAME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
+    document.getElementById("featSlider").innerHTML = FEAT.map(function (it, i) {
+      return '<div class="feat-slide" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
+        + '<img src="' + escapeAttr(firstImage(it["Product Photos"])) + '" alt="" '
+        +   (i === 0 ? 'fetchpriority="high"' : 'loading="lazy"') + ' decoding="async" onerror="imgFail(this)">'
+        + '<div class="feat-shade"></div>'
+        + '<div class="feat-copy">'
+        +   '<span class="feat-tag">' + FLAME + 'Hot \u00b7 ' + (it._views || 0) + ' views</span>'
+        +   '<div class="feat-name">' + escapeHTML(it["Item Name"] || "") + '</div>'
+        +   '<div class="feat-sub"><span class="feat-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</span>'
+        +   '<span class="feat-cond">' + escapeHTML(it["Condition"] || "") + ' \u00b7 ' + escapeHTML(it["Location"] || "") + '</span></div>'
+        + '</div></div>';
+    }).join("");
+    document.getElementById("featDots").innerHTML = FEAT.map(function (_, i) {
+      return '<button class="feat-dot' + (i === 0 ? " on" : "") + '" data-i="' + i + '" type="button" aria-label="Slide ' + (i + 1) + '"></button>';
+    }).join("");
+    featIdx = 0;
+    startFeat();
+    syncHotRail();
+  }
+
+  function featGo(i, smooth) {
+    var sl = document.getElementById("featSlider");
+    featIdx = (i + FEAT.length) % FEAT.length;
+    sl.scrollTo({ left: featIdx * sl.clientWidth, behavior: smooth === false ? "auto" : "smooth" });
+  }
+  function featPaintDots() {
+    var dots = document.querySelectorAll(".feat-dot");
+    Array.prototype.forEach.call(dots, function (d, i) { d.classList.toggle("on", i === featIdx); });
+  }
+  function startFeat() {
+    stopFeat();
+    featTimer = setInterval(function () {
+      if (document.hidden || modalBg.classList.contains("open")) return;
+      var w = document.getElementById("featWrap");
+      if (!w || !w.classList.contains("on")) return;
+      featGo(featIdx + 1);
+    }, 4500);
+  }
+  function stopFeat() { if (featTimer) { clearInterval(featTimer); featTimer = null; } }
+
+  (function wireFeat() {
+    var sl = document.getElementById("featSlider");
+    if (!sl) return;
+    sl.addEventListener("click", function (e) {
+      var slide = e.target.closest(".feat-slide");
+      if (!slide) return;
+      var it = ALL_ITEMS.filter(function (x) { return x["Item ID"] === slide.getAttribute("data-id"); })[0];
+      if (it) openModal(it);
+    });
+    // A hand on the slider wins. Scrolling restarts the clock and the
+    // dots follow whichever slide the scroll lands on.
+    var settle = null;
+    sl.addEventListener("scroll", function () {
+      if (settle) clearTimeout(settle);
+      settle = setTimeout(function () {
+        featIdx = Math.round(sl.scrollLeft / Math.max(1, sl.clientWidth)) % Math.max(1, FEAT.length || 1);
+        featPaintDots();
+        startFeat();
+      }, 120);
+    }, { passive: true });
+    document.getElementById("featDots").addEventListener("click", function (e) {
+      var d = e.target.closest(".feat-dot");
+      if (d) featGo(parseInt(d.getAttribute("data-i"), 10));
+    });
+  })();
 
   function renderHot() {
     var strip = document.getElementById("hotStrip");
@@ -1976,20 +2169,22 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     if (railWrap) {
       HOT_RAIL_OK = HOT.length >= 4;
       if (HOT_RAIL_OK) {
-        var FLAME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
-        document.getElementById("hotRail").innerHTML = HOT.map(function (it) {
-          var img = firstImage(it["Product Photos"]);
-          return '<div class="hot-card" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
-            + '<div class="hot-card-img">'
-            +   (img ? '<img src="' + escapeAttr(img) + '" alt="" loading="lazy" decoding="async" onerror="imgFail(this)">' : '')
-            +   '<span class="hot-heat">' + FLAME + (it._views || 0) + '</span>'
-            + '</div>'
-            + '<div class="hot-card-body">'
-            +   '<div class="hot-card-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</div>'
-            +   '<div class="hot-card-name">' + escapeHTML(it["Item Name"] || "") + '</div>'
-            + '</div></div>';
-        }).join("");
+        document.getElementById("hotRail").innerHTML = HOT.map(railCardHTML).join("");
       }
+
+      // Fresh stock: newest first, and not the same faces as the hot
+      // shelf right above it.
+      var hotIds = {};
+      HOT.forEach(function (it) { hotIds[it["Item ID"]] = 1; });
+      var fresh = ALL_ITEMS.slice()
+        .filter(function (it) { return !hotIds[it["Item ID"]]; })
+        .sort(function (a, b) { return (submittedMs(b["Submission Time"]) || 0) - (submittedMs(a["Submission Time"]) || 0); })
+        .slice(0, 12);
+      NEW_RAIL_OK = fresh.length >= 4;
+      if (NEW_RAIL_OK) document.getElementById("newRail").innerHTML = fresh.map(railCardHTML).join("");
+
+      renderFeatured();
+      renderArchiveRail();
       syncHotRail();
     }
 
@@ -2042,13 +2237,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       var it = HOT[hotIdx];
       if (it) openModal(it);
     });
-    var rail = document.getElementById("hotRail");
-    if (rail) rail.addEventListener("click", function (e) {
-      var card = e.target.closest(".hot-card");
-      if (!card) return;
-      var id = card.getAttribute("data-id");
-      var it = ALL_ITEMS.filter(function (x) { return x["Item ID"] === id; })[0];
-      if (it) openModal(it);
+    ["hotRail", "newRail", "archRail"].forEach(function (rid) {
+      var rail = document.getElementById(rid);
+      if (rail) rail.addEventListener("click", function (e) {
+        var card = e.target.closest(".hot-card");
+        if (!card) return;
+        var id = card.getAttribute("data-id");
+        var pool = rid === "archRail" ? ARCHIVED : ALL_ITEMS;
+        var it = pool.filter(function (x) { return x["Item ID"] === id; })[0];
+        if (it) openModal(it);
+      });
     });
   })();
 
