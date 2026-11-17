@@ -1830,7 +1830,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     return COND_SHORT[k] || String(c || "").trim();
   }
 
-  function buildCardHTML(it) {
+  // idx comes from visible.map(buildCardHTML). The first row is on screen
+  // the moment the grid paints, and lazy-loading those is a own goal: the
+  // browser waits for layout before it will even start the fetch, so the
+  // largest thing on screen is the last thing requested. Above the fold
+  // loads eagerly, everything below stays lazy.
+  var EAGER_CARDS = 4;
+
+  function buildCardHTML(it, idx) {
     var id = it["Item ID"] || "";
     var name = it["Item Name"] || "";
     var cond = it["Condition"] || "";
@@ -1841,7 +1848,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var badgeHTML = '<span class="card-badge ' + badge.cls + '"><span class="dot"></span>' + escapeHTML(badge.label) + '</span>';
     var viewsHTML = it._views > 0 ? '<span class="card-views">' + EYE_SVG + it._views + '</span>' : '';
     var imgHTML = img
-      ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '" loading="lazy" onerror="imgFail(this)">'
+      ? '<img src="' + escapeAttr(img) + '" alt="' + escapeAttr(name) + '"'
+        + (idx < EAGER_CARDS
+            ? ' loading="eager" fetchpriority="high"'
+            : ' loading="lazy" fetchpriority="low"')
+        + ' decoding="async" onerror="imgFail(this)">'
       : '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;color:#A7B0AA;">📦</div>';
     // Vendor replaces Condition in the foot when there is one: who is
     // selling matters more than a repeat of the condition tag.
