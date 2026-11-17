@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell an item — Declutter Pawn Shop</title>
-<meta name="description" content="Turn your unused items into cash. List on DPS — we handle the marketing, the buyers, and the escrow. You keep 87% — 97% on your first sale.">
+<meta name="description" content="Turn your unused items into cash. List on DPS — we handle the marketing, the buyers, and the escrow. You keep 87%, and 90% on your first sale.">
 <meta name="theme-color" content="#0E1320">
 <link rel="canonical" href="https://declutterpawnshop.com/sell">
 <meta property="og:type" content="website">
@@ -706,7 +706,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
         <div class="card-foot">
           <button class="btn-block btn-block-primary" id="btn-email-next">Next →</button>
           <button class="btn-block btn-block-secondary" id="btn-back-item">← Back to item</button>
-          <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 13% standard, 3% on your first sale.</div>
+          <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 13% standard, 10% on your first sale.</div>
         </div>
       </div>
     </div>
@@ -755,19 +755,55 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
   function showDetailsError(m) { var e = document.getElementById("details-error"); e.textContent = m; e.style.display = "block"; }
   function clearDetailsError() { var e = document.getElementById("details-error"); e.style.display = "none"; e.textContent = ""; }
 
+  /* Shrink on the phone, before anything is sent. A camera photo is
+     3 to 8MB and base64 adds a third, so the old flow pushed up to
+     10MB per picture through a Lagos uplink, serially, and the server
+     rejected anything whose base64 passed 8MB as "too large". At
+     1600px and JPEG 0.82 a photo lands at a few hundred KB, which is
+     more than the card and the gallery ever show. */
+  function shrinkPhoto(file) {
+    return new Promise(function (resolve) {
+      var url = URL.createObjectURL(file);
+      var im = new Image();
+      im.onload = function () {
+        try {
+          var MAX = 1600;
+          var w = im.naturalWidth, h = im.naturalHeight;
+          var scale = Math.min(1, MAX / Math.max(w, h));
+          if (scale >= 1 && file.size < 600 * 1024) {
+            // Already small. Keep the original bytes.
+            URL.revokeObjectURL(url);
+            var r = new FileReader();
+            r.onload = function (e) { resolve(e.target.result); };
+            r.onerror = function () { resolve(null); };
+            r.readAsDataURL(file);
+            return;
+          }
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(w * scale));
+          c.height = Math.max(1, Math.round(h * scale));
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+          var out = c.toDataURL("image/jpeg", 0.82);
+          URL.revokeObjectURL(url);
+          resolve(out);
+        } catch (e) { URL.revokeObjectURL(url); resolve(null); }
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); resolve(null); };
+      im.src = url;
+    });
+  }
+
   document.getElementById("li-photos").addEventListener("change", function () {
     var files = Array.from(this.files);
     files.forEach(function (file) {
-      if (itemState.photos.length >= 5) return;
       if (!file.type.startsWith("image/")) return;
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        itemState.photos.push({ file: file, dataUrl: e.target.result });
+      shrinkPhoto(file).then(function (dataUrl) {
+        if (!dataUrl || itemState.photos.length >= 5) return;
+        itemState.photos.push({ file: file, dataUrl: dataUrl });
         renderPhotos();
         clearItemError();
         document.getElementById("photo-drop-zone").classList.remove("err");
-      };
-      reader.readAsDataURL(file);
+      });
     });
     this.value = "";
   });
@@ -794,18 +830,33 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
     hint.style.color = n > 0 ? "var(--green-dark)" : "var(--text-muted)";
     drop.style.display = n >= 5 ? "none" : "flex";
   }
-  async function uploadPhotos() {
-    var urls = [];
-    for (var i = 0; i < itemState.photos.length; i++) {
-      var p = itemState.photos[i];
+  /* All photos at once, not one after another, and failures are
+     COUNTED instead of swallowed. The old loop quietly dropped any
+     photo that failed and submitted whatever was left, which is how
+     listings ended up with no image anywhere on the site while the
+     seller believed everything had worked. */
+  function uploadPhotos(onProgress) {
+    var total = itemState.photos.length, done = 0, failed = 0;
+    if (!total) return Promise.resolve({ urls: [], failed: 0 });
+    if (onProgress) onProgress(0, total);
+    return Promise.all(itemState.photos.map(function (p) {
       var base64 = p.dataUrl.split(",")[1];
-      try {
-        var res = await fetch(GAS, { method: "POST", body: JSON.stringify({ action: "uploadPhoto", image: base64 }) });
-        var data = await res.json();
-        if (data.success && data.url) urls.push(data.url);
-      } catch (e) { console.error("Photo upload failed:", e); }
-    }
-    return urls;
+      return fetch(GAS, { method: "POST", body: JSON.stringify({ action: "uploadPhoto", image: base64 }) })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          done++; if (onProgress) onProgress(done, total);
+          if (data.success && data.url) return data.url;
+          failed++; console.error("Photo upload refused:", data.error);
+          return null;
+        })
+        .catch(function (e) {
+          done++; failed++; if (onProgress) onProgress(done, total);
+          console.error("Photo upload failed:", e);
+          return null;
+        });
+    })).then(function (urls) {
+      return { urls: urls.filter(Boolean), failed: failed };
+    });
   }
 
   document.getElementById("li-price").addEventListener("input", function () {
@@ -1124,8 +1175,20 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
     var nextBtn = document.getElementById("btn-email-next");
     var proceedBtn = document.getElementById("locked-proceed");
     nextBtn.disabled = true; proceedBtn.disabled = true;
-    if (nextBtn.style.display !== "none") nextBtn.textContent = "Submitting…";
-    proceedBtn.textContent = "Submitting…";
+
+    // The button narrates the real stages, so the wait reads as work
+    // happening rather than a hang. It never claims "approved": the
+    // listing is pending review at this point, and a button that said
+    // otherwise would be writing support tickets.
+    function setStage(text) {
+      if (nextBtn.style.display !== "none") nextBtn.textContent = text;
+      proceedBtn.textContent = text;
+    }
+    function restoreButtons() {
+      nextBtn.disabled = false; proceedBtn.disabled = false;
+      nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
+    }
+    setStage("Submitting…");
 
     if (!GAS) {
       setTimeout(function () {
@@ -1145,10 +1208,21 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
       })
     }).then(function (r) { return r.json(); }).catch(function () { return { success: true }; });
 
-    var photosPromise = uploadPhotos();
+    var photosPromise = uploadPhotos(function (done, total) {
+      setStage(done < total
+        ? "Uploading photos " + Math.min(done + 1, total) + " of " + total + "…"
+        : "Saving your listing…");
+    });
 
     Promise.all([registerPromise, photosPromise]).then(function (results) {
-      var photoUrls = results[1] || [];
+      var up = results[1] || { urls: [], failed: 0 };
+      var photoUrls = up.urls;
+      // Photos were chosen and none of them made it: stop, say so, and
+      // let them retry. Listing an item no buyer can see helps nobody.
+      if (!photoUrls.length && itemState.photos.length) {
+        throw { handled: true, msg: "Your photos did not upload. Check your connection and press submit again." };
+      }
+      setStage("Saving your listing…");
       var amountToSeller = Math.round(itemState.price * 0.87);
       var dpsProfit = itemState.price - amountToSeller;
       return fetch(GAS, {
@@ -1178,17 +1252,16 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.success) {
+        setStage("Done. Taking you to your listing\u2026");
         window.location.href = "/thank-you/item-listed?itemId=" + encodeURIComponent(data.itemId || "");
       } else {
-        nextBtn.disabled = false; proceedBtn.disabled = false;
-        nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
+        restoreButtons();
         showDetailsError(data.error || "Could not submit. Please try again.");
       }
     })
-    .catch(function () {
-      nextBtn.disabled = false; proceedBtn.disabled = false;
-      nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
-      showDetailsError("Connection error. Please try again.");
+    .catch(function (err) {
+      restoreButtons();
+      showDetailsError(err && err.handled ? err.msg : "Connection error. Please try again.");
     });
   }
 

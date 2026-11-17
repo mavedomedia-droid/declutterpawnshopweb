@@ -1335,7 +1335,7 @@ body.sell-modal-locked { overflow: hidden; }
             <div class="card-foot">
               <button class="btn-block btn-block-primary" id="sm-btn-email-next">Next →</button>
               <button class="btn-block btn-block-secondary" id="sm-btn-back-item">← Back to item</button>
-              <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 3% less commission on your first sale.</div>
+              <div class="form-terms">By submitting you agree to DPS <a href="/terms">terms &amp; commission structure</a>. 13% standard, 10% on your first sale.</div>
             </div>
           </div>
         </div>
@@ -1574,19 +1574,51 @@ body.sell-modal-locked { overflow: hidden; }
   function sm_showDetailsError(m) { var e = document.getElementById("sm-details-error"); e.textContent = m; e.style.display = "block"; }
   function sm_clearDetailsError() { var e = document.getElementById("sm-details-error"); e.style.display = "none"; e.textContent = ""; }
 
+  /* Shrink on the phone first. Same fix as sell.html: full camera
+     photos as base64 were the whole reason submit crawled, and the
+     server rejected the biggest ones outright. */
+  function sm_shrinkPhoto(file) {
+    return new Promise(function (resolve) {
+      var url = URL.createObjectURL(file);
+      var im = new Image();
+      im.onload = function () {
+        try {
+          var MAX = 1600;
+          var w = im.naturalWidth, h = im.naturalHeight;
+          var scale = Math.min(1, MAX / Math.max(w, h));
+          if (scale >= 1 && file.size < 600 * 1024) {
+            URL.revokeObjectURL(url);
+            var r = new FileReader();
+            r.onload = function (e) { resolve(e.target.result); };
+            r.onerror = function () { resolve(null); };
+            r.readAsDataURL(file);
+            return;
+          }
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(w * scale));
+          c.height = Math.max(1, Math.round(h * scale));
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+          var out = c.toDataURL("image/jpeg", 0.82);
+          URL.revokeObjectURL(url);
+          resolve(out);
+        } catch (e) { URL.revokeObjectURL(url); resolve(null); }
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); resolve(null); };
+      im.src = url;
+    });
+  }
+
   document.getElementById("sm-li-photos").addEventListener("change", function () {
     var files = Array.from(this.files);
     files.forEach(function (file) {
-      if (sm_itemState.photos.length >= 5) return;
       if (!file.type.startsWith("image/")) return;
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        sm_itemState.photos.push({ file: file, dataUrl: e.target.result });
+      sm_shrinkPhoto(file).then(function (dataUrl) {
+        if (!dataUrl || sm_itemState.photos.length >= 5) return;
+        sm_itemState.photos.push({ file: file, dataUrl: dataUrl });
         sm_renderPhotos();
         sm_clearItemError();
         document.getElementById("sm-photo-drop-zone").classList.remove("err");
-      };
-      reader.readAsDataURL(file);
+      });
     });
     this.value = "";
   });
@@ -1613,18 +1645,31 @@ body.sell-modal-locked { overflow: hidden; }
     hint.style.color = n > 0 ? "var(--green-dark)" : "var(--text-muted)";
     drop.style.display = n >= 5 ? "none" : "flex";
   }
-  async function sm_uploadPhotos() {
-    var urls = [];
-    for (var i = 0; i < sm_itemState.photos.length; i++) {
-      var p = sm_itemState.photos[i];
+  /* Parallel, with failures counted rather than swallowed. The old
+     loop dropped failed photos silently and listed the item without
+     them, which is why thank-you pages showed no image. */
+  function sm_uploadPhotos(onProgress) {
+    var total = sm_itemState.photos.length, done = 0, failed = 0;
+    if (!total) return Promise.resolve({ urls: [], failed: 0 });
+    if (onProgress) onProgress(0, total);
+    return Promise.all(sm_itemState.photos.map(function (p) {
       var base64 = p.dataUrl.split(",")[1];
-      try {
-        var res = await fetch(GAS, { method: "POST", body: JSON.stringify({ action: "uploadPhoto", image: base64 }) });
-        var data = await res.json();
-        if (data.success && data.url) urls.push(data.url);
-      } catch (e) { console.error("Photo upload failed:", e); }
-    }
-    return urls;
+      return fetch(GAS, { method: "POST", body: JSON.stringify({ action: "uploadPhoto", image: base64 }) })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          done++; if (onProgress) onProgress(done, total);
+          if (data.success && data.url) return data.url;
+          failed++; console.error("Photo upload refused:", data.error);
+          return null;
+        })
+        .catch(function (e) {
+          done++; failed++; if (onProgress) onProgress(done, total);
+          console.error("Photo upload failed:", e);
+          return null;
+        });
+    })).then(function (urls) {
+      return { urls: urls.filter(Boolean), failed: failed };
+    });
   }
 
   document.getElementById("sm-li-price").addEventListener("input", function () {
@@ -1919,8 +1964,15 @@ body.sell-modal-locked { overflow: hidden; }
     var nextBtn = document.getElementById("sm-btn-email-next");
     var proceedBtn = document.getElementById("sm-locked-proceed");
     nextBtn.disabled = true; proceedBtn.disabled = true;
-    if (nextBtn.style.display !== "none") nextBtn.textContent = "Submitting…";
-    proceedBtn.textContent = "Submitting…";
+    function setStage(text) {
+      if (nextBtn.style.display !== "none") nextBtn.textContent = text;
+      proceedBtn.textContent = text;
+    }
+    function restoreButtons() {
+      nextBtn.disabled = false; proceedBtn.disabled = false;
+      nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
+    }
+    setStage("Submitting…");
 
     if (!GAS) {
       setTimeout(function () {
@@ -1940,10 +1992,19 @@ body.sell-modal-locked { overflow: hidden; }
       })
     }).then(function (r) { return r.json(); }).catch(function () { return { success: true }; });
 
-    var photosPromise = sm_uploadPhotos();
+    var photosPromise = sm_uploadPhotos(function (done, total) {
+      setStage(done < total
+        ? "Uploading photos " + Math.min(done + 1, total) + " of " + total + "…"
+        : "Saving your listing…");
+    });
 
     Promise.all([registerPromise, photosPromise]).then(function (results) {
-      var photoUrls = results[1] || [];
+      var up = results[1] || { urls: [], failed: 0 };
+      var photoUrls = up.urls;
+      if (!photoUrls.length && sm_itemState.photos.length) {
+        throw { handled: true, msg: "Your photos did not upload. Check your connection and press submit again." };
+      }
+      setStage("Saving your listing…");
       var amountToSeller = Math.round(sm_itemState.price * 0.87);
       var dpsProfit = sm_itemState.price - amountToSeller;
       return fetch(GAS, {
@@ -1973,17 +2034,16 @@ body.sell-modal-locked { overflow: hidden; }
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.success) {
+        setStage("Done. Taking you to your listing…");
         window.location.href = "/thank-you/item-listed?itemId=" + encodeURIComponent(data.itemId || "");
       } else {
-        nextBtn.disabled = false; proceedBtn.disabled = false;
-        nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
+        restoreButtons();
         sm_showDetailsError(data.error || "Could not submit. Please try again.");
       }
     })
-    .catch(function () {
-      nextBtn.disabled = false; proceedBtn.disabled = false;
-      nextBtn.textContent = "Next →"; proceedBtn.textContent = "Submit listing";
-      sm_showDetailsError("Connection error. Please try again.");
+    .catch(function (err) {
+      restoreButtons();
+      sm_showDetailsError(err && err.handled ? err.msg : "Connection error. Please try again.");
     });
   }
 
