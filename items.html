@@ -251,6 +251,8 @@ input, select, textarea { font-family: inherit; }
   font-size: 9px; font-weight: 700; color: var(--stone-dark); background: var(--off-white);
   border: 1px solid var(--border); padding: 1px 5px; border-radius: 999px; }
 .arch-seen svg { width: 8px; height: 8px; }
+.arch-seen.arch-sold { color: #B4442E; background: #FFF8F6; border-color: #F5CFC6; }
+.arch-seen.arch-gone { color: var(--text-muted); }
 
 .item-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; }
 .item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
@@ -1601,7 +1603,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var listed = document.getElementById("mcListed");
     if (arch && listed) {
       var seen = reqShortDate(it["Source Checked At"] || it["Last Live At"] || it["Archived At"] || "");
-      listed.textContent = seen ? "Last seen " + seen : "Not seen recently";
+      // Why it came down leads, when we know: "Sold" and "Unavailable"
+      // set a buyer's expectations before they spend a request on it.
+      var why = archReasonLabel(it);
+      listed.textContent = (why ? why + " · " : "") +
+        (seen ? "last seen " + seen : "not seen recently");
       listed.classList.remove("mc-confirmed");
       listed.classList.add("stale");
     }
@@ -1728,7 +1734,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   }
 
   function badgeFor(it) {
-    if (isArchivedItem(it)) return { cls: "arch", label: "In the archive" };
+    if (isArchivedItem(it)) return { cls: "arch", label: archReasonLabel(it) || "In the archive" };
     var p = pickupLeft(it);
     if (p) return { cls: "pickup", label: p };
     if (heatOf(it) >= HOT_PER_HOUR && (it._views || 0) >= HOT_MIN_VIEWS) return { cls: "hot", label: "Hot" };
@@ -1740,6 +1746,17 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   // "Partner" is the internal word. Buyers see "Vendor".
   function isVendorItem(it) { return it["Seller Type"] === "Partner" || !!it["Partner ID"]; }
   function isArchivedItem(it) { return String(it && it["Status"] || "").trim().toLowerCase() === "archived"; }
+
+  /* Why it came down, in a buyer's words. SOLD is the caption saying so,
+     DELETED is the post gone from Instagram, ROTATED just fell off the
+     live slots and is the best ask-anyway candidate of the three. */
+  function archReasonLabel(it) {
+    var r = String(it && it["Archive Reason"] || "").trim().toUpperCase();
+    if (r === "SOLD") return "Sold";
+    if (r === "DELETED") return "Unavailable";
+    if (r === "ROTATED" || r === "EXPIRED") return "Unlisted";
+    return "";
+  }
   function agoText(ms) {
     var mins = Math.max(0, Math.round((Date.now() - ms) / 60000));
     if (mins < 60) return mins <= 1 ? "just now" : mins + " min ago";
@@ -2044,7 +2061,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var wrap = document.getElementById("archRailWrap");
     if (!wrap) return;
     var rows = ARCHIVED.slice()
-      .filter(function (it) { return firstImage(it["Product Photos"]); })
+      .filter(function (it) {
+        // Reason NEW is stock waiting to go live, not something that
+        // came down. It has no place in a rail about the past.
+        return firstImage(it["Product Photos"]) &&
+               String(it["Archive Reason"] || "").trim().toUpperCase() !== "NEW";
+      })
       .sort(function (a, b) {
         return (submittedMs(b["Archived At"] || "") || 0) - (submittedMs(a["Archived At"] || "") || 0);
       })
@@ -2054,10 +2076,13 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
     document.getElementById("archRail").innerHTML = rows.map(function (it) {
       var seen = lastSeenLabel(it);
+      var why = archReasonLabel(it);
+      var cls = why === "Sold" ? " arch-sold" : why === "Unavailable" ? " arch-gone" : "";
+      var chip = (why || "") + (why && seen ? " \u00b7 " : "") + (seen || "");
       return '<div class="hot-card arch-card" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
         + '<div class="hot-card-img">'
         +   '<img src="' + escapeAttr(firstImage(it["Product Photos"])) + '" alt="" loading="lazy" decoding="async" onerror="imgFail(this)">'
-        +   (seen ? '<span class="arch-seen">' + CLOCK + seen + '</span>' : '')
+        +   (chip ? '<span class="arch-seen' + cls + '">' + CLOCK + chip + '</span>' : '')
         + '</div>'
         + '<div class="hot-card-body">'
         +   '<div class="hot-card-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</div>'
