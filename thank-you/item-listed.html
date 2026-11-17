@@ -880,7 +880,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     var st = String(item.status || '').trim();
     if (st) {
-      var map = { pending: 'In review', active: 'Live now', sold: 'Sold', paid: 'Sold', rejected: 'Needs changes' };
+      var map = { 'pending': 'In review', 'pending approval': 'In review', 'active': 'Live now', 'sold': 'Sold', 'paid': 'Sold', 'archived': 'Archived', 'rejected': 'Needs changes' };
       var key = st.toLowerCase();
       document.getElementById('showcaseStatusText').textContent = map[key] || st;
 
