@@ -56,8 +56,8 @@
       +   '<div class="wrap nav-inner">'
       +     '<a href="/" class="nav-logo"><img src="' + LOGO + '" alt="Declutter Pawn Shop"></a>'
       +     '<ul class="nav-links">' + links + '</ul>'
-      +     '<a href="' + TG_BOT + '" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Open Telegram</a>'
-      +     '<a href="' + TG_BOT + '" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Telegram</a>'
+      +     '<a href="' + TG_BOT + '" target="_blank" rel="noopener" class="btn nav-tg nav-cta">Open Telegram</a>'
+      +     '<a href="' + TG_BOT + '" target="_blank" rel="noopener" class="btn nav-tg nav-mobile-cta">Telegram</a>'
       +   '</div>'
       + '</nav>';
   }
@@ -80,7 +80,7 @@
       +       '<div class="foot-col">'
       +         '<h4>Program</h4>'
       +         '<a href="/partners">Partner program</a>'
-      +         '<a href="/partners-register">Register as partner</a>'
+      +         '<a href="/partner-register">Register as partner</a>'
       +         '<a href="/faq">FAQ</a>'
       +       '</div>'
       +       '<div class="foot-col">'
@@ -137,6 +137,13 @@
       + '.nav-links a{font-size:14px;font-weight:500;color:var(--stone-light);transition:color .15s;}'
       + '.nav-links a:hover,.nav-links a.active{color:var(--white);}'
       + '.nav-cta{display:none;}'
+      /* Outline, not green fill. On the dark nav a solid green button
+         shouted louder than the page's own primary action. The class is
+         defined HERE, not borrowed from the pages, because each page's
+         .btn-outline is inked for a white background and would render a
+         near-black border on the dark bar. */
+      + '.nav-tg{background:transparent;color:var(--white,#fff);border:1.5px solid rgba(255,255,255,.35);box-shadow:none;}'
+      + '.nav-tg:hover{background:rgba(255,255,255,.06);border-color:var(--green,#00C853);color:var(--green,#00C853);transform:none;box-shadow:none;}'
       + '.nav-mobile-cta{display:inline-flex;padding:9px 16px;font-size:13px;}'
       + '@media(min-width:900px){.nav-links{display:flex;}.nav-cta{display:inline-flex;padding:10px 20px;font-size:13.5px;}.nav-mobile-cta{display:none;}}'
 
