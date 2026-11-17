@@ -26,6 +26,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ibb.co" crossorigin>
+<link rel="dns-prefetch" href="https://i.ibb.co">
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="dns-prefetch" href="https://script.google.com">
@@ -184,7 +186,36 @@ input, select, textarea { font-family: inherit; }
 .grid-meta { display: none; }
 .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 @media (min-width: 640px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+/* Five across on a real monitor. The cards were sized for a catalogue of
+   thirty; at partner volume the page is a market, and a market packs. */
+@media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
+
+/* ═══ Hot rail: packed, swiped, no scrollbar ═══ */
+.hot-rail-wrap { display: none; margin-top: 18px; }
+.hot-rail-wrap.on { display: block; }
+.hot-rail-head { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+.hot-rail-head .flame { width: 15px; height: 15px; color: #F59E0B; flex-shrink: 0; }
+.hot-rail-head h2 { font-family: var(--font-heading); font-size: 13.5px; font-weight: 800; letter-spacing: -0.015em; }
+.hot-rail-hint { margin-left: auto; font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.hot-rail { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 2px 2px 8px; }
+.hot-rail::-webkit-scrollbar { display: none; }
+.hot-card { flex: 0 0 112px; scroll-snap-align: start; background: var(--white);
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer;
+  transition: border-color .15s, transform .15s; }
+.hot-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.hot-card-img { aspect-ratio: 1/1; background: var(--off-white); position: relative; }
+.hot-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hot-heat { position: absolute; top: 5px; left: 5px; display: inline-flex; align-items: center; gap: 2px;
+  font-size: 9px; font-weight: 700; color: #B45309; background: #FFFBEB;
+  border: 1px solid #FDE68A; padding: 1px 5px; border-radius: 999px; }
+.hot-heat svg { width: 8px; height: 8px; }
+.hot-card-body { padding: 6px 8px 8px; }
+.hot-card-price { font-family: var(--font-heading); font-weight: 800; font-size: 12px; color: var(--ink); letter-spacing: -0.01em; }
+.hot-card-price .sym { color: var(--green); font-size: 0.72em; }
+.hot-card-name { font-size: 10.5px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+@media (min-width: 900px) { .hot-card { flex-basis: 126px; } }
 
 .item-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; }
 .item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
@@ -775,6 +806,17 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <span class="chip-count" id="chipCount"></span>
     </div>
   </div>
+</div>
+
+<!-- The hot list, walked left to right instead of one at a time.
+     Same ranking the ticker uses, no extra request. -->
+<div class="wrap hot-rail-wrap" id="hotRailWrap">
+  <div class="hot-rail-head">
+    <svg class="flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+    <h2>Hot right now</h2>
+    <span class="hot-rail-hint">swipe</span>
+  </div>
+  <div class="hot-rail" id="hotRail"></div>
 </div>
 
 <section class="grid-section">
@@ -1784,6 +1826,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var cc = document.getElementById("chipCount");
     if (cc) cc.innerHTML = "<strong>" + items.length + "</strong> item" + (items.length === 1 ? "" : "s");
 
+    syncHotRail();
     var visible = items.slice(0, PAGE * PAGE_SIZE);
     document.getElementById("showMoreWrap").style.display = (visible.length < items.length) ? "block" : "none";
 
@@ -1792,22 +1835,47 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       return;
     }
     grid.innerHTML = visible.map(buildCardHTML).join("");
-    Array.prototype.forEach.call(grid.querySelectorAll(".item-card"), function (card) {
-      card.addEventListener("click", function (e) {
-        // The heart sits inside the card; it must not also open the modal.
-        if (e.target.closest(".card-like")) return;
-        var id = card.getAttribute("data-id");
-        var item = ALL_ITEMS.filter(function (x) { return x["Item ID"] === id; })[0];
-        if (item) openModal(item);
-      });
-    });
-    Array.prototype.forEach.call(grid.querySelectorAll(".card-like"), function (btn) {
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        sendInterest(btn.getAttribute("data-like"), "", btn);
-      });
-    });
+    LAST_RENDERED = { items: items, shown: visible.length };
   }
+
+  /* Show more APPENDS the next page instead of rebuilding the grid.
+     The rebuild re-created every card on every click, which threw away
+     already-decoded images and redid all earlier pages' work each time:
+     by page five the browser was rendering sixty cards to show twelve
+     new ones. At partner volume that curve is the whole page. */
+  var LAST_RENDERED = { items: [], shown: 0 };
+  function appendPage() {
+    var items = LAST_RENDERED.items;
+    var next = items.slice(LAST_RENDERED.shown, PAGE * PAGE_SIZE);
+    if (next.length) {
+      var frag = document.createElement("template");
+      // The absolute position goes with each card: a restarted index
+      // would hand every page's first four images fetchpriority=high,
+      // and those pages are below the fold by definition.
+      var base = LAST_RENDERED.shown;
+      frag.innerHTML = next.map(function (it, i) { return buildCardHTML(it, base + i); }).join("");
+      document.getElementById("grid").appendChild(frag.content);
+      LAST_RENDERED.shown += next.length;
+    }
+    document.getElementById("showMoreWrap").style.display =
+      (LAST_RENDERED.shown < items.length) ? "block" : "none";
+  }
+
+  /* One listener for every card there will ever be, instead of wiring
+     each card on each render. */
+  document.getElementById("grid").addEventListener("click", function (e) {
+    var like = e.target.closest(".card-like");
+    if (like) {
+      e.stopPropagation();
+      sendInterest(like.getAttribute("data-like"), "", like);
+      return;
+    }
+    var card = e.target.closest(".item-card");
+    if (!card) return;
+    var id = card.getAttribute("data-id");
+    var item = ALL_ITEMS.filter(function (x) { return x["Item ID"] === id; })[0];
+    if (item) openModal(item);
+  });
 
   var EYE_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
   var HEART_SVG = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
@@ -1881,7 +1949,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   // ── HOT STRIP ────────────────────────────────────────────────────────
   // Ranked from ALL_ITEMS, which is already in memory. No extra request,
   // ever, however long the page stays open.
-  var HOT = [], hotIdx = 0, hotTimer = null;
+  var HOT = [], hotIdx = 0, hotTimer = null, HOT_RAIL_OK = false;
+
+  /* The rail is browsing furniture. The moment somebody searches or
+     filters, they have said what they want, and a strip of unrelated
+     hot items above their results is in the way. It comes back when
+     the page returns to the open view. */
+  function syncHotRail() {
+    var w = document.getElementById("hotRailWrap");
+    if (!w) return;
+    var browsing = !SEARCH_QUERY && ACTIVE_FILTER === "All" && !ACTIVE_VENDOR;
+    w.classList.toggle("on", HOT_RAIL_OK && browsing);
+  }
 
   function renderHot() {
     var strip = document.getElementById("hotStrip");
@@ -1890,6 +1969,29 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       .filter(function (it) { return (it._views || 0) > 0; })
       .sort(function (a, b) { return heatOf(b) - heatOf(a); })
       .slice(0, 10);
+
+    // The rail takes the same list, laid out instead of rotated. It has
+    // its own threshold: four cards make a rail, three make a gap.
+    var railWrap = document.getElementById("hotRailWrap");
+    if (railWrap) {
+      HOT_RAIL_OK = HOT.length >= 4;
+      if (HOT_RAIL_OK) {
+        var FLAME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
+        document.getElementById("hotRail").innerHTML = HOT.map(function (it) {
+          var img = firstImage(it["Product Photos"]);
+          return '<div class="hot-card" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
+            + '<div class="hot-card-img">'
+            +   (img ? '<img src="' + escapeAttr(img) + '" alt="" loading="lazy" decoding="async" onerror="imgFail(this)">' : '')
+            +   '<span class="hot-heat">' + FLAME + (it._views || 0) + '</span>'
+            + '</div>'
+            + '<div class="hot-card-body">'
+            +   '<div class="hot-card-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</div>'
+            +   '<div class="hot-card-name">' + escapeHTML(it["Item Name"] || "") + '</div>'
+            + '</div></div>';
+        }).join("");
+      }
+      syncHotRail();
+    }
 
     if (HOT.length < 3) { strip.classList.remove("on"); stopHot(); return; }
     strip.classList.add("on");
@@ -1938,6 +2040,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var strip = document.getElementById("hotStrip");
     if (strip) strip.addEventListener("click", function () {
       var it = HOT[hotIdx];
+      if (it) openModal(it);
+    });
+    var rail = document.getElementById("hotRail");
+    if (rail) rail.addEventListener("click", function (e) {
+      var card = e.target.closest(".hot-card");
+      if (!card) return;
+      var id = card.getAttribute("data-id");
+      var it = ALL_ITEMS.filter(function (x) { return x["Item ID"] === id; })[0];
       if (it) openModal(it);
     });
   })();
@@ -2782,7 +2892,19 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("searchInput").value = ""; SEARCH_QUERY = "";
     this.classList.remove("visible"); PAGE = 1; render();
   });
-  document.getElementById("showMore").addEventListener("click", function () { PAGE += 1; render(); });
+  document.getElementById("showMore").addEventListener("click", function () { PAGE += 1; appendPage(); });
+
+  /* The next page walks in on its own as the visitor nears the bottom.
+     The button stays: it is the fallback where IntersectionObserver is
+     missing, and the target the observer watches. */
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      var wrap = document.getElementById("showMoreWrap");
+      if (wrap.style.display === "none") return;
+      PAGE += 1; appendPage();
+    }, { rootMargin: "600px 0px" }).observe(document.getElementById("showMoreWrap"));
+  }
 
   // ── Item ID: tap to copy. Buyers paste this into Dayo. ──
   (function wireIdChip() {
