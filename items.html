@@ -242,6 +242,12 @@ input, select, textarea { font-family: inherit; }
 .hot-card-name { font-size: 10.5px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
 @media (min-width: 900px) { .hot-card { flex-basis: 126px; } }
 .hot-rail-head .new-ic { color: var(--green-dark); }
+/* Just in runs a notch smaller than hot: fresh is worth a glance,
+   hot is worth a stare. */
+#newRailWrap .hot-card { flex-basis: 101px; }
+#newRailWrap .hot-card-price { font-size: 11px; }
+#newRailWrap .hot-card-name { font-size: 10px; }
+@media (min-width: 900px) { #newRailWrap .hot-card { flex-basis: 113px; } }
 /* Archive cards are the past: a touch quieter than live stock. */
 .arch-wrap { margin: 34px auto 26px; }
 .hot-rail-head .arch-ic { color: var(--text-muted); }
@@ -831,6 +837,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </div>
       <div class="sort">
         <select id="sortSelect" aria-label="Sort items">
+          <option value="picks">Recommended</option>
           <option value="newest">Newest first</option>
           <option value="priceLow">Price: low to high</option>
           <option value="priceHigh">Price: high to low</option>
@@ -1304,7 +1311,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   var RECENT_SOLD   = [];
   var ACTIVE_FILTER = "All";
   var ACTIVE_VENDOR = "";
-  var ACTIVE_SORT   = "newest";
+  var ACTIVE_SORT   = "picks";
   var SEARCH_QUERY  = "";
   var PAGE          = 1;
   var PAGE_SIZE     = 12;
@@ -1726,6 +1733,35 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   // Heat = views per hour since listing. We only hold a lifetime Views
   // count, so a true 24h window is not derivable from the feed; this is
   // the honest stand-in and matches what Dina already calls hot.
+  /* ── The default order of the shop ──────────────────────────────
+     Newest-first made the grid a mirror of the Just in rail, and the
+     same wall of items in the same order on every visit. The default
+     is now a blend, computed once per page load:
+
+       recency   fresh floats, but stops mattering after a few days
+       heat      views earn their way up, log-scaled so one viral
+                 item cannot pin itself to the top for ever
+       variety   a dash of noise seeded per VISIT, so every load
+                 deals the middle of the deck differently while the
+                 genuinely new and genuinely hot stay near the top
+
+     Newest first is still in the dropdown for people who want it. */
+  var VISIT_SEED = String(Math.random());
+
+  function pickScore(it) {
+    if (it._pick != null) return it._pick;
+    var t = submittedMs(it["Submission Time"]);
+    var ageH = isNaN(t) ? 24 * 14 : Math.max(0, (Date.now() - t) / 3600000);
+    var recency = 24 / (1 + ageH / 24);
+    var heat = 6 * Math.log(1 + (it._views || 0)) / Math.LN2;
+    // A tiny deterministic hash of item id + visit seed, spread 0..10.
+    var h = 0, key = String(it["Item ID"] || "") + VISIT_SEED;
+    for (var i = 0; i < key.length; i++) { h = (h * 31 + key.charCodeAt(i)) >>> 0; }
+    var variety = (h % 1000) / 100;
+    it._pick = recency + heat + variety;
+    return it._pick;
+  }
+
   function heatOf(it) {
     var t = submittedMs(it["Submission Time"]);
     if (isNaN(t)) return 0;
@@ -1896,6 +1932,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       // seller having typed it into the title.
       items = items.filter(function (it) { return it._hay.indexOf(q) >= 0; });
     }
+    if (ACTIVE_SORT === "picks")     items.sort(function (a,b) { return pickScore(b) - pickScore(a); });
     if (ACTIVE_SORT === "newest")    items.sort(function (a,b) { return b._num - a._num; });
     if (ACTIVE_SORT === "priceLow")  items.sort(function (a,b) { return a._price - b._price; });
     if (ACTIVE_SORT === "priceHigh") items.sort(function (a,b) { return b._price - a._price; });
