@@ -3522,7 +3522,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     GRABS_ITEMS = items.filter(function (it) {
       return String(it["Status"] || "").trim().toLowerCase() === "active" && _isGrabsItem(it);
     });
-    ARCHIVED = items.filter(isArchivedItem);
+    // A rested Grabs listing is Archived too, and the archive rail was
+    // happy to show it: no price, next to an ask-anyway button built for
+    // priced stock. Grabs has its own archive at /grabs?view=archive.
+    ARCHIVED = items.filter(function (it) { return isArchivedItem(it) && !_isGrabsItem(it); });
     RECENT_SOLD = (data && Array.isArray(data.recentSold)) ? data.recentSold : [];
     log("hydrate:", ALL_ITEMS.length, "active,", ARCHIVED.length, "archived,", RECENT_SOLD.length, "recent sold");
     renderChips(); renderVendors(); render(); renderSoldStrip(); renderHot(); renderGrabsRail();
