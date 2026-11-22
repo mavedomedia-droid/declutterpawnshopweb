@@ -377,17 +377,80 @@ input, select, textarea { font-family: inherit; }
 .gr-all { font-size: 12.5px; font-weight: 700; color: var(--green-dark); white-space: nowrap; }
 .gr-track { display: flex; gap: 11px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 3px; }
 .gr-track::-webkit-scrollbar { display: none; }
-.gr-card { flex: 0 0 178px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; text-align: left; transition: transform .2s, box-shadow .2s, border-color .2s; }
-.gr-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
-.gr-img { aspect-ratio: 4/3; background: var(--off-white); position: relative; }
-.gr-img img { width: 100%; height: 100%; object-fit: cover; }
-.gr-tag { position: absolute; top: 8px; left: 8px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; background: rgba(255,255,255,.94); color: var(--green-dark); backdrop-filter: blur(6px); }
-.gr-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
-.gr-wants { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 9px; background: rgba(14,19,32,.72); color: #fff; backdrop-filter: blur(6px); }
-.gr-body { padding: 9px 10px 11px; }
-.gr-name { font-family: var(--font-heading); font-weight: 700; font-size: 12.5px; color: var(--ink); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
-.gr-why { font-size: 10px; font-style: italic; color: var(--text-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.gr-cta { font-size: 11.5px; font-weight: 800; color: var(--green-dark); margin-top: 7px; }
+/* ═══ THE GRABS CARD ═══════════════════════════════════════════
+   One card for one kind of thing, and it has to be tellable apart
+   from the other two at a glance:
+     priced items  4/3 photo, the naira figure is the anchor
+     auction lots  4/3 photo, red live flag, mono bid, clock
+     grabs         4/5 PORTRAIT, a person's name on the photo, no
+                   money anywhere, the quote where a price would be
+   The portrait silhouette does most of the work: in a grid of 4/3
+   cards a column of 4/5 cards is visibly a different kind of thing
+   before you have read a word of it.
+   Identical in the rail on the items page, where .g-card--rail
+   only changes the width and the type sizes.
+   ───────────────────────────────────────────────────────────── */
+.g-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; text-align: left; padding: 0; }
+.g-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
+.g-img { aspect-ratio: 4/5; background: var(--off-white); overflow: hidden; position: relative; }
+.g-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; display: block; }
+.g-card:hover .g-img img { transform: scale(1.04); }
+/* the owner, on the photo. This is the dating-profile move: the
+   person comes before the object. */
+.g-scrim { position: absolute; inset: auto 0 0 0; height: 58%; background: linear-gradient(to top, rgba(5,8,15,.82) 0%, rgba(5,8,15,.34) 46%, transparent 100%); pointer-events: none; }
+.g-who { position: absolute; left: 10px; right: 10px; bottom: 9px; color: #fff; font-size: 11.5px; line-height: 1.3; letter-spacing: -.005em; display: flex; align-items: baseline; gap: 5px; }
+.g-who b { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; }
+.g-who span { opacity: .78; font-size: 10.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.g-badge { position: absolute; top: 9px; left: 9px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: rgba(255,255,255,.94); color: var(--green-dark); backdrop-filter: blur(6px); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.g-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.g-wants { position: absolute; top: 9px; right: 9px; padding: 3px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 9.5px; font-weight: 500; background: rgba(14,19,32,.72); color: #fff; backdrop-filter: blur(6px); }
+.g-body { padding: 10px 11px 11px; flex: 1; display: flex; flex-direction: column; }
+.g-name { font-family: var(--font-heading); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.28; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.56em; }
+/* where a priced card keeps its naira figure */
+.g-why { font-size: 11px; line-height: 1.42; color: var(--text-secondary); font-style: italic; margin-top: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.g-foot { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: auto; padding-top: 9px; border-top: 1px solid var(--border); }
+.g-offer { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; color: var(--green-dark); letter-spacing: -.01em; }
+.g-far { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+/* rested, in the archive. Still a Grabs card, just quieter. */
+.g-card--rested .g-img img { filter: grayscale(.45); opacity: .82; }
+.g-card--rested .g-offer { color: var(--text-muted); }
+/* the compact variant, for the rail on the items page */
+.g-card--rail { flex: 0 0 158px; }
+.g-card--rail .g-body { padding: 9px 10px 10px; }
+.g-card--rail .g-name { font-size: 12.5px; }
+.g-card--rail .g-why { font-size: 10px; -webkit-line-clamp: 1; }
+.g-card--rail .g-offer { font-size: 11.5px; }
+
+/* ═══ THE AUCTION CARD ══════════════════════════════════════════
+   Lifted verbatim from auction-items.html so a lot looks like a lot
+   wherever it turns up. Orange edge, red live flag, mono bid, clock:
+   none of which the priced card or the Grabs card has.
+   Live lots show the money. Pre-bid lots never do, because early
+   bids are blind, and the reveal at opening is the whole nudge.
+   ───────────────────────────────────────────────────────────── */
+.auc-rail-wrap { margin: 0 0 22px; display: none; }
+.auc-rail-wrap.on { display: block; }
+.ar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+.ar-label { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #C2410C; }
+.ar-label::before { content: ''; width: 20px; height: 1.5px; background: #FF6B2C; }
+.ar-all { font-size: 12.5px; font-weight: 700; color: #C2410C; white-space: nowrap; }
+.ar-track { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 3px; }
+.ar-track::-webkit-scrollbar { display: none; }
+.live-card { flex: 0 0 185px; scroll-snap-align: start; background: var(--white); border: 1.5px solid rgba(255,107,44,.5); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 20px rgba(255,107,44,.09); display: flex; flex-direction: column; text-align: left; transition: transform .2s, box-shadow .2s; }
+.live-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(255,107,44,.16); }
+.live-card.pre { border-color: var(--border-ink); box-shadow: var(--shadow-sm); }
+.lc-photo { position: relative; aspect-ratio: 4 / 3; background: var(--off-white); }
+.lc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lc-flag { position: absolute; top: 9px; left: 9px; display: inline-flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: #DC2626; padding: 4px 9px; border-radius: 999px; }
+.lc-flag.pre { background: rgba(14,19,32,.78); backdrop-filter: blur(6px); }
+.lc-flag .dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: aucpulse 1.2s ease-in-out infinite; }
+@keyframes aucpulse { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+.lc-body { padding: 10px 11px 11px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.lc-name { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; letter-spacing: -.015em; line-height: 1.25; color: var(--ink); min-height: 2.5em; }
+.lc-bidrow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: auto; }
+.lc-bid { font-family: var(--font-num, var(--font-mono)); font-weight: 700; font-size: 15.5px; color: var(--green-deep); letter-spacing: -.01em; }
+.lc-bid small { font-size: 9.5px; color: var(--text-muted); display: block; font-family: var(--font-body); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.lc-count { font-size: 10px; color: var(--text-secondary); text-align: right; white-space: nowrap; }
 
 .sold-strip { background: var(--ink); padding: 44px 0; overflow: hidden; }
 .sold-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
@@ -952,7 +1015,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       <span id="gridCount">Loading items…</span>
       <span id="gridFilter" style="color:var(--stone-dark);"></span>
     </div>
-<div class="grabs-rail" id="grabsRail">
+<div class="auc-rail-wrap" id="aucRail">
+      <div class="ar-head">
+        <span class="ar-label" id="arLabel">Lots live now</span>
+        <a class="ar-all" href="/auction-items">See the auction &rarr;</a>
+      </div>
+      <div class="ar-track" id="arTrack"></div>
+    </div>
+    <div class="grabs-rail" id="grabsRail">
       <div class="gr-head">
         <span class="gr-label">Up for grabs</span>
         <a class="gr-all" href="/grabs">See all &rarr;</a>
@@ -2178,12 +2248,14 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     fetch(GAS + "?action=getAuctionItems", { redirect: "follow" })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        AUC_LIVE = ((d && d.items) || []).filter(function (a) {
+        AUC_ALL = (d && d.items) || [];
+        AUC_LIVE = AUC_ALL.filter(function (a) {
           return String(a.status || "").toLowerCase() === "live";
         });
         AUC_LIVE_N = AUC_LIVE.length;
         buildDoors();
         renderBanner();
+        renderAuctionRail();
       })
       .catch(function () {});
   }
@@ -2247,6 +2319,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
   /* The Grabs rail: the three most wanted no-price items, as a way in
      rather than a second grid. Hidden entirely when nothing is up. */
+  /* The same card the Grabs page itself uses, only narrower. One
+     object, one design, wherever it turns up. */
   function renderGrabsRail() {
     var rail = document.getElementById("grabsRail");
     var track = document.getElementById("grTrack");
@@ -2261,18 +2335,67 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       var ph = firstImage(it["Product Photos"]) || "";
       var why = String(it["Reason"] || "");
       var wants = Number(it["Interested"]) || 0;
-      return '<a class="gr-card" href="/grabs?item=' + encodeURIComponent(id) + '">' +
-        '<div class="gr-img">' + (ph ? '<img src="' + escapeAttr(ph) + '" alt="" loading="lazy">' : '') +
-          '<span class="gr-tag"><span class="dot"></span>Grabs</span>' +
-          (wants ? '<span class="gr-wants">' + wants + ' want it</span>' : '') +
+      var who = String(it["First name"] || it["Name"] || "").split(" ")[0] || "Someone";
+      var area = String(it["Location"] || it["Area"] || "");
+      return '<a class="g-card g-card--rail" href="/grabs?item=' + encodeURIComponent(id) + '">' +
+        '<div class="g-img">' + (ph ? '<img src="' + escapeAttr(ph) + '" alt="" loading="lazy">' : '') +
+          '<div class="g-scrim"></div>' +
+          '<span class="g-badge"><span class="dot"></span>Grabs</span>' +
+          (wants ? '<span class="g-wants">' + wants + ' want it</span>' : '') +
+          '<div class="g-who"><b>' + escapeHTML(who) + '</b>' +
+            (area ? '<span>' + escapeHTML(area) + '</span>' : '') + '</div>' +
         '</div>' +
-        '<div class="gr-body">' +
-          '<div class="gr-name">' + escapeHTML(String(it["Item Name"] || "")) + '</div>' +
-          (why ? '<div class="gr-why">"' + escapeHTML(why) + '"</div>' : '') +
-          '<div class="gr-cta">Send an offer</div>' +
+        '<div class="g-body">' +
+          '<div class="g-name">' + escapeHTML(String(it["Item Name"] || "")) + '</div>' +
+          (why ? '<div class="g-why">"' + escapeHTML(why) + '"</div>' : '') +
+          '<div class="g-foot"><span class="g-offer">Send an offer</span></div>' +
         '</div></a>';
     }).join("");
   }
+
+  /* ── THE AUCTION RAIL ─────────────────────────────────────────
+     The lot card off auction-items.html, unchanged, so a lot reads
+     as a lot on whichever page it appears. Live lots carry the bid;
+     pre-bid lots carry only the asking price and a count, because
+     early bids are blind and the reveal at opening is the nudge
+     that gets the last bidder in.
+     ──────────────────────────────────────────────────────────── */
+  function renderAuctionRail() {
+    var wrap = document.getElementById("aucRail");
+    var track = document.getElementById("arTrack");
+    if (!wrap || !track) return;
+    var live = (AUC_ALL || []).filter(function (a) { return String(a.status || "").toLowerCase() === "live"; });
+    var pre  = (AUC_ALL || []).filter(function (a) {
+      var s = String(a.status || "").toLowerCase();
+      return s === "approved" || s === "opening soon";
+    });
+    var list = live.concat(pre).slice(0, 8);
+    if (!list.length) { wrap.classList.remove("on"); return; }
+    wrap.classList.add("on");
+    document.getElementById("arLabel").textContent = live.length
+      ? (live.length === 1 ? "1 lot live now" : live.length + " lots live now")
+      : "Taking early bids";
+    track.innerHTML = list.map(function (a) {
+      var isLive = String(a.status || "").toLowerCase() === "live";
+      var ph = String(a.photo || "");
+      var left = isLive
+        ? '<div class="lc-bid"><small>Current bid</small>&#8358;' + fmtMoney(a.bid || a.start) + '</div>'
+        : '<div class="lc-bid"><small>Starts at</small>&#8358;' + fmtMoney(a.start) + '</div>';
+      var right = isLive
+        ? (a.bids ? a.bids + (a.bids === 1 ? " bid" : " bids") : "No bids yet")
+        : (a.earlyBids ? a.earlyBids + " of " + (a.triggerBids || 5) + " in" : "Be the first");
+      return '<a class="live-card' + (isLive ? '' : ' pre') + '" href="/auction-items?lot=' + encodeURIComponent(a.id) + '">' +
+        '<div class="lc-photo">' + (ph ? '<img src="' + escapeAttr(ph) + '" alt="" loading="lazy">' : '') +
+          (isLive ? '<span class="lc-flag"><span class="dot"></span>Live</span>'
+                  : '<span class="lc-flag pre">Early bids</span>') +
+        '</div>' +
+        '<div class="lc-body">' +
+          '<div class="lc-name">' + escapeHTML(String(a.name || "")) + '</div>' +
+          '<div class="lc-bidrow">' + left + '<span class="lc-count">' + escapeHTML(right) + '</span></div>' +
+        '</div></a>';
+    }).join("");
+  }
+  function fmtMoney(n) { return (Number(n) || 0).toLocaleString("en-NG"); }
 
   function renderHot() {
     // The same heat ranking as before; it now feeds the hero banner
@@ -2307,7 +2430,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     _cat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 12 22l-8.59-8.59A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8c.53 0 1.04.21 1.41.59l8.18 8.18a2 2 0 0 1 0 2.83z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>'
   };
   var DOOR_CATS = [];
-  var AUC_LIVE_N = 0, AUC_LIVE = [];
+  var AUC_LIVE_N = 0, AUC_LIVE = [], AUC_ALL = [];
 
   function buildDoors() {
     var el = document.getElementById("doors");
