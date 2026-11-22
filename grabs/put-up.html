@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Put it up for Grabs · Declutter Pawn Shop</title>
+<meta name="description" content="Put up something you no longer use. No price needed. People send you offers, you accept or pass.">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
+<style>
+:root {
+  --green:#00C853; --green-dark:#00A843; --green-deep:#009933;
+  --ink:#0E1320; --ink-2:#161C2B; --ink-3:#1E2536;
+  --off-white:#F5F7F8; --white:#FFFFFF;
+  --stone:#A7B0AA; --stone-light:#C6CFC9;
+  --mint:#C8F0D8; --mint-soft:#E9F5EE;
+  --border:#E1E5E4; --border-ink:#D6DCE0; --border-dark:#242C3E;
+  --text-primary:var(--ink); --text-secondary:#4F5860; --text-muted:#8A928C;
+  --font-heading:'Manrope',system-ui,sans-serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',ui-monospace,monospace;
+  --font-num:'Space Grotesk','Manrope',sans-serif;
+  --r-card:16px; --r-button:12px; --r-pill:999px;
+  --shadow-md:0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { -webkit-text-size-adjust:100%; }
+body { font-family:var(--font-body); background:var(--off-white); color:var(--text-primary); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+h1,h2,h3 { font-family:var(--font-heading); font-weight:800; letter-spacing:-0.025em; line-height:1.05; color:var(--ink); }
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; height:auto; }
+button { font-family:inherit; cursor:pointer; border:none; background:none; }
+input,select,textarea { font-family:inherit; }
+.wrap { width:100%; max-width:1240px; margin:0 auto; padding:0 20px; }
+@media (min-width:768px) { .wrap { padding:0 40px; } }
+.eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--green); }
+.eyebrow::before { content:''; width:22px; height:1.5px; background:var(--green); }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:15px; padding:13px 24px; border-radius:var(--r-button); transition:transform .15s,box-shadow .15s,background .15s,border-color .15s; white-space:nowrap; }
+.btn-primary { background:var(--green); color:var(--ink); box-shadow:0 2px 0 var(--green-dark); }
+.btn-primary:hover { background:var(--green-dark); transform:translateY(-1px); box-shadow:0 4px 0 var(--green-deep); }
+.btn-primary:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+.btn-outline { background:transparent; color:var(--ink); border:1.5px solid var(--border); }
+.btn-outline:hover { border-color:var(--ink); }
+.btn-sm { padding:10px 18px; font-size:13.5px; }
+.btn-block { width:100%; }
+
+.nav { position:fixed; top:0; left:0; right:0; z-index:200; background:rgba(14,19,32,.92); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid rgba(255,255,255,.06); }
+.nav-inner { display:flex; align-items:center; justify-content:space-between; height:72px; gap:24px; }
+.nav-logo img { height:34px; }
+.nav-links { display:none; align-items:center; gap:32px; list-style:none; }
+.nav-links a { font-size:14px; font-weight:500; color:var(--stone-light); }
+.nav-links a:hover,.nav-links a.active { color:#fff; }
+.nav-cta { display:none; }
+@media (min-width:900px) { .nav-links { display:flex; } .nav-cta { display:inline-flex; padding:10px 20px; font-size:13.5px; } }
+.nav-mobile-cta { display:inline-flex; padding:9px 16px; font-size:13px; }
+@media (min-width:900px) { .nav-mobile-cta { display:none; } }
+.nav-tg { background:var(--green); color:var(--ink); box-shadow:0 2px 0 var(--green-dark); border-radius:var(--r-button); font-weight:700; }
+
+/* hero band */
+.p-hero { background:var(--ink); color:var(--off-white); padding:104px 0 32px; position:relative; overflow:hidden; }
+.p-hero::before { content:''; position:absolute; top:-55%; right:-12%; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(0,200,83,.12) 0%,rgba(0,200,83,0) 65%); }
+.p-hero-inner { position:relative; z-index:1; max-width:560px; margin:0 auto; text-align:center; }
+.p-hero h1 { font-size:clamp(30px,7.2vw,46px); color:#fff; letter-spacing:-0.035em; line-height:1.06; margin-top:16px; }
+.p-hero h1 em { font-style:normal; color:var(--green); }
+.p-hero p { color:var(--stone-light); font-size:14px; line-height:1.6; margin:12px auto 0; max-width:38ch; }
+.trust-row { display:flex; justify-content:center; gap:15px; margin-top:16px; overflow-x:auto; scrollbar-width:none; }
+.trust-row::-webkit-scrollbar { display:none; }
+.trust-chip { display:inline-flex; align-items:center; gap:5px; flex-shrink:0; white-space:nowrap; font-size:10.5px; font-weight:600; color:var(--stone); }
+.trust-chip svg { width:11px; height:11px; color:var(--green); }
+
+/* steps */
+.steps { display:flex; gap:5px; margin:24px auto 0; max-width:300px; }
+.steps i { flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,.18); }
+.steps i.on { background:var(--green); }
+
+.form-wrap { padding:22px 0 70px; }
+.card { background:var(--white); border:1px solid var(--border); border-radius:var(--r-card); padding:22px 20px 24px; max-width:620px; margin:0 auto; box-shadow:var(--shadow-md); }
+.card h2 { font-size:22px; }
+.card h2 em { font-style:normal; color:var(--green-dark); }
+.card .lede { font-size:13.5px; color:var(--text-secondary); margin-top:6px; line-height:1.55; }
+.secttl { font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--text-muted); margin:22px 0 10px; }
+.field { display:flex; flex-direction:column; gap:6px; margin-top:14px; }
+.field label { font-size:12.5px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+.field label em { color:var(--green-dark); font-style:normal; }
+.field .hint { font-size:11.5px; color:var(--text-muted); line-height:1.5; }
+.field input, .field select, .field textarea { background:var(--off-white); border:1.5px solid var(--border); border-radius:10px; padding:12px 14px; font-size:16px; color:var(--ink); outline:none; width:100%; transition:border-color .15s, background .15s; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color:var(--ink); background:var(--white); }
+.field textarea { resize:vertical; min-height:72px; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:520px) { .field-row { grid-template-columns:1fr; } }
+.sel { position:relative; }
+.sel select { -webkit-appearance:none; appearance:none; padding-right:38px; }
+.sel::after { content:'\25BE'; position:absolute; right:15px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; font-size:12px; }
+
+/* categories */
+.cats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+.cat { background:var(--white); border:1.5px solid var(--border); border-radius:14px; padding:15px 12px; text-align:center; transition:border-color .15s, transform .15s, box-shadow .15s; }
+.cat:hover { border-color:var(--ink); transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.cat.on { border-color:var(--green); background:var(--mint-soft); }
+.cat svg { width:21px; height:21px; margin:0 auto 8px; display:block; }
+.cat b { display:block; font-family:var(--font-heading); font-weight:800; font-size:14px; color:var(--ink); letter-spacing:-0.01em; }
+.cat span { display:block; font-size:10.5px; color:var(--text-muted); margin-top:3px; line-height:1.35; }
+.cat.wide { grid-column:1 / -1; }
+
+/* camera */
+.cam { border:1.5px solid var(--border); border-radius:14px; overflow:hidden; background:var(--white); margin-top:10px; }
+.cam-view { aspect-ratio:4/3; background:#1E2536; position:relative; display:flex; align-items:center; justify-content:center; }
+.cam-view video, .cam-view img { width:100%; height:100%; object-fit:cover; }
+.cam-off { text-align:center; padding:20px; color:var(--stone-light); font-size:13px; line-height:1.5; }
+.cam-off b { color:#fff; display:block; font-size:14px; margin-bottom:5px; }
+.cam-live { position:absolute; top:10px; left:10px; display:inline-flex; align-items:center; gap:5px; font-size:9px; font-weight:800; letter-spacing:.1em; background:#DC2626; color:#fff; padding:3px 9px; border-radius:var(--r-pill); }
+.cam-live i { width:5px; height:5px; border-radius:50%; background:#fff; }
+.cam-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 12px; }
+.shots { display:flex; gap:7px; }
+.shots img { width:36px; height:36px; border-radius:8px; object-fit:cover; border:1px solid var(--border); }
+.shutter { width:46px; height:46px; border-radius:50%; background:var(--ink); border:3px solid var(--border); flex-shrink:0; }
+.shutter:disabled { opacity:.4; }
+
+/* shelf price */
+.shelf { background:var(--off-white); border:1px solid var(--border); border-radius:13px; padding:14px; margin-top:12px; }
+.shelf p { font-size:12.5px; line-height:1.6; color:var(--text-secondary); }
+.shelf p b { color:var(--ink); }
+.shelf-ex { display:flex; align-items:center; gap:9px; background:var(--white); border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-top:11px; }
+.shelf-ex svg { width:14px; height:14px; color:var(--green-dark); flex-shrink:0; }
+.shelf-ex span { font-size:11.5px; color:var(--text-secondary); }
+.shelf-ex span b { color:var(--green-dark); }
+.amt-wrap { position:relative; }
+.amt-wrap .sym { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-family:var(--font-num); font-weight:700; font-size:16px; color:var(--green-dark); opacity:.55; pointer-events:none; }
+.amt-wrap input { font-family:var(--font-num); font-size:22px; font-weight:700; color:var(--green-deep); text-align:center; padding:14px 30px; }
+
+.res { border-radius:10px; padding:12px 13px; margin-top:11px; font-size:12.5px; line-height:1.5; }
+.res b { display:block; font-size:13.5px; color:var(--ink); margin-bottom:2px; }
+.res.ok { background:var(--mint-soft); border:1px solid var(--mint); color:var(--text-secondary); }
+.res.neu { background:var(--off-white); border:1px solid var(--border); color:var(--text-secondary); }
+.res.err { background:#FEF2F2; border:1px solid #FCA5A5; color:#991B1B; }
+.res.err b { color:#991B1B; }
+.em-row { display:flex; gap:8px; }
+.em-row input { flex:1; min-width:0; }
+.foot-note { font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:11px; line-height:1.55; }
+.back { display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--text-muted); margin-bottom:14px; }
+.back:hover { color:var(--ink); }
+
+/* done */
+.done { text-align:center; padding:10px 0 4px; }
+.done-ico { width:66px; height:66px; border-radius:50%; background:var(--mint-soft); border:1.5px solid var(--mint); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+.done-ico svg { width:30px; height:30px; color:var(--green-dark); }
+.done h2 { font-size:25px; }
+.done p { font-size:14px; color:var(--text-secondary); margin-top:10px; line-height:1.6; max-width:38ch; margin-left:auto; margin-right:auto; }
+.done .btn { margin-top:9px; }
+.linkbox { display:flex; gap:8px; margin-top:16px; }
+.linkbox input { flex:1; min-width:0; background:var(--off-white); border:1.5px solid var(--border); border-radius:10px; padding:11px 12px; font-family:var(--font-mono); font-size:12px; color:var(--text-secondary); }
+footer { background:var(--ink-2); color:var(--stone-light); padding:56px 0 28px; border-top:1px solid var(--border-dark); }
+</style>
+</head>
+<body>
+
+<div data-dps-nav data-active="sell"></div>
+
+<header class="p-hero">
+  <div class="wrap p-hero-inner">
+    <span class="eyebrow">Grabs by Declutter Pawn Shop</span>
+    <h1 id="heroTitle">Got something you<br><em>no longer use?</em></h1>
+    <p id="heroSub">Look around. Anything that might interest somebody else, put it up for grabs, get offers for it, make extra money.</p>
+    <div class="trust-row">
+      <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 4v16M18 4v16M4 9h16M4 15h16M7 5l10 14"/></svg>Secure transaction</span>
+      <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2 12s3.8-6 10-6 10 6 10 6-3.8 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/></svg>All reviewed</span>
+      <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Contact private</span>
+    </div>
+    <div class="steps" id="steps"><i class="on"></i><i></i><i></i><i></i></div>
+  </div>
+</header>
+
+<main class="form-wrap">
+  <div class="wrap">
+
+    <!-- STEP 1 · category -->
+    <section class="card" id="s1">
+      <h2>What are you <em>putting up?</em></h2>
+      <p class="lede">One thing at a time. You can list another straight after.</p>
+      <div class="cats" id="cats">
+        <button class="cat" type="button" data-cat="Fashion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6D5BD0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.8a1.9 1.9 0 1 1 1.9-1.9"/><path d="M12 6.8 20.6 13a1.6 1.6 0 0 1-.94 2.9H4.34A1.6 1.6 0 0 1 3.4 13L12 6.8z"/></svg>
+          <b>Fashion</b><span>Face cap, top, jacket, shoes</span></button>
+        <button class="cat" type="button" data-cat="Electronics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00A843" stroke-width="1.8"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg>
+          <b>Electronics</b><span>TV, speaker, phone</span></button>
+        <button class="cat" type="button" data-cat="Furniture">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EA7A2B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9.5V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3.5"/><path d="M3 15.5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-4 0V13H7v-1.5a2 2 0 0 0-4 0Z"/></svg>
+          <b>Furniture</b><span>Sofa, table, shelf</span></button>
+        <button class="cat" type="button" data-cat="Kitchen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4A6DA7" stroke-width="1.8" stroke-linecap="round"><path d="M5 3v7a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V3M7 12v9M17 3c-1.5 2-2 4-2 6 0 2 .8 3 2 3s2-1 2-3c0-2-.5-4-2-6zM17 12v9"/></svg>
+          <b>Kitchen</b><span>Blender, air fryer</span></button>
+        <button class="cat wide" type="button" data-cat="Other">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5B635D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 12 22l-8.59-8.59A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8c.53 0 1.04.21 1.41.59l8.18 8.18a2 2 0 0 1 0 2.83z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>
+          <b>Something else</b><span>Still interesting</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 2 · the item -->
+    <section class="card" id="s2" hidden>
+      <button class="back" type="button" data-back="1">&larr; Change category</button>
+      <h2 id="s2Title">The item <em>itself</em></h2>
+      <div class="field">
+        <label for="sub">What exactly?</label>
+        <div class="sel"><select id="sub"></select></div>
+      </div>
+      <div class="secttl">Take a live photo</div>
+      <div class="cam">
+        <div class="cam-view" id="camView">
+          <div class="cam-off" id="camOff"><b>Camera not started</b>Shot here and now, not from your gallery. Tap start and allow the camera.</div>
+          <video id="cam" playsinline muted hidden></video>
+          <span class="cam-live" id="camLive" hidden><i></i>LIVE</span>
+        </div>
+        <div class="cam-bar">
+          <span class="shots" id="shots"></span>
+          <button class="btn btn-outline btn-sm" id="camStart" type="button">Start camera</button>
+          <button class="shutter" id="shutter" type="button" aria-label="Take photo" disabled></button>
+        </div>
+      </div>
+      <p class="foot-note" id="camNote" style="text-align:left;">Add more angles if you have them. The first one becomes the cover.</p>
+      <div class="field">
+        <label for="iname">Full item name</label>
+        <input type="text" id="iname" placeholder="Air Max 97, size 44" autocomplete="off">
+        <span class="hint">Say it in full, that covers the description too.</span>
+      </div>
+      <div class="field">
+        <label for="cond">Condition</label>
+        <div class="sel"><select id="cond">
+          <option>Barely used</option><option>Like new</option><option>Good</option>
+          <option>Fair, works fine</option><option>Has defects</option>
+        </select></div>
+      </div>
+      <button class="btn btn-primary btn-block" id="s2Next" type="button" style="margin-top:18px;">Continue</button>
+    </section>
+
+    <!-- STEP 3 · you -->
+    <section class="card" id="s3" hidden>
+      <button class="back" type="button" data-back="2">&larr; Back to the item</button>
+      <h2>Your email <em>first</em></h2>
+      <p class="lede">We check whether you already have an account with us.</p>
+      <div class="field">
+        <label for="email">Email</label>
+        <div class="em-row">
+          <input type="email" id="email" placeholder="you@email.com" autocomplete="email" inputmode="email">
+          <button class="btn btn-primary btn-sm" id="check" type="button">Check</button>
+        </div>
+      </div>
+      <div id="lookRes"></div>
+      <div id="newFields" hidden>
+        <div class="field-row">
+          <div class="field"><label for="fname">First name</label><input type="text" id="fname" autocomplete="given-name"></div>
+          <div class="field"><label for="phone">Phone, WhatsApp</label><input type="tel" id="phone" placeholder="0803 123 4567" autocomplete="tel" inputmode="tel"></div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" id="s3Next" type="button" style="margin-top:18px;" disabled>Continue</button>
+    </section>
+
+    <!-- STEP 4 · reason, shelf, bank -->
+    <section class="card" id="s4" hidden>
+      <button class="back" type="button" data-back="3">&larr; Back</button>
+      <h2>Why are you <em>letting it go?</em></h2>
+      <div class="field">
+        <label for="reasonSel">Pick one, or write your own</label>
+        <div class="sel"><select id="reasonSel">
+          <option value="">Pick a reason</option>
+          <option>Not used in a while</option>
+          <option>Just sitting here</option>
+          <option>Bought the wrong size</option>
+          <option>Upgraded already</option>
+          <option>Moving house</option>
+          <option>Someone will use it more than me</option>
+        </select></div>
+      </div>
+      <div class="field">
+        <label for="reason">In your words</label>
+        <textarea id="reason" rows="2" maxlength="140" placeholder="Bought for the gym era that never happened."></textarea>
+        <span class="hint">This shows on your item. No phone numbers or handles, they get stripped.</span>
+      </div>
+
+      <div class="secttl">What would you shelve it for?</div>
+      <div class="shelf">
+        <p>Grabs are not posted with a price. People send offers, which can land above or below what you expect. <b>This number stays with us.</b></p>
+        <div class="shelf-ex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>It lets us tell you: <b>an offer came in, 10% above your shelf price.</b></span></div>
+      </div>
+      <div class="field">
+        <label for="shelf">Shelf price <em>never shown</em></label>
+        <div class="amt-wrap"><span class="sym">&#8358;</span><input type="text" id="shelf" inputmode="numeric" placeholder="0"></div>
+      </div>
+
+      <div class="secttl">Where your money goes</div>
+      <div class="field"><label for="bank">Bank</label><input type="text" id="bank" placeholder="GTBank" autocomplete="off"></div>
+      <div class="field-row">
+        <div class="field"><label for="acct">Account number</label><input type="text" id="acct" inputmode="numeric" maxlength="10" autocomplete="off"></div>
+        <div class="field"><label for="acctName">Account name</label><input type="text" id="acctName" autocomplete="off"></div>
+      </div>
+      <div id="subErr"></div>
+      <button class="btn btn-primary btn-block" id="submit" type="button" style="margin-top:18px;">Put it up for Grabs</button>
+      <p class="foot-note">13% commission when it sells. Nothing to pay to list.</p>
+    </section>
+
+    <!-- DONE -->
+    <section class="card" id="sDone" hidden>
+      <div class="done">
+        <div class="done-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h2>Sent for review.</h2>
+        <p id="doneBody">It is with us now. When it is approved you get an email, and your link to share comes with it.</p>
+        <div class="linkbox" id="waitingBox" hidden>
+          <input type="text" id="waitingTx" readonly>
+        </div>
+        <button class="btn btn-primary btn-block" id="again" type="button">List another thing</button>
+        <a class="btn btn-outline btn-block" href="/grabs" style="margin-top:10px;">See what's up for grabs</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div data-dps-footer></div>
+
+<script>
+(function () {
+  "use strict";
+  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); }
+  function digits(s) { return String(s || "").replace(/[^0-9]/g, ""); }
+  function qs(k) { var m = location.search.match(new RegExp("[?&]" + k + "=([^&]*)")); return m ? decodeURIComponent(m[1]) : ""; }
+
+  var SUBS = {
+    Fashion: ["Shoes", "Tops", "Bottoms", "Face caps", "Bags", "Accessories", "General fashion", "Other"],
+    Electronics: ["Phone", "Laptop", "TV", "Bluetooth speaker", "Gaming", "Audio", "General electronics", "Other"],
+    Furniture: ["Sofa", "Table", "Chair", "Shelf", "Bed", "General furniture", "Other"],
+    Kitchen: ["Blender", "Air fryer", "Microwave", "Cookware", "Small appliance", "General kitchen", "Other"],
+    Other: ["Books", "Sports", "Tools", "Instruments", "Baby and kids", "Something else"]
+  };
+  var PLACEHOLDER = {
+    Fashion: "Air Max 97, size 44", Electronics: "JBL Flip 6, with charger",
+    Furniture: "3-seater fabric sofa, grey", Kitchen: "Ninja blender, 1000W", Other: "Yamaha keyboard, 61 keys"
+  };
+
+  var S = { cat: "", sub: "", photos: [], email: "", known: false, name: "", phone: "", from: qs("from") };
+  var stream = null;
+
+  function step(n) {
+    ["s1", "s2", "s3", "s4", "sDone"].forEach(function (id, i) { $(id).hidden = (i !== n - 1); });
+    var bars = $("steps").children;
+    for (var i = 0; i < bars.length; i++) bars[i].className = i < n ? "on" : "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (n !== 2) stopCam();
+  }
+
+  /* STEP 1 */
+  $("cats").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cat]");
+    if (!b) return;
+    S.cat = b.getAttribute("data-cat");
+    $("sub").innerHTML = (SUBS[S.cat] || []).map(function (x) { return '<option>' + esc(x) + '</option>'; }).join("");
+    $("s2Title").innerHTML = esc(S.cat) + ". What <em>exactly?</em>";
+    $("iname").placeholder = PLACEHOLDER[S.cat] || "Say it in full";
+    step(2);
+  });
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-back]");
+    if (b) step(parseInt(b.getAttribute("data-back"), 10));
+  });
+
+  /* STEP 2 camera */
+  function stopCam() {
+    if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
+    $("cam").hidden = true; $("camLive").hidden = true; $("camOff").hidden = false;
+    $("shutter").disabled = true; $("camStart").textContent = "Start camera";
+  }
+  $("camStart").addEventListener("click", function () {
+    if (stream) { stopCam(); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      $("camOff").innerHTML = "<b>No camera here</b>Open this on your phone to take the live photo.";
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } }, audio: false })
+      .then(function (st) {
+        stream = st;
+        var v = $("cam");
+        v.srcObject = st; v.hidden = false; v.play();
+        $("camOff").hidden = true; $("camLive").hidden = false;
+        $("shutter").disabled = false;
+        $("camStart").textContent = "Stop";
+      })
+      .catch(function () {
+        $("camOff").innerHTML = "<b>Camera blocked</b>Allow camera access in your browser, then try again.";
+      });
+  });
+  $("shutter").addEventListener("click", function () {
+    if (!stream || S.photos.length >= 4) return;
+    var v = $("cam"), c = document.createElement("canvas");
+    var w = v.videoWidth || 1024, h = v.videoHeight || 768;
+    var side = Math.min(w, h);
+    c.width = 1000; c.height = 750;
+    var ctx = c.getContext("2d");
+    ctx.drawImage(v, (w - side) / 2, (h - side * 0.75) / 2, side, side * 0.75, 0, 0, 1000, 750);
+    var data = c.toDataURL("image/jpeg", 0.82);
+    S.photos.push(data);
+    $("shots").innerHTML = S.photos.map(function (p) { return '<img src="' + p + '" alt="">'; }).join("");
+    if (S.photos.length >= 4) $("shutter").disabled = true;
+  });
+  $("s2Next").addEventListener("click", function () {
+    if (!S.photos.length) { $("camNote").innerHTML = '<span style="color:#991B1B;font-weight:700;">Take at least one live photo so people can see it.</span>'; return; }
+    if (!String($("iname").value || "").trim()) { $("iname").focus(); return; }
+    S.sub = $("sub").value;
+    step(3);
+  });
+
+  /* STEP 3 lookup */
+  $("check").addEventListener("click", function () {
+    var email = String($("email").value || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $("lookRes").innerHTML = '<div class="res err"><b>That email does not look right.</b>Check it and try again.</div>';
+      return;
+    }
+    var btn = this; btn.disabled = true; btn.textContent = "...";
+    fetch(GAS + "?action=grabsSellerLookup&email=" + encodeURIComponent(email))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        btn.disabled = false; btn.textContent = "Check";
+        S.email = email;
+        if (d && d.found) {
+          S.known = true; S.name = d.name || ""; S.phone = d.phone || "";
+          $("lookRes").innerHTML = '<div class="res ok"><b>We have your details.</b>' +
+            esc(d.name || "") + (d.phone ? " · " + esc(d.phone) : "") +
+            (d.bank ? " · " + esc(d.bank) + " ···· " + esc(d.last4 || "") : "") +
+            '. Nothing else to fill in.</div>';
+          $("newFields").hidden = true;
+          if (d.bank) { $("bank").value = d.bank; $("acctName").value = d.acctName || ""; }
+        } else {
+          S.known = false;
+          $("lookRes").innerHTML = '<div class="res neu"><b>New here.</b>Your name and number below, then your bank details on the next step so your money has somewhere to go.</div>';
+          $("newFields").hidden = false;
+        }
+        $("s3Next").disabled = false;
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = "Check";
+        $("lookRes").innerHTML = '<div class="res err"><b>Connection problem.</b>Try again.</div>';
+      });
+  });
+  $("email").addEventListener("keydown", function (e) { if (e.key === "Enter") $("check").click(); });
+  $("s3Next").addEventListener("click", function () {
+    if (!S.known) {
+      S.name = String($("fname").value || "").trim();
+      S.phone = String($("phone").value || "").trim();
+      if (!S.name || !S.phone) { $("lookRes").innerHTML = '<div class="res err"><b>We need your name and number.</b>That is how we reach you about offers.</div>'; return; }
+    }
+    step(4);
+  });
+
+  /* STEP 4 */
+  $("reasonSel").addEventListener("change", function () { if (this.value) $("reason").value = this.value; });
+  $("shelf").addEventListener("input", function () {
+    var v = digits(this.value);
+    this.value = v ? Number(v).toLocaleString("en-NG") : "";
+  });
+  $("submit").addEventListener("click", function () {
+    var reason = String($("reason").value || "").trim();
+    var shelf = parseInt(digits($("shelf").value), 10) || 0;
+    var bank = String($("bank").value || "").trim();
+    var acct = digits($("acct").value);
+    var acctName = String($("acctName").value || "").trim();
+    if (!reason) { err("Say why you are letting it go. One line is enough."); return; }
+    if (shelf < 500) { err("Put a shelf price so we can tell you how offers compare."); return; }
+    if (!bank || acct.length !== 10 || !acctName) { err("Bank, a 10 digit account number and the account name."); return; }
+    $("subErr").innerHTML = "";
+    var b = this; b.disabled = true; b.textContent = "Putting it up...";
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "submitGrabs", category: S.cat, sub: S.sub,
+        itemName: String($("iname").value || "").trim(),
+        condition: $("cond").value, reason: reason, shelfPrice: shelf,
+        email: S.email, firstName: S.name, phone: S.phone,
+        bankName: bank, accountNumber: acct, accountName: acctName,
+        photos: S.photos, wanted: S.from
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        b.disabled = false; b.textContent = "Put it up for Grabs";
+        if (!d || !d.success) { err((d && d.error) || "That did not go through. Try again."); return; }
+        if (S.from) {
+          $("waitingBox").hidden = false;
+          $("waitingTx").value = "We kept " + S.from + " for you. It is in your approval email.";
+        }
+        step(5);
+      })
+      .catch(function () { b.disabled = false; b.textContent = "Put it up for Grabs"; err("Connection problem. Try again."); });
+  });
+  function err(msg) { $("subErr").innerHTML = '<div class="res err"><b>' + esc(msg) + '</b></div>'; }
+  $("again").addEventListener("click", function () {
+    S.photos = []; S.cat = ""; S.sub = "";
+    $("shots").innerHTML = ""; $("iname").value = ""; $("reason").value = ""; $("shelf").value = "";
+    step(1);
+  });
+
+  /* arriving from a blocked offer */
+  if (S.from) {
+    $("heroTitle").innerHTML = 'One thing of yours<br><em>first.</em>';
+    $("heroSub").textContent = "Put something up and we will take you straight back to the item you wanted. It has to be approved first, so pick something real.";
+  }
+  var pre = qs("email");
+  if (pre) $("email").value = pre;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grabs · Declutter Pawn Shop</title>
+<meta name="description" content="Items by everyday people that they no longer use. No price on them. Send an offer, the owner accepts or passes.">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://script.google.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
+
+<style>
+:root {
+  --green:        #00C853;
+  --green-dark:   #00A843;
+  --green-deep:   #009933;
+  --ink:          #0E1320;
+  --ink-2:        #161C2B;
+  --ink-3:        #1E2536;
+  --ink-4:        #2A3248;
+  --off-white:    #F5F7F8;
+  --white:        #FFFFFF;
+  --stone:        #A7B0AA;
+  --stone-light:  #C6CFC9;
+  --stone-dark:   #5B635D;
+  --mint:         #C8F0D8;
+  --mint-soft:    #E9F5EE;
+  --border:       #E1E5E4;
+  --border-ink:   #D6DCE0;
+  --border-dark:  #242C3E;
+  --text-primary:   var(--ink);
+  --text-secondary: #4F5860;
+  --text-muted:     #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', ui-monospace, monospace;
+  --font-num:     'Space Grotesk', 'Manrope', sans-serif;
+  --r-card:   16px;
+  --r-button: 12px;
+  --r-pill:   999px;
+  --shadow-sm: 0 1px 2px rgba(14,19,32,.04), 0 1px 1px rgba(14,19,32,.03);
+  --shadow-md: 0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
+  --shadow-lg: 0 24px 70px rgba(14,19,32,.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-body); background: var(--off-white); color: var(--text-primary); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body.locked { overflow: hidden; }
+h1,h2,h3,h4,h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+
+.wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .wrap { padding: 0 40px; } }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); }
+.eyebrow::before { content: ''; width: 22px; height: 1.5px; background: var(--green); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: var(--r-button); transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s; cursor: pointer; white-space: nowrap; letter-spacing: -0.005em; }
+.btn-primary { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
+.btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--ink); }
+.btn-ghost-light { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.26); }
+.btn-ghost-light:hover { border-color: rgba(255,255,255,.6); }
+.btn-sm { padding: 10px 18px; font-size: 13.5px; }
+
+/* NAV (markup injected by partials) */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.nav-logo img { height: 34px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--white); }
+.nav-cta { display: none; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 10px 20px; font-size: 13.5px; } }
+.nav-mobile-cta { display: inline-flex; padding: 9px 16px; font-size: 13px; }
+@media (min-width: 900px) { .nav-mobile-cta { display: none; } }
+.nav-tg { background: var(--green); color: var(--ink); box-shadow: 0 2px 0 var(--green-dark); border-radius: var(--r-button); font-weight: 700; }
+
+/* ═══ HERO ═══ the signage band, same shape as the items page */
+.g-hero { background: var(--ink); color: var(--off-white); padding: 100px 0 32px; position: relative; overflow: hidden; }
+.g-hero::before { content: ''; position: absolute; top: -55%; right: -12%; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.12) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
+.g-hero-inner { position: relative; z-index: 1; max-width: 620px; }
+.g-hero h1 { font-size: clamp(32px, 7.4vw, 54px); color: var(--white); letter-spacing: -0.035em; line-height: 1.02; margin-top: 14px; }
+.g-hero h1 em { font-style: normal; color: var(--green); }
+.g-hero-sub { color: var(--stone-light); font-size: 14.5px; line-height: 1.6; margin-top: 13px; max-width: 46ch; }
+.trust-row { display: flex; flex-wrap: nowrap; gap: 18px; margin-top: 15px; overflow-x: auto; scrollbar-width: none; }
+.trust-row::-webkit-scrollbar { display: none; }
+.trust-chip { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; white-space: nowrap; font-size: 11.5px; font-weight: 600; color: var(--stone); }
+.trust-chip svg { color: var(--green); flex-shrink: 0; width: 12px; height: 12px; }
+.g-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+
+/* ═══ FILTER BAR ═══ */
+.g-bar { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 72px; z-index: 100; }
+.g-bar-inner { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex-shrink: 0; padding: 7px 14px; border-radius: var(--r-pill); border: 1.5px solid var(--border); background: transparent; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); transition: all .15s; white-space: nowrap; }
+.chip:hover { border-color: var(--stone); color: var(--ink); }
+.chip.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.g-count { flex-shrink: 0; font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); }
+
+/* ═══ GRID ═══ */
+.g-section { padding: 24px 0 64px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 640px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+.item-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; text-align: left; }
+.item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
+.item-card-img { aspect-ratio: 4/3; background: var(--off-white); overflow: hidden; position: relative; }
+.item-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.item-card:hover .item-card-img img { transform: scale(1.04); }
+.card-badge { position: absolute; top: 9px; left: 9px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,.94); color: var(--green-dark); backdrop-filter: blur(6px); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.card-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.card-wants { position: absolute; top: 9px; right: 9px; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 9.5px; font-weight: 500; background: rgba(14,19,32,.72); color: var(--white); backdrop-filter: blur(6px); }
+.card-id { position: absolute; left: 9px; bottom: 9px; font-family: var(--font-mono); font-size: 9.5px; font-weight: 500; letter-spacing: .04em; padding: 2px 6px; border-radius: 5px; background: rgba(14,19,32,.72); color: rgba(255,255,255,.9); backdrop-filter: blur(6px); }
+.card-body { padding: 10px 11px 11px; flex: 1; display: flex; flex-direction: column; }
+.card-name { font-family: var(--font-heading); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.28; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.56em; }
+.card-why { font-size: 10.5px; line-height: 1.4; color: var(--text-muted); font-style: italic; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: auto; padding-top: 9px; border-top: 1px solid var(--border); }
+.card-offer { font-family: var(--font-heading); font-weight: 800; font-size: 12.5px; color: var(--green-dark); letter-spacing: -0.01em; }
+.card-meta { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.state { grid-column: 1 / -1; text-align: center; padding: 72px 24px; color: var(--text-secondary); }
+.state h3 { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.state p { font-size: 14.5px; max-width: 40ch; margin: 0 auto; }
+.sk { background: linear-gradient(90deg,#EDF0F2 25%,#F6F8F9 37%,#EDF0F2 63%); background-size: 400% 100%; animation: shimmer 1.4s linear infinite; border-radius: var(--r-card); aspect-ratio: 3/4; }
+@keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+
+/* ═══ STORY ═══ full-screen, the item is the page */
+.story { position: fixed; inset: 0; z-index: 600; background: #05080F; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.story.open { opacity: 1; pointer-events: all; }
+.story-photo { position: absolute; inset: 0; }
+.story-photo img { width: 100%; height: 100%; object-fit: cover; }
+.story-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,24,.72) 0%, rgba(10,14,24,.05) 26%, rgba(10,14,24,.08) 58%, rgba(10,14,24,.9) 100%); }
+.story-dim { position: absolute; inset: 0; background: rgba(8,11,19,.76); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.story.ended .story-dim { opacity: 1; }
+.story-top { position: absolute; top: 0; left: 0; right: 0; padding: 12px 16px 0; z-index: 3; }
+.segs { display: flex; gap: 5px; margin-bottom: 12px; }
+.seg { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.26); overflow: hidden; }
+.seg i { display: block; height: 100%; width: 0; background: var(--white); border-radius: 2px; }
+.seg.done i { width: 100%; }
+.seg.run i { animation: segrun 5s linear forwards; }
+@keyframes segrun { from { width: 0; } to { width: 100%; } }
+.story-nav { display: flex; align-items: center; justify-content: space-between; }
+.story-brand { display: flex; align-items: baseline; gap: 8px; }
+.story-brand b { font-family: var(--font-heading); font-weight: 800; font-style: italic; font-size: 21px; letter-spacing: -0.04em; color: var(--white); }
+.story-x { width: 34px; height: 34px; border-radius: 50%; background: rgba(10,14,24,.5); color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.story-play { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 20px 26px; z-index: 2; transition: opacity .25s ease; }
+.story.ended .story-play { opacity: 0; pointer-events: none; }
+.story-name { font-family: var(--font-heading); font-weight: 800; font-size: 25px; letter-spacing: -0.028em; color: var(--white); line-height: 1.1; }
+.story-who { font-size: 12.5px; color: var(--stone-light); margin-top: 6px; }
+.story-who b { color: var(--white); font-weight: 700; }
+.story-wants { display: inline-flex; align-items: center; gap: 7px; margin-top: 12px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); }
+.story-wants .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.story-end { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 26px; opacity: 0; pointer-events: none; transition: opacity .3s ease .05s; }
+.story.ended .story-end { opacity: 1; pointer-events: all; }
+.end-quote { font-size: 15.5px; line-height: 1.6; color: #E4E8EF; font-style: italic; max-width: 320px; }
+.end-name { font-family: var(--font-heading); font-weight: 800; font-size: 23px; letter-spacing: -0.025em; color: var(--white); margin-top: 14px; }
+.end-meta { font-size: 12px; color: var(--stone); margin-top: 6px; }
+.end-meta b { color: var(--stone-light); }
+.end-actions { width: 100%; max-width: 300px; margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.end-more { margin-top: 20px; }
+.end-more small { font-size: 9.5px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--stone); }
+.end-thumbs { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
+.end-thumbs img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; border: 1.5px solid rgba(255,255,255,.28); }
+
+/* ═══ SHEET ═══ the offer, the gate */
+.sheet-bg { position: fixed; inset: 0; z-index: 700; background: rgba(14,19,32,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.sheet-bg.open { opacity: 1; pointer-events: all; }
+.sheet { background: var(--white); width: 100%; max-width: 560px; border-radius: 20px 20px 0 0; transform: translateY(40px); transition: transform .3s cubic-bezier(.2,.8,.3,1); padding: 16px 18px 26px; max-height: 92vh; overflow-y: auto; }
+.sheet-bg.open .sheet { transform: translateY(0); }
+@media (min-width: 640px) { .sheet-bg { align-items: center; padding: 32px; } .sheet { border-radius: 20px; } }
+.sheet-grab { width: 38px; height: 4px; border-radius: 2px; background: #D8DCE4; margin: 0 auto 14px; }
+.sheet h3 { font-size: 19px; }
+.sheet h3 em { font-style: normal; color: var(--green-dark); }
+.sheet-sub { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-top: 13px; }
+.field label { font-size: 12.5px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+.field input { background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 16px; color: var(--ink); outline: none; width: 100%; transition: border-color .15s, background .15s; }
+.field input:focus { border-color: var(--ink); background: var(--white); }
+.em-row { display: flex; gap: 8px; margin-top: 6px; }
+.em-row input { flex: 1; min-width: 0; background: var(--off-white); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 16px; color: var(--ink); outline: none; }
+.em-row input:focus { border-color: var(--ink); background: var(--white); }
+.em-row button { flex-shrink: 0; }
+.amt-wrap { position: relative; margin-top: 6px; }
+.amt-wrap .sym { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--font-num); font-weight: 700; font-size: 16px; color: var(--green-dark); opacity: .55; pointer-events: none; }
+.amt-wrap input { width: 100%; background: var(--off-white); border: 1.5px solid var(--border-ink); border-radius: 10px; padding: 14px 30px; font-family: var(--font-num); font-size: 22px; font-weight: 700; color: var(--green-deep); text-align: center; outline: none; }
+.amt-wrap input:focus { border-color: var(--ink); background: var(--white); }
+.note { font-size: 11.5px; color: var(--text-muted); line-height: 1.55; margin-top: 10px; text-align: center; }
+.res { border-radius: 10px; padding: 12px 13px; margin-top: 11px; font-size: 12.5px; line-height: 1.5; }
+.res.ok { background: var(--mint-soft); border: 1px solid var(--mint); color: var(--text-secondary); }
+.res.ok b { color: var(--ink); display: block; font-size: 13.5px; margin-bottom: 2px; }
+.res.neu { background: var(--off-white); border: 1px solid var(--border); color: var(--text-secondary); }
+.res.neu b { color: var(--ink); display: block; font-size: 13.5px; margin-bottom: 2px; }
+.res.err { background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; }
+.sheet .btn { width: 100%; margin-top: 14px; }
+.gate-list { margin-top: 12px; }
+.gate-list p { font-size: 13.5px; line-height: 1.65; color: var(--text-secondary); }
+.gate-list p + p { margin-top: 10px; }
+.gate-list b { color: var(--ink); }
+.done-ico { width: 62px; height: 62px; border-radius: 50%; background: var(--mint-soft); border: 1.5px solid var(--mint); display: flex; align-items: center; justify-content: center; margin: 4px auto 14px; }
+.done-ico svg { width: 28px; height: 28px; color: var(--green-dark); }
+
+
+/* ═══ WELCOME ═══ the story is the page. Content sits at the bottom, centred. */
+.welcome { position: fixed; inset: 0; z-index: 400; background: #05080F; transition: opacity .35s ease, visibility .35s; }
+.welcome.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.welcome-photo { position: absolute; inset: 0; }
+.welcome-photo img { width: 100%; height: 100%; object-fit: cover; }
+.welcome-dim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,24,.76) 0%, rgba(10,14,24,.42) 30%, rgba(10,14,24,.74) 62%, rgba(10,14,24,.96) 100%); }
+.welcome-top { position: absolute; top: 0; left: 0; right: 0; padding: 14px 18px 0; z-index: 2; }
+.welcome-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 0 20px 30px; text-align: center; }
+.w-lock { display: inline-flex; align-items: baseline; gap: 9px; }
+.w-lock b { font-family: var(--font-heading); font-weight: 800; font-style: italic; font-size: 34px; letter-spacing: -0.045em; color: var(--white); line-height: 1; }
+.w-lock small { font-size: 8.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+.welcome-body h1 { font-size: clamp(27px, 7.1vw, 37px); color: var(--white); letter-spacing: -0.036em; line-height: 1.04; margin-top: 15px; }
+.welcome-body h1 em { font-style: normal; color: var(--green); }
+.welcome-body .lede { color: var(--stone-light); font-size: 13.5px; line-height: 1.55; margin: 10px auto 0; max-width: 30ch; }
+.welcome-body .trust-row { justify-content: center; gap: 14px; margin-top: 14px; }
+.welcome-body .trust-chip { font-size: 10.5px; }
+.w-ask { font-size: 12.5px; color: var(--stone-light); margin-top: 26px; }
+.w-ask b { color: var(--white); font-weight: 700; }
+.w-cta { display: flex; gap: 9px; max-width: 360px; margin: 10px auto 0; }
+.w-cta .btn { flex: 1; padding: 13px 10px; font-size: 14px; }
+.w-cta .btn-ghost-light { flex: 1.25; }
+.w-hint { font-size: 10px; color: var(--stone); margin-top: 12px; }
+
+footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28px; border-top: 1px solid var(--border-dark); }
+</style>
+</head>
+<body>
+
+<div class="welcome" id="welcome">
+  <div class="welcome-photo"><img id="wImg" alt=""></div>
+  <div class="welcome-dim"></div>
+  <div class="welcome-top"><div class="segs"><span class="seg run"><i></i></span><span class="seg"><i></i></span><span class="seg"><i></i></span></div></div>
+  <div class="welcome-body">
+    <span class="w-lock"><b>Grabs</b><small>by Declutter Pawn Shop</small></span>
+    <h1>Your <em>idle item</em> is<br>somebody else's find.</h1>
+    <p class="lede">No price on it. People see it, and send you what they would pay.</p>
+    <div class="trust-row">
+      <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 4v16M18 4v16M4 9h16M4 15h16M7 5l10 14"/></svg>Secure transaction</span>
+      <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2 12s3.8-6 10-6 10 6 10 6-3.8 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/></svg>All reviewed</span>
+      <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Contact private</span>
+    </div>
+    <p class="w-ask">Got something you no longer use?</p>
+    <div class="w-cta">
+      <a class="btn btn-primary" href="/grabs/put-up">Put it up</a>
+      <button class="btn btn-ghost-light" id="wSee" type="button">See what's up for grabs</button>
+    </div>
+    <p class="w-hint">A story is already playing behind this.</p>
+  </div>
+</div>
+
+<div data-dps-nav data-active="items"></div>
+
+<!-- ═══ HERO ═══ -->
+<header class="g-hero">
+  <div class="wrap g-hero-inner">
+    <span class="eyebrow">Grabs by Declutter Pawn Shop</span>
+    <h1>Up for <em>grabs.</em></h1>
+    <p class="g-hero-sub">Things people own and no longer use. No price on them. Open one, see why they are letting it go, and send what you would pay.</p>
+    <div class="g-cta">
+      <a class="btn btn-primary" href="/grabs/put-up">Put something up</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ FILTERS ═══ -->
+<div class="g-bar">
+  <div class="wrap g-bar-inner">
+    <div class="chips" id="chips">
+      <button class="chip active" data-cat="">All</button>
+    </div>
+    <span class="g-count" id="count"></span>
+  </div>
+</div>
+
+<!-- ═══ GRID ═══ -->
+<main class="g-section" id="grabsTop">
+  <div class="wrap">
+    <div class="grid" id="grid">
+      <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+    </div>
+  </div>
+</main>
+
+<div data-dps-footer></div>
+
+<!-- ═══ STORY ═══ -->
+<div class="story" id="story" aria-hidden="true">
+  <div class="story-photo"><img id="stImg" alt=""></div>
+  <div class="story-shade"></div>
+  <div class="story-dim"></div>
+  <div class="story-top">
+    <div class="segs" id="stSegs"></div>
+    <div class="story-nav">
+      <span class="story-brand"><b>Grabs</b></span>
+      <button class="story-x" id="stClose" type="button" aria-label="Close">&#10005;</button>
+    </div>
+  </div>
+  <div class="story-play">
+    <div class="story-name" id="stName"></div>
+    <div class="story-who" id="stWho"></div>
+    <span class="story-wants" id="stWants" hidden><span class="dot"></span><span id="stWantsTx"></span></span>
+  </div>
+  <div class="story-end">
+    <p class="end-quote" id="stQuote"></p>
+    <div class="end-name" id="stEndName"></div>
+    <div class="end-meta" id="stMeta"></div>
+    <div class="end-actions">
+      <button class="btn btn-primary" id="stWant" type="button">I want this</button>
+      <button class="btn btn-ghost-light" id="stNext" type="button">Next item</button>
+    </div>
+    <div class="end-more" id="stMore" hidden>
+      <small id="stMoreLbl"></small>
+      <div class="end-thumbs" id="stThumbs"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SHEET ═══ -->
+<div class="sheet-bg" id="sheetBg">
+  <div class="sheet" id="sheet">
+    <div class="sheet-grab"></div>
+
+    <!-- step 1: email -->
+    <div id="vEmail">
+      <h3>Your email <em>first</em></h3>
+      <p class="sheet-sub">So we know who the offer is from. We look you up, nothing else to fill in if we have you.</p>
+      <div class="em-row">
+        <input type="email" id="oEmail" placeholder="you@email.com" autocomplete="email" inputmode="email">
+        <button class="btn btn-primary btn-sm" id="oCheck" type="button">Check</button>
+      </div>
+      <div id="oRes"></div>
+      <p class="note">No bank details needed to send an offer.</p>
+    </div>
+
+    <!-- step 2: amount -->
+    <div id="vAmount" hidden>
+      <h3>I will pay <em>this much</em> for it</h3>
+      <p class="sheet-sub" id="aSub"></p>
+      <div class="field" id="nameField" hidden>
+        <label for="oName">Your first name</label>
+        <input type="text" id="oName" placeholder="First name" autocomplete="given-name">
+      </div>
+      <div class="amt-wrap">
+        <span class="sym">&#8358;</span>
+        <input type="text" id="oAmount" inputmode="numeric" placeholder="0">
+      </div>
+      <div id="aErr"></div>
+      <button class="btn btn-primary" id="oSend" type="button">Send offer</button>
+      <p class="note" id="aNote">Just the number. Everything else happens through Grabs once it is accepted.</p>
+    </div>
+
+    <!-- gate -->
+    <div id="vGate" hidden>
+      <h3>You have not put anything up yet.</h3>
+      <div class="gate-list">
+        <p>You can send offers for items that interest you once <b>you also put something out</b> for other people.</p>
+        <p>It has to be a real item, and it has to be approved.</p>
+        <p>Put something up, wait for the approval email, then come straight back to this one.</p>
+      </div>
+      <a class="btn btn-primary" href="/grabs/put-up" id="gateGo">Put something up</a>
+      <button class="btn btn-outline" id="gateClose" type="button" style="width:100%;margin-top:10px;">Keep looking</button>
+      <p class="note">We will remember this item for you.</p>
+    </div>
+
+    <!-- sent -->
+    <div id="vSent" hidden>
+      <div class="done-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+      <h3 style="text-align:center;" id="sentTitle">Sent.</h3>
+      <p class="sheet-sub" style="text-align:center;" id="sentBody"></p>
+      <button class="btn btn-primary" id="sentNext" type="button">Next item</button>
+      <button class="btn btn-outline" id="sentClose" type="button" style="width:100%;margin-top:10px;">Back to the grid</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); }
+  function naira(n) { return "₦" + (Number(n) || 0).toLocaleString("en-NG"); }
+  function digits(s) { return String(s || "").replace(/[^0-9]/g, ""); }
+
+  var ITEMS = [], CAT = "", CURRENT = null, SEG_T = null, BUYER = null;
+
+  /* ── load ── */
+  function load() {
+    if (!GAS) { paint([]); return; }
+    fetch(GAS + "?action=getGrabsItems")
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        ITEMS = (d && d.items) || [];
+        buildChips();
+        paint(filtered());
+        var first = ITEMS[0];
+        if (first && first.photo) $("wImg").src = first.photo;
+      })
+      .catch(function () { paint([]); });
+  }
+  function filtered() {
+    if (!CAT) return ITEMS;
+    return ITEMS.filter(function (it) { return String(it.cat || "") === CAT; });
+  }
+  function buildChips() {
+    var counts = {};
+    ITEMS.forEach(function (it) { var c = String(it.cat || "").trim(); if (c) counts[c] = (counts[c] || 0) + 1; });
+    var names = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+    $("chips").innerHTML = '<button class="chip' + (CAT ? '' : ' active') + '" data-cat="">All</button>' +
+      names.map(function (c) {
+        return '<button class="chip' + (CAT === c ? ' active' : '') + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+      }).join("");
+  }
+  function paint(list) {
+    var g = $("grid");
+    $("count").textContent = list.length ? list.length + (list.length === 1 ? " item" : " items") : "";
+    if (!list.length) {
+      g.innerHTML = '<div class="state"><h3>Nothing up for grabs yet.</h3>' +
+        '<p>Be the first. Put up something you no longer use and let people send you offers for it.</p></div>';
+      return;
+    }
+    g.innerHTML = list.map(function (it, i) {
+      var ph = it.photo || "";
+      return '<button class="item-card" type="button" data-open="' + i + '">' +
+        '<div class="item-card-img">' +
+          (ph ? '<img src="' + esc(ph) + '" alt="" loading="lazy">' : '') +
+          '<span class="card-badge"><span class="dot"></span>Grabs</span>' +
+          (it.wants > 0 ? '<span class="card-wants">' + it.wants + ' want it</span>' : '') +
+          '<span class="card-id">' + esc(it.id || "") + '</span>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-name">' + esc(it.name || "") + '</div>' +
+          (it.reason ? '<div class="card-why">"' + esc(it.reason) + '"</div>' : '') +
+          '<div class="card-foot"><span class="card-offer">Send an offer</span>' +
+            '<span class="card-meta">' + esc(it.cond || "") + '</span></div>' +
+        '</div></button>';
+    }).join("");
+  }
+
+  /* ── story ── */
+  function openStory(idx) {
+    var list = filtered();
+    CURRENT = list[idx];
+    if (!CURRENT) return;
+    CURRENT._idx = idx;
+    var shots = CURRENT.photos && CURRENT.photos.length ? CURRENT.photos : [CURRENT.photo].filter(Boolean);
+    $("stImg").src = shots[0] || "";
+    $("stName").textContent = CURRENT.name || "";
+    $("stWho").innerHTML = "<b>" + esc(CURRENT.seller || "") + "</b>" + (CURRENT.area ? " · " + esc(CURRENT.area) : "");
+    var w = Number(CURRENT.wants) || 0;
+    $("stWants").hidden = w < 1;
+    $("stWantsTx").textContent = w === 1 ? "1 person wants this" : w + " people want this";
+    $("stQuote").textContent = CURRENT.reason ? '"' + CURRENT.reason + '"' : "";
+    $("stEndName").textContent = CURRENT.name || "";
+    var bits = [];
+    if (CURRENT.seller) bits.push(esc(CURRENT.seller));
+    if (CURRENT.cond) bits.push(esc(CURRENT.cond));
+    if (w > 0) bits.push("<b>" + w + (w === 1 ? " person wants it" : " people want it") + "</b>");
+    $("stMeta").innerHTML = bits.join(" · ");
+    var more = (CURRENT.alsoFrom || []);
+    $("stMore").hidden = !more.length;
+    $("stMoreLbl").textContent = "More from " + (CURRENT.seller || "them");
+    $("stThumbs").innerHTML = more.slice(0, 4).map(function (m) { return '<img src="' + esc(m) + '" alt="">'; }).join("");
+
+    var story = $("story");
+    story.classList.remove("ended");
+    story.classList.add("open");
+    story.setAttribute("aria-hidden", "false");
+    document.body.classList.add("locked");
+    runSegs(shots.length || 1, shots);
+  }
+  function runSegs(n, shots) {
+    clearTimeout(SEG_T);
+    var box = $("stSegs"), i = 0;
+    box.innerHTML = "";
+    for (var k = 0; k < n; k++) box.innerHTML += '<span class="seg"><i></i></span>';
+    var segs = box.querySelectorAll(".seg");
+    function step() {
+      if (i >= n) { $("story").classList.add("ended"); return; }
+      if (shots && shots[i]) $("stImg").src = shots[i];
+      for (var j = 0; j < segs.length; j++) {
+        segs[j].className = j < i ? "seg done" : (j === i ? "seg run" : "seg");
+      }
+      i++;
+      SEG_T = setTimeout(step, 5000);
+    }
+    step();
+  }
+  function closeStory() {
+    clearTimeout(SEG_T);
+    var story = $("story");
+    story.classList.remove("open", "ended");
+    story.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("locked");
+  }
+  function nextItem() {
+    var list = filtered();
+    if (!CURRENT || !list.length) return closeStory();
+    var nx = (CURRENT._idx + 1) % list.length;
+    openStory(nx);
+  }
+
+  /* ── offer sheet ── */
+  function view(which) {
+    ["vEmail", "vAmount", "vGate", "vSent"].forEach(function (v) { $(v).hidden = v !== which; });
+  }
+  function openSheet(which) {
+    view(which);
+    $("sheetBg").classList.add("open");
+    document.body.classList.add("locked");
+  }
+  function closeSheet() {
+    $("sheetBg").classList.remove("open");
+    if (!$("story").classList.contains("open")) document.body.classList.remove("locked");
+  }
+  function wantThis() {
+    if (!CURRENT) return;
+    try { sessionStorage.setItem("grabs_wanted", CURRENT.id || ""); } catch (e) {}
+    if (BUYER && BUYER.canOffer) { toAmount(); return; }
+    $("oRes").innerHTML = "";
+    openSheet("vEmail");
+  }
+  function toAmount() {
+    view("vAmount");
+    $("aSub").textContent = (BUYER && BUYER.name ? BUYER.name + " · " : "") +
+      (CURRENT ? CURRENT.name + " from " + (CURRENT.seller || "the owner") : "");
+    $("nameField").hidden = !!(BUYER && BUYER.name);
+    $("oAmount").focus();
+  }
+  function checkEmail() {
+    var email = String($("oEmail").value || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $("oRes").innerHTML = '<div class="res err">That email does not look right. Check it and try again.</div>';
+      return;
+    }
+    var btn = $("oCheck"); btn.disabled = true; btn.textContent = "...";
+    fetch(GAS + "?action=grabsBuyerLookup&email=" + encodeURIComponent(email))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        btn.disabled = false; btn.textContent = "Check";
+        BUYER = { email: email, name: (d && d.name) || "", canOffer: !!(d && d.canOffer) };
+        if (!BUYER.canOffer) {
+          $("gateGo").href = "/grabs/put-up?from=" + encodeURIComponent((CURRENT && CURRENT.id) || "") +
+            "&email=" + encodeURIComponent(email);
+          view("vGate");
+          return;
+        }
+        toAmount();
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = "Check";
+        $("oRes").innerHTML = '<div class="res err">Connection problem. Try again.</div>';
+      });
+  }
+  function sendOffer() {
+    var amount = parseInt(digits($("oAmount").value), 10) || 0;
+    var name = String($("oName").value || "").trim() || (BUYER && BUYER.name) || "";
+    if (amount < 500) { $("aErr").innerHTML = '<div class="res err">Enter what you would pay, at least ₦500.</div>'; return; }
+    if (!name) { $("aErr").innerHTML = '<div class="res err">Your first name, so the owner knows who is asking.</div>'; return; }
+    $("aErr").innerHTML = "";
+    var b = $("oSend"); b.disabled = true; b.textContent = "Sending...";
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "grabsOffer", itemId: CURRENT.id, email: BUYER.email,
+        buyerName: name, amount: amount
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        b.disabled = false; b.textContent = "Send offer";
+        if (!d || !d.success) {
+          $("aErr").innerHTML = '<div class="res err">' + esc((d && d.error) || "That did not go through.") + '</div>';
+          return;
+        }
+        $("sentTitle").textContent = "Sent to " + (CURRENT.seller || "the owner") + ".";
+        $("sentBody").innerHTML = name + ", your <b>" + naira(amount) + "</b> offer for the " +
+          esc(CURRENT.name) + " has gone to " + esc(CURRENT.seller || "the owner") +
+          ". If they agree, the payment email lands in your inbox and stays open for 24 hours.";
+        view("vSent");
+      })
+      .catch(function () {
+        b.disabled = false; b.textContent = "Send offer";
+        $("aErr").innerHTML = '<div class="res err">Connection problem. Try again.</div>';
+      });
+  }
+
+  /* ── wiring ── */
+  document.addEventListener("click", function (e) {
+    var card = e.target.closest("[data-open]");
+    if (card) { openStory(parseInt(card.getAttribute("data-open"), 10)); return; }
+    var chip = e.target.closest(".chip");
+    if (chip) {
+      CAT = chip.getAttribute("data-cat") || "";
+      buildChips();
+      paint(filtered());
+      return;
+    }
+  });
+  function dropWelcome() {
+    $("welcome").classList.add("gone");
+    document.body.classList.remove("locked");
+    try { sessionStorage.setItem("grabs_seen", "1"); } catch (e) {}
+  }
+  $("wSee").addEventListener("click", dropWelcome);
+  try { if (sessionStorage.getItem("grabs_seen")) $("welcome").classList.add("gone"); else document.body.classList.add("locked"); }
+  catch (e) { document.body.classList.add("locked"); }
+  $("stClose").addEventListener("click", closeStory);
+  $("stNext").addEventListener("click", nextItem);
+  $("stWant").addEventListener("click", wantThis);
+  $("story").addEventListener("click", function (e) {
+    if (e.target.closest(".story-end") || e.target.closest(".story-top")) return;
+    if (!$("story").classList.contains("ended")) { clearTimeout(SEG_T); $("story").classList.add("ended"); }
+  });
+  $("oCheck").addEventListener("click", checkEmail);
+  $("oEmail").addEventListener("keydown", function (e) { if (e.key === "Enter") checkEmail(); });
+  $("oSend").addEventListener("click", sendOffer);
+  $("oAmount").addEventListener("input", function () {
+    var v = digits(this.value);
+    this.value = v ? Number(v).toLocaleString("en-NG") : "";
+  });
+  $("gateClose").addEventListener("click", closeSheet);
+  $("sentClose").addEventListener("click", function () { closeSheet(); closeStory(); });
+  $("sentNext").addEventListener("click", function () { closeSheet(); nextItem(); });
+  $("sheetBg").addEventListener("click", function (e) { if (e.target === $("sheetBg")) closeSheet(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if ($("sheetBg").classList.contains("open")) closeSheet();
+    else if ($("story").classList.contains("open")) closeStory();
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
