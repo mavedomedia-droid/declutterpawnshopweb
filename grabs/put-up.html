@@ -306,11 +306,12 @@ footer { background:var(--ink-2); color:var(--stone-light); padding:56px 0 28px;
     <section class="card" id="sDone" hidden>
       <div class="done">
         <div class="done-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h2>Sent for review.</h2>
+        <h2 id="doneTitle">Sent for review.</h2>
         <p id="doneBody">It is with us now. When it is approved you get an email, and your link to share comes with it.</p>
         <div class="linkbox" id="waitingBox" hidden>
           <input type="text" id="waitingTx" readonly>
         </div>
+        <a class="btn btn-primary btn-block" id="goOffer" href="/grabs" hidden>Send your offer now</a>
         <button class="btn btn-primary btn-block" id="again" type="button">List another thing</button>
         <a class="btn btn-outline btn-block" href="/grabs" style="margin-top:10px;">See what's up for grabs</a>
       </div>
@@ -489,8 +490,15 @@ footer { background:var(--ink-2); color:var(--stone-light); padding:56px 0 28px;
         b.disabled = false; b.textContent = "Put it up for Grabs";
         if (!d || !d.success) { err((d && d.error) || "That did not go through. Try again."); return; }
         if (S.from) {
-          $("waitingBox").hidden = false;
-          $("waitingTx").value = "We kept " + S.from + " for you. It is in your approval email.";
+          // Submitting is the gate, not approval, so the offer they
+          // were blocked from can go the moment they land back on it.
+          // Waiting for a human meant the one thing that makes this
+          // work, somebody hearing there is interest, sat in a queue.
+          $("goOffer").href = "/grabs?item=" + encodeURIComponent(S.from) + "&offer=1";
+          $("goOffer").hidden = false;
+          $("again").textContent = "List another thing instead";
+          $("doneTitle").textContent = "You are in.";
+          $("doneBody").textContent = "Yours is with us for review, and you can send your offer right now. We still email you when it goes live.";
         }
         step(5);
       })
@@ -506,7 +514,7 @@ footer { background:var(--ink-2); color:var(--stone-light); padding:56px 0 28px;
   /* arriving from a blocked offer */
   if (S.from) {
     $("heroTitle").innerHTML = 'One thing of yours<br><em>first.</em>';
-    $("heroSub").textContent = "Put something up and we will take you straight back to the item you wanted. It has to be approved first, so pick something real.";
+    $("heroSub").textContent = "Put something up and we take you straight back to send your offer. Pick something real, it still gets reviewed.";
   }
   var pre = qs("email");
   if (pre) $("email").value = pre;
