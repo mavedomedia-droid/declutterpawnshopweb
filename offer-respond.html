@@ -143,6 +143,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 .lbl { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-dark); }
 .lbl::before { content: ''; width: 14px; height: 1.5px; background: var(--green); border-radius: 1px; }
 
+.grabs-mark { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; background: var(--green); color: var(--ink); padding: 2px 7px; border-radius: 5px; margin-right: 4px; vertical-align: 1px; }
+.item-reason { font-size: 11.5px; font-style: italic; color: var(--text-muted); margin-top: 5px; line-height: 1.45; }
 .offer-box { background: var(--ink); color: #fff; border-radius: 16px; padding: 18px; position: relative; overflow: hidden; margin-top: 10px; }
 .offer-box::after { content: ''; position: absolute; top: -60%; right: -30%; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.22) 0%, rgba(0,200,83,0) 70%); pointer-events: none; }
 .offer-box > * { position: relative; z-index: 1; }
@@ -500,6 +502,13 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     var cd      = countdown(o.expiresAt);
     var canAct  = String(o.status || "").trim() === "Pending" && !o.expired;
 
+    // Grabs: same page, same token, different shape. No asking price,
+    // no counter, and the owner's reason stands in for the price line.
+    var isGrabs = String(o.source || it.listingType || "").toLowerCase() === "grabs";
+    window.__GRABS_OFFER = isGrabs;
+    var shelf = num(it.shelfPrice);
+    var sdiff = (isGrabs && shelf > 0 && offered > 0) ? Math.round((offered - shelf) / shelf * 100) : 0;
+
     var metaBits = [];
     if (it.itemId)    metaBits.push(it.itemId);
     if (it.condition) metaBits.push(it.condition);
@@ -515,7 +524,8 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         thumb +
         '<div class="item-info">' +
           '<div class="item-name">' + esc(it.itemName || "Item") + '</div>' +
-          '<div class="item-meta">' + esc(metaBits.join(" · ")) + '</div>' +
+          '<div class="item-meta">' + (isGrabs ? '<span class="grabs-mark">Grabs</span> ' : '') + esc(metaBits.join(" · ")) + '</div>' +
+          (isGrabs && it.reason ? '<div class="item-reason">“' + esc(it.reason) + '”</div>' : '') +
           (cd ? '<span class="cd ' + cd.tone + '" id="cd" data-exp="' + esc(o.expiresAt || "") + '">' +
                 icon("clock", 12, 2.6) + " " + esc(cd.text) + '</span>' : '') +
         '</div>' +
@@ -527,9 +537,19 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
           '<div class="offer-box">' +
             '<div class="offer-from">From <strong>' + esc(o.buyerName || "a buyer") + '</strong></div>' +
             '<div class="offer-amt"><span class="sym">₦</span>' + naira(offered) + '</div>' +
-            '<div class="offer-sub">Your asking price <strong>₦' + naira(asked) + '</strong>' +
-              (diff !== 0 ? '<span class="chip' + (diff > 0 ? ' up' : '') + '">' + (diff > 0 ? "+" : "") + diff + '%</span>' : '') +
-            '</div>' +
+            // A Grabs listing has no asking price, so there is nothing to
+            // compare against publicly. The seller's own shelf price is
+            // the only yardstick, and it is private to them.
+            (isGrabs
+              ? '<div class="offer-sub">' +
+                  (shelf > 0
+                    ? 'Your shelf price <strong>₦' + naira(shelf) + '</strong>' +
+                      (sdiff !== 0 ? '<span class="chip' + (sdiff > 0 ? ' up' : '') + '">' + (sdiff > 0 ? "+" : "") + sdiff + '%</span>' : '')
+                    : 'No price on this one. This is what they would pay.') +
+                '</div>'
+              : '<div class="offer-sub">Your asking price <strong>₦' + naira(asked) + '</strong>' +
+                  (diff !== 0 ? '<span class="chip' + (diff > 0 ? ' up' : '') + '">' + (diff > 0 ? "+" : "") + diff + '%</span>' : '') +
+                '</div>') +
             (o.note ? '<div class="offer-note">“' + esc(o.note) + '”</div>' : '') +
           '</div>' +
         '</div>' +
@@ -551,9 +571,12 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         '<button class="act act-green" id="bAccept" type="button">' +
           icon("check", 16, 2.8) + 'Accept ₦' + naira(offered) +
         '</button>' +
+        // Countering needs a price to counter. A Grabs listing has none,
+        // so the only two moves are take it or leave it.
+        (window.__GRABS_OFFER ? '' :
         '<button class="act act-line" id="bCounter" type="button">' +
           icon("chat", 16, 2.2) + 'Counter with a different price' +
-        '</button>' +
+        '</button>') +
         '<button class="act act-danger" id="bDecline" type="button">' +
           icon("x", 16, 2.4) + 'Decline this offer' +
         '</button>' +
@@ -620,7 +643,10 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       });
     };
 
-    document.getElementById("bCounter").onclick = function () {
+    // The counter button is absent on a Grabs offer, which has no price
+    // to counter. Wiring it blind threw and took the whole page down.
+    var bCounter = document.getElementById("bCounter");
+    if (bCounter) bCounter.onclick = function () {
       cf.classList.add("open");
       if (!getCounter()) setCounter(defaultCounter());
       ci.focus();

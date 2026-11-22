@@ -31,7 +31,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="dns-prefetch" href="https://script.google.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -105,7 +105,7 @@ input, select, textarea { font-family: inherit; }
 @media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
 /* The hero is signage, not the product. It gets a band, not half the screen. */
-.items-hero { background: var(--ink); color: var(--off-white); padding: 92px 0 16px; position: relative; overflow: hidden; }
+.items-hero { background: var(--ink); color: var(--off-white); padding: 84px 0 20px; position: relative; overflow: hidden; }
 .items-hero::before { content: ''; position: absolute; top: -60%; right: -10%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,83,.10) 0%, rgba(0,200,83,0) 65%); pointer-events: none; }
 .items-hero-inner { position: relative; z-index: 1; }
 .items-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -250,6 +250,67 @@ input, select, textarea { font-family: inherit; }
 @media (min-width: 900px) { #newRailWrap .hot-card { flex-basis: 113px; } }
 /* Archive cards are the past: a touch quieter than live stock. */
 .arch-wrap { margin: 34px auto 26px; }
+/* ── THE DOORS + BANNER (hero zone) ── */
+.items-hero .hero-search { margin-top: 16px; background: none; border: none; border-bottom: 1.5px solid var(--border-dark); border-radius: 0; display: flex; align-items: center; gap: 9px; padding: 4px 2px 9px; box-shadow: 0 12px 14px -13px rgba(0, 0, 0, .65); transition: border-color .15s; }
+.items-hero .hero-search:focus-within { border-bottom-color: var(--green); }
+.items-hero .hero-search svg { width: 15px; height: 15px; color: var(--stone); flex-shrink: 0; }
+.items-hero .hero-search input { flex: 1; min-width: 0; background: none; border: none; outline: none; color: var(--white); font-size: 16px; }
+.items-hero .hero-search input::placeholder { color: var(--stone); }
+.items-hero .hero-search .search-clear { color: var(--stone); background: none; font-size: 14px; display: none; }
+.items-hero .hero-search .search-clear.visible { display: block; }
+.doors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 4px; margin-top: 16px; }
+@media (min-width: 900px) { .doors { grid-template-columns: repeat(8, 1fr); } }
+.door { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 4px 2px 0; text-align: center; position: relative; border-radius: 12px; }
+.door-ico { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; transition: box-shadow .12s, transform .12s; }
+.door-ico svg { width: 20px; height: 20px; }
+.door.on .door-ico { box-shadow: 0 0 0 2px var(--green); }
+.door:active .door-ico { transform: scale(.93); }
+.di-green { background: rgba(0,200,83,.13); color: var(--green); }
+.di-fire { background: rgba(255,107,44,.14); color: #FF8B55; }
+.di-grey { background: rgba(255,255,255,.08); color: var(--stone-light); }
+.door-name { font-size: 10.5px; font-weight: 700; color: var(--stone-light); line-height: 1.15; }
+.door.on .door-name { color: var(--white); }
+.door-sub { font-size: 9px; color: var(--stone); margin-top: -4px; letter-spacing: .02em; }
+.door-badge { position: absolute; top: -3px; right: 50%; margin-right: -34px; background: #DC2626; color: #fff; font-size: 8.5px; font-weight: 800; border-radius: 999px; padding: 2px 7px; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+.door-badge .d { width: 4px; height: 4px; border-radius: 50%; background: #fff; animation: aucPulse 1.2s infinite; }
+.hero-banner { display: flex; align-items: center; gap: 11px; background: var(--ink-2); border: 1px solid var(--border-dark); border-radius: 13px; padding: 8px 13px 8px 8px; margin-top: 16px; cursor: pointer; }
+.hero-banner.auc-mode { border-color: rgba(255,107,44,.5); }
+.hero-banner img { width: 42px; height: 42px; border-radius: 9px; object-fit: cover; background: var(--ink-3); flex-shrink: 0; }
+.hb-tx { flex: 1; min-width: 0; }
+.hb-tag { display: block; font-size: 8.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--green); }
+.auc-mode .hb-tag { color: #FF8B55; }
+.hb-name { display: block; font-size: 12.5px; font-weight: 700; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hb-price { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--mint); }
+.auc-mode .hb-price { color: #FF8B55; }
+.hb-go { font-size: 11px; font-weight: 800; color: var(--green); white-space: nowrap; }
+.auc-mode .hb-go { color: #FF8B55; }
+.door-sheet-bg { position: fixed; inset: 0; z-index: 500; background: rgba(14,19,32,.55); display: none; align-items: flex-end; justify-content: center; }
+.door-sheet-bg.open { display: flex; }
+.door-sheet { background: var(--white); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)); max-height: 70vh; overflow-y: auto; }
+.ds-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; margin-bottom: 12px; }
+.ds-row { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; padding: 12px 2px; border-bottom: 1px solid var(--border); font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.ds-row span { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.auc-dot { width: 9px; height: 9px; border-radius: 50%; background: #FF6B2C; animation: aucPulse 1.2s infinite; }
+.ap-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.ap-img { width: 54px; height: 54px; border-radius: 11px; background: var(--ink-3); overflow: hidden; flex-shrink: 0; }
+.ap-img img { width: 100%; height: 100%; object-fit: cover; }
+.ap-tx { flex: 1; min-width: 0; }
+.ap-tx b { display: block; font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.25; }
+.ap-tx span { font-size: 11px; color: var(--text-muted); }
+.ap-bid { text-align: right; flex-shrink: 0; font-family: 'Space Grotesk', 'Manrope', sans-serif; font-weight: 700; font-size: 14.5px; color: #C94708; }
+.ap-bid small { display: block; font-family: var(--font-body); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.ap-bid em { display: block; font-style: normal; font-family: var(--font-body); font-size: 11.5px; font-weight: 800; color: #FF6B2C; }
+.ap-all { display: block; text-align: center; padding: 14px 0 2px; font-size: 13.5px; font-weight: 800; color: #C94708; }
+
+.auc-strip-wrap { display: none; margin: 4px auto 10px; }
+.auc-strip-wrap.on { display: block; }
+.auc-strip { display: flex; align-items: center; gap: 10px; background: var(--ink); border: 1.5px solid rgba(255,107,44,.55); border-radius: 12px; padding: 10px 14px; color: var(--white); }
+.auc-strip:hover { border-color: #FF6B2C; }
+.auc-dot { width: 8px; height: 8px; border-radius: 50%; background: #FF6B2C; flex-shrink: 0; animation: aucPulse 1.3s ease-in-out infinite; }
+@keyframes aucPulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.auc-strip-tx { font-size: 13px; flex: 1; min-width: 0; color: var(--stone-light, #C6CFC9); }
+.auc-strip-tx b { color: #FF8B55; font-weight: 800; }
+.auc-strip-go { font-size: 12.5px; font-weight: 800; color: #FF8B55; white-space: nowrap; }
 .hot-rail-head .arch-ic { color: var(--text-muted); }
 .arch-card .hot-card-img img { filter: grayscale(.35); opacity: .92; }
 .arch-card .hot-card-price { color: var(--text-secondary); }
@@ -304,6 +365,29 @@ input, select, textarea { font-family: inherit; }
 .show-more-wrap { text-align: center; margin-top: 44px; }
 .show-more { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: var(--r-button); border: 1.5px solid var(--border); background: var(--white); font-size: 14px; font-weight: 700; color: var(--ink); transition: border-color .15s, background .15s; }
 .show-more:hover { border-color: var(--ink); }
+
+/* ═══ GRABS RAIL ═══ a few of the hottest no-price items, as a door
+   into Grabs rather than a second grid. Most popping first, because
+   this row exists to make people curious, not to be browsed. */
+.grabs-rail { display: none; margin: 0 0 22px; }
+.grabs-rail.on { display: block; }
+.gr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+.gr-label { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--green-dark); }
+.gr-label::before { content: ''; width: 20px; height: 1.5px; background: var(--green); }
+.gr-all { font-size: 12.5px; font-weight: 700; color: var(--green-dark); white-space: nowrap; }
+.gr-track { display: flex; gap: 11px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 3px; }
+.gr-track::-webkit-scrollbar { display: none; }
+.gr-card { flex: 0 0 178px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; text-align: left; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.gr-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
+.gr-img { aspect-ratio: 4/3; background: var(--off-white); position: relative; }
+.gr-img img { width: 100%; height: 100%; object-fit: cover; }
+.gr-tag { position: absolute; top: 8px; left: 8px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; background: rgba(255,255,255,.94); color: var(--green-dark); backdrop-filter: blur(6px); }
+.gr-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.gr-wants { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 9px; background: rgba(14,19,32,.72); color: #fff; backdrop-filter: blur(6px); }
+.gr-body { padding: 9px 10px 11px; }
+.gr-name { font-family: var(--font-heading); font-weight: 700; font-size: 12.5px; color: var(--ink); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
+.gr-why { font-size: 10px; font-style: italic; color: var(--text-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gr-cta { font-size: 11.5px; font-weight: 800; color: var(--green-dark); margin-top: 7px; }
 
 .sold-strip { background: var(--ink); padding: 44px 0; overflow: hidden; }
 .sold-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
@@ -648,6 +732,11 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
 .mc-panel { display: none; flex-direction: column; gap: 10px; padding: 14px; background: var(--off-white); border: 1px solid var(--border); border-radius: 12px; }
 .mc-panel.open { display: flex; }
+.mc-vgate-head { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-dark); }
+.mc-vgate-txt { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+.mc-vgate-txt strong { color: var(--ink); }
+.mc-vgate-pay { background: none; border: none; padding: 6px 0 2px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.mc-vgate-pay:hover { color: var(--ink); }
 .mc-panel-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 .mc-panel input { height: 46px; padding: 0 14px; background: var(--white); border: 1.5px solid var(--border); border-radius: 10px; font-size: 16px; color: var(--ink); outline: none; width: 100%; transition: border-color .15s; }
 .mc-panel input:focus { border-color: var(--ink); }
@@ -788,8 +877,6 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <span id="heroLiveText">Loading…</span>
       </div>
     </div>
-    <p class="items-hero-sub">Every listing is reviewed before it goes live. Payments are escrow-protected, so money moves only when you confirm.</p>
-
     <div class="trust-row">
       <span class="trust-chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -805,31 +892,33 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       </span>
     </div>
 
-    <button class="hot" id="hotStrip" type="button">
-      <span class="hot-lbl">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-        <span>Hot now</span>
+    <label class="search hero-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="search" placeholder="Shirts, bags, sofas..." autocomplete="off" aria-label="Search items">
+      <button class="search-clear" id="searchClear" aria-label="Clear search" type="button">&#x2715;</button>
+    </label>
+
+    <!-- THE DOORS. Icon on its chip, name under, no box. Every door is
+         a remote for filters the page already has; only Auction leaves. -->
+    <div class="doors" id="doors"></div>
+
+    <!-- One slim banner: rotates the hot picks, and when something is
+         live at auction the first slide is the auction itself. -->
+    <a class="hero-banner" id="heroBanner" hidden>
+      <img id="hbImg" alt="" onerror="imgFail(this)">
+      <span class="hb-tx">
+        <span class="hb-tag" id="hbTag">Hot right now</span>
+        <span class="hb-name" id="hbName"></span>
+        <span class="hb-price" id="hbPrice"></span>
       </span>
-      <span class="hot-slide" id="hotSlide">
-        <img class="hot-img" id="hotImg" alt="" onerror="imgFail(this)">
-        <span class="hot-txt">
-          <span class="hot-name" id="hotName">—</span>
-          <span class="hot-sub" id="hotSub"></span>
-        </span>
-      </span>
-      <span class="hot-dots" id="hotDots"></span>
-    </button>
+      <span class="hb-go" id="hbGo">View &rarr;</span>
+    </a>
   </div>
 </section>
 
 <div class="bar">
   <div class="wrap">
     <div class="bar-row">
-      <label class="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="searchInput" type="search" placeholder="Search items, brands, categories…" autocomplete="off" aria-label="Search items">
-        <button class="search-clear" id="searchClear" aria-label="Clear search" type="button">✕</button>
-      </label>
       <div class="sort" id="vendorWrap" style="display:none;">
         <select id="vendorSelect" aria-label="Filter by vendor">
           <option value="">All vendors</option>
@@ -852,39 +941,23 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
   </div>
 </div>
 
-<!-- The shop window: one big item at a time, swiped or walked on its
-     own. Fed from the same in-memory ranking as everything else. -->
-<div class="wrap feat-wrap" id="featWrap">
-  <div class="feat-slider" id="featSlider"></div>
-  <div class="feat-dots" id="featDots"></div>
-</div>
 
-<!-- The hot list, walked left to right instead of one at a time.
-     Same ranking the ticker uses, no extra request. -->
-<div class="wrap hot-rail-wrap" id="hotRailWrap">
-  <div class="hot-rail-head">
-    <svg class="flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-    <h2>Hot right now</h2>
-    <span class="hot-rail-hint">swipe</span>
-  </div>
-  <div class="hot-rail" id="hotRail"></div>
-</div>
 
 <!-- Fresh stock, same shelf shape. -->
-<div class="wrap hot-rail-wrap" id="newRailWrap">
-  <div class="hot-rail-head">
-    <svg class="flame new-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-    <h2>Just in</h2>
-    <span class="hot-rail-hint">swipe</span>
-  </div>
-  <div class="hot-rail" id="newRail"></div>
-</div>
+
 
 <section class="grid-section">
   <div class="wrap">
     <div class="grid-meta">
       <span id="gridCount">Loading items…</span>
       <span id="gridFilter" style="color:var(--stone-dark);"></span>
+    </div>
+<div class="grabs-rail" id="grabsRail">
+      <div class="gr-head">
+        <span class="gr-label">Up for grabs</span>
+        <a class="gr-all" href="/grabs">See all &rarr;</a>
+      </div>
+      <div class="gr-track" id="grTrack"></div>
     </div>
     <div class="grid" id="grid"></div>
     <div class="show-more-wrap" id="showMoreWrap" style="display:none;">
@@ -1082,6 +1155,19 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         Buy now
       </button>
+
+      <!-- VENDOR GATE. One screen between Buy and the email form, only on
+           vendor items whose last confirmation has gone stale. It offers
+           the free ask before the money, once, and never blocks the pay. -->
+      <div class="mc-panel" id="mcVGate">
+        <div class="mc-vgate-head">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Quick check before you pay</span>
+        </div>
+        <p class="mc-vgate-txt">This is a DPS Vendor item. Listings update from the vendor's page, and sometimes that update lands a little later than their own sale. You can ask first and the vendor confirms it is still there. <strong>Your first ask is free.</strong></p>
+        <button class="btn btn-primary" id="vgAsk" style="width:100%;" type="button">Request if available</button>
+        <button class="mc-vgate-pay" id="vgPay" type="button">Pay now anyway</button>
+      </div>
 
       <div class="mc-panel" id="mcPanel">
         <div class="mc-logi">
@@ -1308,6 +1394,9 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
   var ALL_ITEMS     = [];
   var ARCHIVED      = [];
+  // Grabs listings arrive in the same feed but carry no price, so they
+  // are held apart from the priced grid and shown only in their rail.
+  var GRABS_ITEMS   = [];
   var RECENT_SOLD   = [];
   var ACTIVE_FILTER = "All";
   var ACTIVE_VENDOR = "";
@@ -2074,17 +2163,30 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
      hot items above their results is in the way. It comes back when
      the page returns to the open view. */
   function syncHotRail() {
+    // The doors and banner are navigation now, so they never hide.
+    // Only the archive steps aside while someone is searching.
     var browsing = !SEARCH_QUERY && ACTIVE_FILTER === "All" && !ACTIVE_VENDOR;
-    var w = document.getElementById("hotRailWrap");
-    if (w) w.classList.toggle("on", HOT_RAIL_OK && browsing);
-    var n = document.getElementById("newRailWrap");
-    if (n) n.classList.toggle("on", NEW_RAIL_OK && browsing);
-    var f = document.getElementById("featWrap");
-    if (f) f.classList.toggle("on", FEAT_OK && browsing);
     var a = document.getElementById("archRailWrap");
     if (a) a.classList.toggle("on", ARCH_RAIL_OK && browsing);
   }
-  var NEW_RAIL_OK = false, FEAT_OK = false, featIdx = 0, featTimer = null, FEAT = [], ARCH_RAIL_OK = false;
+  var NEW_RAIL_OK = false, FEAT_OK = false, featIdx = 0, featTimer = null, FEAT = [], ARCH_RAIL_OK = false, AUC_STRIP_OK = false;
+
+  /* Auction, asked once after the shop is on screen: the live count
+     feeds the Auction door's badge and the banner's first slide. */
+  function loadAuctionStrip() {
+    if (!GAS) return;
+    fetch(GAS + "?action=getAuctionItems", { redirect: "follow" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        AUC_LIVE = ((d && d.items) || []).filter(function (a) {
+          return String(a.status || "").toLowerCase() === "live";
+        });
+        AUC_LIVE_N = AUC_LIVE.length;
+        buildDoors();
+        renderBanner();
+      })
+      .catch(function () {});
+  }
 
   /* How long since Dina last saw the post, in a word. */
   function lastSeenLabel(it) {
@@ -2142,164 +2244,281 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       + '</div></div>';
   }
 
-  /* The shop window: the top of the hot list, one big slide at a time,
-     walking on its own until a hand touches it. */
-  function renderFeatured() {
-    var wrap = document.getElementById("featWrap");
-    if (!wrap) return;
-    FEAT = HOT.filter(function (it) { return firstImage(it["Product Photos"]); }).slice(0, 5);
-    FEAT_OK = FEAT.length >= 3;
-    if (!FEAT_OK) { syncHotRail(); return; }
-    var FLAME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
-    document.getElementById("featSlider").innerHTML = FEAT.map(function (it, i) {
-      return '<div class="feat-slide" data-id="' + escapeAttr(it["Item ID"] || "") + '">'
-        + '<img src="' + escapeAttr(firstImage(it["Product Photos"])) + '" alt="" '
-        +   (i === 0 ? 'fetchpriority="high"' : 'loading="lazy"') + ' decoding="async" onerror="imgFail(this)">'
-        + '<div class="feat-shade"></div>'
-        + '<div class="feat-copy">'
-        +   '<span class="feat-tag">' + FLAME + 'Hot \u00b7 ' + (it._views || 0) + ' views</span>'
-        +   '<div class="feat-name">' + escapeHTML(it["Item Name"] || "") + '</div>'
-        +   '<div class="feat-sub"><span class="feat-price"><span class="sym">\u20a6</span>' + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) + '</span>'
-        +   '<span class="feat-cond">' + escapeHTML(it["Condition"] || "") + ' \u00b7 ' + escapeHTML(it["Location"] || "") + '</span></div>'
-        + '</div></div>';
-    }).join("");
-    document.getElementById("featDots").innerHTML = FEAT.map(function (_, i) {
-      return '<button class="feat-dot' + (i === 0 ? " on" : "") + '" data-i="' + i + '" type="button" aria-label="Slide ' + (i + 1) + '"></button>';
-    }).join("");
-    featIdx = 0;
-    startFeat();
-    syncHotRail();
-  }
 
-  function featGo(i, smooth) {
-    var sl = document.getElementById("featSlider");
-    featIdx = (i + FEAT.length) % FEAT.length;
-    sl.scrollTo({ left: featIdx * sl.clientWidth, behavior: smooth === false ? "auto" : "smooth" });
+  /* The Grabs rail: the three most wanted no-price items, as a way in
+     rather than a second grid. Hidden entirely when nothing is up. */
+  function renderGrabsRail() {
+    var rail = document.getElementById("grabsRail");
+    var track = document.getElementById("grTrack");
+    if (!rail || !track) return;
+    var list = (GRABS_ITEMS || []).slice().sort(function (a, b) {
+      return (Number(b["Interested"]) || 0) - (Number(a["Interested"]) || 0);
+    }).slice(0, 6);
+    if (!list.length) { rail.classList.remove("on"); return; }
+    rail.classList.add("on");
+    track.innerHTML = list.map(function (it) {
+      var id = String(it["Item ID"] || "");
+      var ph = firstImage(it["Product Photos"]) || "";
+      var why = String(it["Reason"] || "");
+      var wants = Number(it["Interested"]) || 0;
+      return '<a class="gr-card" href="/grabs?item=' + encodeURIComponent(id) + '">' +
+        '<div class="gr-img">' + (ph ? '<img src="' + escapeAttr(ph) + '" alt="" loading="lazy">' : '') +
+          '<span class="gr-tag"><span class="dot"></span>Grabs</span>' +
+          (wants ? '<span class="gr-wants">' + wants + ' want it</span>' : '') +
+        '</div>' +
+        '<div class="gr-body">' +
+          '<div class="gr-name">' + escapeHTML(String(it["Item Name"] || "")) + '</div>' +
+          (why ? '<div class="gr-why">"' + escapeHTML(why) + '"</div>' : '') +
+          '<div class="gr-cta">Send an offer</div>' +
+        '</div></a>';
+    }).join("");
   }
-  function featPaintDots() {
-    var dots = document.querySelectorAll(".feat-dot");
-    Array.prototype.forEach.call(dots, function (d, i) { d.classList.toggle("on", i === featIdx); });
-  }
-  function startFeat() {
-    stopFeat();
-    featTimer = setInterval(function () {
-      if (document.hidden || modalBg.classList.contains("open")) return;
-      var w = document.getElementById("featWrap");
-      if (!w || !w.classList.contains("on")) return;
-      featGo(featIdx + 1);
-    }, 4500);
-  }
-  function stopFeat() { if (featTimer) { clearInterval(featTimer); featTimer = null; } }
-
-  (function wireFeat() {
-    var sl = document.getElementById("featSlider");
-    if (!sl) return;
-    sl.addEventListener("click", function (e) {
-      var slide = e.target.closest(".feat-slide");
-      if (!slide) return;
-      var it = ALL_ITEMS.filter(function (x) { return x["Item ID"] === slide.getAttribute("data-id"); })[0];
-      if (it) openModal(it);
-    });
-    // A hand on the slider wins. Scrolling restarts the clock and the
-    // dots follow whichever slide the scroll lands on.
-    var settle = null;
-    sl.addEventListener("scroll", function () {
-      if (settle) clearTimeout(settle);
-      settle = setTimeout(function () {
-        featIdx = Math.round(sl.scrollLeft / Math.max(1, sl.clientWidth)) % Math.max(1, FEAT.length || 1);
-        featPaintDots();
-        startFeat();
-      }, 120);
-    }, { passive: true });
-    document.getElementById("featDots").addEventListener("click", function (e) {
-      var d = e.target.closest(".feat-dot");
-      if (d) featGo(parseInt(d.getAttribute("data-i"), 10));
-    });
-  })();
 
   function renderHot() {
-    var strip = document.getElementById("hotStrip");
-    if (!strip) return;
+    // The same heat ranking as before; it now feeds the hero banner
+    // instead of a ticker and two rails.
     HOT = ALL_ITEMS.slice()
       .filter(function (it) { return (it._views || 0) > 0; })
       .sort(function (a, b) { return heatOf(b) - heatOf(a); })
       .slice(0, 10);
-
-    // The rail takes the same list, laid out instead of rotated. It has
-    // its own threshold: four cards make a rail, three make a gap.
-    var railWrap = document.getElementById("hotRailWrap");
-    if (railWrap) {
-      HOT_RAIL_OK = HOT.length >= 4;
-      if (HOT_RAIL_OK) {
-        document.getElementById("hotRail").innerHTML = HOT.map(railCardHTML).join("");
-      }
-
-      // Fresh stock: newest first, and not the same faces as the hot
-      // shelf right above it.
-      var hotIds = {};
-      HOT.forEach(function (it) { hotIds[it["Item ID"]] = 1; });
-      var fresh = ALL_ITEMS.slice()
-        .filter(function (it) { return !hotIds[it["Item ID"]]; })
-        .sort(function (a, b) { return (submittedMs(b["Submission Time"]) || 0) - (submittedMs(a["Submission Time"]) || 0); })
-        .slice(0, 12);
-      NEW_RAIL_OK = fresh.length >= 4;
-      if (NEW_RAIL_OK) document.getElementById("newRail").innerHTML = fresh.map(railCardHTML).join("");
-
-      renderFeatured();
-      renderArchiveRail();
-      syncHotRail();
-    }
-
-    if (HOT.length < 3) { strip.classList.remove("on"); stopHot(); return; }
-    strip.classList.add("on");
-    document.getElementById("hotDots").innerHTML = HOT.map(function (_, i) {
-      return '<span class="hot-dot' + (i === 0 ? " on" : "") + '"></span>';
-    }).join("");
-    hotIdx = 0;
-    paintHot();
-    startHot();
+    buildDoors();
+    renderBanner();
+    renderArchiveRail();
+    syncHotRail();
+    // After the shop is on screen. One extra request, never in the way.
+    setTimeout(loadAuctionStrip, 1200);
   }
 
-  function paintHot() {
-    var it = HOT[hotIdx];
-    if (!it) return;
-    var img = firstImage(it["Product Photos"]);
-    var el = document.getElementById("hotImg");
-    // imgFail latches per element and this one <img> is reused on every
-    // rotation, so the latch has to be cleared or a later failure shows broken.
-    delete el.dataset.failed;
-    if (img) { el.src = img; el.style.visibility = ""; } else { el.style.visibility = "hidden"; }
-    document.getElementById("hotName").textContent = it["Item Name"] || "";
-    document.getElementById("hotSub").innerHTML =
-      "₦" + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]) +
-      '  ·  <b>' + (it._views || 0) + " views</b>";
-    Array.prototype.forEach.call(document.querySelectorAll(".hot-dot"), function (d, i) {
-      d.classList.toggle("on", i === hotIdx);
+  /* ── THE DOORS ──────────────────────────────────────────────────
+     Eight remotes for state the page already has. Category doors are
+     the three biggest categories by live stock, so the doors
+     rearrange themselves as inventory shifts. Auction sits near the
+     end, the only door that leaves the page. */
+  var DOOR_ICONS = {
+    trending: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+    justin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.5l1.6 4.2 4.2 1.6-4.2 1.6L10 15.1l-1.6-4.2-4.2-1.6 4.2-1.6L10 3.5z"/><path d="M17.8 13.6l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9.9-2.3z"/></svg>',
+    vendors: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 10.8V19.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-8.7"/><path d="M3.3 7.2 5 3.5h14l1.7 3.7a2.2 2.2 0 0 1-4.25.9 2.2 2.2 0 0 1-4.45-.05A2.2 2.2 0 0 1 7.55 8.1 2.2 2.2 0 0 1 3.3 7.2z"/><path d="M9.5 21v-5h5v5"/></svg>',
+    auction: '<svg viewBox="0 0 120 100" fill="none"><rect x="14" y="80" width="52" height="9" rx="4.5" fill="currentColor" opacity=".75"/><rect x="24" y="72" width="32" height="9" rx="4.5" fill="currentColor" opacity=".75"/><g transform="rotate(9 88 33)"><rect x="50" y="29" width="46" height="8" rx="4" fill="currentColor"/><rect x="32" y="12" width="21" height="42" rx="8" fill="currentColor"/></g></svg>',
+    more: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="6.6" height="6.6" rx="1.8"/><rect x="13.4" y="4" width="6.6" height="6.6" rx="1.8"/><rect x="4" y="13.4" width="6.6" height="6.6" rx="1.8"/><rect x="13.4" y="13.4" width="6.6" height="6.6" rx="1.8"/></svg>',
+    Fashion: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.8a1.9 1.9 0 1 1 1.9-1.9"/><path d="M12 6.8 20.6 13a1.6 1.6 0 0 1-.94 2.9H4.34A1.6 1.6 0 0 1 3.4 13L12 6.8z"/></svg>',
+    Furniture: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9.5V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3.5"/><path d="M3 15.5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-4 0V13H7v-1.5a2 2 0 0 0-4 0Z"/><path d="M5.5 17.5V20M18.5 17.5V20"/></svg>',
+    Appliances: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="2.5" width="15" height="19" rx="2.4"/><circle cx="12" cy="13.5" r="4"/><path d="M9.2 10.6a4 4 0 0 1 5.6 0"/><path d="M7.6 5.8h.01M10.4 5.8h.01"/></svg>',
+    Electronics: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg>',
+    _cat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 12 22l-8.59-8.59A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8c.53 0 1.04.21 1.41.59l8.18 8.18a2 2 0 0 1 0 2.83z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>'
+  };
+  var DOOR_CATS = [];
+  var AUC_LIVE_N = 0, AUC_LIVE = [];
+
+  function buildDoors() {
+    var el = document.getElementById("doors");
+    if (!el) return;
+    var counts = {};
+    var dayAgo = Date.now() - 86400000;
+    var fresh = 0, vendorSet = {};
+    ALL_ITEMS.forEach(function (it) {
+      var c = String(it._category || "").trim();
+      if (c && c !== "Other") counts[c] = (counts[c] || 0) + 1;
+      var t = submittedMs(it["Submission Time"]);
+      if (!isNaN(t) && t >= dayAgo) fresh++;
+      if (it._vendor) vendorSet[it._vendor] = 1;
+    });
+    DOOR_CATS = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 3);
+    var vendorN = Object.keys(vendorSet).length;
+
+    function door(key, kind, name, subTx, badge) {
+      return '<button class="door" type="button" data-door="' + escapeAttr(key) + '">' +
+        (badge ? '<span class="door-badge"><span class="d"></span>' + badge + '</span>' : '') +
+        '<span class="door-ico ' + kind + '">' + (DOOR_ICONS[key] || DOOR_ICONS._cat) + '</span>' +
+        '<span class="door-name">' + escapeHTML(name) + '</span>' +
+        (subTx ? '<span class="door-sub">' + escapeHTML(subTx) + '</span>' : '') +
+      '</button>';
+    }
+    var html = door("trending", "di-fire", "Trending", "", "") +
+      door("justin", "di-green", "Just in", fresh ? fresh + " today" : "", "") +
+      door("vendors", "di-green", "Vendors", vendorN ? vendorN + (vendorN === 1 ? " store" : " stores") : "", "");
+    DOOR_CATS.forEach(function (c) {
+      html += '<button class="door" type="button" data-door="cat:' + escapeAttr(c) + '">' +
+        '<span class="door-ico di-grey">' + (DOOR_ICONS[c] || DOOR_ICONS._cat) + '</span>' +
+        '<span class="door-name">' + escapeHTML(c) + '</span></button>';
+    });
+    html += door("auction", "di-fire", "Auction", "", AUC_LIVE_N ? AUC_LIVE_N + " LIVE" : "") +
+            door("more", "di-grey", "More", "", "");
+    el.innerHTML = html;
+    doorsSync();
+  }
+
+  function doorsSync() {
+    var sortSel = document.getElementById("sortSelect");
+    var sort = sortSel ? sortSel.value : "picks";
+    var active = "";
+    if (ACTIVE_VENDOR) active = "vendors";
+    else if (ACTIVE_FILTER !== "All") active = "cat:" + ACTIVE_FILTER;
+    else if (sort === "watching") active = "trending";
+    else if (sort === "newest") active = "justin";
+    var doors = document.querySelectorAll(".door");
+    Array.prototype.forEach.call(doors, function (d) {
+      d.classList.toggle("on", d.getAttribute("data-door") === active);
     });
   }
 
-  function startHot() {
-    stopHot();
-    hotTimer = setInterval(function () {
-      if (document.hidden || modalBg.classList.contains("open")) return;
-      var slide = document.getElementById("hotSlide");
-      slide.classList.add("fade");
-      setTimeout(function () {
-        hotIdx = (hotIdx + 1) % HOT.length;
-        paintHot();
-        slide.classList.remove("fade");
-      }, 300);
-    }, HOT_ROTATE_MS);
+  function resetDoors() {
+    ACTIVE_FILTER = "All"; ACTIVE_VENDOR = "";
+    var vs = document.getElementById("vendorSelect"); if (vs) vs.value = "";
+    document.getElementById("sortSelect").value = "picks";
+    PAGE = 1; renderChips();
   }
-  function stopHot() { if (hotTimer) { clearInterval(hotTimer); hotTimer = null; } }
+
+  function doorSheet(title, rows, onPick) {
+    var bg = document.getElementById("doorSheetBg");
+    if (!bg) {
+      bg = document.createElement("div");
+      bg.id = "doorSheetBg"; bg.className = "door-sheet-bg";
+      bg.innerHTML = '<div class="door-sheet"><div class="ds-title" id="dsTitle"></div><div id="dsRows"></div></div>';
+      document.body.appendChild(bg);
+      bg.addEventListener("click", function (e) { if (e.target === bg) bg.classList.remove("open"); });
+    }
+    document.getElementById("dsTitle").textContent = title;
+    var holder = document.getElementById("dsRows");
+    holder.innerHTML = rows.map(function (r) {
+      return '<button class="ds-row" type="button" data-v="' + escapeAttr(r.v) + '">' + escapeHTML(r.label) + '<span>' + r.n + '</span></button>';
+    }).join("");
+    holder.onclick = function (e) {
+      var b = e.target.closest(".ds-row");
+      if (!b) return;
+      bg.classList.remove("open");
+      onPick(b.getAttribute("data-v"));
+    };
+    bg.classList.add("open");
+  }
+
+  document.getElementById("doors").addEventListener("click", function (e) {
+    var d = e.target.closest(".door");
+    if (!d) return;
+    var key = d.getAttribute("data-door");
+    if (key === "auction") {
+      // The smart door: live lots get a preview right here, one tap
+      // from bidding. An empty block goes straight to the page.
+      if (AUC_LIVE.length) { aucPreview(); } else { window.location.href = "/auction-items"; }
+      return;
+    }
+    if (d.classList.contains("on")) { resetDoors(); render(); return; }
+    if (key === "trending") {
+      resetDoors(); document.getElementById("sortSelect").value = "watching"; render();
+    } else if (key === "justin") {
+      resetDoors(); document.getElementById("sortSelect").value = "newest"; render();
+    } else if (key === "vendors") {
+      var counts = {};
+      ALL_ITEMS.forEach(function (it) { if (it._vendor) counts[it._vendor] = (counts[it._vendor] || 0) + 1; });
+      var rows = Object.keys(counts).sort().map(function (v) { return { v: v, label: v, n: counts[v] + " items" }; });
+      if (!rows.length) return;
+      doorSheet("Vendors", rows, function (v) {
+        resetDoors(); ACTIVE_VENDOR = v;
+        var vs = document.getElementById("vendorSelect"); if (vs) vs.value = v;
+        render();
+      });
+      return;
+    } else if (key === "more") {
+      var cc = {};
+      ALL_ITEMS.forEach(function (it) { var c = String(it._category || "").trim(); if (c) cc[c] = (cc[c] || 0) + 1; });
+      var rows2 = Object.keys(cc).sort(function (a, b) { return cc[b] - cc[a]; }).map(function (c) { return { v: c, label: c, n: cc[c] + "" }; });
+      doorSheet("All categories", rows2, function (c) {
+        resetDoors(); ACTIVE_FILTER = c; renderChips(); render();
+        scrollToGrid();
+      });
+      return;
+    } else if (key.indexOf("cat:") === 0) {
+      resetDoors(); ACTIVE_FILTER = key.slice(4); renderChips(); render();
+    }
+    scrollToGrid();
+  });
+  /* The auction preview: what is burning right now, without leaving
+     the shop. Every row is a door to the bidding page. */
+  function aucPreview() {
+    var bg = document.getElementById("aucPrevBg");
+    if (!bg) {
+      bg = document.createElement("div");
+      bg.id = "aucPrevBg"; bg.className = "door-sheet-bg";
+      bg.innerHTML = '<div class="door-sheet"><div class="ds-title" style="display:flex;align-items:center;gap:8px;"><span class="auc-dot"></span>Live at auction</div><div id="apRows"></div><a class="ap-all" href="/auction-items">See the full auction page &rarr;</a></div>';
+      document.body.appendChild(bg);
+      bg.addEventListener("click", function (e) { if (e.target === bg) bg.classList.remove("open"); });
+    }
+    document.getElementById("apRows").innerHTML = AUC_LIVE.map(function (a) {
+      var ph = String(a.photo || "").trim();
+      return '<a class="ap-row" href="/auction-items?lot=' + encodeURIComponent(a.id || "") + '">' +
+        '<span class="ap-img">' + (ph ? '<img src="' + escapeAttr(ph) + '" alt="" loading="lazy" onerror="imgFail(this)">' : '') + '</span>' +
+        '<span class="ap-tx"><b>' + escapeHTML(a.name || "") + '</b>' +
+        '<span>' + (a.bids || 0) + ' bid' + ((a.bids || 0) === 1 ? '' : 's') + ' \u00b7 10 quiet minutes end it</span></span>' +
+        '<span class="ap-bid"><small>Current bid</small>\u20a6' + formatPrice(a.bid || a.start || 0) + '<em>Bid \u2192</em></span></a>';
+    }).join("");
+    bg.classList.add("open");
+  }
+
+  function scrollToGrid() {
+    var g = document.querySelector(".grid-section");
+    if (g) window.scrollTo({ top: g.offsetTop - 70, behavior: "smooth" });
+  }
+
+  /* ── THE BANNER ─────────────────────────────────────────────────
+     One line that rotates the hot picks; a live auction takes the
+     first slide and turns the border orange. */
+  var BANNER = [], bIdx = 0, bTimer = null;
+  function renderBanner() {
+    // Items lead on the items page: the hot picks carry the banner, and a
+    // live auction takes the SECOND slide, never the first. With nothing
+    // live the rotation is hot picks alone; with nothing hot either, the
+    // banner stays hidden.
+    BANNER = [];
+    HOT.slice(0, 5).forEach(function (it) {
+      if (firstImage(it["Product Photos"])) BANNER.push({ kind: "item", it: it });
+    });
+    if (AUC_LIVE_N > 0) BANNER.splice(Math.min(1, BANNER.length), 0, { kind: "auction" });
+    var el = document.getElementById("heroBanner");
+    if (!el) return;
+    if (!BANNER.length) { el.hidden = true; stopBanner(); return; }
+    el.hidden = false;
+    bIdx = 0; paintBanner(); startBanner();
+  }
+  function paintBanner() {
+    var s = BANNER[bIdx]; if (!s) return;
+    var el = document.getElementById("heroBanner");
+    var img = document.getElementById("hbImg");
+    delete img.dataset.failed;
+    if (s.kind === "auction") {
+      el.classList.add("auc-mode");
+      img.style.visibility = "hidden";
+      document.getElementById("hbTag").textContent = "Live at auction";
+      document.getElementById("hbName").textContent = AUC_LIVE_N === 1 ? "1 item taking bids right now" : AUC_LIVE_N + " items taking bids right now";
+      document.getElementById("hbPrice").textContent = "Ten quiet minutes end it";
+      document.getElementById("hbGo").textContent = "Bid →";
+    } else {
+      el.classList.remove("auc-mode");
+      var it = s.it;
+      var ph = firstImage(it["Product Photos"]);
+      if (ph) { img.src = ph; img.style.visibility = ""; } else { img.style.visibility = "hidden"; }
+      document.getElementById("hbTag").textContent = "Hot right now";
+      document.getElementById("hbName").textContent = it["Item Name"] || "";
+      document.getElementById("hbPrice").textContent = "₦" + formatPrice(it["Amount to sell"] || it["Amount to Buyer"]);
+      document.getElementById("hbGo").textContent = "View →";
+    }
+  }
+  function startBanner() {
+    stopBanner();
+    if (BANNER.length < 2) return;
+    bTimer = setInterval(function () {
+      if (document.hidden) return;
+      bIdx = (bIdx + 1) % BANNER.length; paintBanner();
+    }, 4500);
+  }
+  function stopBanner() { if (bTimer) { clearInterval(bTimer); bTimer = null; } }
+  document.getElementById("heroBanner").addEventListener("click", function (e) {
+    e.preventDefault();
+    var s = BANNER[bIdx]; if (!s) return;
+    if (s.kind === "auction") { window.location.href = "/auction-items"; return; }
+    openModal(s.it);
+  });
 
   (function wireHot() {
-    var strip = document.getElementById("hotStrip");
-    if (strip) strip.addEventListener("click", function () {
-      var it = HOT[hotIdx];
-      if (it) openModal(it);
-    });
-    ["hotRail", "newRail", "archRail"].forEach(function (rid) {
+    ["archRail"].forEach(function (rid) {
       var rail = document.getElementById(rid);
       if (rail) rail.addEventListener("click", function (e) {
         var card = e.target.closest(".hot-card");
@@ -2563,6 +2782,7 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
 
     renderSimilar(it);
     closePaystackPanel();
+    closeVendorGate();
 
     modalBg.classList.add("open");
     modalBg.setAttribute("aria-hidden", "false");
@@ -2760,7 +2980,43 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     document.getElementById("mcBuy").style.display = "";
   }
 
-  document.getElementById("mcBuy").addEventListener("click", openPaystackPanel);
+  /* The vendor gate. Vendor stock is scraped, and a scrape is only as
+     fresh as its last pass, so a buyer one click from paying for a ghost
+     gets offered the free ask first. Freshly confirmed items skip it:
+     the whole point of a confirmation is not having to ask again. One
+     show per item per visit, because a warning repeated becomes a nag
+     and then wallpaper. */
+  var VGATE_HOURS = 12;
+  var VGATE_SEEN = {};
+  function vendorGateDue(it) {
+    if (!it || !isVendorItem(it)) return false;
+    if (VGATE_SEEN[it["Item ID"]]) return false;
+    // A buyer paying off an answered request has already asked. The
+    // seller's reply is fresher than any scrape, so no second ask.
+    if (OFFER.data && String(OFFER.itemId || "") === String(it["Item ID"] || "")) return false;
+    var t = submittedMs(it["Last Confirmed At"]);
+    return isNaN(t) || (Date.now() - t) > VGATE_HOURS * 3600 * 1000;
+  }
+  function closeVendorGate() { document.getElementById("mcVGate").classList.remove("open"); }
+
+  document.getElementById("mcBuy").addEventListener("click", function () {
+    if (vendorGateDue(currentItem)) {
+      VGATE_SEEN[currentItem["Item ID"]] = true;
+      document.getElementById("mcBuy").style.display = "none";
+      document.getElementById("mcVGate").classList.add("open");
+      return;
+    }
+    openPaystackPanel();
+  });
+  document.getElementById("vgAsk").addEventListener("click", function () {
+    closeVendorGate();
+    document.getElementById("mcBuy").style.display = "";
+    openRequestSheet();
+  });
+  document.getElementById("vgPay").addEventListener("click", function () {
+    closeVendorGate();
+    openPaystackPanel();
+  });
   document.getElementById("mcCancel").addEventListener("click", closePaystackPanel);
 
   document.getElementById("mcProceed").addEventListener("click", function () {
@@ -3254,13 +3510,24 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     // now" error. They stay out of the grid and out of the live count, and
     // they are kept so a deep link can open one. A paid question on an
     // archived item is the cheapest way one gets verified and relisted.
+    // Grabs listings ride the same feed but carry no price. They must
+    // never land in the priced grid, where a blank price reads as free.
+    // They are split out here and surface only in their own rail.
+    function _isGrabsItem(it) {
+      return String(it["Listing Type"] || "").trim().toLowerCase() === "grabs";
+    }
     ALL_ITEMS = items.filter(function (it) {
-      return String(it["Status"] || "").trim().toLowerCase() === "active";
+      return String(it["Status"] || "").trim().toLowerCase() === "active" && !_isGrabsItem(it);
+    });
+    GRABS_ITEMS = items.filter(function (it) {
+      return String(it["Status"] || "").trim().toLowerCase() === "active" && _isGrabsItem(it);
     });
     ARCHIVED = items.filter(isArchivedItem);
     RECENT_SOLD = (data && Array.isArray(data.recentSold)) ? data.recentSold : [];
     log("hydrate:", ALL_ITEMS.length, "active,", ARCHIVED.length, "archived,", RECENT_SOLD.length, "recent sold");
-    renderChips(); renderVendors(); render(); renderSoldStrip(); renderHot();
+    renderChips(); renderVendors(); render(); renderSoldStrip(); renderHot(); renderGrabsRail();
+    // The doors mirror whatever state render just used.
+    render = (function (r0) { return function () { r0(); if (typeof doorsSync === "function") doorsSync(); }; })(render);
     var liveCount = ALL_ITEMS.length;
     document.getElementById("heroLiveText").textContent = liveCount + (liveCount === 1 ? " item live" : " items live");
 

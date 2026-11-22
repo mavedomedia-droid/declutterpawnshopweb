@@ -1,1800 +1,910 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KXMZ5G5S');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DPS Auction &mdash; Live Items</title>
-<meta name="description" content="DPS Auction — live secondhand items from Lagos. Bid on sneakers, phones, gadgets and more. Updated in real time.">
-<meta property="og:title" content="DPS Auction — Live Items">
-<meta property="og:description" content="Bid on quality secondhand items from Lagos. Live auctions updated in real time.">
-<meta property="og:image" content="https://declutterpawnshop.com/images/dps-logo.png">
-<meta property="og:url" content="https://declutterpawnshop.com/auction-items">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#0A0A0A">
+<title>Live Auctions — DPS</title>
+<meta name="description" content="What is up for auction at DPS right now. Live auctions, early bidding, and recent results.">
+<meta name="theme-color" content="#0E1320">
 <link rel="canonical" href="https://declutterpawnshop.com/auction-items">
-<link rel="icon" href="/images/dps-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://declutterpawnshop.com/auction-items">
+<meta property="og:title" content="Live Auctions — DPS">
+<meta property="og:description" content="Live auctions and early bidding. Ten quiet minutes end it, the highest bid takes it.">
+<meta property="og:image" content="https://declutterpawnshop.com/assets/og-image.jpg">
+<meta property="og:site_name" content="Declutter Pawn Shop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live Auctions — DPS">
+<meta name="twitter:description" content="What is up for auction right now.">
+<link rel="icon" href="/assets/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
-:root{
-  --amber:#FFB300;--amber2:#FF8F00;
-  --abg:rgba(255,179,0,0.08);--aborder:rgba(255,179,0,0.2);
-  --dark:#0A0A0A;--dark2:#111;--dark3:#1A1A1A;--dark4:#242424;--dark5:#2E2E2E;
-  --grey:#777;--mid:#4A4A4A;--muted:#555;--white:#F9F8F5;
-  --green:#00C853;--gbg:rgba(0,200,83,0.08);--gborder:rgba(0,200,83,0.2);
-  --blue:#42A5F5;--bbg:rgba(66,165,245,0.08);--bborder:rgba(66,165,245,0.2);
-  --red:#EF5350;
+/* ── Tokens. Auction accent: orange from the start. ── */
+:root {
+  --green: #FF6B2C; --green-dark: #E85512; --green-deep: #C94708;
+  --ink: #0E1320; --ink-2: #161C2B; --ink-3: #1E2536; --ink-4: #2A3248;
+  --off-white: #F5F7F8; --white: #FFFFFF;
+  --stone: #A7B0AA; --stone-light: #C6CFC9; --stone-dark: #5B635D;
+  --mint: #FFD9C2; --mint-soft: #FFF3EC;
+  --border: #E1E5E4; --border-ink: #D6DCE0; --border-dark: #242C3E;
+  --text-primary: var(--ink);
+  --text-secondary: #4F5860;
+  --text-muted: #8A928C;
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Space Grotesk', 'Manrope', sans-serif; /* the auction number font, everywhere an amount shows */
+  --r-card: 16px; --r-button: 12px; --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(14,19,32,.04), 0 1px 1px rgba(14,19,32,.03);
+  --shadow-md: 0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;line-height:1.5;overflow-x:hidden}
-::-webkit-scrollbar{width:3px;height:3px}
-::-webkit-scrollbar-track{background:var(--dark2)}
-::-webkit-scrollbar-thumb{background:var(--dark5)}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-body); background: var(--off-white); color: var(--text-primary); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
+h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select { font-family: inherit; }
+.wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .wrap { padding: 0 40px; } }
 
-/* ── NAV ── */
-nav{
-  position:sticky;top:0;z-index:300;
-  background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,179,0,0.1);
-  height:72px;padding:0 6vw;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo img{height:56px;object-fit:contain}
-.nav-badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);border:1px solid rgba(255,179,0,0.4);border-radius:3px;padding:3px 8px}
-.nav-links{display:flex;align-items:center;gap:24px}
-.nav-links a{color:var(--grey);font-size:13px;text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{background:var(--amber);color:var(--dark)!important;font-weight:700!important;font-size:13px;padding:9px 20px;border-radius:5px}
-.nav-cta:hover{background:var(--amber2)!important}
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: var(--r-button); transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s; cursor: pointer; white-space: nowrap; letter-spacing: -0.005em; }
+.btn-primary { background: var(--green); color: var(--white); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 0 var(--green-deep); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 1px 0 var(--green-deep); }
+.btn-primary:disabled { opacity: .6; cursor: default; transform: none; }
+.btn-ghost-dark { border: 1.5px solid rgba(255,255,255,.22); color: var(--white); background: transparent; }
+.btn-ghost-dark:hover { border-color: var(--green); color: var(--green); }
 
-/* ── SRC BANNER ── */
-.src-banner{
-  background:rgba(66,165,245,0.08);border-bottom:1px solid rgba(66,165,245,0.15);
-  padding:6px 6vw;font-size:11px;color:var(--blue);
-  display:flex;align-items:center;gap:8px;
-}
-.src-banner.live{background:rgba(0,200,83,0.06);border-color:rgba(0,200,83,0.15);color:var(--green)}
-.src-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;animation:pulse-dot 1.8s infinite}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+/* ─── Nav (injected by dps-partials.js) ─── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,19,32,0.92); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
+.nav-logo img { height: 32px; width: auto; }
+.nav-links { display: none; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 13.5px; font-weight: 500; color: var(--stone-light); transition: color .15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--white); }
+.nav-cta { display: none; }
+@media (min-width: 900px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; padding: 9px 18px; font-size: 13px; } }
+.nav-mobile-cta { display: inline-flex; padding: 8px 14px; font-size: 12.5px; }
+@media (min-width: 900px) { .nav-mobile-cta { display: none; } }
 
-/* ── PAGE HEADER ── */
-.page-header{padding:24px 6vw 18px;border-bottom:1px solid var(--dark3)}
-.ph-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.ph-left h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,40px);letter-spacing:2px;background:linear-gradient(135deg,var(--white) 40%,var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px}
+/* ═══ HERO STRIP ═══ Thin and dark. The block is the content. ═══ */
+.hero { background: var(--ink); color: var(--white); padding: 96px 0 26px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -160px; right: -100px; width: 440px; height: 440px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,44,.15) 0%, rgba(255,107,44,0) 65%); pointer-events: none; }
+.hero-inner { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.hero-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); padding: 5px 12px; border-radius: var(--r-pill); background: rgba(255,107,44,.12); border: 1px solid rgba(255,107,44,.32); margin-bottom: 10px; }
+.hero-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.hero h1 { color: var(--white); font-size: clamp(30px, 5.5vw, 44px); }
+.hero h1 em { font-style: normal; color: var(--green); }
+.hero-sub { font-size: 14px; color: var(--stone-light); margin-top: 6px; }
+.hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.hp { display: inline-flex; align-items: center; gap: 8px; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-light); border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); padding: 6px 12px; border-radius: var(--r-pill); }
+.hp b { font-family: var(--font-mono); font-size: 15px; font-weight: 500; color: var(--white); }
+.hp .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.hp .d-live { background: #EF4444; animation: pulse 1.2s ease-in-out infinite; }
+.hp .d-open { background: var(--green); }
+.hp .d-done { background: var(--stone); }
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero-actions .btn { padding: 10px 18px; font-size: 13.5px; }
 
+/* ═══ SECTIONS ═══ */
+.block-section { padding: 26px 0 6px; }
+.sec-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.sec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sd-live { background: #EF4444; animation: pulse 1.2s ease-in-out infinite; }
+.sd-early { background: var(--green); }
+.sd-wait { background: #F59E0B; }
+.sd-done { background: var(--stone); }
+.sec-title { font-size: 19px; letter-spacing: -0.02em; }
+.sec-count { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-left: 2px; }
+.sec-note { font-size: 12px; color: var(--text-muted); margin-left: auto; text-align: right; }
 
-.filter-desc-bar{
-  background:var(--dark2);border-bottom:1px solid var(--dark3);
-  padding:7px 6vw;min-height:30px;
-  transition:background .2s;
-}
-.filter-desc-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px}
-.fd-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
-#fd-text{font-size:11px;color:var(--grey);line-height:1.4}
-.filter-desc-bar.is-live   .fd-dot{background:var(--amber)}
-.filter-desc-bar.is-live   #fd-text{color:rgba(255,179,0,0.8)}
-.filter-desc-bar.is-opening .fd-dot{background:var(--amber)}
-.filter-desc-bar.is-opening #fd-text{color:rgba(255,179,0,0.7)}
-.filter-desc-bar.is-prebid .fd-dot{background:var(--blue)}
-.filter-desc-bar.is-prebid #fd-text{color:rgba(66,165,245,0.8)}
-.filter-desc-bar.is-ended  .fd-dot{background:var(--muted)}
-.filter-desc-bar.is-ended  #fd-text{color:var(--muted)}
+/* ═══ LIVE CARDS ═══ The main event. A left-to-right rail, so the live
+   row reads like a ticker of what is burning right now. ═══ */
+.live-rail { display: flex; gap: 14px; overflow-x: auto; padding: 2px 2px 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border-ink) transparent; }
+.live-rail::-webkit-scrollbar { height: 6px; }
+.live-rail::-webkit-scrollbar-thumb { background: var(--border-ink); border-radius: 99px; }
+.live-card { flex: 0 0 58%; max-width: 235px; scroll-snap-align: start; background: var(--white); border: 1.5px solid rgba(255,107,44,.5); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 20px rgba(255,107,44,.09), var(--shadow-sm); display: flex; flex-direction: column; }
+@media (min-width: 640px) { .live-card { flex-basis: 215px; } }
+.lc-photo { position: relative; aspect-ratio: 4 / 3; background: var(--ink-3); }
+.lc-photo img { width: 100%; height: 100%; object-fit: cover; }
+.lc-flag { position: absolute; top: 10px; left: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: #DC2626; padding: 5px 10px; border-radius: var(--r-pill); }
+.lc-flag .dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: pulse 1.2s ease-in-out infinite; }
+.lc-body { padding: 11px 12px 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.lc-name { font-family: var(--font-heading); font-weight: 800; font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; letter-spacing: -0.015em; line-height: 1.25; color: var(--ink); }
+.lc-meta { font-size: 10.5px; color: var(--text-muted); }
+.lc-bidrow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.lc-bid { font-family: var(--font-mono); font-weight: 700; font-size: 17px; color: var(--green-deep); letter-spacing: -0.01em; }
+.live-card[data-open], .early-card[data-open] { cursor: pointer; }
+.lc-mini { display: inline-flex; align-items: center; gap: 7px; margin-top: 1px; }
+.lc-mini b { font-family: var(--font-mono); font-weight: 700; font-size: 16.5px; color: var(--green-deep); letter-spacing: -0.01em; }
+.lcm { width: 26px; height: 26px; border-radius: 8px; border: 1.5px solid rgba(255, 107, 44, .4); background: var(--mint-soft); color: var(--green-deep); font-size: 15px; font-weight: 800; line-height: 1; display: inline-flex; align-items: center; justify-content: center; padding: 0; flex-shrink: 0; }
+.lcm:active { background: var(--green); color: var(--white); border-color: var(--green); }
+.lc-bid small { font-size: 11px; color: var(--text-muted); display: block; font-family: var(--font-body); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.lc-count { font-size: 10.5px; color: var(--text-secondary); text-align: right; }
+.lc-timer { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--text-secondary); background: var(--mint-soft); border: 1px solid var(--mint); border-radius: 9px; padding: 7px 10px; }
+.lc-timer svg { width: 13px; height: 13px; color: var(--green-deep); flex-shrink: 0; }
+.lc-timer b { color: var(--green-deep); }
+.live-card .btn { width: 100%; padding: 10px 12px; font-size: 13px; }
 
-.ph-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
-.ph-pill{font-size:11px;font-weight:600;color:rgba(249,248,245,0.7);white-space:nowrap}
-.ph-pill-dot{color:var(--amber);font-size:14px;line-height:1}
+/* ═══ EARLY CARDS ═══ Smaller, progress toward opening. ═══ */
+.early-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+.early-chips::-webkit-scrollbar { display: none; }
+.e-chip { flex-shrink: 0; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--white); font-size: 12.5px; font-weight: 700; color: var(--text-secondary); transition: all .12s; }
+.e-chip.on { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.early-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 720px) { .early-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1080px) { .early-grid { grid-template-columns: repeat(4, 1fr); } }
+.early-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+.ec-photo { aspect-ratio: 1 / 1; background: var(--ink-3); position: relative; }
+.ec-photo img { width: 100%; height: 100%; object-fit: cover; }
+.ec-body { padding: 11px 12px 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.ec-name { font-family: var(--font-heading); font-weight: 700; font-size: 13.5px; letter-spacing: -0.01em; line-height: 1.3; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ec-start { font-family: var(--font-mono); font-size: 14px; color: var(--ink); }
+.ec-start small { font-size: 10px; color: var(--text-muted); display: block; font-family: var(--font-body); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.ec-prog { display: flex; flex-direction: column; gap: 4px; }
+.ec-prog-bar { height: 5px; border-radius: 99px; background: var(--border); overflow: hidden; }
+.ec-prog-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width .3s; }
+.ec-prog-tx { font-size: 10.5px; color: var(--text-muted); }
+.ec-prog-tx b { color: var(--green-deep); }
+.early-card .btn { width: 100%; padding: 9px 12px; font-size: 13px; }
 
-.ph-desc{font-size:12px;color:rgba(249,248,245,0.5);max-width:500px;line-height:1.7}
-.ph-desc strong{color:rgba(249,248,245,0.75);font-weight:500}
-.ph-right a{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FFB300,#FF8F00);color:#1A0A00;font-weight:700;font-size:11px;padding:9px 18px;border-radius:5px;text-decoration:none;white-space:nowrap;margin-top:4px}
-.ph-right a:hover{background:linear-gradient(135deg,#FFCA28,#FF8F00)}
+/* ═══ QUIET ROWS ═══ Awaiting payment and ended, one line each. ═══ */
+.quiet-list { display: flex; flex-direction: column; gap: 8px; }
+.quiet-row { display: flex; align-items: center; gap: 12px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+.qr-photo { width: 44px; height: 44px; border-radius: 9px; background: var(--ink-3); overflow: hidden; flex-shrink: 0; }
+.qr-photo img { width: 100%; height: 100%; object-fit: cover; }
+.qr-name { font-weight: 700; font-size: 13.5px; color: var(--ink); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qr-price { font-family: var(--font-mono); font-size: 13px; color: var(--text-secondary); }
+.qr-chip { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 9px; border-radius: var(--r-pill); flex-shrink: 0; }
+.qc-wait { background: #FEF3C7; color: #92400E; }
+.qc-sold { background: #ECFDF3; color: #047857; }
+.qc-gone { background: var(--off-white); color: var(--text-muted); border: 1px solid var(--border); }
 
-/* ── FILTER TABS ── */
-.filter-bar{
-  position:sticky;top:72px;z-index:200;
-  background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--dark3);
-  padding:10px 0;
-}
-.filter-bar-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;gap:5px;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  padding:0 6vw;
-}
-.filter-bar-inner::-webkit-scrollbar{display:none}
-.ftab{
-  font-size:11px;font-weight:600;padding:6px 13px;border-radius:20px;
-  cursor:pointer;border:1px solid var(--dark4);color:var(--grey);
-  background:transparent;transition:all .15s;font-family:inherit;
-  white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:5px;
-}
-.ftab:hover{border-color:var(--dark5);color:var(--white)}
-.ftab.active{background:var(--amber);color:#1A0A00;border-color:var(--amber);font-weight:700}
-.ftab-live.active{background:var(--abg);color:var(--amber);border-color:var(--aborder)}
-.ftab-opening.active{background:rgba(66,165,245,.1);color:var(--blue);border-color:rgba(66,165,245,.3)}
-.ftab-prebid.active{background:rgba(255,255,255,.05);color:var(--white);border-color:rgba(255,255,255,.2)}
-.ftab-ended.active{background:var(--gbg);color:var(--green);border-color:var(--gborder)}
-.live-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);display:inline-block;animation:blink 1.4s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+/* ═══ EMPTY / LOADING ═══ */
+.empty { text-align: center; padding: 54px 18px; background: var(--white); border: 1.5px dashed var(--border-ink); border-radius: var(--r-card); }
+.empty h3 { font-size: 19px; margin-bottom: 6px; }
+.empty p { font-size: 14px; color: var(--text-secondary); max-width: 400px; margin: 0 auto 18px; }
+.skeleton { height: 150px; border-radius: var(--r-card); background: linear-gradient(90deg, #EDF0F1 25%, #F7F9FA 50%, #EDF0F1 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
-/* ── MAIN CONTAINER ── */
-.main{max-width:1200px;margin:0 auto;padding:0 6vw 60px}
+/* ═══ BID SHEET ═══ */
+.sheet-bg { position: fixed; inset: 0; z-index: 400; background: rgba(14,19,32,.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); display: none; align-items: flex-end; justify-content: center; }
+.sheet-bg.open { display: flex; }
+@media (min-width: 640px) { .sheet-bg { align-items: center; padding: 20px; } }
+.sheet { background: var(--white); width: 100%; max-width: 440px; border-radius: 18px 18px 0 0; padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px)); max-height: 90vh; overflow-y: auto; }
+@media (min-width: 640px) { .sheet { border-radius: 18px; } }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.sheet-title { font-size: 19px; }
+.sheet-x { width: 32px; height: 32px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-secondary); flex-shrink: 0; }
+.sheet-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
+.sheet-sub b { color: var(--green-deep); }
+/* bid sheet hero: the item itself, cropped, with the state on top of it */
+.sheet-hero { position: relative; margin: -20px -18px 0; height: 140px; background: var(--ink-3); border-radius: 18px 18px 0 0; overflow: hidden; }
+.sheet-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sheet-hero img[hidden] { display: none; }
+.sh-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,19,32,.22) 0%, rgba(14,19,32,.04) 42%, rgba(14,19,32,.84) 100%); }
+.sheet-x-float { position: absolute; top: 12px; right: 12px; background: rgba(14,19,32,.55); color: var(--white); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.sh-cap { position: absolute; left: 16px; right: 16px; bottom: 11px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sh-name { font-family: var(--font-heading); font-weight: 800; font-size: 16.5px; letter-spacing: -0.02em; color: var(--white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sh-state { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; font-size: 9.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--r-pill); }
+.sh-state.live { background: #DC2626; color: var(--white); }
+.sh-state.early { background: var(--green); color: var(--white); }
+.sh-state .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--white); animation: pulse 1.6s ease-in-out infinite; }
 
-/* ── SECTION ── */
-.section-block{margin-top:24px}
-.section-block+.section-block{margin-top:8px}
-.sec-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 0 10px;border-bottom:1px solid var(--dark3);margin-bottom:10px;
-}
-.sec-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.sec-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:#fff;display:flex;align-items:center;gap:6px}
-.sec-count{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px}
-.sc-amber{background:var(--abg);color:var(--amber);border:1px solid var(--aborder)}
-.sc-blue{background:var(--bbg);color:var(--blue);border:1px solid var(--bborder)}
-.sc-white{background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12)}
-.sc-green{background:var(--gbg);color:var(--green);border:1px solid var(--gborder)}
-.sec-note{font-size:10px;color:var(--grey)}
-.sec-filter-btn{
-  font-size:9px;font-weight:700;letter-spacing:.5px;
-  padding:4px 10px;border-radius:12px;cursor:pointer;
-  background:transparent;border:1px solid var(--dark4);color:var(--grey);
-  font-family:inherit;transition:all .15s;white-space:nowrap;
-}
-.sec-filter-btn:hover{border-color:var(--amber);color:var(--amber)}
-.sec-filter-btn.on{border-color:var(--amber);color:var(--amber);background:var(--abg)}
+/* dark stat panel: the highest bid is the star of the show */
+.sheet-stats { position: relative; overflow: hidden; background: var(--ink); border: 1px solid var(--border-dark); border-radius: 14px; margin: 14px 0 14px; padding: 11px 14px 12px; text-align: center; }
+.sheet-stats::before { content: ""; position: absolute; left: -20%; right: -20%; top: -40%; height: 120%; background: radial-gradient(ellipse at 50% 0%, rgba(255,107,44,.07), transparent 65%); pointer-events: none; }
+.ss-clock { position: relative; display: flex; align-items: center; justify-content: center; gap: 7px; width: max-content; max-width: 100%; margin: 0 auto 10px; padding: 5px 13px; font-family: var(--font-mono); background: rgba(255, 107, 44, .09); border: 1px solid rgba(255, 107, 44, .32); border-radius: var(--r-pill); }
+.ss-clock .ss-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 1.6s ease-in-out infinite; flex-shrink: 0; }
+.ss-clock b { font-size: 17px; font-weight: 700; color: var(--green); letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ss-clock small { font-family: var(--font-body); font-size: 10.5px; font-weight: 600; color: var(--stone); }
+.ss-label { position: relative; display: block; font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); margin-bottom: 1px; }
+.ss-high { position: relative; font-family: var(--font-mono); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; line-height: 1.15; color: var(--white); }
+.ss-meta { position: relative; margin-top: 3px; font-size: 11.5px; color: var(--stone); }
+.ss-meta b { font-family: var(--font-mono); font-weight: 500; color: var(--stone-light); }
+.sheet-notice { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-radius: 10px; padding: 9px 13px; margin-bottom: 12px; font-size: 12.5px; font-weight: 700; }
+.sheet-notice[hidden], .ss-clock[hidden] { display: none; }
+.sheet-notice.live { background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C; }
+.sheet-notice.early { background: var(--mint-soft); border: 1px solid var(--mint); color: var(--green-deep); }
+.sheet-notice .sn-timer { font-family: var(--font-mono); font-size: 15px; font-weight: 500; }
+.sheet-notice small { font-weight: 500; opacity: .8; }
+.sheet-terms { margin: 10px 0 0; font-size: 10.5px; line-height: 1.5; color: var(--text-muted); text-align: center; }
+.f { margin-bottom: 11px; }
+.f label { display: block; font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+.f label em { color: var(--green-dark); font-style: normal; }
+.f input { width: 100%; font-size: 16px; padding: 12px 13px; border: 1.5px solid var(--border-ink); border-radius: 10px; background: var(--white); color: var(--ink); outline: none; transition: border-color .15s; }
+.f input:focus { border-color: var(--green); }
+.stepper { display: flex; align-items: stretch; gap: 8px; }
+.amt-box { position: relative; flex: 1; min-width: 0; }
+.amt-box .nsign { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--green-deep); opacity: .55; pointer-events: none; }
+.amt-box input { width: 100%; text-align: center; font-family: var(--font-mono); font-size: 20px; font-weight: 700; color: var(--green-deep); padding-left: 28px; padding-right: 28px; }
+.step-btn { width: 68px; border-radius: 10px; border: 1.5px solid rgba(255, 107, 44, .4); background: var(--mint-soft); font-size: 22px; font-weight: 700; color: var(--green-deep); transition: background .12s, border-color .12s, color .12s; }
+.step-btn:active { background: var(--green); border-color: var(--green); color: var(--white); }
 
-/* ── HORIZONTAL TRACK ── */
-.track{
-  display:flex;gap:8px;
-  overflow-x:auto;padding-bottom:4px;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:thin;
-  scrollbar-color:var(--dark4) transparent;
-}
-.track::-webkit-scrollbar{height:3px}
-.track::-webkit-scrollbar-track{background:transparent}
-.track::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px}
+/* ── THE DEMO ── a lot that auctions itself for first-timers */
+.demo-strip { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: var(--white); border: 1.5px dashed rgba(255, 107, 44, .5); border-radius: 14px; padding: 12px 14px; margin-bottom: 24px; cursor: pointer; transition: border-color .15s; }
+.demo-strip:active { border-color: var(--green); }
+.demo-strip .dg { width: 38px; height: 38px; border-radius: 10px; background: var(--mint-soft); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--green); }
+.demo-strip .dg svg { width: 22px; height: 19px; }
+.demo-tx { flex: 1; min-width: 0; }
+.demo-tx b { display: block; font-size: 13.5px; color: var(--ink); }
+.demo-tx span { font-size: 11.5px; color: var(--text-muted); }
+.demo-go { font-weight: 800; font-size: 12.5px; color: #C94708; white-space: nowrap; }
+.hiw-step { display: flex; gap: 12px; padding: 12px 2px; border-bottom: 1px dashed var(--border); }
+.hiw-step:last-of-type { border-bottom: none; }
+.hiw-n { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+.hiw-step.hot .hiw-n { background: var(--green); }
+.hiw-tx { flex: 1; min-width: 0; }
+.hiw-tx b { display: block; font-size: 13.5px; color: var(--ink); margin-bottom: 2px; }
+.hiw-tx span { font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); }
+.hiw-tx em { font-style: normal; font-family: var(--font-mono); font-weight: 700; color: var(--green-deep); }
+.hiw-gavel { display: flex; justify-content: center; padding: 8px 0 0; }
+.dm-actions { display: flex; margin-top: 12px; }
+.dm-actions .btn { flex: 1; }
 
-/* ── CARD D (Brutalist Compact) ── */
-.card{
-  width:182px;flex-shrink:0;
-  background:#111;border:1px solid var(--dark4);
-  border-radius:6px;overflow:hidden;
-  transition:border-color .15s;
+/* THE GAVEL (shared mark, orange head) */
+.gavel-wrap { display: flex; justify-content: center; }
+.gavel-svg { width: 92px; height: 76px; overflow: visible; }
+.gv-head { fill: var(--green); }
+.gv-handle { fill: var(--ink); }
+.gv-base, .gv-base2 { fill: var(--ink); opacity: .85; }
+.gv-burst { opacity: 0; }
+.gv-burst line { stroke: var(--green); stroke-width: 3.5; stroke-linecap: round; }
+.gv-hammer { transform-origin: 88px 33px; transform: rotate(-30deg); }
+[data-loop="once"] .gv-hammer { animation: gvOnce 1.15s linear 3; animation-fill-mode: forwards; }
+[data-loop="once"] .gv-burst { animation: gvOnceBurst 1.15s linear 3; }
+@keyframes gvOnce {
+  0%   { transform: rotate(-30deg); animation-timing-function: ease-out; }
+  20%  { transform: rotate(-42deg); animation-timing-function: cubic-bezier(.55,0,.95,.45); }
+  32%  { transform: rotate(9deg); animation-timing-function: ease-out; }
+  38%  { transform: rotate(4deg); animation-timing-function: ease-in; }
+  44%  { transform: rotate(9deg); }
+  64%  { transform: rotate(9deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(-30deg); }
 }
-.card:hover{border-color:var(--dark5)}
-.card.is-live{border-color:var(--aborder);background:#0F0F0F}
-.card.is-opening{border-color:rgba(66,165,245,.25)}
-.c-bar{height:3px;display:none}
-.is-live .c-bar{display:block;background:linear-gradient(90deg,#FFB300,#FF8F00)}
-.is-opening .c-bar{display:block;background:linear-gradient(90deg,var(--blue),#42A5F5)}
-.c-img{
-  height:70px;background:#1A1A1A;
-  display:flex;align-items:center;justify-content:center;
-  font-size:30px;position:relative;flex-shrink:0;overflow:hidden;
-}
-.c-img img{width:100%;height:100%;object-fit:cover;display:block}
-.c-img .eph{font-size:30px}
-.c-status{
-  position:absolute;top:0;right:0;
-  font-size:7px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  padding:3px 7px;border-bottom-left-radius:5px;
-}
-.st-live{background:var(--abg);color:var(--amber);border-bottom:1px solid var(--aborder);border-left:1px solid var(--aborder)}
-.st-opening{background:rgba(66,165,245,.1);color:var(--blue);border-bottom:1px solid rgba(66,165,245,.3);border-left:1px solid rgba(66,165,245,.3)}
-.st-prebid{background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.1);border-left:1px solid rgba(255,255,255,.1)}
-.st-sold{background:var(--gbg);color:var(--green);border-bottom:1px solid var(--gborder);border-left:1px solid var(--gborder)}
-.st-exp{background:var(--dark3);color:var(--grey);border-bottom:1px solid var(--dark4);border-left:1px solid var(--dark4)}
-.c-body{padding:8px 9px}
-.c-name{font-size:11px;font-weight:600;color:#F9F8F5;line-height:1.35;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.c-meta{font-size:8px;color:#555;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.c-stats{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  gap:1px;background:#1A1A1A;border-radius:4px;overflow:hidden;margin-bottom:7px;
-}
-.cs{background:#0A0A0A;padding:4px 3px;text-align:center}
-.csl{font-size:7px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555;margin-bottom:1px}
-.csv{font-family:'DM Mono',monospace;font-size:10px;color:#F9F8F5}
-.csv.a{color:var(--amber)}.csv.g{color:var(--green)}.csv.b{color:var(--blue)}
-.c-prog-wrap{margin-bottom:7px}
-.c-prog-row{display:flex;justify-content:space-between;margin-bottom:3px}
-.c-prog-row span{font-size:8px;color:var(--grey)}
-.c-prog-row strong{font-size:8px;color:var(--amber);font-weight:500}
-.c-prog-bar{height:2px;background:#1A1A1A;border-radius:2px;overflow:hidden}
-.c-prog-fill{height:100%;background:var(--amber);border-radius:2px}
-.c-foot{display:flex;align-items:center;gap:5px}
-.c-timer{
-  font-family:'DM Mono',monospace;font-size:10px;color:var(--red);
-  flex:0 0 auto;background:#0A0A0A;padding:4px 7px;border-radius:4px;border:1px solid #1A1A1A;
-}
-.c-timer.blue{color:var(--blue)}
-.c-timer.grey{color:var(--grey)}
-.c-timer.final-countdown{color:var(--red)!important;animation:blink .8s infinite}
-.c-btn{
-  flex:1;font-size:10px;font-weight:700;padding:5px 0;
-  border-radius:4px;border:none;cursor:pointer;
-  font-family:inherit;background:linear-gradient(135deg,#FFB300,#FF8F00);
-  color:#1A0A00;text-align:center;transition:opacity .15s;
-}
-.c-btn:hover{opacity:.85}
-.c-btn-g{
-  flex:1;font-size:10px;font-weight:700;padding:5px 0;
-  border-radius:4px;cursor:pointer;background:transparent;
-  border:1.5px solid var(--amber);color:var(--amber);font-family:inherit;text-align:center;
-}
-.c-btn-g.blue{border-color:var(--blue);color:var(--blue)}
-.c-closed{
-  flex:1;text-align:center;font-size:9px;padding:5px;
-  border-radius:4px;
-}
-.c-closed.sold{background:var(--gbg);border:1px solid var(--gborder);color:var(--green)}
-.c-closed.exp{background:var(--dark3);border:1px solid var(--dark4);color:var(--grey)}
-.c-locked{
-  flex:1;text-align:center;font-size:9px;padding:5px;
-  border-radius:4px;background:rgba(239,83,80,0.08);
-  border:1px solid rgba(239,83,80,0.25);color:var(--red);
-  font-weight:700;letter-spacing:.5px;
-}
-.c-awaiting{
-  flex:1;text-align:center;font-size:9px;padding:5px;
-  border-radius:4px;background:rgba(255,179,0,0.08);
-  border:1px solid rgba(255,179,0,0.25);color:var(--amber);
-  font-weight:700;letter-spacing:.5px;
-}
-.card.is-awaiting{border-color:rgba(255,179,0,0.3);background:#0F0F0F}
-.is-awaiting .c-bar{display:block;background:linear-gradient(90deg,#FF8F00,#E65100)}
-.pv-cta-locked{background:var(--dark3);color:var(--muted);border:1.5px solid var(--dark5);cursor:default}
-.pv-awaiting-notice{
-  padding:10px 12px;background:rgba(255,179,0,0.06);border:1px solid var(--aborder);
-  border-radius:7px;display:flex;flex-direction:column;gap:4px;
-}
-.pv-awaiting-notice .pan-label{font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.5px;text-transform:uppercase}
-.pv-awaiting-notice .pan-timer{font-size:20px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace}
-.pv-awaiting-notice .pan-sub{font-size:11px;color:var(--grey)}
+@keyframes gvOnceBurst { 0%,31% { opacity: 0; } 33%,46% { opacity: 1; } 56%,100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .gv-hammer, .gv-burst { animation: none !important; } .gv-hammer { transform: rotate(9deg); } }
+.quick-raise { display: flex; gap: 7px; margin-top: 8px; }
+.qr-btn { flex: 1; padding: 8px 4px; border-radius: 9px; border: 1.5px solid rgba(255, 107, 44, .28); background: var(--white); font-size: 12.5px; font-weight: 700; color: #C94708; transition: border-color .12s, color .12s, background .12s; }
+.qr-btn:active { background: var(--mint-soft); border-color: var(--green); }
+.sheet-detail { margin: 0 0 12px; }
+.sd-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.sd-chip { font-size: 10.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; background: var(--ink); color: var(--stone-light); padding: 5px 10px; border-radius: var(--r-pill); }
+.sd-chip.sd-id { font-family: var(--font-mono); background: var(--off-white); color: var(--text-muted); border: 1px solid var(--border); text-transform: none; letter-spacing: .02em; }
+.sd-desc { font-size: 12.5px; line-height: 1.6; color: var(--text-secondary); margin: 9px 2px 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.qr-btn:active { border-color: var(--green); color: var(--green-deep); }
+.f .hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.sheet-msg { display: none; font-size: 13px; line-height: 1.5; border-radius: 10px; padding: 10px 13px; margin-bottom: 11px; }
+.sheet-msg.err { display: block; background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C; }
+.sheet-msg.ok { display: block; background: #ECFDF3; border: 1px solid #BBF7D0; color: #047857; }
+.sheet .btn { width: 100%; }
+.sheet-done { text-align: center; padding: 22px 6px 8px; }
+.sheet-done .big { width: 54px; height: 54px; border-radius: 50%; background: var(--mint-soft); color: var(--green-dark); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.sheet-done h3 { font-size: 20px; margin-bottom: 8px; }
+.sheet-done p { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 18px; }
 
-/* ── LOADER ── */
-.loader-wrap{display:flex;align-items:center;justify-content:center;gap:10px;padding:40px 0;color:var(--grey);font-size:13px}
-.spin{width:16px;height:16px;border:2px solid var(--dark5);border-top-color:var(--amber);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-row{display:flex;gap:8px}
-.card-skeleton{width:182px;height:170px;flex-shrink:0;background:var(--dark2);border:1px solid var(--dark4);border-radius:6px;animation:shimmer 1.5s infinite}
-@keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.7}}
+/* my bids list inside the sheet */
+.mb-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.mb-row b { color: var(--ink); display: block; font-size: 13.5px; }
+.mb-row span { color: var(--text-muted); font-size: 11.5px; }
+.mb-amt { font-family: var(--font-mono); color: var(--ink); text-align: right; white-space: nowrap; }
+.mb-chip { display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; margin-top: 3px; }
+.mbc-leading { background: #ECFDF3; color: #047857; }
+.mbc-outbid  { background: #FEF3C7; color: #92400E; }
+.mbc-pay     { background: #FEE2E2; color: #B91C1C; }
+.mbc-won     { background: var(--mint-soft); color: var(--green-deep); }
+.mbc-quiet   { background: var(--off-white); color: var(--text-muted); border: 1px solid var(--border); }
 
-/* ── MODAL ── */
-.overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:16px}
-.overlay.open{display:flex}
-.modal{background:var(--dark2);border:1px solid var(--dark4);border-radius:12px;max-width:440px;width:100%;max-height:94vh;overflow-y:auto;position:relative}
-.modal-bar{height:3px;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:12px 12px 0 0}
-.modal-bar.blue{background:linear-gradient(90deg,var(--blue),#1565C0)}
-.modal-bar.amber{background:linear-gradient(90deg,var(--amber),var(--amber2))}
-.modal-head{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 18px 0}
-.mcat{font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
-.mname{font-size:17px;font-weight:700;color:var(--white);line-height:1.2}
-.mid{font-size:10px;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace}
-.mclose-btn{background:none;border:1px solid var(--dark5);color:var(--grey);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;flex-shrink:0;margin-left:12px}
-.mstats{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:1px;background:var(--dark4);margin:14px 0 0;border-top:1px solid var(--dark4)}
-.mst{background:var(--dark3);padding:10px 12px;text-align:center}
-.mst label{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);display:block;margin-bottom:4px}
-.mst .sv{font-size:13px;font-weight:700;color:var(--white);font-family:'DM Mono',monospace;display:block}
-.mst.mst-main .sv{font-size:18px;font-weight:800;letter-spacing:.5px}
-.mst .sv.am{color:var(--amber)}.mst .sv.bl{color:var(--blue)}
-.mbody{padding:14px 18px 18px;display:flex;flex-direction:column;gap:10px}
-/* Compact one-line notices */
-.early-notice{
-  padding:7px 10px;background:var(--bbg);border:1px solid var(--bborder);
-  border-radius:6px;font-size:11px;color:var(--blue);line-height:1.4;
-  display:flex;align-items:center;gap:6px;
-}
-.early-notice strong{font-size:11px;font-weight:700;white-space:nowrap}
-.opening-notice{
-  padding:7px 10px;background:var(--abg);border:1px solid var(--aborder);
-  border-radius:6px;font-size:11px;color:var(--amber);line-height:1.4;
-  display:flex;align-items:center;gap:6px;
-}
-.opening-notice strong{font-size:11px;font-weight:700;white-space:nowrap}
-.field label{font-size:11px;font-weight:600;color:var(--grey);display:block;margin-bottom:4px}
-.field label em{color:var(--amber)}
-.field-hint{font-size:10px;color:var(--muted);margin-top:3px}
-.fi{width:100%;background:var(--dark3);border:1px solid var(--dark5);border-radius:6px;padding:9px 12px;color:var(--white);font-size:16px;outline:none;transition:border-color .15s;-webkit-appearance:none}
-.fi:focus{border-color:var(--amber)}.fi::placeholder{color:var(--mid)}
-.bid-wrap{position:relative}
-.bid-sym{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:'DM Mono',monospace;font-size:16px}
-.bid-fi{padding-left:26px!important;font-family:'DM Mono',monospace!important;font-size:16px!important}
-/* Live bid amount display */
-.bid-display{
-  display:none;margin-top:8px;padding:10px 14px;
-  background:linear-gradient(135deg,rgba(255,179,0,0.1),rgba(255,143,0,0.06));
-  border:1px solid var(--aborder);border-radius:8px;
-  font-family:'DM Mono',monospace;font-size:22px;font-weight:700;
-  color:var(--amber);text-align:center;letter-spacing:1px;
-  min-height:0;
-}
-.bid-display.has-value{display:block}
-.bsd-wrap{display:none;align-items:center;gap:10px;padding:8px 0}
-.bsd-wrap.show{display:flex}
-.bsd span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);animation:blink 1s infinite}
-.bsd span:nth-child(2){animation-delay:.2s}.bsd span:nth-child(3){animation-delay:.4s}
-.bsd-lbl{font-size:11px;color:var(--grey)}
-/* Live modal notice */
-.live-notice{
-  padding:7px 10px;background:var(--abg);border:1px solid var(--aborder);
-  border-radius:6px;font-size:11px;color:var(--amber);line-height:1.4;
-  display:flex;align-items:center;justify-content:space-between;gap:6px;
-}
-.live-notice strong{font-size:11px;font-weight:700;white-space:nowrap}
-.live-notice-timer{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--amber)}
-/* Increment buttons */
-.bid-increments{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:2px}
-.inc-btn{
-  padding:7px 0;border:1.5px solid var(--dark5);border-radius:5px;
-  background:var(--dark3);color:var(--grey);font-size:10px;font-weight:700;
-  font-family:inherit;cursor:pointer;transition:all .15s;text-align:center;
-  letter-spacing:.3px;
-}
-.inc-btn:hover{border-color:var(--amber);color:var(--amber);background:var(--abg)}
-.submit-btn{
-  width:100%;padding:13px;border:none;border-radius:8px;
-  font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.5px;
-  background:linear-gradient(135deg,#FFD740 0%,#FFB300 40%,#FF8F00 80%,#E65100 100%);
-  color:#1A0A00;
-  box-shadow:0 3px 16px rgba(255,143,0,0.35),inset 0 1px 0 rgba(255,255,255,0.2);
-  transition:all .2s;position:relative;overflow:hidden;
-}
-.submit-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:translateX(-100%);transition:transform .4s}
-.submit-btn:hover::before{transform:translateX(100%)}
-.submit-btn:hover{box-shadow:0 5px 24px rgba(255,143,0,.55),inset 0 1px 0 rgba(255,255,255,0.2);transform:translateY(-1px)}
-.submit-btn:active{transform:translateY(0)}
-.submit-btn:disabled{background:var(--dark4);color:var(--muted);cursor:default;box-shadow:none;transform:none}
-.success-view{display:none;flex-direction:column;align-items:center;padding:36px 24px;text-align:center}
-.success-view.show{display:flex}
-.success-circle{width:56px;height:56px;border-radius:50%;background:var(--gbg);border:2px solid var(--gborder);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--green);margin-bottom:14px}
-.success-title{font-size:20px;font-weight:700;margin-bottom:8px}
-.success-sub{font-size:12px;color:var(--grey);line-height:1.6;max-width:300px;margin-bottom:16px}
-.success-ref{font-size:11px;color:var(--amber);font-family:'DM Mono',monospace;padding:6px 14px;border:1px solid var(--aborder);border-radius:4px;margin-bottom:20px}
-.success-done{padding:10px 28px;border:none;border-radius:6px;background:var(--dark4);color:var(--white);font-weight:700;font-size:13px;cursor:pointer}
-
-/* ── FOOTER ── */
-footer{background:var(--dark2);border-top:1px solid var(--dark3);padding:32px 6vw}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.foot-logo img{height:44px;object-fit:contain}
-.foot-links{display:flex;gap:24px;flex-wrap:wrap}
-.foot-links a{font-size:12px;color:var(--grey);text-decoration:none;transition:color .2s}
-.foot-links a:hover{color:var(--white)}
-.foot-copy{font-size:11px;color:var(--mid)}
-
-/* ── MOBILE ── */
-@media(max-width:600px){
-  nav{padding:0 14px;height:64px}
-  .nav-logo img{height:46px}
-  .nav-links a:not(.nav-cta){display:none}
-  .page-header,.main{padding-left:14px;padding-right:14px}
-  .filter-bar{top:64px;padding:8px 0}
-  .filter-bar-inner{padding:0 14px}
-  .ftab{font-size:10px;padding:5px 11px}
-  .card{width:164px}
-  footer{padding:24px 14px}
-}
-
-/* ── FILTERED SECTION VIEW: vertical row cards ── */
-.main.sec-filtered .track{
-  display:flex !important;
-  flex-direction:column;
-  gap:8px;
-  overflow-x:visible;
-  padding-bottom:0;
-}
-/* Row card layout */
-.card.is-row{
-  width:100%;flex-shrink:0;
-  display:flex;flex-direction:row;align-items:stretch;
-  border-radius:6px;overflow:hidden;
-  background:#111;border:1px solid var(--dark4);
-  transition:border-color .15s;
-}
-.card.is-row:hover{border-color:var(--dark5)}
-.card.is-row.is-live{border-color:var(--aborder);background:#0F0F0F}
-.card.is-row.is-opening{border-color:rgba(66,165,245,.25)}
-.card.is-row.is-awaiting{border-color:rgba(255,179,0,0.3);background:#0F0F0F}
-.card.is-row .c-bar{width:3px;height:auto;display:none;flex-shrink:0}
-.card.is-row.is-live .c-bar{display:block;background:linear-gradient(180deg,#FFB300,#FF8F00)}
-.card.is-row.is-opening .c-bar{display:block;background:linear-gradient(180deg,var(--blue),#42A5F5)}
-.card.is-row.is-awaiting .c-bar{display:block;background:linear-gradient(180deg,#FF8F00,#E65100)}
-.card.is-row .c-img{
-  width:22%;min-width:80px;max-width:140px;
-  height:auto;min-height:80px;flex-shrink:0;
-  background:#1A1A1A;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
-.card.is-row .c-img img{width:100%;height:100%;object-fit:cover;display:block}
-.card.is-row .c-img .eph{font-size:28px}
-.card.is-row .c-status{
-  position:absolute;top:0;left:0;
-  font-size:7px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  padding:3px 6px;border-bottom-right-radius:5px;
-}
-.card.is-row .c-body{
-  flex:1;padding:8px 11px;
-  display:flex;align-items:center;
-  gap:10px;min-width:0;
-}
-.card.is-row .cr-info{flex:1;min-width:0}
-.card.is-row .c-name{font-size:12px;font-weight:600;color:#F9F8F5;line-height:1.3;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card.is-row .c-meta{font-size:9px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* Mobile stats bar shown in middle of row card — replaces hidden cr-stats */
-.card.is-row .cr-mobile-stats{display:none;margin-top:5px;display:none;grid-template-columns:1fr 1.2fr 1fr;gap:1px;background:var(--dark4);border-radius:4px;overflow:hidden}
-.card.is-row .crm{background:var(--dark3);padding:4px 6px;text-align:center}
-.card.is-row .crm.crm-main{background:var(--dark2)}
-.card.is-row .crml{font-size:7px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555;margin-bottom:1px}
-.card.is-row .crmv{font-family:'DM Mono',monospace;font-size:11px;color:#F9F8F5;font-weight:700}
-.card.is-row .crmv.am{color:var(--amber)}.card.is-row .crmv.bl{color:var(--blue)}.card.is-row .crmv.gn{color:var(--green)}
-.card.is-row .cr-stats{display:flex;gap:10px;flex-shrink:0;align-items:center}
-.card.is-row .crs{text-align:center}
-.card.is-row .csl{font-size:7px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555;margin-bottom:1px}
-.card.is-row .csv{font-family:'DM Mono',monospace;font-size:11px;color:#F9F8F5}
-@media(max-width:520px){
-  .card.is-row .c-body{flex-wrap:wrap;align-items:stretch;gap:6px;padding:7px 9px}
-  .card.is-row .cr-info{flex:1 1 100%;min-width:0}
-  .card.is-row .cr-mobile-stats{display:grid}
-  .card.is-row .cr-stats{display:none}
-  .card.is-row .cr-action{flex-shrink:0;align-self:flex-end}
-}
-.card.is-row .csv.a{color:var(--amber)}.card.is-row .csv.b{color:var(--blue)}.card.is-row .csv.g{color:var(--green)}
-.card.is-row .cr-timer{font-family:'DM Mono',monospace;font-size:10px;color:var(--red);background:#0A0A0A;padding:4px 7px;border-radius:4px;border:1px solid #1A1A1A;flex-shrink:0}
-.card.is-row .cr-timer.blue{color:var(--blue)}
-.card.is-row .cr-timer.grey{color:var(--grey)}
-.card.is-row .cr-action{flex-shrink:0}
-.card.is-row .c-btn{width:auto;padding:5px 12px;font-size:10px}
-.card.is-row .c-btn-g{width:auto;padding:5px 12px;font-size:10px}
-.card.is-row .c-locked{font-size:9px;padding:5px 10px}
-.card.is-row .c-awaiting{font-size:9px;padding:5px 10px}
-.card.is-row .c-closed{font-size:9px;padding:5px 10px}
-@media(max-width:500px){
-  .card.is-row .c-img{width:26%;min-width:64px}
-  .card.is-row .cr-stats{gap:6px}
-  .card.is-row .csv{font-size:10px}
-}
-
-
-.pv-overlay{position:fixed;inset:0;z-index:350;background:rgba(0,0,0,0.82);backdrop-filter:blur(5px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
-.pv-overlay.open{opacity:1;pointer-events:all}
-.pv-panel{background:var(--dark2);border:1px solid var(--dark3);border-radius:18px 18px 0 0;width:100%;max-width:540px;max-height:88vh;overflow-y:auto;transform:translateY(40px);transition:transform .28s cubic-bezier(.32,.72,0,1);scrollbar-width:thin;scrollbar-color:var(--dark4) transparent}
-.pv-overlay.open .pv-panel{transform:translateY(0)}
-.pv-handle{width:36px;height:4px;background:var(--dark5);border-radius:2px;margin:10px auto 6px}
-.pv-img-wrap{position:relative;flex-shrink:0}
-.pv-img{width:100%;height:210px;object-fit:cover;display:block}
-.pv-img-ph{width:100%;height:160px;background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:64px}
-.pv-status{position:absolute;top:12px;left:12px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 9px;border-radius:14px}
-.pv-close{position:absolute;top:10px;right:10px;background:rgba(13,13,13,0.85);border:1px solid var(--dark4);color:var(--grey);width:30px;height:30px;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:color .2s}
-.pv-close:hover{color:var(--white)}
-.pv-body{padding:16px 18px 28px;display:flex;flex-direction:column;gap:12px}
-.pv-id{font-size:9px;color:var(--muted);letter-spacing:1.5px;font-family:"DM Mono",monospace;text-transform:uppercase}
-.pv-name{font-family:"Bebas Neue",sans-serif;font-size:28px;letter-spacing:1px;color:var(--white);line-height:1;margin-top:2px}
-.pv-sub{font-size:11px;color:var(--mid);display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
-.pv-desc{font-style:italic;font-size:12px;color:var(--grey);line-height:1.7;padding:9px 12px;background:var(--dark);border-left:2px solid var(--amber);border-radius:4px}
-.pv-desc.blue{border-left-color:var(--blue)}
-.pv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dark4);border-radius:7px;overflow:hidden}
-.pv-stat{background:var(--dark3);padding:10px 12px;text-align:center}
-.pv-stat label{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);display:block;margin-bottom:3px}
-.pv-stat .sv{font-size:13px;font-weight:700;color:var(--white);font-family:"DM Mono",monospace}
-.pv-stat.pv-stat-main{background:var(--dark2)}
-.pv-stat.pv-stat-main label{font-size:10px;color:var(--amber)}
-.pv-stat.pv-stat-main .sv{font-size:22px;font-weight:800;letter-spacing:.5px}
-.pv-stat .sv.am{color:var(--amber)}.pv-stat .sv.bl{color:var(--blue)}
-.pv-prog-wrap{display:flex;flex-direction:column;gap:4px}
-.pv-prog-row{display:flex;justify-content:space-between;font-size:10px;color:var(--grey)}
-.pv-prog-row strong{color:var(--blue)}
-.pv-prog-bar{height:4px;background:var(--dark4);border-radius:2px;overflow:hidden}
-.pv-prog-fill{height:100%;background:var(--blue);border-radius:2px;transition:width .3s}
-.pv-countdown{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--abg);border:1px solid var(--aborder);border-radius:6px}
-.pv-cd-lbl{font-size:9px;color:var(--amber);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-.pv-cd-time{font-size:16px;font-weight:700;color:var(--amber);font-family:"DM Mono",monospace}
-.pv-actions{display:flex;flex-direction:column;gap:8px}
-.pv-cta{width:100%;padding:12px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
-.pv-cta-live{background:linear-gradient(135deg,#FFD740 0%,#FFB300 40%,#FF8F00 80%,#E65100 100%);color:#1A0A00;box-shadow:0 3px 16px rgba(255,143,0,.3)}
-.pv-cta-live::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:translateX(-100%);transition:transform .4s}
-.pv-cta-live:hover::before{transform:translateX(100%)}
-.pv-cta-live:hover{box-shadow:0 5px 24px rgba(255,143,0,.5);transform:translateY(-1px)}
-.pv-cta-early{background:var(--bbg);color:var(--blue);border:1.5px solid var(--bborder)}
-.pv-cta-early:hover{background:var(--blue);color:#000}
-.pv-cta-opening{background:var(--abg);color:var(--amber);border:1.5px solid var(--aborder)}
-.pv-cta-opening:hover{background:var(--amber);color:#000}
-.pv-share-row{display:flex;align-items:center;gap:8px}
-.pv-share-link{flex:1;font-size:11px;color:var(--muted);font-family:"DM Mono",monospace;background:var(--dark3);border:1px solid var(--dark5);border-radius:5px;padding:7px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pv-copy-btn{font-size:11px;font-weight:600;padding:7px 12px;border:1px solid var(--dark5);background:var(--dark4);color:var(--grey);border-radius:5px;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
-.pv-copy-btn:hover{border-color:var(--amber);color:var(--amber)}
-.pv-copy-btn.copied{border-color:var(--green);color:var(--green)}
-@media(min-width:600px){
-  .pv-overlay{align-items:center;padding:24px}
-  .pv-panel{border-radius:18px;max-height:85vh;align-self:center}
-  .pv-handle{display:none}
-  .pv-img{height:260px}
-  .pv-name{font-size:34px}
-}
-
-/* ── SCROLL TO TOP ── */
-#stt{position:fixed;bottom:24px;right:20px;z-index:400;width:36px;height:36px;border-radius:50%;background:var(--dark4);border:1px solid var(--dark5);color:var(--grey);font-size:14px;cursor:pointer;display:none;align-items:center;justify-content:center;transition:all .2s}
-#stt:hover{background:var(--amber);color:var(--dark);border-color:var(--amber)}
-#stt.show{display:flex}
-/* ── CATEGORY FILTER ── */
-.cat-bar{background:var(--dark2);border-bottom:1px solid var(--dark3);padding:0;overflow:hidden;max-height:0;transition:max-height .25s ease}
-.cat-bar.open{max-height:48px}
-.cat-bar-inner{display:flex;gap:5px;padding:8px 6vw;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.cat-bar-inner::-webkit-scrollbar{display:none}
-.ctab{font-size:10px;font-weight:600;letter-spacing:.5px;padding:4px 10px;border-radius:4px;border:1px solid var(--dark5);color:var(--grey);background:none;cursor:pointer;white-space:nowrap;transition:all .15s}
-.ctab:hover{border-color:var(--white);color:var(--white)}
-.ctab.on{background:var(--dark4);color:var(--white);border-color:var(--dark5)}
-.cat-toggle{font-size:10px;font-weight:600;letter-spacing:.5px;padding:5px 12px;border-radius:4px;border:1px solid var(--dark5);color:var(--grey);background:none;cursor:pointer;transition:all .15s;white-space:nowrap}
-.cat-toggle:hover{border-color:var(--amber);color:var(--amber)}
-.cat-toggle.on{border-color:var(--amber);color:var(--amber)}
-@media(max-width:600px){.cat-bar.open{max-height:44px}.cat-bar-inner{padding:6px 14px}}
+/* ─── Footer (injected by dps-partials.js) ─── */
+footer { background: var(--ink-2); color: var(--stone-light); padding: 64px 0 32px; border-top: 1px solid var(--border-dark); margin-top: 56px; }
+.foot-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 48px; }
+@media (min-width: 720px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; } }
+.foot-brand img { height: 38px; width: auto; margin-bottom: 16px; opacity: .95; }
+.foot-brand p { font-size: 14px; line-height: 1.65; max-width: 32ch; color: var(--stone-light); }
+.foot-col h4 { font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 18px; }
+.foot-col a { display: block; font-size: 14px; color: var(--stone-light); padding: 6px 0; transition: color .15s; }
+.foot-col a:hover { color: var(--green); }
+.foot-bottom { padding-top: 32px; border-top: 1px solid var(--border-dark); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); }
+.foot-social { display: flex; gap: 12px; }
+.foot-social a { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.05); transition: background .15s; }
+.foot-social a:hover { background: rgba(255,107,44,.15); }
+.foot-social svg { width: 16px; height: 16px; color: var(--stone-light); }
 </style>
 <script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMZ5G5S"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-<nav>
-  <a class="nav-logo" href="/auction">
-    <img src="/images/dps-logo.png" alt="Declutter Pawn Shop">
-    <span class="nav-badge">Auction</span>
-  </a>
-  <div class="nav-links">
-    <a href="/auction">How It Works</a>
-    <a href="/list-auction" class="nav-cta">Apply to List &#8594;</a>
-  </div>
-</nav>
+<div data-dps-nav data-active="auction"></div>
 
-<div id="src-banner" class="src-banner">
-  <div class="src-dot"></div>
-  <span id="src-text">Loading from DPS Auction&hellip;</span>
-</div>
-
-<div class="page-header">
-  <div class="ph-inner">
-    <div class="ph-left">
-      <h1>Live Auction</h1>
-      <div class="ph-pills">
-        <span class="ph-pill">&#x1F528; Place Bids</span>
-        <span class="ph-pill-dot">&middot;</span>
-        <span class="ph-pill">&#x1F3C6; Winning Bid Wins</span>
-        <span class="ph-pill-dot">&middot;</span>
-        <span class="ph-pill">&#x1F4B3; Pay After</span>
-        <span class="ph-pill-dot">&middot;</span>
-        <span class="ph-pill">&#x1F512; Escrow Protected</span>
+<!-- ═══ HERO STRIP ═══ -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="hero-chip"><span class="dot"></span>DPS Auction</span>
+      <h1>Live <em>auctions.</em></h1>
+      <p class="hero-sub">Ten quiet minutes end an auction. The highest bid gets to checkout.</p>
+      <div class="hero-pills">
+        <span class="hp"><span class="dot d-live"></span>Live <b id="pillLive">0</b></span>
+        <span class="hp"><span class="dot d-open"></span>Open for bids <b id="pillOpen">0</b></span>
+        <span class="hp"><span class="dot d-done"></span>Ended <b id="pillDone">0</b></span>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="filter-bar">
-  <div class="filter-bar-inner">
-    <button class="ftab active" onclick="setFilter('all',this)">All</button>
-    <button class="ftab ftab-live" onclick="setFilter('live',this)"><span class="live-dot"></span> Live</button>
-    <button class="ftab ftab-opening" onclick="setFilter('opening',this)">Opening</button>
-    <button class="ftab ftab-prebid" onclick="setFilter('prebid',this)">Pre-Bid</button>
-    <button class="ftab ftab-ended" onclick="setFilter('awaiting',this)">Awaiting</button>
-    <button class="ftab ftab-ended" onclick="setFilter('ended',this)">Ended</button>
-    <button class="cat-toggle" id="cat-toggle" onclick="toggleCatBar(this)" style="margin-left:8px">⊕ Category</button>
-  </div>
-</div>
-<div class="cat-bar" id="cat-bar">
-  <div class="cat-bar-inner" id="cat-bar-inner"></div>
-</div>
-
-<div class="filter-desc-bar" id="filter-desc-bar">
-  <div class="filter-desc-inner">
-    <span class="fd-dot" id="fd-dot"></span>
-    <span id="fd-text"></span>
-  </div>
-</div>
-<div class="main">
-  <div id="loading-wrap" style="display:flex;gap:8px;padding-top:24px">
-    <div class="card-skeleton"></div><div class="card-skeleton"></div><div class="card-skeleton"></div><div class="card-skeleton"></div><div class="card-skeleton"></div>
-  </div>
-
-  <!-- LIVE NOW -->
-  <div class="section-block" id="sec-live" style="display:none">
-    <div class="sec-header">
-      <div class="sec-left">
-        <div class="sec-title"><span class="live-dot"></span>Live Now <span class="sec-count sc-amber" id="cnt-live"></span></div>
-        <div class="sec-note">10 min inactivity closes &mdash; 15 min to pay</div>
-      </div>
-      <button class="sec-filter-btn" id="sfb-live" onclick="toggleSecFilter('live',this)">Show only Live</button>
+    <div class="hero-actions">
+      <button class="btn btn-ghost-dark" id="btnMyBids" type="button">My bids</button>
+      <a href="/list-auction" class="btn btn-primary">List for auction</a>
     </div>
-    <div class="track" id="track-live"></div>
   </div>
+</section>
 
-  <!-- OPENING -->
-  <div class="section-block" id="sec-opening" style="display:none">
-    <div class="sec-header">
-      <div class="sec-left">
-        <div class="sec-title">Opening <span class="sec-count sc-blue" id="cnt-opening"></span></div>
-        <div class="sec-note">Reached 10 bids &mdash; going live soon</div>
-      </div>
-      <button class="sec-filter-btn" id="sfb-opening" onclick="toggleSecFilter('opening',this)">Show only Opening</button>
-    </div>
-    <div class="track" id="track-opening"></div>
-  </div>
+<main class="wrap" id="main">
 
-  <!-- PRE-BID -->
-  <div class="section-block" id="sec-prebid" style="display:none">
-    <div class="sec-header">
-      <div class="sec-left">
-        <div class="sec-title">Pre-Bid <span class="sec-count sc-white" id="cnt-prebid"></span></div>
-        <div class="sec-note">Bid now &mdash; opens when 10 bids placed</div>
-      </div>
-      <button class="sec-filter-btn" id="sfb-prebid" onclick="toggleSecFilter('prebid',this)">Show only Pre-Bid</button>
+  <!-- DEMO: a lot that auctions itself, so first-timers see the journey -->
+  <button class="demo-strip" id="demoStrip" type="button">
+    <span class="dg"><svg viewBox="0 0 120 100" fill="none"><rect x="14" y="80" width="52" height="9" rx="4.5" fill="currentColor" opacity=".7"/><rect x="24" y="72" width="32" height="9" rx="4.5" fill="currentColor" opacity=".7"/><g transform="rotate(9 88 33)"><rect x="50" y="29" width="46" height="8" rx="4" fill="currentColor"/><rect x="32" y="12" width="21" height="42" rx="8" fill="currentColor"/></g></svg></span>
+    <span class="demo-tx"><b>New here? How bidding works.</b><span>Five steps, start to gavel.</span></span>
+    <span class="demo-go">Read &rarr;</span>
+  </button>
+
+  <!-- LIVE -->
+  <section class="block-section" id="secLive" hidden>
+    <div class="sec-head">
+      <span class="sec-dot sd-live"></span>
+      <h2 class="sec-title">Live now</h2><span class="sec-count" id="cntLive"></span>
+      <span class="sec-note">Every bid resets the ten-minute clock</span>
     </div>
-    <div class="track" id="track-prebid"></div>
-  </div>
+    <div class="live-rail" id="gridLive"></div>
+  </section>
+
+  <!-- EARLY -->
+  <section class="block-section" id="secEarly" hidden>
+    <div class="sec-head">
+      <span class="sec-dot sd-early"></span>
+      <h2 class="sec-title">Open for bids</h2><span class="sec-count" id="cntEarly"></span>
+      <span class="sec-note" id="noteEarly">Goes live at 5 unique bidders · early bids are non-binding</span>
+    </div>
+    <!-- Appears only when the section is crowded enough to need it. -->
+    <div class="early-chips" id="earlyChips" hidden></div>
+    <div class="early-grid" id="gridEarly"></div>
+  </section>
 
   <!-- AWAITING PAYMENT -->
-  <div class="section-block" id="sec-awaiting" style="display:none">
-    <div class="sec-header">
-      <div class="sec-left">
-        <div class="sec-title">&#x23F3; Awaiting Payment <span class="sec-count sc-amber" id="cnt-awaiting"></span></div>
-        <div class="sec-note">Winner has 15 min to pay &mdash; auction reopens if no payment</div>
-      </div>
-      <button class="sec-filter-btn" id="sfb-awaiting" onclick="toggleSecFilter('awaiting',this)">Show only Awaiting</button>
+  <section class="block-section" id="secWait" hidden>
+    <div class="sec-head">
+      <span class="sec-dot sd-wait"></span>
+      <h2 class="sec-title">Winner paying now</h2><span class="sec-count" id="cntWait"></span>
     </div>
-    <div class="track" id="track-awaiting"></div>
-  </div>
+    <div class="quiet-list" id="listWait"></div>
+  </section>
 
   <!-- ENDED -->
-  <div class="section-block" id="sec-ended" style="display:none">
-    <div class="sec-header">
-      <div class="sec-left">
-        <div class="sec-title">Ended <span class="sec-count sc-green" id="cnt-ended"></span></div>
-      </div>
-      <button class="sec-filter-btn" id="sfb-ended" onclick="toggleSecFilter('ended',this)">Show only Ended</button>
+  <section class="block-section" id="secDone" hidden>
+    <div class="sec-head">
+      <span class="sec-dot sd-done"></span>
+      <h2 class="sec-title">Recently ended</h2><span class="sec-count" id="cntDone"></span>
     </div>
-    <div class="track" id="track-ended"></div>
+    <div class="quiet-list" id="listDone"></div>
+  </section>
+
+  <!-- LOADING / EMPTY -->
+  <section class="block-section" id="secLoading">
+    <div class="skeleton"></div>
+  </section>
+  <section class="block-section" id="secEmpty" hidden>
+    <div class="empty">
+      <h3>Nothing is up for auction right now.</h3>
+      <p>New lots open for bids as soon as they clear review. Yours could be first.</p>
+      <a href="/list-auction" class="btn btn-primary">List for auction</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ BID SHEET ═══ -->
+<div class="sheet-bg" id="sheetBg">
+  <div class="sheet" role="dialog" aria-modal="true">
+    <div id="bidForm">
+      <div class="sheet-hero">
+        <img id="shImg" alt="" hidden>
+        <div class="sh-shade"></div>
+        <button class="sheet-x sheet-x-float" id="shClose" type="button" aria-label="Close">✕</button>
+        <div class="sh-cap">
+          <span class="sh-name" id="shName"></span>
+          <span class="sh-state" id="shState"></span>
+        </div>
+      </div>
+      <div class="sheet-stats">
+        <div class="ss-clock" id="ssClock" hidden></div>
+        <label class="ss-label" id="mHighLabel">Highest bid</label>
+        <div class="ss-high" id="mHigh"></div>
+        <div class="ss-meta" id="ssMeta">Starting <b id="mStart"></b> · <b id="mBids"></b> bids</div>
+      </div>
+      <div class="sheet-detail" id="shDetail" hidden></div>
+      <div class="sheet-notice" id="shNotice" hidden></div>
+      <div class="sheet-msg" id="shMsg"></div>
+      <div class="f">
+        <label>Your bid (₦) <em>*</em></label>
+        <div class="stepper">
+          <button class="step-btn" id="bMinus" type="button" aria-label="Lower">&minus;</button>
+          <span class="amt-box"><span class="nsign">&#8358;</span><input type="text" id="bAmount" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+          <button class="step-btn" id="bPlus" type="button" aria-label="Raise">+</button>
+        </div>
+        <div class="quick-raise">
+          <button class="qr-btn" type="button" data-add="1000">+1k</button>
+          <button class="qr-btn" type="button" data-add="5000">+5k</button>
+          <button class="qr-btn" type="button" data-add="10000">+10k</button>
+          <button class="qr-btn" type="button" data-add="50000">+50k</button>
+        </div>
+        <div class="hint" id="bAmountHint"></div>
+      </div>
+      <div class="f"><label>Email <em>*</em></label><input type="email" id="bEmail" autocomplete="email" placeholder="you@email.com"><div class="hint" id="bLookupHint">We look you up and send bid alerts here.</div></div>
+      <div class="f"><label>Name <em>*</em></label><input type="text" id="bName" autocomplete="name"></div>
+      <div class="f" id="phoneField"><label>Phone <em>*</em></label><input type="tel" id="bPhone" inputmode="tel" autocomplete="tel" placeholder="08012345678"><div class="hint">First time? We save it for next time.</div></div>
+      <button class="btn btn-primary" id="bSubmit" type="button">Place bid</button>
+      <p class="sheet-terms" id="shTerms"></p>
+    </div>
+    <div class="sheet-done" id="bidDone" hidden>
+      <div class="big"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3 id="doneTitle">Bid placed.</h3>
+      <p id="doneBody"></p>
+      <button class="btn btn-primary" id="doneClose" type="button">Back to auctions</button>
+    </div>
+    <div id="demoView" hidden>
+      <div class="sheet-head">
+        <h3 class="sheet-title">How the auction works</h3>
+        <button class="sheet-x" id="dmClose" type="button" aria-label="Close">✕</button>
+      </div>
+      <div class="hiw-step"><span class="hiw-n">1</span><span class="hiw-tx"><b>New items take early bids</b><span>Any open item takes early bids at the asking price or above. Amounts stay private, only the count shows.</span></span></div>
+      <div class="hiw-step"><span class="hiw-n">2</span><span class="hiw-tx"><b>Five bidders open it</b><span>At <em>5 unique bidders</em> it goes live and every bidder so far gets an email. The top bid shows from here on.</span></span></div>
+      <div class="hiw-step"><span class="hiw-n">3</span><span class="hiw-tx"><b>Bidding is one tap</b><span>Your amount and your email, that is all. We look you up, and your alerts land in your inbox.</span></span></div>
+      <div class="hiw-step"><span class="hiw-n">4</span><span class="hiw-tx"><b>Ten quiet minutes end it</b><span>Every new bid resets the <em>10:00</em> clock. When it runs out, the highest bid wins.</span></span></div>
+      <div class="hiw-step hot"><span class="hiw-n">5</span><span class="hiw-tx"><b>The winner pays in 15 minutes</b><span>Paystack checkout, escrow until pickup with a PIN. A missed window hands it to the next highest bidder.</span></span></div>
+      <div class="hiw-gavel"><div class="gavel-wrap" aria-hidden="true"><svg class="gavel-svg" viewBox="0 0 120 100"><rect x="14" y="80" width="52" height="9" rx="4.5" class="gv-base"/><rect x="24" y="72" width="32" height="9" rx="4.5" class="gv-base2"/><g class="gv-hammer" style="transform: rotate(9deg);"><rect x="50" y="29" width="46" height="8" rx="4" class="gv-handle"/><rect x="32" y="12" width="21" height="42" rx="8" class="gv-head"/></g></svg></div></div>
+      <div class="dm-actions">
+        <button class="btn btn-primary" id="dmGo" type="button">To the auctions</button>
+      </div>
+    </div>
+    <div id="myBids" hidden>
+      <div class="sheet-head">
+        <h3 class="sheet-title">My bids</h3>
+        <button class="sheet-x" id="mbClose" type="button" aria-label="Close">✕</button>
+      </div>
+      <p class="sheet-sub">The email you bid with pulls up everything you have placed.</p>
+      <div class="sheet-msg" id="mbMsg"></div>
+      <div class="f"><label>Email <em>*</em></label><input type="email" id="mbEmail" autocomplete="email" placeholder="you@email.com"></div>
+      <button class="btn btn-primary" id="mbLookup" type="button">Find my bids</button>
+      <div id="mbList" style="margin-top:8px;"></div>
+    </div>
   </div>
 </div>
 
-<!-- MODAL -->
-<div class="pv-overlay" id="pv-overlay" onclick="if(event.target===this)closePv()">
-  <div class="pv-panel">
-    <div class="pv-handle"></div>
-    <div class="pv-img-wrap">
-      <div id="pv-img-wrap"></div>
-      <div class="pv-status" id="pv-status"></div>
-      <button class="pv-close" onclick="closePv()">&#x2715;</button>
-    </div>
-    <div class="pv-body">
-      <div class="pv-id" id="pv-id"></div>
-      <div class="pv-name" id="pv-name"></div>
-      <div class="pv-sub" id="pv-sub"></div>
-      <div class="pv-desc" id="pv-desc" style="display:none"></div>
-      <div class="pv-stats" id="pv-stats"></div>
-      <div class="pv-prog-wrap" id="pv-prog-wrap" style="display:none">
-        <div class="pv-prog-row"><span id="pv-prog-label"></span><strong id="pv-prog-need"></strong></div>
-        <div class="pv-prog-bar"><div class="pv-prog-fill" id="pv-prog-fill"></div></div>
-      </div>
-      <div class="pv-countdown" id="pv-countdown" style="display:none">
-        <div class="pv-cd-lbl">&#x23F0; Opens in</div>
-        <div class="pv-cd-time" id="pv-cd-time">--:--</div>
-      </div>
-      <div class="pv-actions">
-        <button class="pv-cta" id="pv-cta" onclick="pvBid()"></button>
-      </div>
-      <div class="pv-share-row">
-        <div class="pv-share-link" id="pv-share-link"></div>
-        <button class="pv-copy-btn" id="pv-copy-btn" onclick="pvCopy()">Copy link</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="modal-bar" id="modal-bar"></div>
-    <div id="form-view">
-      <div class="modal-head">
-        <div><div class="mcat" id="m-cat"></div><div class="mname" id="m-name"></div><div class="mid" id="m-id"></div></div>
-        <button class="mclose-btn" id="mclose">&#x2715;</button>
-      </div>
-      <div class="mstats">
-        <div class="mst"><label>Starting</label><span class="sv" id="m-start"></span></div>
-        <div class="mst mst-main"><label>Highest bid</label><span class="sv am" id="m-high"></span></div>
-        <div class="mst"><label>Bids</label><span class="sv" id="m-bids"></span></div>
-      </div>
-      <div class="mbody">
-        <div id="m-notice" style="display:none"></div>
-        <div class="field"><label>Email address <em>*</em></label><input class="fi" id="f-email" type="email" placeholder="you@email.com" autocomplete="email"><div class="field-hint">We use this to look you up and send bid alerts.</div></div>
-        <div class="bsd-wrap" id="bsd-wrap"><div class="bsd"><span></span><span></span><span></span></div><div class="bsd-lbl">Looking up your details&hellip;</div></div>
-        <div class="field" id="phone-field" style="display:none"><label>Phone number</label><input class="fi" id="f-phone" type="tel" placeholder="08012345678"><div class="field-hint">First time? We'll save this for next time.</div></div>
-        <div class="field"><label>Telegram <em style="color:var(--muted);font-style:normal">(optional)</em></label><input class="fi" id="f-tg" type="text" placeholder="@username or chat ID"></div>
-        <div class="field"><label>Your bid (&#8358;) <em>*</em></label><div class="bid-increments" id="bid-increments" style="display:none"><button class="inc-btn" type="button" onclick="addToBid(1000)">+&#8358;1k</button><button class="inc-btn" type="button" onclick="addToBid(3000)">+&#8358;3k</button><button class="inc-btn" type="button" onclick="addToBid(5000)">+&#8358;5k</button><button class="inc-btn" type="button" onclick="addToBid(10000)">+&#8358;10k</button></div><div class="bid-wrap"><span class="bid-sym">&#8358;</span><input class="fi bid-fi" id="f-bid" type="text" placeholder="0" inputmode="numeric"></div><div class="bid-display" id="bid-display"></div><div class="field-hint" id="bid-hint"></div></div>
-        <button class="submit-btn" id="submit-btn">&#x1F528; Confirm Bid</button>
-        <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px" id="modal-terms"></div>
-      </div>
-    </div>
-    <div class="success-view" id="success-view">
-      <div class="success-circle">&#x2713;</div>
-      <div class="success-title">Bid Registered!</div>
-      <p class="success-sub">Your bid has been registered. We&rsquo;ll keep you updated.</p>
-      <div class="success-ref" id="success-ref"></div>
-      <button class="success-done" id="success-done">Done</button>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <div class="foot-logo"><img src="/images/dps-logo.png" alt="Declutter Pawn Shop"></div>
-    <div class="foot-links">
-      <a href="https://declutterpawnshop.com">Main Site</a>
-      <a href="/auction-items">Auction Items</a>
-      <a href="https://t.me/dpsauction_channel" target="_blank">Channel</a>
-      <a href="https://t.me/dpsauction_bot" target="_blank">Bot</a>
-      <a href="/terms">Terms</a>
-    </div>
-    <div class="foot-copy">&copy; 2026 Declutter Pawn Shop &middot; Lagos</div>
-  </div>
-</footer>
+<div data-dps-footer></div>
 
 <script>
-var ASURL=DPS_GAS_URL;
-var CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2s7WEJR90LGqMGOqawfk372QTAFO5TfiJIgFwncfjBWU4JzETO18UzW8iZtSVAZ2K00PzzPbisOKh/pub?gid=1542081058&single=true&output=csv';
-var EARLY_THRESHOLD=10;
-var ITEM={},D={live:[],opening:[],prebid:[],awaiting:[],ended:[]},F='all',ACTIVE_SEC=null,TIMERS=[];
+(function () {
+  "use strict";
+  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined" && DPS_MAIN_GAS_URL) || "";
+  var $ = function (id) { return document.getElementById(id); };
+  var CFG = { triggerBids: 5, minRaise: 1000, silenceMin: 10, payWindowMin: 15 };
+  var ITEMS = [];
+  var current = null;
+  var EARLY_CAT = "";
 
-var SAMPLE={
-  live:[
-    {id:'AUC-10001',status:'Live',name:'Nike Air Jordan 1 Retro High OG – Chicago',cat:'Sneakers',cond:'Like New',photo:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',start:45000,bid:112000,bids:14,final:0,auctionOpensAt:'',lastBidAt:new Date(Date.now()-3*60*1000).toISOString()},
-    {id:'AUC-10005',status:'Live',name:'Samsung Galaxy S23 Ultra 256GB – Phantom Black',cat:'Phones',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&q=80',start:220000,bid:265000,bids:9,final:0,auctionOpensAt:'',lastBidAt:new Date(Date.now()-6*60*1000).toISOString()},
-    {id:'AUC-10007',status:'Live',name:'Casio G-Shock GA-B2100 Black',cat:'Watches',cond:'New',photo:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80',start:55000,bid:71000,bids:6,final:0,auctionOpensAt:'',lastBidAt:new Date(Date.now()-1*60*1000).toISOString()},
-    {id:'AUC-10014',status:'Awaiting Payment',name:'Bose QuietComfort 45 Headphones',cat:'Electronics',cond:'Like New',photo:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',start:90000,bid:134000,bids:11,final:134000,auctionOpensAt:'',paymentDeadline:new Date(Date.now()+8*60*1000).toISOString()}
-  ],
-  opening:[
-    {id:'AUC-10011',status:'Opening Soon',name:'Sony WH-1000XM5 Headphones',cat:'Electronics',cond:'Like New',photo:'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80',start:80000,bid:115000,bids:12,final:0,auctionOpensAt:new Date(Date.now()+29*60*1000).toISOString()},
-    {id:'AUC-10013',status:'Opening Soon',name:'PS5 Slim + DualSense Controller',cat:'Gaming',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80',start:185000,bid:210000,bids:11,final:0,auctionOpensAt:new Date(Date.now()+51*60*1000).toISOString()}
-  ],
-  prebid:[
-    {id:'AUC-10002',status:'Approved',name:'iPhone 14 Pro Max 256GB Space Black',cat:'Phones',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80',start:280000,bid:0,bids:3,final:0,auctionOpensAt:''},
-    {id:'AUC-10006',status:'Approved',name:'PlayStation 5 Disc Edition + 2 Controllers',cat:'Gaming',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80',start:200000,bid:215000,bids:7,final:0,auctionOpensAt:''},
-    {id:'AUC-10008',status:'Approved',name:'MacBook Air M2 13-inch 8GB/256GB Space Grey',cat:'Computers',cond:'Like New',photo:'https://images.unsplash.com/photo-1611186871525-4a90d0f04fb8?w=600&q=80',start:350000,bid:0,bids:1,final:0,auctionOpensAt:''},
-    {id:'AUC-10009',status:'Approved',name:'Yihua Diesel Generator YH6500SE',cat:'Electronics',cond:'Used',photo:'',start:500000,bid:520000,bids:5,final:0,auctionOpensAt:''},
-    {id:'AUC-10015',status:'Approved',name:'Louis Vuitton Neverfull MM Damier Ebene',cat:'Bags',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80',start:180000,bid:0,bids:0,final:0,auctionOpensAt:''},
-    {id:'AUC-10016',status:'Approved',name:'Apple Watch Series 9 45mm Midnight',cat:'Watches',cond:'Like New',photo:'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=600&q=80',start:120000,bid:0,bids:2,final:0,auctionOpensAt:''}
-  ],
-  ended:[
-    {id:'AUC-10003',status:'Sold',name:'Michael Kors Jet Set Tote – Black',cat:'Bags',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80',start:35000,bid:89000,bids:18,final:89000,auctionOpensAt:''},
-    {id:'AUC-10004',status:'Sold',name:'Canon EOS M50 Mark II + 15-45mm Lens',cat:'Electronics',cond:'Like New',photo:'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80',start:120000,bid:195000,bids:22,final:195000,auctionOpensAt:''},
-    {id:'AUC-10010',status:'Expired',name:'HP Spectre x360 15 i7/16GB',cat:'Computers',cond:'Has Minor Issue',photo:'https://images.unsplash.com/photo-1611186871525-4a90d0f04fb8?w=600&q=80',start:500000,bid:0,bids:4,final:0,auctionOpensAt:''},
-    {id:'AUC-10017',status:'Sold',name:'Rolex Submariner Date 116610LN',cat:'Watches',cond:'Good Condition',photo:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80',start:1800000,bid:2450000,bids:31,final:2450000,auctionOpensAt:''},
-    {id:'AUC-10018',status:'Sold',name:'DJI Mavic 3 Pro Drone Fly More Combo',cat:'Electronics',cond:'Like New',photo:'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80',start:650000,bid:810000,bids:16,final:810000,auctionOpensAt:''}
-  ]
-};
+  function naira(n) { n = Number(n) || 0; return "₦" + n.toLocaleString("en-NG"); }
+  function esc(s) { var d = document.createElement("div"); d.textContent = String(s == null ? "" : s); return d.innerHTML; }
+  function norm(s) { return String(s || "").trim().toLowerCase(); }
 
-function fmt(n){return '\u20a6'+(Number(n)||0).toLocaleString('en-NG');}
-function fmtk(n){return n>=1000?'\u20a6'+(n/1000).toFixed(0)+'k':fmt(n);}
-function emo(c){var m={Phones:'\ud83d\udcf1',Electronics:'\ud83c\udfa7',Sneakers:'\ud83d\udc5f',Watches:'\u231a',Bags:'\ud83d\udc5c',Gaming:'\ud83c\udfae',Fashion:'\ud83d\udc57',Computers:'\ud83d\udcbb',Beauty:'\ud83d\udc84'};return m[c]||'\ud83d\udce6';}
+  /* Sheet timestamps are "YYYY-MM-DD HH:mm:ss" Lagos time. Parsed as local
+     this is close enough for an "Xm ago" label; exactness lives server side. */
+  function mmssN(ms) { var s = Math.max(0, Math.round(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+  var PHONE_KNOWN = false, LOOKED_UP = "";
 
-function imgH(it){
-  return it.photo&&it.photo.indexOf('http')===0
-    ?'<img src="'+it.photo+'" onerror="this.parentNode.innerHTML=\'<div class=eph>'+emo(it.cat)+'<\/div>\'" loading="lazy">'
-    :'<div class="eph">'+emo(it.cat)+'<\/div>';
-}
-
-function cardLive(it){
-  // cdId = inactivity countdown (time until invoice fires if no new bid)
-  // lkId = locked label shown only after invoice fires (timer expired)
-  var cdId='cd-'+it.id;
-  var lkId='lk-'+it.id;
-  var btnId='btn-'+it.id;
-  return '<div class="card is-live" onclick="openPv(\''+it.id+'\')">'+
-    '<div class="c-bar"></div>'+
-    '<div class="c-img">'+imgH(it)+'<div class="c-status st-live">\u25cf Live</div></div>'+
-    '<div class="c-body">'+
-      '<div class="c-name">'+it.name+'</div>'+
-      '<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'+
-      '<div class="c-stats">'+
-        '<div class="cs"><div class="csl">Start</div><div class="csv">'+fmtk(it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">High</div><div class="csv a">'+fmtk(it.bid||it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">Bids</div><div class="csv">'+it.bids+'</div></div>'+
-      '</div>'+
-      '<div class="c-foot">'+
-        '<div class="c-timer" id="'+cdId+'">--:--</div>'+
-        '<div class="c-btn" id="'+btnId+'" onclick="event.stopPropagation();openBidModal(\''+it.id+'\')">Bid Now</div>'+
-        '<div class="c-locked" id="'+lkId+'" style="display:none">\uD83D\uDD12 Closed</div>'+
-      '</div>'+
-    '</div></div>';
-}
-
-function cardOpening(it){
-  var opId='op-'+it.id;
-  return '<div class="card is-opening" onclick="openPv(\''+it.id+'\')">'+
-    '<div class="c-bar"></div>'+
-    '<div class="c-img">'+imgH(it)+'<div class="c-status st-opening">Opening</div></div>'+
-    '<div class="c-body">'+
-      '<div class="c-name">'+it.name+'</div>'+
-      '<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'+
-      '<div class="c-stats">'+
-        '<div class="cs"><div class="csl">Start</div><div class="csv">'+fmtk(it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">High</div><div class="csv b">'+fmtk(it.bid||it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">Bids</div><div class="csv b">'+it.bids+'</div></div>'+
-      '</div>'+
-      '<div class="c-foot">'+
-        '<div class="c-timer blue" id="'+opId+'">Going live</div>'+
-        '<div class="c-btn" onclick="event.stopPropagation();openBidModal(\''+it.id+'\')">+ Early Bid</div>'+
-      '</div>'+
-    '</div></div>';
-}
-
-function cardPrebid(it){
-  var needed=Math.max(0,EARLY_THRESHOLD-it.bids);
-  var pct=Math.min(100,Math.round(it.bids/EARLY_THRESHOLD*100));
-  return '<div class="card" onclick="openPv(\''+it.id+'\')">'+
-    '<div class="c-img">'+imgH(it)+'<div class="c-status st-prebid">Pre-Bid</div></div>'+
-    '<div class="c-body">'+
-      '<div class="c-name">'+it.name+'</div>'+
-      '<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'+
-      '<div class="c-stats">'+
-        '<div class="cs"><div class="csl">Start</div><div class="csv">'+fmtk(it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">Bids</div><div class="csv a">'+it.bids+'/10</div></div>'+
-        '<div class="cs"><div class="csl">Need</div><div class="csv">'+needed+'</div></div>'+
-      '</div>'+
-      '<div class="c-prog-wrap">'+
-        '<div class="c-prog-row"><span>'+it.bids+' of 10</span><strong>'+needed+' to open</strong></div>'+
-        '<div class="c-prog-bar"><div class="c-prog-fill" style="width:'+pct+'%"></div></div>'+
-      '</div>'+
-      '<div class="c-foot">'+
-        '<div class="c-btn-g" onclick="event.stopPropagation();openBidModal(\''+it.id+'\')">+ Interest</div>'+
-      '</div>'+
-    '</div></div>';
-}
-
-function cardAwaiting(it){
-  // Payment deadline countdown — paymentDeadline is ISO/datetime string from sheet
-  var pdId='pd-'+it.id;
-  return '<div class="card is-awaiting" onclick="openPv(\''+it.id+'\')">'+
-    '<div class="c-bar"></div>'+
-    '<div class="c-img">'+imgH(it)+'<div class="c-status st-live">\u23F3 Awaiting</div></div>'+
-    '<div class="c-body">'+
-      '<div class="c-name">'+it.name+'</div>'+
-      '<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'+
-      '<div class="c-stats">'+
-        '<div class="cs"><div class="csl">Won bid</div><div class="csv a">'+fmtk(it.bid||it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">Pay in</div><div class="csv a" id="'+pdId+'">--:--</div></div>'+
-        '<div class="cs"><div class="csl">Bids</div><div class="csv">'+it.bids+'</div></div>'+
-      '</div>'+
-      '<div class="c-foot">'+
-        '<div class="c-awaiting">\u29D7 Payment pending</div>'+
-      '</div>'+
-    '</div></div>';
-}
-
-function cardEnded(it){
-  var sold=it.status==='Sold';
-  return '<div class="card" style="opacity:.6">'+
-    '<div class="c-img">'+imgH(it)+'<div class="c-status '+(sold?'st-sold':'st-exp')+'">'+(sold?'Sold':'Expired')+'</div></div>'+
-    '<div class="c-body">'+
-      '<div class="c-name">'+it.name+'</div>'+
-      '<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'+
-      '<div class="c-stats">'+
-        '<div class="cs"><div class="csl">Start</div><div class="csv">'+fmtk(it.start)+'</div></div>'+
-        '<div class="cs"><div class="csl">'+(sold?'Sold':'Final')+'</div><div class="csv '+(sold?'g':'')+'">'+((sold&&it.final>0)?fmtk(it.final):(it.bid>0?fmtk(it.bid):'&mdash;'))+'</div></div>'+
-        '<div class="cs"><div class="csl">Bids</div><div class="csv">'+it.bids+'</div></div>'+
-      '</div>'+
-      '<div class="c-foot">'+
-        (sold?'<div class="c-closed sold">Closed \u00b7 Sold</div>':'<div class="c-closed exp">No winner</div>')+
-      '</div>'+
-    '</div></div>';
-}
-
-// ── ROW CARD BUILDERS (used in sec-filtered / Show only X view) ──────────
-
-function rowImgH(it){
-  return it.photo&&it.photo.indexOf('http')===0
-    ?'<img src="'+it.photo+'" onerror="this.parentNode.innerHTML=\'<div class=eph>'+emo(it.cat)+'<\/div>\'" loading="lazy">'
-    :'<div class="eph">'+emo(it.cat)+'<\/div>';
-}
-
-function cardRowLive(it){
-  var cdId='cd-'+it.id;
-  var lkId='lk-'+it.id;
-  var btnId='btn-'+it.id;
-  return '<div class="card is-row is-live" onclick="openPv(\''+it.id+'\')">'
-    +'<div class="c-bar"></div>'
-    +'<div class="c-img">'+rowImgH(it)+'<div class="c-status st-live">\u25cf Live</div></div>'
-    +'<div class="c-body">'
-      +'<div class="cr-info">'
-        +'<div class="c-name">'+it.name+'</div>'
-        +'<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'
-        +'<div class="cr-mobile-stats">'
-          +'<div class="crm"><div class="crml">Start</div><div class="crmv">'+fmtk(it.start)+'</div></div>'
-          +'<div class="crm crm-main"><div class="crml">Highest</div><div class="crmv am">'+fmtk(it.bid||it.start)+'</div></div>'
-          +'<div class="crm"><div class="crml">Bids</div><div class="crmv">'+it.bids+'</div></div>'
-        +'</div>'
-      +'</div>'
-      +'<div class="cr-stats">'
-        +'<div class="crs"><div class="csl">High</div><div class="csv a">'+fmtk(it.bid||it.start)+'</div></div>'
-        +'<div class="crs"><div class="csl">Bids</div><div class="csv">'+it.bids+'</div></div>'
-        +'<div class="cr-timer" id="'+cdId+'">--:--</div>'
-      +'</div>'
-      +'<div class="cr-action">'
-        +'<div class="c-btn" id="'+btnId+'" onclick="event.stopPropagation();openBidModal(\''+it.id+'\')">Bid Now</div>'
-        +'<div class="c-locked" id="'+lkId+'" style="display:none">\uD83D\uDD12 Closed</div>'
-      +'</div>'
-    +'</div></div>';
-}
-
-function cardRowOpening(it){
-  var opId='op-'+it.id;
-  return '<div class="card is-row is-opening" onclick="openPv(\''+it.id+'\')">'
-    +'<div class="c-bar"></div>'
-    +'<div class="c-img">'+rowImgH(it)+'<div class="c-status st-opening">Opening</div></div>'
-    +'<div class="c-body">'
-      +'<div class="cr-info">'
-        +'<div class="c-name">'+it.name+'</div>'
-        +'<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'
-        +'<div class="cr-mobile-stats">'
-          +'<div class="crm"><div class="crml">Start</div><div class="crmv">'+fmtk(it.start)+'</div></div>'
-          +'<div class="crm crm-main"><div class="crml">Highest</div><div class="crmv bl">'+fmtk(it.bid||it.start)+'</div></div>'
-          +'<div class="crm"><div class="crml">Bids</div><div class="crmv bl">'+it.bids+'</div></div>'
-        +'</div>'
-      +'</div>'
-      +'<div class="cr-stats">'
-        +'<div class="crs"><div class="csl">High</div><div class="csv b">'+fmtk(it.bid||it.start)+'</div></div>'
-        +'<div class="crs"><div class="csl">Bids</div><div class="csv b">'+it.bids+'</div></div>'
-        +'<div class="cr-timer blue" id="'+opId+'">Going live</div>'
-      +'</div>'
-      +'<div class="cr-action"><div class="c-btn-g blue" onclick="event.stopPropagation();openBidModal(\''+it.id+'\')" >+ Early Bid</div></div>'
-    +'</div></div>';
-}
-
-function cardRowPrebid(it){
-  var needed=Math.max(0,EARLY_THRESHOLD-it.bids);
-  return '<div class="card is-row" onclick="openPv(\''+it.id+'\')">'
-    +'<div class="c-img">'+rowImgH(it)+'<div class="c-status st-prebid">Pre-Bid</div></div>'
-    +'<div class="c-body">'
-      +'<div class="cr-info">'
-        +'<div class="c-name">'+it.name+'</div>'
-        +'<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'
-        +'<div class="cr-mobile-stats">'
-          +'<div class="crm"><div class="crml">Start</div><div class="crmv">'+fmtk(it.start)+'</div></div>'
-          +'<div class="crm crm-main"><div class="crml">Bids</div><div class="crmv am">'+it.bids+'/10</div></div>'
-          +'<div class="crm"><div class="crml">Need</div><div class="crmv">'+needed+'</div></div>'
-        +'</div>'
-      +'</div>'
-      +'<div class="cr-stats">'
-        +'<div class="crs"><div class="csl">Bids</div><div class="csv">'+it.bids+'/10</div></div>'
-        +'<div class="crs"><div class="csl">Need</div><div class="csv">'+needed+'</div></div>'
-      +'</div>'
-      +'<div class="cr-action"><div class="c-btn-g" onclick="event.stopPropagation();openBidModal(\''+it.id+'\')" >+ Interest</div></div>'
-    +'</div></div>';
-}
-
-function cardRowAwaiting(it){
-  var pdId='pd-'+it.id;
-  var pdIdM='pdm-'+it.id;
-  return '<div class="card is-row is-awaiting" onclick="openPv(\''+it.id+'\')">'
-    +'<div class="c-bar"></div>'
-    +'<div class="c-img">'+rowImgH(it)+'<div class="c-status st-live">\u23F3 Awaiting</div></div>'
-    +'<div class="c-body">'
-      +'<div class="cr-info">'
-        +'<div class="c-name">'+it.name+'</div>'
-        +'<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'
-        +'<div class="cr-mobile-stats">'
-          +'<div class="crm"><div class="crml">Won bid</div><div class="crmv am">'+fmtk(it.bid||it.start)+'</div></div>'
-          +'<div class="crm crm-main"><div class="crml">Pay in</div><div class="crmv am" id="'+pdIdM+'">--:--</div></div>'
-          +'<div class="crm"><div class="crml">Bids</div><div class="crmv">'+it.bids+'</div></div>'
-        +'</div>'
-      +'</div>'
-      +'<div class="cr-stats">'
-        +'<div class="crs"><div class="csl">Won</div><div class="csv a">'+fmtk(it.bid||it.start)+'</div></div>'
-        +'<div class="crs"><div class="csl">Pay in</div><div class="csv a" id="'+pdId+'">--:--</div></div>'
-      +'</div>'
-      +'<div class="cr-action"><div class="c-awaiting">\u29D7 Pending</div></div>'
-    +'</div></div>';
-}
-
-function cardRowEnded(it){
-  var sold=it.status==='Sold';
-  var fp=it.final>0?it.final:(it.bid>0?it.bid:0);
-  return '<div class="card is-row" style="opacity:.6">'
-    +'<div class="c-img">'+rowImgH(it)+'<div class="c-status '+(sold?'st-sold':'st-exp')+'">'+(sold?'Sold':'Expired')+'</div></div>'
-    +'<div class="c-body">'
-      +'<div class="cr-info">'
-        +'<div class="c-name">'+it.name+'</div>'
-        +'<div class="c-meta">'+it.cat+' \u00b7 '+it.cond+'</div>'
-        +'<div class="cr-mobile-stats">'
-          +'<div class="crm"><div class="crml">Start</div><div class="crmv">'+fmtk(it.start)+'</div></div>'
-          +'<div class="crm crm-main"><div class="crml">'+(sold?'Sold':'Final')+'</div><div class="crmv '+(sold?'gn':'')+'">'+(fp>0?fmtk(fp):'&mdash;')+'</div></div>'
-          +'<div class="crm"><div class="crml">Bids</div><div class="crmv">'+it.bids+'</div></div>'
-        +'</div>'
-      +'</div>'
-      +'<div class="cr-stats">'
-        +'<div class="crs"><div class="csl">'+(sold?'Sold':'Final')+'</div><div class="csv '+(sold?'g':'')+'">'+(fp>0?fmtk(fp):'&mdash;')+'</div></div>'
-        +'<div class="crs"><div class="csl">Bids</div><div class="csv">'+it.bids+'</div></div>'
-      +'</div>'
-      +'<div class="cr-action">'+(sold?'<div class="c-closed sold">Sold</div>':'<div class="c-closed exp">No winner</div>')+'</div>'
-    +'</div></div>';
-}
-
-
-function startTimers(){
-  TIMERS.forEach(function(t){clearTimeout(t);});TIMERS=[];
-
-  // ── LIVE items ────────────────────────────────────────────────────────────
-  // Timer counts DOWN from lastBidAt + 10 min.
-  // While > 0: auction is OPEN — show countdown and Bid Now button.
-  // When 0: invoice has fired (bot will flip status to Awaiting Payment on next poll).
-  //          Show 'Closed' label, hide Bid Now button.
-  D.live.forEach(function(it){
-    var cdEl  = document.getElementById('cd-'+it.id);
-    var lkEl  = document.getElementById('lk-'+it.id);
-    var btnEl = document.getElementById('btn-'+it.id);
-    if(!cdEl) return;
-    var s;
-    if(it.lastBidAt){
-      var last       = new Date(it.lastBidAt).getTime();
-      var invoiceAt  = last + (10*60*1000);
-      s = Math.max(0, Math.round((invoiceAt - Date.now()) / 1000));
-    } else {
-      s = Math.max(0, it._secs || 600);
-    }
-    function tickLive(){
-      if(s <= 0){
-        // Timer expired — invoice sent, waiting for status flip
-        cdEl.textContent = 'Invoice sent';
-        if(lkEl){ lkEl.style.display=''; lkEl.textContent='\uD83D\uDD12 Closed'; }
-        if(btnEl) btnEl.style.display='none';
-      } else {
-        var mm = String(Math.floor(s/60)).padStart(2,'0');
-        var ss2= String(s%60).padStart(2,'0');
-        cdEl.textContent = mm+':'+ss2;
-        // While open: show bid button, hide locked label
-        if(lkEl) lkEl.style.display='none';
-        if(btnEl) btnEl.style.display='';
-        s--; TIMERS.push(setTimeout(tickLive, 1000));
-      }
-    }
-    tickLive();
-  });
-
-  // ── OPENING SOON items ───────────────────────────────────────────────────
-  // Count down to auctionOpensAt; show HH:MM:SS or MM:SS
-  D.opening.forEach(function(it){
-    var opEl = document.getElementById('op-'+it.id);
-    if(!opEl) return;
-    var targetTs = it.auctionOpensAt ? new Date(it.auctionOpensAt).getTime() : 0;
-    // Find the early bid button for this card (both card and row variants)
-    var earlyBtnEls = document.querySelectorAll('[onclick*="openBidModal(\''+it.id+'\')"]');
-    function tickOpen(){
-      var rem = targetTs > 0 ? Math.max(0, Math.round((targetTs - Date.now()) / 1000)) : 0;
-      if(rem <= 0){
-        opEl.textContent = 'Opening now!';
-        // Issue 6: fetch forceLiveCheck when countdown hits zero
-        fetch(ASURL+'?action=forceLiveCheck&id='+encodeURIComponent(it.id))
-          .then(function(r){return r.json();})
-          .catch(function(){return null;})
-          .then(function(data){
-            if(data&&data.status==='Live'){loadItems();}
-          });
-      } else {
-        // Issue 5: 30-second final countdown visual
-        if(rem <= 30){
-          opEl.classList.add('final-countdown');
-          earlyBtnEls.forEach(function(btn){btn.style.display='none';});
-        } else {
-          opEl.classList.remove('final-countdown');
-          earlyBtnEls.forEach(function(btn){btn.style.display='';});
-        }
-        var h = Math.floor(rem/3600);
-        var m = Math.floor((rem%3600)/60);
-        var s = rem%60;
-        opEl.textContent = h>0
-          ? h+':'+ String(m).padStart(2,'0')+':'+ String(s).padStart(2,'0')
-          : String(m).padStart(2,'0')+':'+ String(s).padStart(2,'0');
-        TIMERS.push(setTimeout(tickOpen, 1000));
-      }
-    }
-    tickOpen();
-  });
-
-  // ── AWAITING PAYMENT items ───────────────────────────────────────────────
-  D.awaiting.forEach(function(it){
-    var el = document.getElementById('pd-'+it.id);
-    var elM = document.getElementById('pdm-'+it.id);
-    function tickPay(){
-      var deadline = it.paymentDeadline ? new Date(it.paymentDeadline).getTime() : 0;
-      var rem = Math.max(0, Math.round((deadline - Date.now()) / 1000));
-      var txt = rem <= 0 ? 'Expired' : String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0');
-      if(el){ el.textContent=txt; if(rem<=0) el.style.color='var(--red)'; }
-      if(elM){ elM.textContent=txt; if(rem<=0) elM.style.color='var(--red)'; }
-      if(rem > 0) TIMERS.push(setTimeout(tickPay, 1000));
-    }
-    tickPay();
-  });
-}
-
-function setBanner(msg,isLive){
-  var b=document.getElementById('src-banner');
-  b.className='src-banner'+(isLive?' live':'');
-  document.getElementById('src-text').textContent=msg;
-}
-
-function mapRow(r){
-  var photo=(r[6]||'').trim();
-  return{
-    id:r[0]||'',status:(r[1]||'').trim(),name:r[2]||'',cat:r[3]||'',cond:r[4]||'',
-    photo:photo.indexOf('http')===0?photo:'',
-    start:parseInt((r[7]||'').replace(/[^0-9]/g,''))||0,
-    bid:parseInt((r[8]||'').replace(/[^0-9]/g,''))||0,
-    bids:parseInt((r[10]||'').replace(/[^0-9]/g,''))||0,
-    final:parseInt((r[19]||'').replace(/[^0-9]/g,''))||0,
-    auctionOpensAt:(r[26]||'').trim()
-  };
-}
-
-// ── COLUMN INDICES in Auction Items sheet (0-based) ──────────────────────────
-// A=0 ID, B=1 Status, C=2 Name, D=3 Cat, E=4 Cond, F=5 Desc, G=6 Photo,
-// H=7 Start, I=8 HighBid, J=9 BidderID, K=10 TotalBids, L=11 SellerName,
-// M=12 SellerEmail, N=13 SellerPhone, O=14 Bank, P=15 AcctName, Q=16 Acct,
-// R=17 EligibleAt, S=18 ClosedAt, T=19 FinalPrice, U=20 BuyerName,
-// V=21 BuyerEmail, W=22 BuyerPhone, X=23 Payout, Y=24 Commission,
-// Z=25 SubmissionTime, AA=26 AuctionOpensAt, AB=27 ChannelNotified,
-// AC=28 LiveNotified, AD=29 LastBidAt, AE=30 InvoiceSentAt,
-// AF=31 PaymentDeadline, AG=32 ReopenCount, AH=33 PaymentURL, AI=34 ReminderSent
-
-function parseCsvRow(row){
-  // Parse a CSV row respecting quoted fields
-  var result=[],cur='',inQ=false;
-  for(var i=0;i<row.length;i++){
-    var c=row[i];
-    if(c==='"'){inQ=!inQ;}
-    else if(c===','&&!inQ){result.push(cur.trim());cur='';}
-    else{cur+=c;}
+  function ago(str) {
+    if (!str) return "";
+    var t = Date.parse(String(str).replace(" ", "T"));
+    if (isNaN(t)) return "";
+    var m = Math.max(0, Math.round((Date.now() - t) / 60000));
+    if (m < 1) return "just now";
+    if (m < 60) return m + "m ago";
+    var h = Math.round(m / 60);
+    if (h < 24) return h + "h ago";
+    return Math.round(h / 24) + "d ago";
   }
-  result.push(cur.trim());
-  return result;
-}
 
-function normItem(it){
-  it.cat   = it.cat   || it.category   || '';
-  it.cond  = it.cond  || it.condition  || '';
-  it.start = parseFloat(String(it.start||it.startPrice||0).replace(/[^0-9.]/g,''))||0;
-  it.bid   = parseFloat(String(it.bid  ||it.highestBid||0).replace(/[^0-9.]/g,''))||0;
-  it.bids  = parseInt(String(it.bids   ||it.totalBids ||0))||0;
-  it.final = parseFloat(String(it.final||it.finalPrice||0).replace(/[^0-9.]/g,''))||0;
-  it.photo = (it.photo||'').split(',')[0].trim();
-  // Only keep https:// photos — strip Telegram file IDs
-  if(it.photo&&it.photo.indexOf('http')!==0) it.photo='';
-  it.lastBidAt       = it.lastBidAt       || '';
-  it.invoiceSentAt   = it.invoiceSentAt   || '';
-  it.paymentDeadline = it.paymentDeadline || '';
-  it.auctionOpensAt  = it.auctionOpensAt  || '';
-  it.reopenCount     = parseInt(it.reopenCount)||0;
-  return it;
-}
+  // ── RENDER ──────────────────────────────────────────────────────
+  function photoOf(it) { return String(it.photo || "").trim(); }
 
-function bucketItem(it){
-  var s=it.status;
-  if(s==='Live')              D.live.push(it);
-  else if(s==='Awaiting Payment') D.awaiting.push(it);
-  else if(s==='Opening Soon') D.opening.push(it);
-  else if(s==='Approved')     D.prebid.push(it);
-  else if(s==='Sold'||s==='Expired') D.ended.push(it);
-  // Pending / Rejected → hidden
-}
-
-function loadFromCsvRows(rows){
-  // rows[0] is header row — skip it
-  D.live=[];D.opening=[];D.prebid=[];D.awaiting=[];D.ended=[];
-  for(var i=1;i<rows.length;i++){
-    var r=parseCsvRow(rows[i]);
-    if(r.length<2||!r[0]) continue;
-    var status=r[1].trim();
-    if(status==='Pending'||status==='Rejected') continue;
-    var it=normItem({
-      id:     r[0].trim(),
-      status: status,
-      name:   r[2]||'',
-      cat:    r[3]||'',
-      cond:   r[4]||'',
-      desc:   r[5]||'',
-      photo:  r[6]||'',
-      start:  r[7]||0,
-      bid:    r[8]||0,
-      bids:   r[10]||0,
-      final:  r[19]||0,
-      auctionOpensAt:  r[26]||'',
-      lastBidAt:       r[29]||'',
-      invoiceSentAt:   r[30]||'',
-      paymentDeadline: r[31]||'',
-      reopenCount:     r[32]||0,
+  function render() {
+    var live = [], early = [], wait = [], done = [];
+    ITEMS.forEach(function (it) {
+      var st = norm(it.status);
+      if (st === "live") live.push(it);
+      else if (st === "approved" || st === "opening soon") early.push(it);
+      else if (st === "awaiting payment") wait.push(it);
+      else if (st === "sold" || st === "expired" || st === "ended") done.push(it);
     });
-    bucketItem(it);
+    // Loudest bid first on the live rail; fullest progress first on early.
+    live.sort(function (a, b) { return (b.bid || 0) - (a.bid || 0); });
+    early.sort(function (a, b) { return (b.earlyBids || 0) - (a.earlyBids || 0); });
+
+    $("secLoading").hidden = true;
+    $("secEmpty").hidden = !!(live.length || early.length || wait.length || done.length);
+    $("noteEarly").textContent = "Goes live at " + CFG.triggerBids + " unique bidders · early bids are non-binding";
+    // The hero pills are fixed elements; only the numbers move.
+    $("pillLive").textContent = live.length;
+    $("pillOpen").textContent = early.length;
+    $("pillDone").textContent = done.length;
+
+    $("secLive").hidden = !live.length;
+    $("cntLive").textContent = live.length ? "(" + live.length + ")" : "";
+    $("gridLive").innerHTML = live.map(function (it) {
+      var ph = photoOf(it);
+      return '<div class="live-card" data-open="' + esc(it.id) + '">' +
+        '<div class="lc-photo">' + (ph ? '<img src="' + esc(ph) + '" alt="" loading="lazy">' : '') +
+          '<span class="lc-flag"><span class="dot"></span>Live</span></div>' +
+        '<div class="lc-body">' +
+          '<div class="lc-name">' + esc(it.name) + '</div>' +
+          '<div class="lc-meta">' + esc(it.cond || "") + (it.cat ? ' · ' + esc(it.cat) : '') + ' · ' + esc(it.id) + '</div>' +
+          '<div class="lc-bidrow"><div class="lc-bid"><small>Current bid</small>' +
+            '<span class="lc-mini"><button class="lcm" type="button" data-mini="' + esc(it.id) + '" data-dir="-1" aria-label="Bid">&minus;</button>' +
+            '<b>' + naira(it.bid || it.start) + '</b>' +
+            '<button class="lcm" type="button" data-mini="' + esc(it.id) + '" data-dir="1" aria-label="Raise">+</button></span></div>' +
+            '<div class="lc-count">' + (it.bids || 0) + ' bid' + ((it.bids || 0) === 1 ? '' : 's') +
+            (it.lastBidAt ? '<br>last ' + ago(it.lastBidAt) : '') + '</div></div>' +
+          '<div class="lc-timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+            '<span><b>' + CFG.silenceMin + ' quiet minutes</b> end it. A new bid resets the clock.</span></div>' +
+          '<button class="btn btn-primary" data-bid="' + esc(it.id) + '">Bid ' + naira((it.bid || it.start) + CFG.minRaise) + ' or more</button>' +
+        '</div></div>';
+    }).join("");
+
+    $("secEarly").hidden = !early.length;
+    $("cntEarly").textContent = early.length ? "(" + early.length + ")" : "";
+    // The filter earns its place only when the section is crowded:
+    // nine or more lots across at least two categories. Below that it
+    // stays out of the way entirely.
+    var cats = {};
+    early.forEach(function (it) { var c = String(it.cat || "").trim(); if (c) cats[c] = (cats[c] || 0) + 1; });
+    var catNames = Object.keys(cats).sort(function (a, b) { return cats[b] - cats[a]; });
+    var wantChips = early.length >= 9 && catNames.length >= 2;
+    var chipsEl = $("earlyChips");
+    chipsEl.hidden = !wantChips;
+    if (wantChips) {
+      if (catNames.indexOf(EARLY_CAT) < 0) EARLY_CAT = "";
+      chipsEl.innerHTML = '<button class="e-chip' + (EARLY_CAT ? '' : ' on') + '" data-cat="">All (' + early.length + ')</button>' +
+        catNames.map(function (c) {
+          return '<button class="e-chip' + (EARLY_CAT === c ? ' on' : '') + '" data-cat="' + esc(c) + '">' + esc(c) + ' (' + cats[c] + ')</button>';
+        }).join("");
+      if (EARLY_CAT) early = early.filter(function (it) { return String(it.cat || "").trim() === EARLY_CAT; });
+    } else { EARLY_CAT = ""; }
+    $("gridEarly").innerHTML = early.map(function (it) {
+      var ph = photoOf(it);
+      var n = it.earlyBids || 0, need = it.triggerBids || CFG.triggerBids;
+      var pct = Math.min(100, Math.round(n / need * 100));
+      return '<div class="early-card" data-open="' + esc(it.id) + '">' +
+        '<div class="ec-photo">' + (ph ? '<img src="' + esc(ph) + '" alt="" loading="lazy">' : '') + '</div>' +
+        '<div class="ec-body">' +
+          '<div class="ec-name">' + esc(it.name) + '</div>' +
+          '<div class="ec-start"><small>Asking</small>' + naira(it.start) + '</div>' +
+          '<div class="ec-prog"><div class="ec-prog-bar"><div class="ec-prog-fill" style="width:' + pct + '%"></div></div>' +
+            '<div class="ec-prog-tx"><b>' + n + ' of ' + need + '</b> unique bidders. At ' + need + ' it goes live.</div></div>' +
+          '<button class="btn btn-primary" data-bid="' + esc(it.id) + '">Early bid</button>' +
+        '</div></div>';
+    }).join("");
+
+    $("secWait").hidden = !wait.length;
+    $("cntWait").textContent = wait.length ? "(" + wait.length + ")" : "";
+    $("listWait").innerHTML = wait.map(function (it) {
+      var ph = photoOf(it);
+      return '<div class="quiet-row">' +
+        '<div class="qr-photo">' + (ph ? '<img src="' + esc(ph) + '" alt="" loading="lazy">' : '') + '</div>' +
+        '<div class="qr-name">' + esc(it.name) + '</div>' +
+        '<div class="qr-price">' + naira(it.bid || it.final || it.start) + '</div>' +
+        '<span class="qr-chip qc-wait">Paying · ' + CFG.payWindowMin + 'm window</span></div>';
+    }).join("");
+
+    $("secDone").hidden = !done.length;
+    $("cntDone").textContent = done.length ? "(" + done.length + ")" : "";
+    $("listDone").innerHTML = done.map(function (it) {
+      var ph = photoOf(it);
+      var sold = norm(it.status) === "sold";
+      return '<div class="quiet-row">' +
+        '<div class="qr-photo">' + (ph ? '<img src="' + esc(ph) + '" alt="" loading="lazy">' : '') + '</div>' +
+        '<div class="qr-name">' + esc(it.name) + '</div>' +
+        '<div class="qr-price">' + naira(it.final || it.bid || it.start) + '</div>' +
+        '<span class="qr-chip ' + (sold ? 'qc-sold">Sold' : 'qc-gone">Ended') + '</span></div>';
+    }).join("");
   }
-}
 
-function loadFromGasJson(json){
-  D.live=[];D.opening=[];D.prebid=[];D.awaiting=[];D.ended=[];
-  if(Array.isArray(json.live)||Array.isArray(json.soon)||Array.isArray(json.ended)){
-    (json.live||[]).forEach(function(it){bucketItem(normItem(it));});
-    (json.soon||[]).forEach(function(it){bucketItem(normItem(it));});
-    (json.ended||[]).forEach(function(it){bucketItem(normItem(it));});
-  } else if(Array.isArray(json.items)){
-    json.items.forEach(function(it){bucketItem(normItem(it));});
+  // ── LOAD ────────────────────────────────────────────────────────
+  function load() {
+    if (!GAS) { ITEMS = []; render(); return; }
+    fetch(GAS + "?action=getAuctionItems", { redirect: "follow" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.success) {
+          ITEMS = d.items || [];
+          if (d.config) CFG = Object.assign(CFG, d.config);
+        }
+        render();
+        // A ?lot= link (the preview sheet on the items page, or a shared
+        // link) opens that lot's bid sheet directly, once, if it is still
+        // taking bids.
+        if (!load._deepLinked) {
+          load._deepLinked = true;
+          var dm = window.location.search.match(/[?&]lot=([^&]+)/);
+          if (dm) {
+            var did = decodeURIComponent(dm[1]);
+            var dit = ITEMS.filter(function (it) { return String(it.id) === did; })[0];
+            var ds = dit ? norm(dit.status) : "";
+            if (ds === "live" || ds === "approved") openBid(did);
+          }
+        }
+        // The block only moves while something is live, so only then is a
+        // quiet refresh worth the request.
+        if (ITEMS.some(function (it) { return norm(it.status) === "live"; })) {
+          clearTimeout(load._t); load._t = setTimeout(load, 45000);
+        }
+      })
+      .catch(function () { $("secLoading").hidden = true; $("secEmpty").hidden = false; });
   }
-}
 
-function hasItems(){
-  return D.live.length||D.opening.length||D.prebid.length||D.awaiting.length||D.ended.length;
-}
-
-async function loadItems(){
-  // ── 1. Try CSV first (fast, Netlify-cacheable) ────────────────────────────
-  try{
-    var csvRes=await fetch(CSV_URL+'&t='+Date.now());
-    if(!csvRes.ok) throw new Error('CSV HTTP '+csvRes.status);
-    var text=await csvRes.text();
-    var rows=text.split('\n').filter(function(r){return r.trim();});
-    if(rows.length<2) throw new Error('CSV empty');
-    loadFromCsvRows(rows);
-    if(!hasItems()) throw new Error('CSV no visible items');
-    setBanner('Live from DPS Auction',true);
-    document.getElementById('loading-wrap').style.display='none';
-    render();checkUrlItem();
-    return;
-  }catch(csvErr){
-    console.warn('[DPS] CSV failed ('+csvErr.message+') — trying GAS');
+  // ── BID SHEET ───────────────────────────────────────────────────
+  function openSheet(view) {
+    $("bidForm").hidden = view !== "bid";
+    $("bidDone").hidden = true;
+    $("myBids").hidden = view !== "my";
+    $("demoView").hidden = view !== "demo";
+    $("sheetBg").classList.add("open");
+    document.body.style.overflow = "hidden";
   }
-  // ── 2. Fallback: Apps Script getAuctionItems ──────────────────────────────
-  try{
-    var gasRes=await fetch(ASURL+'?action=getAuctionItems&t='+Date.now());
-    if(!gasRes.ok) throw new Error('GAS HTTP '+gasRes.status);
-    var json=await gasRes.json();
-    if(!json) throw new Error('GAS empty');
-    loadFromGasJson(json);
-    if(!hasItems()) throw new Error('GAS no visible items');
-    setBanner('Live from DPS Auction',true);
-    document.getElementById('loading-wrap').style.display='none';
-    render();checkUrlItem();
-    return;
-  }catch(gasErr){
-    console.warn('[DPS] GAS failed ('+gasErr.message+') — showing sample data');
+  function closeSheet() {
+    $("sheetBg").classList.remove("open");
+    document.body.style.overflow = "";
+    clearInterval(openBid._t);
+    $("shMsg").className = "sheet-msg"; $("mbMsg").className = "sheet-msg";
   }
-  // ── 3. Last resort: sample data ───────────────────────────────────────────
-  D.live=SAMPLE.live;D.opening=SAMPLE.opening;D.prebid=SAMPLE.prebid;
-  D.awaiting=[];D.ended=SAMPLE.ended;
-  D.live.forEach(function(it,i){it._secs=300+i*120;});
-  setBanner('DPS Auction');
-  document.getElementById('loading-wrap').style.display='none';
-  render();checkUrlItem();
-}
 
-function showSec(secId,trackId,countId,items,builder,rowBuilder){
-  var block=document.getElementById(secId);
-  if(!items.length){block.style.display='none';return;}
-  block.style.display='';
-  document.getElementById(countId).textContent=items.length;
-  var useRow=rowBuilder&&document.querySelector('.main.sec-filtered');
-  document.getElementById(trackId).innerHTML=items.map(useRow?rowBuilder:builder).join('');
-}
+  /* ── HOW IT WORKS ── the five steps, written still. */
+  $("demoStrip").addEventListener("click", function () { openSheet("demo"); });
+  $("dmClose").addEventListener("click", closeSheet);
+  $("dmGo").addEventListener("click", closeSheet);
 
-function render(){
-  var live=(F==='opening'||F==='prebid'||F==='awaiting'||F==='ended')?[]:D.live;
-  var opening=(F==='live'||F==='prebid'||F==='awaiting'||F==='ended')?[]:D.opening;
-  var prebid=(F==='live'||F==='opening'||F==='awaiting'||F==='ended')?[]:D.prebid;
-  var awaiting=(F==='live'||F==='opening'||F==='prebid'||F==='ended')?[]:D.awaiting;
-  var ended=(F==='live'||F==='opening'||F==='prebid'||F==='awaiting')?[]:D.ended;
-  if(ACTIVE_SEC){
-    live=ACTIVE_SEC==='live'?D.live:[];
-    opening=ACTIVE_SEC==='opening'?D.opening:[];
-    prebid=ACTIVE_SEC==='prebid'?D.prebid:[];
-    awaiting=ACTIVE_SEC==='awaiting'?D.awaiting:[];
-    ended=ACTIVE_SEC==='ended'?D.ended:[];
-  }
-  showSec('sec-live','track-live','cnt-live',catFilter(live),cardLive,cardRowLive);
-  showSec('sec-opening','track-opening','cnt-opening',catFilter(opening),cardOpening,cardRowOpening);
-  showSec('sec-prebid','track-prebid','cnt-prebid',catFilter(prebid),cardPrebid,cardRowPrebid);
-  showSec('sec-awaiting','track-awaiting','cnt-awaiting',catFilter(awaiting),cardAwaiting,cardRowAwaiting);
-  showSec('sec-ended','track-ended','cnt-ended',catFilter(ended),cardEnded,cardRowEnded);
-  startTimers();
-  updatePageTitle();
-}
+  // The stepper. Never below the floor, always in min-raise steps, and
+  // the floor travels with whichever auction the sheet is open on.
+  var STEP_FLOOR = 0, STEP_SIZE = 1000;
+  function stepperVal() { return parseInt(($("bAmount").value || "").replace(/[^0-9]/g, ""), 10) || 0; }
+  function stepperSet(n) { $("bAmount").value = Math.max(STEP_FLOOR, n).toLocaleString("en-NG"); }
+  function stepperNudge(d) { stepperSet((stepperVal() || STEP_FLOOR) + d); }
 
-var FILTER_DESC={
-  all:      {cls:'',           text:''},
-  live:     {cls:'is-live',    text:'Currently in live auction &mdash; bidding is locked until inactivity closes it'},
-  opening:  {cls:'is-opening', text:'Reached 10 bids &mdash; opening for live auction soon &middot; early bids accepted'},
-  prebid:   {cls:'is-prebid',  text:'Pre-bid &middot; Auction opens at 10 bids'},
-  awaiting: {cls:'is-live',    text:'Winner has been invoiced &mdash; auction reopens automatically if unpaid'},
-  ended:    {cls:'is-ended',   text:'Completed auctions &mdash; final prices shown'}
-};
-function updateFilterDesc(f){
-  var bar=document.getElementById('filter-desc-bar');
-  var txt=document.getElementById('fd-text');
-  if(!bar||!txt) return;
-  var d=FILTER_DESC[f]||FILTER_DESC.all;
-  bar.className='filter-desc-bar'+(d.cls?' '+d.cls:'');
-  txt.innerHTML=d.text;
-  bar.style.display=d.text?'':'none';
-}
-function setFilter(f,btn){
-  F=f;ACTIVE_SEC=null;
-  document.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  document.querySelectorAll('.sec-filter-btn').forEach(function(b){
-    b.classList.remove('on');
-    b.textContent='Show only '+secLabel(b.id.replace('sfb-',''));
-  });
-  updateFilterDesc(f);
-  var main=document.querySelector('.main');
-  if(main){
-    // Always remove sec-filtered first, then only add filtered (not sec-filtered) for non-all tabs
-    main.classList.remove('sec-filtered');
-    main.classList.toggle('filtered', f!=='all');
-  }
-  render();
-}
+  function openBid(id, opts) {
+    current = null;
+    for (var i = 0; i < ITEMS.length; i++) if (ITEMS[i].id === id) { current = ITEMS[i]; break; }
+    if (!current) return;
+    var isLive = norm(current.status) === "live";
+    var floor = isLive && current.bid ? current.bid + (current.minRaise || CFG.minRaise) : current.start;
+    STEP_FLOOR = floor;
+    STEP_SIZE = current.minRaise || CFG.minRaise || 1000;
 
-function toggleSecFilter(sec,btn){
-  if(ACTIVE_SEC===sec){
-    ACTIVE_SEC=null;btn.classList.remove('on');btn.textContent='Show only '+secLabel(sec);
-    document.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});
-    document.querySelector('.ftab').classList.add('active');
-    var main=document.querySelector('.main');
-    if(main){main.classList.remove('sec-filtered');}
-  }else{
-    ACTIVE_SEC=sec;
-    document.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});
-    document.querySelectorAll('.sec-filter-btn').forEach(function(b){b.classList.remove('on');b.textContent='Show only '+secLabel(b.id.replace('sfb-',''));});
-    btn.classList.add('on');btn.textContent='Show all';
-    var main2=document.querySelector('.main');
-    if(main2){main2.classList.add('sec-filtered');}
-  }
-  render();
-}
+    // The item itself, cropped into the top of the sheet.
+    var ph = photoOf(current), im = $("shImg");
+    if (ph) { im.src = ph; im.hidden = false; } else { im.removeAttribute("src"); im.hidden = true; }
+    $("shName").textContent = current.name;
+    $("shState").className = "sh-state " + (isLive ? "live" : "early");
+    $("shState").innerHTML = isLive ? '<span class="dot"></span>LIVE' : 'EARLY BIDS';
 
-function secLabel(s){return{live:'Live',opening:'Opening',prebid:'Pre-Bid',awaiting:'Awaiting Payment',ended:'Ended'}[s]||s;}
-
-function flat(){return D.live.concat(D.opening).concat(D.prebid).concat(D.awaiting).concat(D.ended);}
-function catFilter(arr){return ACTIVE_CAT?arr.filter(function(it){return it.cat===ACTIVE_CAT;}):arr;}
-function fi(id){var a=flat();for(var i=0;i<a.length;i++)if(a[i].id===id)return a[i];return null;}
-
-function openBidModal(id){
-  var it=fi(id);if(!it)return;
-  // Only Awaiting Payment is fully locked — Live is open for bids
-  if(it.status==='Awaiting Payment'){
-    // Show a brief closed notice in the modal instead of silently returning
-    document.getElementById('m-cat').textContent=it.cat||'';
-    document.getElementById('m-name').textContent=it.name||'';
-    document.getElementById('m-id').textContent=(it.id||'')+' · '+(it.cond||'');
-    document.getElementById('m-start').textContent=fmt(it.start||0);
-    document.getElementById('m-high').textContent=it.bid>0?fmt(it.bid):'—';
-    document.getElementById('m-bids').textContent=it.bids||'0';
-    document.getElementById('modal-bar').className='modal-bar amber';
-    var awn=document.getElementById('m-notice');
-    awn.className='live-notice';
-    awn.innerHTML='<strong>⏳ Awaiting payment — auction temporarily closed</strong>';
-    awn.style.display='flex';
-    document.getElementById('bid-increments').style.display='none';
-    document.getElementById('bid-hint').textContent='';
-    document.getElementById('modal-terms').textContent='';
-    document.getElementById('submit-btn').style.display='none';
-    document.getElementById('form-view').style.display='block';
-    document.getElementById('success-view').classList.remove('show');
-    document.getElementById('overlay').classList.add('open');
-    document.body.style.overflow='hidden';
-    return;
-  }
-  var isEarly=it.status==='Approved'||it.status==='Opening Soon';
-  var isLive =it.status==='Live';
-  ITEM={id:it.id,name:it.name,cat:it.cat,cond:it.cond,start:it.start,highest:it.bid||0,bids:it.bids||0,isEarly:isEarly,isLive:isLive};
-  document.getElementById('m-cat').textContent=ITEM.cat;
-  document.getElementById('m-name').textContent=ITEM.name;
-  document.getElementById('m-id').textContent=ITEM.id+' \u00b7 '+ITEM.cond;
-  document.getElementById('m-start').textContent=fmt(ITEM.start);
-  document.getElementById('m-high').textContent=ITEM.highest>0?fmt(ITEM.highest):'Be first to bid';
-  document.getElementById('m-bids').textContent=ITEM.bids||'0';
-  document.getElementById('submit-btn').style.display='block';
-  document.getElementById('modal-bar').className='modal-bar'+(isEarly?' blue':isLive?' amber':'');
-  // Show increment buttons for all live bidding states
-  document.getElementById('bid-increments').style.display=(isLive||isEarly)?'grid':'none';
-  var notice=document.getElementById('m-notice');
-  if(isLive){
-    // Build live notice with inactivity countdown
-    notice.className='live-notice';
-    var unlockTs=0;
-    if(it.lastBidAt){
-      unlockTs=new Date(it.lastBidAt).getTime()+(10*60*1000);
-    }
-    function updateLiveNotice(){
-      var ne=document.getElementById('m-notice');
-      if(!ne||ne.style.display==='none'){return;}
-      var rem=unlockTs>0?Math.max(0,Math.round((unlockTs-Date.now())/1000)):0;
-      var mm=String(Math.floor(rem/60)).padStart(2,'0');
-      var ss=String(rem%60).padStart(2,'0');
-      var timerHtml=unlockTs>0?'<span class="live-notice-timer">'+mm+':'+ss+'</span>':'';
-      ne.innerHTML='<strong>&#x1F534; Live auction — highest bid wins</strong>'+timerHtml;
-    }
-    updateLiveNotice();
-    notice.style.display='flex';
-    if(unlockTs>0){
-      var _lt=setInterval(function(){
-        var ne=document.getElementById('m-notice');
-        if(!ne||ne.style.display==='none'){clearInterval(_lt);return;}
-        updateLiveNotice();
-        var rem2=Math.max(0,Math.round((unlockTs-Date.now())/1000));
-        if(rem2<=0)clearInterval(_lt);
-      },1000);
-    }
-  }else if(it.status==='Opening Soon'){
-    // Build one-line countdown notice
-    notice.className='opening-notice';
-    var openTs=it.auctionOpensAt||(it._opensAt)||'';
-    var cdTxt='';
-    if(openTs){
-      var diff=Math.max(0,new Date(openTs)-new Date());
-      var cm=Math.floor(diff/60000),cs=Math.floor((diff%60000)/1000);
-      cdTxt=' '+(cm<10?'0':'')+cm+':'+(cs<10?'0':'')+cs;
-    }
-    notice.innerHTML='<strong>&#x23F0; Goes live in'+cdTxt+'</strong><span style="margin-left:8px;font-size:10px;opacity:.7;">Early bid &mdash; no payment until live</span>';
-    notice.style.display='flex';
-    // live-update the countdown in the notice
-    if(openTs){
-      var _nt=setInterval(function(){
-        var ne=document.getElementById('m-notice');
-        if(!ne||ne.style.display==='none'){clearInterval(_nt);return;}
-        var d2=Math.max(0,new Date(openTs)-new Date());
-        var m2=Math.floor(d2/60000),s2=Math.floor((d2%60000)/1000);
-        ne.innerHTML='<strong>&#x23F0; Goes live in '+(m2<10?'0':'')+m2+':'+(s2<10?'0':'')+s2+'</strong><span style="margin-left:8px;font-size:10px;opacity:.7;">Early bid &mdash; no payment until live</span>';
-        if(d2<=0){ne.innerHTML='<strong>&#x23F0; Opening now! Bidding is live.</strong>';clearInterval(_nt);}
-      },1000);}
-  }
-  else if(isEarly){notice.className='early-notice';notice.innerHTML='Pre-bid &middot; Auction opens at 10 bids';notice.style.display='flex';}
-  else notice.style.display='none';
-  var min=isEarly?ITEM.start:(ITEM.highest>0?ITEM.highest+1000:ITEM.start);
-  if(isEarly){
-    document.getElementById('bid-hint').textContent='Floor: '+fmt(min)+' — early bids are not competitive. Highest bid at live auction wins.';
-  } else {
-    document.getElementById('bid-hint').textContent='Minimum: '+fmt(min);
-  }
-  document.getElementById('modal-terms').textContent=isLive
-    ?'Highest bid when 10-min timer expires wins. Winner has 15 min to pay.'
-    :isEarly?'Early bids do not require any payments until auction is live.'
-    :'';
-  document.getElementById('submit-btn').textContent=isLive?'\uD83D\uDD28 Place Live Bid':'\uD83D\uDD28 Confirm Bid';
-  ['f-email','f-tg','f-bid'].forEach(function(i){document.getElementById(i).value='';});
-  document.getElementById('f-phone').value='';
-  document.getElementById('bid-display').textContent='';
-  document.getElementById('bid-display').classList.remove('has-value');
-  document.getElementById('phone-field').style.display='none';
-  document.getElementById('bsd-wrap').classList.remove('show');
-  document.getElementById('form-view').style.display='block';
-  document.getElementById('success-view').classList.remove('show');
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  setTimeout(function(){document.getElementById('f-email').focus();},100);
-}
-
-function closeModal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-
-document.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('mclose').addEventListener('click',closeModal);
-  document.getElementById('success-done').addEventListener('click',closeModal);
-  document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
-  document.getElementById('f-bid').addEventListener('input',function(){
-    var raw=this.value.replace(/[^0-9]/g,'');this.value=raw;
-    var disp=document.getElementById('bid-display');
-    if(raw){disp.textContent='\u20a6'+parseInt(raw).toLocaleString('en-NG');disp.classList.add('has-value');}
-    else{disp.textContent='';disp.classList.remove('has-value');}
-  });
-  document.getElementById('f-email').addEventListener('blur',function(){
-    var email=this.value.trim();
-    if(!email||email.indexOf('@')<0)return;
-    var wrap=document.getElementById('bsd-wrap');wrap.classList.add('show');
-    fetch(ASURL+'?action=lookupBidder&email='+encodeURIComponent(email))
-      .then(function(r){return r.json();})
-      .then(function(d){wrap.classList.remove('show');if(d&&d.found){var tf=document.getElementById('f-tg');if(d.telegram&&!tf.value)tf.value=d.telegram;document.getElementById('phone-field').style.display='none';}else{document.getElementById('phone-field').style.display='block';}})
-      .catch(function(){wrap.classList.remove('show');document.getElementById('phone-field').style.display='block';});
-  });
-  document.getElementById('submit-btn').addEventListener('click',submitBid);
-});
-
-function addToBid(amount){
-  var raw=(document.getElementById('f-bid').value||'').replace(/[^0-9]/g,'');
-  // If field is empty, seed from highest bid (or start price) then add increment
-  var current=parseInt(raw)||0;
-  if(current===0&&ITEM.highest>0) current=ITEM.highest;
-  document.getElementById('f-bid').value=String(current+amount);
-  document.getElementById('f-bid').dispatchEvent(new Event('input'));
-}
-
-function submitBid(){
-  var email=document.getElementById('f-email').value.trim();
-  var phone=document.getElementById('f-phone').value.trim();
-  var tg=document.getElementById('f-tg').value.trim();
-  var raw=(document.getElementById('f-bid').value||'').replace(/[^0-9]/g,'');
-  var bid=parseInt(raw)||0;
-  var min=ITEM.isEarly?ITEM.start:(ITEM.highest>0?ITEM.highest+1000:ITEM.start);
-  if(!email||email.indexOf('@')<0){alert('Please enter a valid email.');return;}
-  if(bid<min){alert('Your bid must be at least '+fmt(min)+'.');return;}
-  var btn=document.getElementById('submit-btn');btn.disabled=true;btn.textContent='Registering\u2026';
-  fetch(ASURL,{method:'POST',body:JSON.stringify({action:'placeBid',auctionId:ITEM.id,email:email,phone:phone,telegram:tg,bidAmount:bid,isEarly:ITEM.isEarly,bidderName:'',bidderPhone:phone})})
-    .then(function(r){return r.json();})
-    .then(function(d){btn.disabled=false;btn.textContent=ITEM.isEarly?'\uD83D\uDD28 Confirm Bid':'\uD83D\uDD28 Place Live Bid';showSuccess(d.bidId||'');})
-    .catch(function(){btn.disabled=false;btn.textContent=ITEM.isEarly?'\uD83D\uDD28 Confirm Bid':'\uD83D\uDD28 Place Live Bid';showSuccess('');});
-}
-
-function showSuccess(bidId){
-  var ref=bidId||(ITEM.id+'-'+String((ITEM.bids||0)+1).padStart(4,'0'));
-  document.getElementById('success-ref').textContent='Ref: '+ref;
-  var sub=document.querySelector('#success-view .success-sub');
-  if(sub){
-    if(ITEM.isEarly){
-      // Opening Soon items are about to go live — more precise copy
-      var isOpeningSoon = (typeof fi === 'function' && fi(ITEM.id) && fi(ITEM.id).status === 'Opening Soon');
-      sub.textContent = isOpeningSoon
-        ? "You're in. We'll alert you the moment bidding goes live and if you're outbid."
-        : "Your bid is locked in. We'll alert you if you're outbid or when the auction opens live.";
+    // The dark panel: live shows the fight, early shows only the asking
+    // price and the count. Early amounts stay private until it opens,
+    // which is the nudge to get in and open it.
+    if (isLive && current.bid) {
+      $("mHighLabel").textContent = "Highest bid";
+      $("mHigh").textContent = naira(current.bid);
+      $("ssMeta").innerHTML = 'Starting <b id="mStart"></b> · <b id="mBids"></b> bids';
+      $("mStart").textContent = naira(current.start);
+      $("mBids").textContent = current.bids || 0;
+    } else if (isLive) {
+      $("mHighLabel").textContent = "Starting bid";
+      $("mHigh").textContent = naira(current.start);
+      $("ssMeta").textContent = "No bids yet. Yours sets the pace.";
     } else {
-      sub.textContent="You're in the auction. If no one outbids you in 10 minutes, you win. Watch your inbox.";
+      var eb = Number(current.earlyBids) || 0;
+      $("mHighLabel").textContent = "Asking price";
+      $("mHigh").textContent = naira(current.start);
+      $("ssMeta").textContent = eb
+        ? eb + " of " + (current.triggerBids || CFG.triggerBids) + " bidders in. Amounts stay private until it opens."
+        : "No bids yet. Yours opens the count.";
     }
-  }
-  document.getElementById('form-view').style.display='none';
-  document.getElementById('success-view').classList.add('show');
-}
 
-loadItems();
-setInterval(loadItems,60000);
-
-// ── CATEGORY FILTER ─────────────────────────────────────────
-var ACTIVE_CAT = null;
-function getCats(){
-  var all = []; var seen = {};
-  (D.live||[]).concat(D.opening||[]).concat(D.prebid||[]).concat(D.awaiting||[]).concat(D.ended||[]).forEach(function(it){
-    if(it.cat && !seen[it.cat]){seen[it.cat]=1;all.push(it.cat);}
-  });
-  return all.sort();
-}
-function buildCatBar(){
-  var cats = getCats();
-  var inner = document.getElementById('cat-bar-inner');
-  if(!inner) return;
-  inner.innerHTML = '';
-  cats.forEach(function(cat){
-    var b = document.createElement('button');
-    b.className = 'ctab' + (ACTIVE_CAT===cat?' on':'');
-    b.textContent = cat;
-    b.onclick = function(){
-      ACTIVE_CAT = (ACTIVE_CAT===cat) ? null : cat;
-      inner.querySelectorAll('.ctab').forEach(function(x){x.classList.toggle('on', x.textContent===ACTIVE_CAT);});
-      render();
-    };
-    inner.appendChild(b);
-  });
-}
-function toggleCatBar(btn){
-  var bar = document.getElementById('cat-bar');
-  var open = bar.classList.toggle('open');
-  btn.classList.toggle('on', open);
-  btn.textContent = open ? '✕ Category' : '⊕ Category';
-  if(open) buildCatBar();
-}
-
-// ── DYNAMIC PAGE TITLE ───────────────────────────────────────
-function updatePageTitle(){
-  var liveCount = (D.live||[]).length;
-  var title = liveCount > 0
-    ? 'DPS Auction — ' + liveCount + ' Live Item' + (liveCount===1?'':'s')
-    : 'DPS Auction — Live Items';
-  document.title = title;
-}
-
-// ── SCROLL TO TOP ────────────────────────────────────────────
-window.addEventListener('scroll', function(){
-  var stt = document.getElementById('stt');
-  if(stt) stt.classList.toggle('show', window.scrollY > 400);
-}, {passive:true});
-updateFilterDesc("all");
-
-
-// ITEM PREVIEW
-var PV_ITEM=null,PV_CD_TIMER=null;
-
-function openPv(id){
-  var it=fi(id);if(!it)return;
-  PV_ITEM=it;
-  var iw=document.getElementById('pv-img-wrap');
-  iw.innerHTML=(it.photo&&it.photo.indexOf('http')===0)
-    ?'<img class="pv-img" src="'+it.photo+'" onerror="this.parentNode.innerHTML=\'<div class=pv-img-ph>'+emo(it.cat)+'<\/div>\'">'
-    :'<div class="pv-img-ph">'+emo(it.cat)+'<\/div>';
-  var stMap={Live:'bl',Approved:'bs','Opening Soon':'bo',Sold:'be',Expired:'be','Awaiting Payment':'bl'};
-  var stLbl={Live:'LIVE',Approved:'PRE-BID','Opening Soon':'OPENING',Sold:'SOLD',Expired:'EXPIRED','Awaiting Payment':'AWAITING'};
-  var st=document.getElementById('pv-status');
-  st.className='pv-status '+(stMap[it.status]||'be');
-  st.textContent=stLbl[it.status]||it.status;
-  document.getElementById('pv-id').textContent=it.id;
-  document.getElementById('pv-name').textContent=it.name;
-  document.getElementById('pv-sub').innerHTML='<span>'+it.cat+'</span><span>'+it.cond+'</span>';
-  var de=document.getElementById('pv-desc');
-  if(it.desc||it.description){
-    de.textContent='“'+(it.desc||it.description)+'”';
-    de.className='pv-desc'+(it.status==='Approved'||it.status==='Opening Soon'?' blue':'');
-    de.style.display='block';
-  }else{de.style.display='none';}
-  var sv=document.getElementById('pv-stats');
-  if(it.status==='Live'||it.status==='Opening Soon'||it.status==='Awaiting Payment'){
-    sv.innerHTML='<div class="pv-stat"><label>Starting</label><div class="sv">'+fmtk(it.start)+'</div></div>'
-      +'<div class="pv-stat pv-stat-main"><label>Highest bid</label><div class="sv am">'+fmtk(it.bid||it.start)+'</div></div>'
-      +'<div class="pv-stat"><label>Bids</label><div class="sv">'+it.bids+'</div></div>';
-  }else if(it.status==='Approved'){
-    var nd=Math.max(0,EARLY_THRESHOLD-it.bids);
-    sv.innerHTML='<div class="pv-stat"><label>Starting</label><div class="sv">'+fmtk(it.start)+'</div></div>'
-      +'<div class="pv-stat"><label>Bids</label><div class="sv bl">'+it.bids+'/10</div></div>'
-      +'<div class="pv-stat"><label>Need</label><div class="sv bl">'+nd+'</div></div>';
-  }else{
-    var fp=it.final>0?it.final:(it.bid>0?it.bid:0);
-    sv.innerHTML='<div class="pv-stat"><label>Starting</label><div class="sv">'+fmtk(it.start)+'</div></div>'
-      +'<div class="pv-stat"><label>'+(it.status==='Sold'?'Sold for':'Final')+'</label><div class="sv">'+(fp>0?fmtk(fp):'&mdash;')+'</div></div>'
-      +'<div class="pv-stat"><label>Bids</label><div class="sv">'+it.bids+'</div></div>';
-  }
-  var pw=document.getElementById('pv-prog-wrap');
-  if(it.status==='Approved'){
-    var nd2=Math.max(0,EARLY_THRESHOLD-it.bids);
-    var pct=Math.min(100,Math.round(it.bids/EARLY_THRESHOLD*100));
-    document.getElementById('pv-prog-label').textContent=it.bids+' of 10 placed';
-    document.getElementById('pv-prog-need').textContent=nd2+' to open';
-    document.getElementById('pv-prog-fill').style.width=pct+'%';
-    pw.style.display='flex';
-  }else{pw.style.display='none';}
-  if(PV_CD_TIMER){clearInterval(PV_CD_TIMER);PV_CD_TIMER=null;}
-  var cdEl=document.getElementById('pv-countdown');
-  var openTs2 = it.auctionOpensAt || it._opensAt || '';
-  if(it.status==='Opening Soon' && openTs2){
-    cdEl.style.display='flex';
-    var cdt=document.getElementById('pv-cd-time');
-    function tickPvOpen(){
-      var diff=new Date(openTs2)-new Date();
-      if(diff<=0){
-        cdt.textContent='Live now!';
-        clearInterval(PV_CD_TIMER);
-        // trigger reload so panel updates to Live
-        setTimeout(loadItems, 1000);
-        return;
+    // The clock lives IN the panel: live lots tick down the quiet
+    // window in front of the bidder, which is what makes them move.
+    var notice = $("shNotice"), clock = $("ssClock");
+    clearInterval(openBid._t);
+    if (isLive) {
+      notice.hidden = true;
+      clock.hidden = false;
+      var deadline = NaN;
+      var t0 = Date.parse(String(current.lastBidAt || "").replace(" ", "T"));
+      if (!isNaN(t0)) deadline = t0 + (CFG.silenceMin || 10) * 60000;
+      function paintClock() {
+        var left = isNaN(deadline) ? NaN : Math.max(0, deadline - Date.now());
+        if (isNaN(left)) { clock.innerHTML = '<small>Live. Highest bid wins.</small>'; clearInterval(openBid._t); return; }
+        if (left <= 0) { clock.innerHTML = '<small>Closing. A bid right now reopens the clock.</small>'; clearInterval(openBid._t); return; }
+        clock.innerHTML = '<span class="ss-dot"></span><b>' + mmssN(left) + '</b><small>a bid resets the clock</small>';
       }
-      var h=Math.floor(diff/3600000);
-      var m=Math.floor((diff%3600000)/60000);
-      var s=Math.floor((diff%60000)/1000);
-      cdt.textContent=h>0
-        ?h+':'+ String(m).padStart(2,'0')+':'+ String(s).padStart(2,'0')
-        :String(m).padStart(2,'0')+':'+ String(s).padStart(2,'0');
+      paintClock();
+      openBid._t = setInterval(paintClock, 1000);
+    } else {
+      clock.hidden = true;
+      notice.className = "sheet-notice early";
+      notice.hidden = false;
+      notice.innerHTML = '<span>Early bid · opens at ' + (current.triggerBids || CFG.triggerBids) + ' unique bidders</span><small>Private until it opens</small>';
     }
-    tickPvOpen();
-    PV_CD_TIMER=setInterval(tickPvOpen,1000);
-  }else{cdEl.style.display='none';}
-  var cta=document.getElementById('pv-cta');
-  var awaitingNotice=document.getElementById('pv-awaiting-notice');
-  if(awaitingNotice) awaitingNotice.remove(); // clean up any previous notice
-  if(it.status==='Live'){
-    cta.className='pv-cta pv-cta-live';
-    cta.style.display='block';
-    cta.onclick=function(){pvBid();};
-    // Show "Bidding closed. Invoice sent. Bidding will unlock in MM:SS"
-    // Unlock time = paymentDeadline (if set) else lastBidAt + 10 + 15 min
-    var unlockTs=0;
-    if(it.paymentDeadline){
-      unlockTs=new Date(it.paymentDeadline).getTime();
-    }else if(it.lastBidAt){
-      unlockTs=new Date(it.lastBidAt).getTime()+(10+15)*60*1000;
-    }
-    function updateLiveCta(){
-      var rem=unlockTs>0?Math.max(0,Math.round((unlockTs-Date.now())/1000)):0;
-      if(rem<=0){
-        cta.textContent='\uD83D\uDD28 Bid Now';
-        cta.onclick=function(){pvBid();};
-        cta.className='pv-cta pv-cta-live';
-      }else{
-        var mm=String(Math.floor(rem/60)).padStart(2,'0');
-        var ss=String(rem%60).padStart(2,'0');
-        cta.textContent='\uD83D\uDD28 Bid Now  \u00B7  '+mm+':'+ss+' left';
-      }
-    }
-    updateLiveCta();
-    if(PV_CD_TIMER){clearInterval(PV_CD_TIMER);PV_CD_TIMER=null;}
-    if(unlockTs>0){
-      PV_CD_TIMER=setInterval(function(){
-        if(!document.getElementById('pv-overlay').classList.contains('open')){clearInterval(PV_CD_TIMER);return;}
-        updateLiveCta();
-        var rem2=Math.max(0,Math.round((unlockTs-Date.now())/1000));
-        if(rem2<=0)clearInterval(PV_CD_TIMER);
-      },1000);
-    }
-  }else if(it.status==='Awaiting Payment'){
-    cta.style.display='none';
-    // Insert a payment countdown notice
-    var notice=document.createElement('div');
-    notice.id='pv-awaiting-notice';
-    notice.className='pv-awaiting-notice';
-    notice.innerHTML='<div class="pan-label">\u23F3 Awaiting payment from winner</div>'
-      +'<div class="pan-timer" id="pv-pay-timer">--:--</div>'
-      +'<div class="pan-sub">Auction reopens automatically if payment is not received in time.</div>';
-    cta.parentNode.insertBefore(notice,cta);
-    // Start the timer
-    if(PV_CD_TIMER){clearInterval(PV_CD_TIMER);PV_CD_TIMER=null;}
-    if(it.paymentDeadline){
-      PV_CD_TIMER=setInterval(function(){
-        var timerEl=document.getElementById('pv-pay-timer');
-        if(!timerEl){clearInterval(PV_CD_TIMER);return;}
-        var rem=Math.max(0,Math.round((new Date(it.paymentDeadline).getTime()-Date.now())/1000));
-        if(rem<=0){timerEl.textContent='Expired';timerEl.style.color='var(--red)';clearInterval(PV_CD_TIMER);}
-        else timerEl.textContent=String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0');
-      },1000);
-    }
-  }else if(it.status==='Opening Soon'){
-    cta.textContent='Bid Early';cta.className='pv-cta pv-cta-opening';cta.style.display='block';
-    cta.onclick=function(){pvBid();};
-  }else if(it.status==='Approved'){
-    cta.textContent='Bid Early';cta.className='pv-cta pv-cta-early';cta.style.display='block';
-    cta.onclick=function(){pvBid();};
-  }else{cta.style.display='none';}
-  var shareUrl=window.location.origin+window.location.pathname+'?item='+encodeURIComponent(it.id);
-  document.getElementById('pv-share-link').textContent=shareUrl;
-  var cpb=document.getElementById('pv-copy-btn');cpb.textContent='Copy link';cpb.classList.remove('copied');
-  if(history.replaceState) history.replaceState(null,'','?item='+encodeURIComponent(it.id));
-  document.getElementById('pv-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
+    $("shTerms").textContent = isLive
+      ? "Highest bid when the " + (CFG.silenceMin || 10) + " minute clock runs out wins and pays within " + (CFG.payWindowMin || 15) + " minutes."
+      : "Early bids are private and non-binding. Nothing is paid until the auction is live and won.";
+    $("bSubmit").textContent = isLive ? "Place bid" : "Place early bid";
+    // The item itself, like the shop modal: condition, category, lot id
+    // and the seller's description, dark chips over white.
+    var det = $("shDetail"), bits = [];
+    if (current.cond) bits.push('<span class="sd-chip">' + esc(current.cond) + '</span>');
+    if (current.cat) bits.push('<span class="sd-chip">' + esc(current.cat) + '</span>');
+    bits.push('<span class="sd-chip sd-id">' + esc(current.id) + '</span>');
+    det.innerHTML = '<div class="sd-chips">' + bits.join('') + '</div>' +
+      (current.desc ? '<p class="sd-desc">' + esc(current.desc) + '</p>' : '');
+    det.hidden = false;
 
-function closePv(){
-  document.getElementById('pv-overlay').classList.remove('open');
-  document.body.style.overflow='';
-  if(PV_CD_TIMER){clearInterval(PV_CD_TIMER);PV_CD_TIMER=null;}
-  var n=document.getElementById('pv-awaiting-notice');if(n)n.remove();
-  if(history.replaceState) history.replaceState(null,'',window.location.pathname);
-  PV_ITEM=null;
-}
+    stepperSet(floor + ((opts && opts.bump) ? opts.bump * STEP_SIZE : 0));
+    if (opts && opts.focus) setTimeout(function () { try { $("bAmount").focus(); } catch (e) {} }, 300);
+    $("bAmountHint").textContent = isLive ? "Minimum raise is " + naira(STEP_SIZE) + ". Use the buttons or type your own." : "The asking price or anything above it. Use the buttons or type your own.";
+    $("shMsg").className = "sheet-msg";
+    openSheet("bid");
+    $("bAmount").focus();
+  }
 
-function pvBid(){
-  if(PV_ITEM){openBidModal(PV_ITEM.id);}
-}
+  function placeBid() {
+    if (!current) return;
+    var amount = parseInt(($("bAmount").value || "").replace(/[^0-9]/g, ""), 10) || 0;
+    var name = $("bName").value.trim();
+    var email = $("bEmail").value.trim();
+    var phone = $("bPhone").value.trim();
+    var msg = $("shMsg");
+    function err(t) { msg.textContent = t; msg.className = "sheet-msg err"; }
+    if (!amount) return err("Enter your bid amount.");
+    if (!name) return err("Enter your name.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err("Enter a valid email. Your invoice goes there if you win.");
+    if (!PHONE_KNOWN && phone.replace(/\D/g, "").length < 10) return err("Enter a valid phone number.");
+    if (!GAS) return err("Bidding is not connected yet.");
 
-function pvCopy(){
-  var link=document.getElementById('pv-share-link').textContent;
-  var btn=document.getElementById('pv-copy-btn');
-  function done(){btn.textContent='Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy link';btn.classList.remove('copied');},2000);}
-  if(navigator.clipboard){navigator.clipboard.writeText(link).then(done).catch(function(){var ta=document.createElement('textarea');ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();});}
-  else{var ta=document.createElement('textarea');ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}
-}
+    var b = $("bSubmit"), label = b.textContent; b.disabled = true; b.textContent = "Placing bid…";
+    fetch(GAS, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "placeBid", auctionId: current.id, bidAmount: amount,
+        bidderName: name, email: email, phone: phone
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        b.disabled = false; b.textContent = label;
+        if (!d || !d.success) return err((d && d.error) || "Could not place the bid. Try again.");
+        $("bidForm").hidden = true;
+        $("bidDone").hidden = false;
+        $("doneTitle").textContent = d.opened ? "Your bid opened the auction." : (d.isEarly ? "Early bid placed." : "You're the highest bidder.");
+        $("doneBody").textContent = d.opened
+          ? "It is live now at " + naira(d.currentBid) + ". Every new bid resets the " + CFG.silenceMin + "-minute clock, so stay close."
+          : d.isEarly
+            ? "You're in at " + naira(d.currentBid) + ". When " + CFG.triggerBids + " unique bidders have joined, the auction opens and you'll hear from us."
+            : "You lead at " + naira(d.currentBid) + ". If " + CFG.silenceMin + " minutes pass with no higher bid, you go straight to checkout: the payment link lands in your email.";
+        load();
+      })
+      .catch(function () { b.disabled = false; b.textContent = label; err("Connection error. Try again."); });
+  }
 
-document.addEventListener('keydown',function(e){
-  if(e.key!=='Escape')return;
-  if(document.getElementById('overlay').classList.contains('open'))closeModal();
-  else if(document.getElementById('pv-overlay').classList.contains('open'))closePv();
-});
+  // ── MY BIDS ─────────────────────────────────────────────────────
+  function lookupBids() {
+    var email = $("mbEmail").value.trim();
+    var msg = $("mbMsg");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = "Enter the email you bid with."; msg.className = "sheet-msg err"; return; }
+    if (!GAS) { msg.textContent = "Not connected yet."; msg.className = "sheet-msg err"; return; }
+    var b = $("mbLookup"); b.disabled = true; b.textContent = "Looking…";
+    fetch(GAS + "?action=lookupBidder&email=" + encodeURIComponent(email), { redirect: "follow" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        b.disabled = false; b.textContent = "Find my bids";
+        msg.className = "sheet-msg";
+        var bids = (d && d.bids) || [];
+        if (!bids.length) { $("mbList").innerHTML = '<p style="font-size:13px;color:var(--text-muted);padding:12px 0;">No bids under that email yet.</p>'; return; }
+        var CHIP = {
+          leading:   ['mbc-leading', 'Leading'],
+          early:     ['mbc-leading', 'Early bid in'],
+          outbid:    ['mbc-outbid',  'Outbid'],
+          pay_now:   ['mbc-pay',     'You won · pay now'],
+          lost_lead: ['mbc-quiet',   'Winner paying'],
+          won:       ['mbc-won',     'Won'],
+          lost:      ['mbc-quiet',   'Lost'],
+          ended:     ['mbc-quiet',   'Ended']
+        };
+        $("mbList").innerHTML = bids.map(function (x) {
+          var ch = CHIP[x.state] || ['mbc-quiet', esc(x.auctionStatus || '')];
+          var right = '<div class="mb-amt">' + naira(x.yourTop) +
+            (x.currentBid && x.currentBid !== x.yourTop ? '<br><span style="font-size:10.5px;color:var(--text-muted);">now ' + naira(x.currentBid) + '</span>' : '') + '</div>';
+          return '<div class="mb-row"><div><b>' + esc(x.itemName || x.auctionId) + '</b>' +
+            '<span>' + (x.bidCount > 1 ? x.bidCount + ' bids, your top shown' : 'your bid') + '</span><br>' +
+            '<span class="mb-chip ' + ch[0] + '">' + ch[1] + '</span></div>' + right + '</div>';
+        }).join("");
+      })
+      .catch(function () { b.disabled = false; b.textContent = "Find my bids"; msg.textContent = "Connection error. Try again."; msg.className = "sheet-msg err"; });
+  }
 
-function checkUrlItem(){
-  var p=new URLSearchParams(window.location.search);
-  var id=p.get('item');
-  if(id)setTimeout(function(){openPv(id);},400);
-}
+  // ── WIRE ────────────────────────────────────────────────────────
+  document.getElementById("main").addEventListener("click", function (e) {
+    var c = e.target.closest(".e-chip");
+    if (c) { EARLY_CAT = c.getAttribute("data-cat") || ""; render(); return; }
+    // The mini stepper on the card is the shortest road in: plus walks
+    // the amount up one raise before the sheet even opens.
+    var m = e.target.closest("[data-mini]");
+    if (m) { openBid(m.getAttribute("data-mini"), { bump: m.getAttribute("data-dir") === "1" ? 1 : 0, focus: true }); return; }
+    var b = e.target.closest("[data-bid]");
+    if (b) { openBid(b.getAttribute("data-bid"), { focus: true }); return; }
+    // Anywhere else on a card opens the item itself, details first.
+    var o = e.target.closest("[data-open]");
+    if (o) openBid(o.getAttribute("data-open"));
+  });
+  // The old page's best trick: type your email and the form meets you
+  // halfway. Known sellers and bidders get their name filled and skip
+  // the phone field; the server fills the number from the directory.
+  $("bEmail").addEventListener("blur", function () {
+    var email = this.value.trim().toLowerCase();
+    if (!GAS || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email === LOOKED_UP) return;
+    LOOKED_UP = email;
+    var hint = $("bLookupHint");
+    hint.textContent = "Looking you up\u2026";
+    fetch(GAS + "?action=lookupEmail&email=" + encodeURIComponent(email), { redirect: "follow" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.found) {
+          if (d.name && !$("bName").value.trim()) $("bName").value = d.name;
+          PHONE_KNOWN = !!d.hasPhone;
+          $("phoneField").hidden = PHONE_KNOWN;
+          hint.textContent = "Welcome back" + (d.name ? ", " + String(d.name).split(" ")[0] : "") +
+            (PHONE_KNOWN ? ". We have your number." : ".");
+        } else {
+          PHONE_KNOWN = false;
+          $("phoneField").hidden = false;
+          hint.textContent = "We look you up and send bid alerts here.";
+        }
+      })
+      .catch(function () { hint.textContent = "We look you up and send bid alerts here."; });
+  });
 
+  $("bSubmit").addEventListener("click", placeBid);
+  $("bMinus").addEventListener("click", function () { stepperNudge(-STEP_SIZE); });
+  $("bPlus").addEventListener("click", function () { stepperNudge(STEP_SIZE); });
+  document.querySelector(".quick-raise").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-add]");
+    if (b) stepperNudge(parseInt(b.getAttribute("data-add"), 10));
+  });
+  $("shClose").addEventListener("click", closeSheet);
+  $("mbClose").addEventListener("click", closeSheet);
+  $("doneClose").addEventListener("click", closeSheet);
+  $("sheetBg").addEventListener("click", function (e) { if (e.target === this) closeSheet(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeSheet(); });
+  $("btnMyBids").addEventListener("click", function () { openSheet("my"); $("mbEmail").focus(); });
+  $("mbLookup").addEventListener("click", lookupBids);
+
+  load();
+})();
 </script>
-
-<button id="stt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 </body>
 </html>

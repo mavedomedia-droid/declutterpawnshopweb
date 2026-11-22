@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your page · Declutter Pawn Shop</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="/js/dps-config.js"></script>
+<script src="/js/dps-partials.js" defer></script>
+<style>
+:root {
+  --green:#00C853; --green-dark:#00A843; --green-deep:#009933;
+  --ink:#0E1320; --ink-2:#161C2B; --ink-3:#1E2536; --ink-4:#2A3248;
+  --off-white:#F5F7F8; --white:#FFFFFF;
+  --stone:#A7B0AA; --stone-light:#C6CFC9; --stone-dark:#5B635D;
+  --mint:#C8F0D8; --mint-soft:#E9F5EE;
+  --border:#E1E5E4; --border-ink:#D6DCE0; --border-dark:#242C3E;
+  --text-primary:var(--ink); --text-secondary:#4F5860; --text-muted:#8A928C;
+  --font-heading:'Manrope',system-ui,sans-serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',ui-monospace,monospace;
+  --font-num:'Space Grotesk','Manrope',sans-serif;
+  --r-card:16px; --r-button:12px; --r-pill:999px;
+  --shadow-md:0 4px 14px rgba(14,19,32,.06), 0 1px 3px rgba(14,19,32,.04);
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:var(--font-body); background:var(--off-white); color:var(--text-primary); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+h1,h2,h3 { font-family:var(--font-heading); font-weight:800; letter-spacing:-0.025em; line-height:1.06; color:var(--ink); }
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; height:auto; }
+button { font-family:inherit; cursor:pointer; border:none; background:none; }
+input,select { font-family:inherit; }
+.wrap { width:100%; max-width:820px; margin:0 auto; padding:0 20px; }
+.eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--green); }
+.eyebrow::before { content:''; width:22px; height:1.5px; background:var(--green); }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:15px; padding:13px 24px; border-radius:var(--r-button); transition:transform .15s,box-shadow .15s,background .15s,border-color .15s; white-space:nowrap; }
+.btn-primary { background:var(--green); color:var(--ink); box-shadow:0 2px 0 var(--green-dark); }
+.btn-primary:hover { background:var(--green-dark); transform:translateY(-1px); box-shadow:0 4px 0 var(--green-deep); }
+.btn-primary:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+.btn-outline { background:transparent; color:var(--ink); border:1.5px solid var(--border); }
+.btn-outline:hover { border-color:var(--ink); }
+.btn-sm { padding:9px 15px; font-size:13px; }
+.btn-xs { padding:7px 13px; font-size:12px; border-radius:9px; }
+.btn-block { width:100%; }
+
+.nav { position:fixed; top:0; left:0; right:0; z-index:200; background:rgba(14,19,32,.92); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid rgba(255,255,255,.06); }
+.nav-inner { display:flex; align-items:center; justify-content:space-between; height:72px; gap:24px; max-width:1240px; margin:0 auto; padding:0 20px; }
+.nav-logo img { height:34px; }
+.nav-links { display:none; align-items:center; gap:32px; list-style:none; }
+.nav-links a { font-size:14px; font-weight:500; color:var(--stone-light); }
+.nav-links a:hover,.nav-links a.active { color:#fff; }
+.nav-cta { display:none; }
+@media (min-width:900px) { .nav-links { display:flex; } .nav-cta { display:inline-flex; padding:10px 20px; font-size:13.5px; } }
+.nav-mobile-cta { display:inline-flex; padding:9px 16px; font-size:13px; }
+@media (min-width:900px) { .nav-mobile-cta { display:none; } }
+.nav-tg { background:var(--green); color:var(--ink); box-shadow:0 2px 0 var(--green-dark); border-radius:var(--r-button); font-weight:700; }
+
+/* sign in */
+.auth-hero { background:var(--ink); color:var(--off-white); padding:104px 0 36px; position:relative; overflow:hidden; }
+.auth-hero::before { content:''; position:absolute; top:-55%; right:-12%; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(0,200,83,.12) 0%,rgba(0,200,83,0) 65%); }
+.auth-inner { position:relative; z-index:1; max-width:520px; }
+.auth-hero h1 { font-size:clamp(28px,6vw,40px); color:#fff; margin-top:14px; letter-spacing:-0.035em; }
+.auth-hero p { color:var(--stone-light); font-size:14px; line-height:1.6; margin-top:11px; max-width:44ch; }
+.auth-body { padding:26px 0 70px; }
+.card { background:var(--white); border:1px solid var(--border); border-radius:var(--r-card); padding:22px 20px; box-shadow:var(--shadow-md); }
+.field { display:flex; flex-direction:column; gap:6px; margin-top:14px; }
+.field:first-child { margin-top:0; }
+.field label { font-size:12.5px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+.field .hint { font-size:11.5px; color:var(--text-muted); line-height:1.5; }
+.field input { background:var(--off-white); border:1.5px solid var(--border); border-radius:10px; padding:12px 14px; font-size:16px; color:var(--ink); outline:none; width:100%; transition:border-color .15s, background .15s; }
+.field input:focus { border-color:var(--ink); background:var(--white); }
+.onfile { display:flex; align-items:center; gap:12px; background:var(--mint-soft); border:1px solid var(--mint); border-radius:11px; padding:12px 14px; }
+.onfile b { display:block; font-family:var(--font-num); font-size:15px; letter-spacing:.05em; color:var(--ink); }
+.onfile span { font-size:11.5px; color:var(--text-secondary); }
+.res { border-radius:10px; padding:12px 13px; margin-top:12px; font-size:12.5px; line-height:1.5; }
+.res.err { background:#FEF2F2; border:1px solid #FCA5A5; color:#991B1B; }
+.res.ok { background:var(--mint-soft); border:1px solid var(--mint); color:var(--text-secondary); }
+
+/* board */
+.board-hero { background:var(--ink); color:var(--off-white); padding:96px 0 0; }
+.board-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding-bottom:18px; }
+.board-name { font-family:var(--font-heading); font-weight:800; font-size:24px; letter-spacing:-0.03em; color:#fff; }
+.board-acct { font-size:12px; color:var(--stone); margin-top:3px; }
+.board-acct b { font-family:var(--font-num); color:var(--stone-light); font-weight:500; }
+.signout { font-size:12px; font-weight:700; color:var(--stone); flex-shrink:0; padding-top:4px; }
+.signout:hover { color:#fff; }
+.tabs { display:flex; gap:0; border-top:1px solid rgba(255,255,255,.08); }
+.tab { flex:1; text-align:center; font-size:13px; font-weight:700; padding:14px 6px; color:var(--stone); border-bottom:2px solid transparent; }
+.tab.on { color:#fff; border-bottom-color:var(--green); }
+.tab b { font-family:var(--font-num); color:var(--green); margin-left:5px; }
+.board-body { padding:20px 0 70px; }
+.row { background:var(--white); border:1px solid var(--border); border-radius:var(--r-card); padding:14px; margin-bottom:12px; }
+.row-head { display:flex; align-items:center; gap:12px; }
+.row-th { width:52px; height:52px; border-radius:11px; background:var(--off-white); object-fit:cover; flex-shrink:0; }
+.row-main { flex:1; min-width:0; }
+.row-name { font-family:var(--font-heading); font-weight:800; font-size:14.5px; color:var(--ink); letter-spacing:-0.01em; }
+.row-meta { font-size:11.5px; color:var(--text-muted); margin-top:2px; }
+.row-meta b { color:var(--green-dark); }
+.row-chip { flex-shrink:0; font-size:9.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; border-radius:var(--r-pill); }
+.row-chip.live { background:var(--mint-soft); color:var(--green-deep); border:1px solid var(--mint); }
+.row-chip.rest { background:var(--off-white); color:var(--text-muted); border:1px solid var(--border); }
+.row-chip.sold { background:var(--ink); color:#fff; }
+.row-chip.wait { background:#FEF6E7; color:#B45309; border:1px solid #F5DFB8; }
+.offer { display:flex; align-items:center; gap:10px; background:var(--off-white); border:1px solid var(--border); border-radius:11px; padding:10px 12px; margin-top:10px; }
+.offer-main { flex:1; min-width:0; }
+.offer-amt { font-family:var(--font-num); font-weight:700; font-size:16px; color:var(--green-deep); }
+.offer-amt small { font-family:var(--font-body); font-size:10.5px; font-weight:600; color:var(--text-muted); margin-left:6px; }
+.offer-who { font-size:11px; color:var(--text-muted); margin-top:1px; }
+.offer .btn { flex-shrink:0; }
+.btn-pass { background:transparent; color:var(--text-muted); border:1.5px solid var(--border); }
+.btn-pass:hover { border-color:var(--text-secondary); color:var(--text-secondary); }
+.empty { text-align:center; padding:50px 20px; color:var(--text-secondary); }
+.empty h3 { font-size:19px; margin-bottom:7px; }
+.empty p { font-size:13.5px; max-width:34ch; margin:0 auto 16px; }
+.sk { height:86px; border-radius:var(--r-card); background:linear-gradient(90deg,#EDF0F2 25%,#F6F8F9 37%,#EDF0F2 63%); background-size:400% 100%; animation:shimmer 1.4s linear infinite; margin-bottom:12px; }
+@keyframes shimmer { 0% { background-position:100% 0; } 100% { background-position:0 0; } }
+footer { background:var(--ink-2); color:var(--stone-light); padding:56px 0 28px; border-top:1px solid var(--border-dark); }
+</style>
+</head>
+<body>
+
+<div data-dps-nav data-active=""></div>
+
+<!-- ═══ SIGN IN ═══ -->
+<div id="authView">
+  <header class="auth-hero">
+    <div class="wrap auth-inner">
+      <span class="eyebrow">Declutter Pawn Shop</span>
+      <h1>Your page.</h1>
+      <p>Everything you have with us: what is up for grabs, what is priced in the shop, the offers waiting on you, and what has sold.</p>
+    </div>
+  </header>
+  <main class="auth-body">
+    <div class="wrap">
+      <div class="card">
+        <div id="stepEmail">
+          <div class="field">
+            <label for="email">Your email</label>
+            <input type="email" id="email" placeholder="you@email.com" autocomplete="email" inputmode="email" autofocus>
+            <span class="hint">The one you listed with.</span>
+          </div>
+          <button class="btn btn-primary btn-block" id="goEmail" type="button" style="margin-top:16px;">Continue</button>
+        </div>
+        <div id="stepAcct" hidden>
+          <div class="onfile">
+            <div>
+              <b id="onFile"></b>
+              <span>the account we have on file</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="acct">Finish the account number</label>
+            <input type="text" id="acct" inputmode="numeric" maxlength="10" placeholder="Type it in full" autocomplete="off">
+            <span class="hint">It has to match the one you listed with. Payouts only ever go to this account.</span>
+          </div>
+          <button class="btn btn-primary btn-block" id="goAcct" type="button" style="margin-top:16px;">Confirm it is you</button>
+          <button class="btn btn-outline btn-block" id="backEmail" type="button" style="margin-top:10px;">Different email</button>
+        </div>
+        <div id="authMsg"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══ BOARD ═══ -->
+<div id="boardView" hidden>
+  <header class="board-hero">
+    <div class="wrap">
+      <div class="board-top">
+        <div>
+          <div class="board-name" id="bName"></div>
+          <div class="board-acct" id="bAcct"></div>
+        </div>
+        <button class="signout" id="signout" type="button">Sign out</button>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="tabs">
+        <button class="tab on" data-tab="grabs" type="button">Grabs<b id="tGrabs"></b></button>
+        <button class="tab" data-tab="shop" type="button">My items<b id="tShop"></b></button>
+        <button class="tab" data-tab="sold" type="button">Sold<b id="tSold"></b></button>
+      </div>
+    </div>
+  </header>
+  <main class="board-body">
+    <div class="wrap" id="list"><div class="sk"></div><div class="sk"></div></div>
+  </main>
+</div>
+
+<div data-dps-footer></div>
+
+<script>
+(function () {
+  "use strict";
+  var GAS = (typeof DPS_MAIN_GAS_URL !== "undefined") ? DPS_MAIN_GAS_URL : "";
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); }
+  function naira(n) { return "₦" + (Number(n) || 0).toLocaleString("en-NG"); }
+  function digits(s) { return String(s || "").replace(/[^0-9]/g, ""); }
+  function msg(kind, text) { $("authMsg").innerHTML = '<div class="res ' + kind + '">' + esc(text) + '</div>'; }
+
+  var S = { email: "", acct: "", data: null, tab: "grabs" };
+
+  /* ── sign in ── */
+  $("goEmail").addEventListener("click", function () {
+    var email = String($("email").value || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg("err", "That email does not look right."); return; }
+    var b = this; b.disabled = true; b.textContent = "Checking...";
+    fetch(GAS + "?action=grabsBoard&email=" + encodeURIComponent(email))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        b.disabled = false; b.textContent = "Continue";
+        if (!d || !d.success) { msg("err", (d && d.error) || "No account found for that email."); return; }
+        S.email = email;
+        $("authMsg").innerHTML = "";
+        $("onFile").textContent = (d.bank || "Your bank") + "  ···· " + (d.last4 || "");
+        $("stepEmail").hidden = true; $("stepAcct").hidden = false;
+        $("acct").focus();
+      })
+      .catch(function () { b.disabled = false; b.textContent = "Continue"; msg("err", "Connection problem. Try again."); });
+  });
+  $("email").addEventListener("keydown", function (e) { if (e.key === "Enter") $("goEmail").click(); });
+  $("backEmail").addEventListener("click", function () {
+    $("stepAcct").hidden = true; $("stepEmail").hidden = false; $("authMsg").innerHTML = "";
+  });
+  $("goAcct").addEventListener("click", function () {
+    var acct = digits($("acct").value);
+    if (acct.length !== 10) { msg("err", "A full 10 digit account number."); return; }
+    var b = this; b.disabled = true; b.textContent = "Checking...";
+    fetch(GAS + "?action=grabsBoard&email=" + encodeURIComponent(S.email) + "&accountNumber=" + encodeURIComponent(acct))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        b.disabled = false; b.textContent = "Confirm it is you";
+        if (!d || !d.success) { msg("err", (d && d.error) || "That did not match."); return; }
+        S.acct = acct; S.data = d;
+        try { sessionStorage.setItem("dps_seller", JSON.stringify({ e: S.email, a: acct })); } catch (e) {}
+        showBoard();
+      })
+      .catch(function () { b.disabled = false; b.textContent = "Confirm it is you"; msg("err", "Connection problem. Try again."); });
+  });
+  $("acct").addEventListener("keydown", function (e) { if (e.key === "Enter") $("goAcct").click(); });
+
+  /* ── board ── */
+  function showBoard() {
+    var d = S.data;
+    $("authView").hidden = true; $("boardView").hidden = false;
+    $("bName").textContent = d.name || "Your page";
+    $("bAcct").innerHTML = esc(d.bank || "") + " <b>···· " + esc(d.last4 || "") + "</b> · payouts land here";
+    var waiting = 0;
+    (d.grabs || []).forEach(function (g) { waiting += (g.offers || []).length; });
+    $("tGrabs").textContent = waiting ? waiting : "";
+    $("tShop").textContent = "";
+    $("tSold").textContent = "";
+    render();
+  }
+  function render() {
+    var d = S.data, list = $("list");
+    var rows = S.tab === "grabs" ? (d.grabs || []) : (S.tab === "shop" ? (d.shop || []) : (d.sold || []));
+    if (!rows.length) {
+      list.innerHTML = '<div class="empty"><h3>' +
+        (S.tab === "grabs" ? "Nothing up for grabs yet." : S.tab === "shop" ? "Nothing priced in the shop." : "Nothing sold yet.") +
+        '</h3><p>' +
+        (S.tab === "grabs" ? "Put up something you no longer use and let people send you offers for it."
+         : S.tab === "shop" ? "List something with a price on it when you know what you want for it."
+         : "When an item sells it lands here with what it went for.") +
+        '</p><a class="btn btn-primary" href="' + (S.tab === "shop" ? "/sell" : "/grabs/put-up") + '">' +
+        (S.tab === "shop" ? "List an item" : "Put something up") + '</a></div>';
+      return;
+    }
+    list.innerHTML = rows.map(function (r) {
+      var chip = "", meta = "";
+      if (S.tab === "sold") {
+        chip = '<span class="row-chip sold">Sold</span>';
+        meta = r.price ? "Went for " + naira(r.price) : "Sold";
+      } else if (r.resting) {
+        chip = '<span class="row-chip rest">Resting</span>';
+        meta = "Finished its week" + (r.hands ? " · <b>" + r.hands + " still interested</b>" : "");
+      } else if ((r.offers || []).length) {
+        chip = '<span class="row-chip wait">' + r.offers.length + " waiting</span>";
+        meta = (r.shelf ? "Shelf " + naira(r.shelf) : "No price on it");
+      } else {
+        chip = '<span class="row-chip live">Live</span>';
+        meta = S.tab === "grabs"
+          ? "No offers yet" + (r.shelf ? " · shelf " + naira(r.shelf) : "")
+          : (r.price ? naira(r.price) : "");
+      }
+      var offers = (r.offers || []).map(function (o) {
+        var diff = "";
+        if (r.shelf > 0) {
+          var pct = Math.round((o.amount - r.shelf) / r.shelf * 100);
+          diff = pct === 0 ? "on your shelf price" : (pct > 0 ? pct + "% above shelf" : Math.abs(pct) + "% below shelf");
+        }
+        return '<div class="offer" data-offer="' + esc(o.offerId) + '">' +
+          '<div class="offer-main"><div class="offer-amt">' + naira(o.amount) +
+            (diff ? '<small>' + esc(diff) + '</small>' : '') + '</div>' +
+            '<div class="offer-who">' + esc(o.buyer || "Someone") + '</div></div>' +
+          '<button class="btn btn-primary btn-xs" data-act="accept" data-id="' + esc(o.offerId) + '" data-token="' + esc(o.token) + '">Accept</button>' +
+          '<button class="btn btn-pass btn-xs" data-act="decline" data-id="' + esc(o.offerId) + '" data-token="' + esc(o.token) + '">Pass</button>' +
+        '</div>';
+      }).join("");
+      var relist = r.resting ? '<button class="btn btn-outline btn-xs" data-relist="' + esc(r.id) + '" style="flex-shrink:0;">Relist</button>' : "";
+      return '<div class="row">' +
+        '<div class="row-head">' +
+          (r.photo ? '<img class="row-th" src="' + esc(r.photo) + '" alt="">' : '<span class="row-th"></span>') +
+          '<div class="row-main"><div class="row-name">' + esc(r.name) + '</div>' +
+            '<div class="row-meta">' + meta + '</div></div>' +
+          (relist || chip) +
+        '</div>' + offers +
+      '</div>';
+    }).join("");
+  }
+  document.addEventListener("click", function (e) {
+    var tab = e.target.closest("[data-tab]");
+    if (tab) {
+      S.tab = tab.getAttribute("data-tab");
+      document.querySelectorAll(".tab").forEach(function (t) { t.classList.toggle("on", t === tab); });
+      render();
+      return;
+    }
+    var act = e.target.closest("[data-act]");
+    if (act) { respond(act); return; }
+    var re = e.target.closest("[data-relist]");
+    if (re) { relist(re); return; }
+  });
+  function respond(btn) {
+    var id = btn.getAttribute("data-id"), token = btn.getAttribute("data-token");
+    var how = btn.getAttribute("data-act");
+    var box = btn.closest(".offer");
+    box.querySelectorAll("button").forEach(function (b) { b.disabled = true; });
+    btn.textContent = how === "accept" ? "Accepting..." : "Passing...";
+    fetch(GAS, { method: "POST", body: JSON.stringify({ action: "respondToOffer", offerId: id, token: token, response: how, respondedBy: S.email }) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.success) {
+          box.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
+          btn.textContent = how === "accept" ? "Accept" : "Pass";
+          box.insertAdjacentHTML("afterend", '<div class="res err">' + esc((d && d.error) || "That did not go through.") + '</div>');
+          return;
+        }
+        box.outerHTML = '<div class="res ok">' +
+          (how === "accept"
+            ? "Accepted. They have a payment link that holds for 24 hours, and the money sits in escrow until pickup."
+            : "Passed. They simply see it did not land.") + '</div>';
+        setTimeout(reload, 1200);
+      })
+      .catch(function () {
+        box.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
+        btn.textContent = how === "accept" ? "Accept" : "Pass";
+      });
+  }
+  function relist(btn) {
+    var id = btn.getAttribute("data-relist");
+    btn.disabled = true; btn.textContent = "...";
+    fetch(GAS, { method: "POST", body: JSON.stringify({ action: "grabsRelist", itemId: id, email: S.email }) })
+      .then(function (r) { return r.json(); })
+      .then(function () { reload(); })
+      .catch(function () { btn.disabled = false; btn.textContent = "Relist"; });
+  }
+  function reload() {
+    fetch(GAS + "?action=grabsBoard&email=" + encodeURIComponent(S.email) + "&accountNumber=" + encodeURIComponent(S.acct))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && d.success) { S.data = d; showBoard(); } });
+  }
+  $("signout").addEventListener("click", function () {
+    try { sessionStorage.removeItem("dps_seller"); } catch (e) {}
+    location.reload();
+  });
+
+  /* stay signed in for the session */
+  try {
+    var saved = JSON.parse(sessionStorage.getItem("dps_seller") || "null");
+    if (saved && saved.e && saved.a) {
+      S.email = saved.e; S.acct = saved.a;
+      fetch(GAS + "?action=grabsBoard&email=" + encodeURIComponent(saved.e) + "&accountNumber=" + encodeURIComponent(saved.a))
+        .then(function (r) { return r.json(); })
+        .then(function (d) { if (d && d.success && d.step === "in") { S.data = d; showBoard(); } });
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
