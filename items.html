@@ -393,7 +393,7 @@ input, select, textarea { font-family: inherit; }
 .g-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; text-align: left; padding: 0; }
 .g-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink); }
 .g-img { aspect-ratio: 4/5; background: var(--off-white); overflow: hidden; position: relative; }
-.g-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; display: block; }
+.g-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; display: block; }
 .g-card:hover .g-img img { transform: scale(1.04); }
 /* the owner, on the photo. This is the dating-profile move: the
    person comes before the object. */
@@ -414,6 +414,15 @@ input, select, textarea { font-family: inherit; }
 /* rested, in the archive. Still a Grabs card, just quieter. */
 .g-card--rested .g-img img { filter: grayscale(.45); opacity: .82; }
 .g-card--rested .g-offer { color: var(--text-muted); }
+/* locked, while Grabs is still behind the curtain: the listings are
+   real and the photos do the selling, but nothing is clickable */
+.g-card--locked { cursor: default; }
+.g-card--locked:hover { transform: none; box-shadow: none; border-color: var(--border); }
+.g-card--locked:hover .g-img img { transform: none; }
+.g-card--locked .g-img img { filter: saturate(.72); }
+.g-card--locked .g-offer { color: var(--text-muted); }
+.gr-soon { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+.gr-soon .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--stone, #9AA4AF); }
 /* the compact variant, for the rail on the items page */
 .g-card--rail { flex: 0 0 158px; }
 .g-card--rail .g-body { padding: 9px 10px 10px; }
@@ -439,8 +448,8 @@ input, select, textarea { font-family: inherit; }
 .live-card { flex: 0 0 185px; scroll-snap-align: start; background: var(--white); border: 1.5px solid rgba(255,107,44,.5); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 20px rgba(255,107,44,.09); display: flex; flex-direction: column; text-align: left; transition: transform .2s, box-shadow .2s; }
 .live-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(255,107,44,.16); }
 .live-card.pre { border-color: var(--border-ink); box-shadow: var(--shadow-sm); }
-.lc-photo { position: relative; aspect-ratio: 4 / 3; background: var(--off-white); }
-.lc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lc-photo { position: relative; aspect-ratio: 4 / 3; background: var(--off-white); overflow: hidden; }
+.lc-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .lc-flag { position: absolute; top: 9px; left: 9px; display: inline-flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: #DC2626; padding: 4px 9px; border-radius: 999px; }
 .lc-flag.pre { background: rgba(14,19,32,.78); backdrop-filter: blur(6px); }
 .lc-flag .dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: aucpulse 1.2s ease-in-out infinite; }
@@ -2330,6 +2339,18 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
     }).slice(0, 6);
     if (!list.length) { rail.classList.remove("on"); return; }
     rail.classList.add("on");
+
+    // Behind the curtain until DPS_GRABS_LIVE flips. Real listings
+    // still show, because a teaser with nothing in it teases nothing,
+    // but the cards are dead and the link out is gone.
+    var live = (typeof DPS_GRABS_LIVE !== "undefined") ? !!DPS_GRABS_LIVE : true;
+    var head = document.querySelector("#grabsRail .gr-all");
+    if (head) {
+      head.outerHTML = live
+        ? '<a class="gr-all" href="/grabs">See all &rarr;</a>'
+        : '<span class="gr-soon"><span class="dot"></span>Coming soon</span>';
+    }
+
     track.innerHTML = list.map(function (it) {
       var id = String(it["Item ID"] || "");
       var ph = firstImage(it["Product Photos"]) || "";
@@ -2337,19 +2358,22 @@ footer { background: var(--ink-2); color: var(--stone-light); padding: 56px 0 28
       var wants = Number(it["Interested"]) || 0;
       var who = String(it["First name"] || it["Name"] || "").split(" ")[0] || "Someone";
       var area = String(it["Location"] || it["Area"] || "");
-      return '<a class="g-card g-card--rail" href="/grabs?item=' + encodeURIComponent(id) + '">' +
+      var inner =
         '<div class="g-img">' + (ph ? '<img src="' + escapeAttr(ph) + '" alt="" loading="lazy">' : '') +
           '<div class="g-scrim"></div>' +
           '<span class="g-badge"><span class="dot"></span>Grabs</span>' +
-          (wants ? '<span class="g-wants">' + wants + ' want it</span>' : '') +
+          (wants && live ? '<span class="g-wants">' + wants + ' want it</span>' : '') +
           '<div class="g-who"><b>' + escapeHTML(who) + '</b>' +
             (area ? '<span>' + escapeHTML(area) + '</span>' : '') + '</div>' +
         '</div>' +
         '<div class="g-body">' +
           '<div class="g-name">' + escapeHTML(String(it["Item Name"] || "")) + '</div>' +
           (why ? '<div class="g-why">"' + escapeHTML(why) + '"</div>' : '') +
-          '<div class="g-foot"><span class="g-offer">Send an offer</span></div>' +
-        '</div></a>';
+          '<div class="g-foot"><span class="g-offer">' + (live ? 'Send an offer' : 'Coming soon') + '</span></div>' +
+        '</div>';
+      return live
+        ? '<a class="g-card g-card--rail" href="/grabs?item=' + encodeURIComponent(id) + '">' + inner + '</a>'
+        : '<div class="g-card g-card--rail g-card--locked" aria-disabled="true">' + inner + '</div>';
     }).join("");
   }
 
