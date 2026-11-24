@@ -39,3 +39,18 @@ var DPS_TELEGRAM_CHANNEL = "https://t.me/declutterpawnshop";
 var DPS_AUCTION_LIVE     = false;
 var DPS_NEGOTIATE_LIVE   = false;
 var DPS_PARTNER_PROGRAM  = false;
+
+/* ───────────────────────────────────────────────────────────────
+   GRABS — one line controls the whole front door.
+
+   false:  the rails on the items page and the home page still show
+           real listings, because the tease is the point, but the
+           cards are dead and read "Coming soon", and Grabs is out
+           of the nav and the footer. /grabs itself keeps working
+           for anyone with the link, which is how you test it.
+   true:   cards become links, Grabs appears in the nav and footer.
+
+   Nothing else to change. The backend does not read this, so
+   listings and offers keep working either way.
+   ─────────────────────────────────────────────────────────────── */
+var DPS_GRABS_LIVE = false;
