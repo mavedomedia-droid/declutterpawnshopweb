@@ -376,6 +376,15 @@ input, select, textarea { font-family: inherit; }
 /* rested, in the archive. Still a Grabs card, just quieter. */
 .g-card--rested .g-img img { filter: grayscale(.45); opacity: .82; }
 .g-card--rested .g-offer { color: var(--text-muted); }
+/* locked, while Grabs is still behind the curtain: the listings are
+   real and the photos do the selling, but nothing is clickable */
+.g-card--locked { cursor: default; }
+.g-card--locked:hover { transform: none; box-shadow: none; border-color: var(--border); }
+.g-card--locked:hover .g-img img { transform: none; }
+.g-card--locked .g-img img { filter: saturate(.72); }
+.g-card--locked .g-offer { color: var(--text-muted); }
+.gr-soon { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+.gr-soon .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--stone, #9AA4AF); }
 /* the compact variant, for the rail on the items page */
 .g-card--rail { flex: 0 0 158px; }
 .g-card--rail .g-body { padding: 9px 10px 10px; }
@@ -1622,23 +1631,37 @@ body.sell-modal-locked { overflow: hidden; }
     }).slice(0, 6);
     if (!list.length) return;
     wrap.classList.add("on");
+
+    // Same switch as the items page: real listings, dead cards, no
+    // way in, until DPS_GRABS_LIVE flips.
+    var live = (typeof DPS_GRABS_LIVE !== "undefined") ? !!DPS_GRABS_LIVE : true;
+    var head = document.querySelector("#homeGrabsRail .gr-all");
+    if (head) {
+      head.outerHTML = live
+        ? '<a class="gr-all" href="/grabs">See all &rarr;</a>'
+        : '<span class="gr-soon"><span class="dot"></span>Coming soon</span>';
+    }
+
     track.innerHTML = list.map(function (it) {
       var ph = firstImage(it["Product Photos"]) || "";
       var who = String(it["First name"] || it["Name"] || "").split(" ")[0] || "Someone";
       var area = String(it["Location"] || it["Area"] || "");
       var why = String(it["Reason"] || "");
       var wants = Number(it["Interested"]) || 0;
-      return '<a class="g-card g-card--rail" href="/grabs?item=' + encodeURIComponent(String(it["Item ID"] || "")) + '">' +
+      var inner =
         '<div class="g-img">' + (ph ? '<img src="' + esc(ph) + '" alt="" loading="lazy">' : '') +
           '<div class="g-scrim"></div>' +
           '<span class="g-badge"><span class="dot"></span>Grabs</span>' +
-          (wants ? '<span class="g-wants">' + wants + ' want it</span>' : '') +
+          (wants && live ? '<span class="g-wants">' + wants + ' want it</span>' : '') +
           '<div class="g-who"><b>' + esc(who) + '</b>' + (area ? '<span>' + esc(area) + '</span>' : '') + '</div>' +
         '</div><div class="g-body">' +
           '<div class="g-name">' + esc(String(it["Item Name"] || "")) + '</div>' +
           (why ? '<div class="g-why">"' + esc(why) + '"</div>' : '') +
-          '<div class="g-foot"><span class="g-offer">Send an offer</span></div>' +
-        '</div></a>';
+          '<div class="g-foot"><span class="g-offer">' + (live ? 'Send an offer' : 'Coming soon') + '</span></div>' +
+        '</div>';
+      return live
+        ? '<a class="g-card g-card--rail" href="/grabs?item=' + encodeURIComponent(String(it["Item ID"] || "")) + '">' + inner + '</a>'
+        : '<div class="g-card g-card--rail g-card--locked" aria-disabled="true">' + inner + '</div>';
     }).join("");
   }
 
